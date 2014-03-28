@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "195",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140304\/1393945975553.jpg",
+                "cover_url": "\/files\/upfiles\/20140304\/1393897228251.jpg",
+                "name": "\u849c\u84c9\u4e0a\u6d77\u9752",
+                "catalog_id": "14",
+                "old_price": "8.00",
+                "price": "6.00",
+                "sales": "0",
+                "total": "100",
+                "genre": "1",
+                "level": "7",
+                "content": "<p>1\u3001\u4e0a\u6d77\u9752\u6d17\u51c0\u63b0\u5f00\uff1b<\/p><p>2\u3001\u849c\u5934\u53bb\u5916\u8863\u62cd\u788e\u5907\u7528\uff1b<\/p><p>3\u3001\u70ed\u6cb9\u9505\uff0c\u4e0b\u849c\u84c9\u7178\u9999\uff1b<\/p><p>4\u3001\u5012\u5165\u4e0a\u6d77\u9752\u7ffb\u7092\u81f3\u65ad\u751f\uff0c\u7528\u98df\u76d0\u3001\u9e21\u7cbe\u8c03\u5473\u5373\u53ef\u3002<br\/>&nbsp;<br\/><\/p><p>&nbsp;<\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-04 09:41:21"
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "918",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140316\/1394944997626.jpg",
+                "cover_url": "\/files\/upfiles\/20140316\/1394951767106.jpg",
+                "name": "\u897f\u5170\u82b1\u5f69\u852c\u5c0f\u7092",
+                "catalog_id": "14",
+                "old_price": "14.00",
+                "price": "11.00",
+                "sales": "0",
+                "total": "0",
+                "genre": "1",
+                "level": "19",
+                "content": "<p>\u5750\u9505\u70e7\u6c34\uff0c\u4e0b\u5c11\u8bb8\u6cb9\u3001\u76d0\uff0c\u4e0b<a style=\"COLOR: #6a9700; TEXT-DECORATION: underline\" href=\"http:\/\/www.haodou.com\/recipe\/all\/189\" target=\"_blank\">\u897f\u5170\u82b1<\/a>\u6735\u70eb2\u5206\u949f\uff0c\u635e\u51fa\u8fc7\u51c9\u5f00\u6c34\uff0c\u6ca5\u6c34\u5f85\u7528<br\/><\/p><ul class=\" list-paddingleft-2\"><li><p><input type=\"hidden\" itemnum=\"5\" itemshow=\"1\"\/><\/p><p><img src=\"http:\/\/www.qq-green.com\/micromall\/assets\/ueditor1_3_6\/php\/upload\/37671394945400.jpg\" width=\"190\"\/><\/p><p class=\"sstep\" sizset=\"false\" sizcache09868833090293771=\"93 63 135\"><em>6.<\/em>\u5750\u9505\u8d77\u6cb9\uff0c\u4e0b<a style=\"COLOR: #6a9700; TEXT-DECORATION: underline\" href=\"http:\/\/www.haodou.com\/recipe\/all\/122\" target=\"_blank\">\u80e1\u841d\u535c<\/a>\u7c92\u3001<a style=\"COLOR: #6a9700; TEXT-DECORATION: underline\" href=\"http:\/\/www.haodou.com\/recipe\/all\/12366\" target=\"_blank\">\u7389\u7c73\u7c92<\/a>\u3001<a style=\"COLOR: #6a9700; TEXT-DECORATION: underline\" href=\"http:\/\/www.haodou.com\/recipe\/all\/189\" target=\"_blank\">\u897f\u5170\u82b1<\/a>\u830e\uff0c\u52a0\u76d0\u3001\u5473\u7d20\u5927\u706b\u7ffb\u70923\u5206\u949f<br\/><\/p><\/li><li><p><input type=\"hidden\" itemnum=\"6\" itemshow=\"1\"\/><\/p><p><img src=\"http:\/\/www.qq-green.com\/micromall\/assets\/ueditor1_3_6\/php\/upload\/32471394945401.jpg\" width=\"190\"\/><\/p><p class=\"sstep\"><em>7.<\/em>\u4e0b\u9752\u7ea2\u676d\u6912\u5708\uff0c\u7ffb\u70921\u5206\u949f\uff0c\u8d77\u9505<br\/><\/p><\/li><li><p>&nbsp;<\/p><\/li><li><p class=\"sstep\" sizset=\"false\" sizcache09868833090293771=\"93 63 138\"><em>8.<\/em><a style=\"COLOR: #6a9700; TEXT-DECORATION: underline\" href=\"http:\/\/www.haodou.com\/recipe\/all\/189\" target=\"_blank\">\u897f\u5170\u82b1<\/a>\u56f4\u8fb9\uff0c\u52fe\u82a1\u6c41\u6dcb\u5728<a style=\"COLOR: #6a9700; TEXT-DECORATION: underline\" href=\"http:\/\/www.haodou.com\/recipe\/all\/189\" target=\"_blank\">\u897f\u5170\u82b1<\/a>\u4e0a\uff0c\u5c06\u7092\u597d\u7684\u5f69\u852c\u653e\u5165\u76d8\u4e2d\u592e\u5373\u53ef<\/p><\/li><\/ul><p>&nbsp;<\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-16 13:18:54"
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "161",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140304\/1393944744313.jpg",
+                "cover_url": "\/files\/upfiles\/20140302\/1393768733625.jpg",
+                "name": "\u6bdb\u8c46\u9999\u5e72\u8089\u4e1d",
+                "catalog_id": "14",
+                "old_price": "16.00",
+                "price": "14.00",
+                "sales": "0",
+                "total": "100",
+                "genre": "1",
+                "level": "20",
+                "content": "<p>1\uff0c\u8089\u4e1d\u7528\u76d0\uff0c\u8001\u62bd\uff0c\u6dc0\u7c89\u7a0d\u5fae\u814c\u5236\u3002<\/p><p>2\uff0c\u70ed\u9505\u7ffb\u7092\u8089\u4e1d\uff0c\u76db\u8d77\u5907\u7528<\/p><p>3\uff0c\u8d77\u9505\u5148\u4e0b\u6bdb\u8c46\uff0c\u518d\u52a0\u5165\u9999\u5e72\u7ffb\u7092\u4e00\u4e0b\uff08\u9999\u5e72\u5bb9\u6613\u7c98\u9505\uff0c\u52a0\u6c34\u716e\u4e00\u4e0b\uff09<\/p><p>4\uff0c\u52a0\u5165\u7092\u597d\u7684\u8089\u4e1d\u7ffb\u7092\uff0c\u6492\u4e0a\u8471\u82b1\u5373\u53ef\u51fa\u9505<\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-02 21:59:18"
+            }
+        }
+    }
+}
