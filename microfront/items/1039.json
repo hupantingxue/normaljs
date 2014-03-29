@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "1039",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140318\/1395129104125.jpg",
+                "cover_url": "\/files\/upfiles\/20140318\/1395129100629.jpg",
+                "name": "\u6dee\u5c71\u80e1\u841d\u535c\u7ea2\u67a3\u6392\u9aa8\u6c64",
+                "catalog_id": "27",
+                "old_price": "20.00",
+                "price": "19.00",
+                "sales": "0",
+                "total": "0",
+                "genre": "1",
+                "level": "1",
+                "content": "<p><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, \u5b8b\u4f53, &#39;Arial Narrow&#39;, Geneva, sans-serif; font-size: 14px; line-height: 24px; background-color: rgb(255, 255, 255);\">\u6dee\u5c71\u80e1\u841d\u535c\u7ea2\u67a3\u6392\u9aa8\u6c64\uff1a\u8fd9\u6c64\u6709\u8865\u813e\u80c3\u3001\u76ca\u80ba\u80be\u7684\u529f\u6548\uff0c\u800c\u4e14\u53e3\u611f\u4e5f\u5f88\u4e0d\u9519\u54e6\uff01<\/span><br style=\"color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, \u5b8b\u4f53, &#39;Arial Narrow&#39;, Geneva, sans-serif; font-size: 14px; line-height: 24px; white-space: normal; background-color: rgb(255, 255, 255); \"\/><br style=\"color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, \u5b8b\u4f53, &#39;Arial Narrow&#39;, Geneva, sans-serif; font-size: 14px; line-height: 24px; white-space: normal; background-color: rgb(255, 255, 255); \"\/><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, \u5b8b\u4f53, &#39;Arial Narrow&#39;, Geneva, sans-serif; font-size: 14px; line-height: 24px; background-color: rgb(255, 255, 255);\">\u8425\u517b\u9753\u6c64\uff0c\u9002\u5408\u5168\u5bb6\u8001\u5c0f\u98df\u7528\u54e6\uff01<\/span><\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-18 15:53:16"
+            }
+        }
+    }
+}

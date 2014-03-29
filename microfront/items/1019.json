@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "1019",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140318\/1395125646459.jpg",
+                "cover_url": "\/files\/upfiles\/20140318\/1395125642458.jpg",
+                "name": "\u5a03\u5a03\u83dc",
+                "catalog_id": "174",
+                "old_price": "7.00",
+                "price": "6.00",
+                "sales": "0",
+                "total": "0",
+                "genre": "1",
+                "level": "1",
+                "content": "<p>\u5473\u9053\u9c9c\u7f8e\uff0c\u6613\u5438\u6536\u9505\u5e95\u6c64\u6c41\u3002<\/p><p><br\/><\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-18 14:54:13"
+            }
+        }
+    }
+}

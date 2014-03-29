@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "979",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140318\/1395120994920.jpg",
+                "cover_url": "\/files\/upfiles\/20140318\/1395120988393.jpg",
+                "name": "\u4e09\u9c9c\u706b\u9505\u5e95",
+                "catalog_id": "174",
+                "old_price": "40.00",
+                "price": "35.00",
+                "sales": "0",
+                "total": "0",
+                "genre": "1",
+                "level": "6",
+                "content": "<p>\u67b8\u675e\uff0c\u5927\u67a3\uff0c\u9999\u83c7\u7b49\u6ecb\u8865\u98df\u6750\uff0c\u53e3\u611f\u9c9c\u9999\u6d53\u539a\uff0c\u6709\u6ecb\u8865\u517b\u989c\u7684\u529f\u6548<\/p><p>\u8425\u517b\u7279\u70b9\uff1a\u542b\u6ecb\u8865\u98df\u6750\uff0c\u5177\u6709\u6ecb\u8865\u5065\u8eab\uff0c\u7f8e\u5bb9\u517b\u989c\u8ba2\u7684\u529f\u6548\uff0c<\/p><p>\u9002\u5b9c\u4eba\u7fa4\uff1a\u4e00\u822c\u4eba\u7fa4\u5747\u53ef\u98df\u7528<\/p><p><a href=\"http:\/\/wap.baidu.com\" target=\"_blank\" title=\"\u6d4b\u8bd5\u8fde\u63a5\">\u6d4b\u8bd5\u8fde\u63a5<\/a><br\/><\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-18 13:38:38"
+            }
+        }
+    }
+}

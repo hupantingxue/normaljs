@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "1305",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140326\/1395835250125.jpg",
+                "cover_url": "\/files\/upfiles\/20140326\/1395835246413.jpg",
+                "name": "\u897f\u7ea2\u67ff\u9e21\u86cb\u6c64",
+                "catalog_id": "27",
+                "old_price": "10.00",
+                "price": "8.00",
+                "sales": "0",
+                "total": "0",
+                "genre": "1",
+                "level": "20",
+                "content": "<p>1\uff0c\u9e21\u86cb\u6253\u6210\u86cb\u6db2\u5907\u7528<br\/><\/p><p>2\uff0c\u70ed\u9505\u4e0b\u6cb9\u7ffb\u7092\u897f\u7ea2\u67ff\u51fa\u7ea2\u6c64\u540e\u5012\u5165\u5f00\u6c34<\/p><p>3\uff0c\u716e\u81f3\u6c64\u8272\u53d1\u7ea2\u540e\u87ba\u65cb\u5012\u5165\u86cb\u6db2\uff0c<span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, \u5b8b\u4f53, &#39;Arial Narrow&#39;, Geneva, sans-serif; font-size: 14px; line-height: 24px; background-color: rgb(255, 255, 255);\">\u8fd9\u65f6\u4e0d\u8981\u6405\u52a8\u6c64\uff0c\u5f85<\/span><a href=\"http:\/\/www.haodou.com\/recipe\/all\/61\" target=\"_blank\" style=\"color: rgb(106, 151, 0); font-family: Tahoma, Arial, Helvetica, \u5b8b\u4f53, &#39;Arial Narrow&#39;, Geneva, sans-serif; font-size: 14px; line-height: 24px; white-space: normal; background-color: rgb(255, 255, 255);\">\u9e21\u86cb<\/a><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, \u5b8b\u4f53, &#39;Arial Narrow&#39;, Geneva, sans-serif; font-size: 14px; line-height: 24px; background-color: rgb(255, 255, 255);\">\u6db2\u6210\u86cb\u82b1\u72b6\u540e\u518d\u7f13\u7f13\u628a\u86cb\u82b1\u6405\u5300<\/span><\/p><p><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, \u5b8b\u4f53, &#39;Arial Narrow&#39;, Geneva, sans-serif; font-size: 14px; line-height: 24px; background-color: rgb(255, 255, 255);\">4\uff0c<span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, \u5b8b\u4f53, &#39;Arial Narrow&#39;, Geneva, sans-serif; font-size: 14px; line-height: 24px; background-color: rgb(255, 255, 255);\">\u6700\u540e\u52a0\u9002\u91cf\u76d0\u8c03\u5473\uff0c\u76db\u8d77\u65f6\u6492\u4e0a\u9999\u83dc\u6216\u8471\u82b1\u5373\u53ef<\/span><\/span><\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-26 19:58:28"
+            }
+        }
+    }
+}

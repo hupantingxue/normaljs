@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "154",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140304\/1393946622415.jpg",
+                "cover_url": "\/files\/upfiles\/20140302\/1393767492294.jpg",
+                "name": "\u6dee\u5c71\u515a\u53c2\u4e4c\u9e21\u6c64",
+                "catalog_id": "27",
+                "old_price": "22.00",
+                "price": "20.00",
+                "sales": "0",
+                "total": "100",
+                "genre": "1",
+                "level": "16",
+                "content": "<p>1\u3001\u51c6\u5907\u597d\u7ea2\u67a3\uff0c\u866b\u8349\u82b1\uff0c\u515a\u53c2\uff0c\u675e\u5b50\uff0c\u6dee\u5c71\u7247\u4e0e\u6817\u5b50\uff0c\u6e05\u6c34\u6d17\u51c0\uff1b<\/p><p>2\u3001\u51ac\u83c7\u6ce1\u6d17\u5e72\u51c0\uff1b<\/p><p>3\u3001\u4e4c\u9e21\u53bb\u76ae\u53bb\u5185\u810f\u6d17\u51c0\uff1b<\/p><p>4\u3001\u7172\u91cc\u653e\u6e05\u6c34\u716e\u6cb8\u540e\u5012\u5165\u7ea2\u67a3\uff0c\u866b\u8349\u82b1\uff0c\u515a\u53c2\uff0c\u675e\u5b50\uff0c\u6dee\u5c71\u7247\uff0c\u6817\u5b50\uff1b<\/p><p>5\u3001\u518d\u653e\u5165\u4e4c\u9e21\uff1b<\/p><p>6\u3001\u52a0\u76d6\u91cd\u65b0\u716e\u6cb8\u540e\uff0c\u8f6c\u4e2d\u706b\uff0c\u71722\u5c0f\u65f6\uff0c\u8c03\u5165\u76d0\u82b1\u6405\u62cc\u5747\u5300\uff1b<\/p><p>7\u3001\u88c5\u7897\u996e\u7528\u3002<\/p><p>&nbsp;<\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-02 21:38:54"
+            }
+        }
+    }
+}

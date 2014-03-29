@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "930",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140316\/1394984037349.jpg",
+                "cover_url": "\/files\/upfiles\/20140318\/1395120102508.jpg",
+                "name": "\u83dc\u5fc3\u91cc\u810a\u8089\u9762",
+                "catalog_id": "175",
+                "old_price": "9.00",
+                "price": "7.00",
+                "sales": "0",
+                "total": "0",
+                "genre": "1",
+                "level": "20",
+                "content": "<p>\u8425\u517b\u53c8\u597d\u5403<\/p><p>\u505a\u6cd5\uff1a<\/p><p>1\u5c06\u8089\u7528\u9171\u6cb9\uff0c\u6599\u9152\uff0c\u751f\u7c89\u814c\u597d\u5907\u7528<a href=\"http:www.qq-green.com\" target=\"_self\">\u53c2\u8003<\/a><\/p><p>2\u70ed\u9505\u653e\u6c34\u70e7\u5f00\u540e\u4e0b\u9762\u997c\uff0c<\/p><p>3\u653e\u5165\u814c\u597d\u7684\u8089\u53ca\u83dc\u5fc3<\/p><p>4\u6210\u719f\u540e\u653e\u76d0\u7b49\u8c03\u5473\u5373\u53ef\u51fa\u9505<\/p><p>&nbsp;<\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-16 23:35:21"
+            }
+        }
+    }
+}
