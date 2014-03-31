@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import Template, Context, loader
 
 # Create your views here.
 def index(request):
@@ -9,9 +10,12 @@ def index(request):
         qd = request.POST
 
     code = qd.__getitem__('code')
-    #return HttpResponse("Hello, %s! You're at the poll index." % (code))
-    return render(request, 'microfront/index.html', qd)
-
+    template = loader.get_template('microfront/index.html')
+    context = Context({
+        'cur_usr': code,
+    })
+    return HttpResponse(template.render(context))
+    
 def css_resource(request,fname):
     text=open('microfront/'+fname+'.css').read()
     return HttpResponse(text)
