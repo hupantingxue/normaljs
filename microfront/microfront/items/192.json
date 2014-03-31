@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "192",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140304\/1393946067398.jpg",
+                "cover_url": "\/files\/upfiles\/20140304\/1393897092136.jpg",
+                "name": "\u9752\u6912\u571f\u8c46\u4e1d",
+                "catalog_id": "14",
+                "old_price": "10.00",
+                "price": "8.00",
+                "sales": "0",
+                "total": "100",
+                "genre": "1",
+                "level": "1",
+                "content": "<p>1\u3001\u51c6\u5907\u98df\u6750\uff1b<\/p><p>2\u3001\u5c06\u53bb\u76ae\u571f\u8c46\u5207\u6210\u8584\u7247\uff0c\u7136\u540e\u518d\u5207\u6210\u7ec6\u4e1d\uff1b<\/p><p>3\u3001\u53cd\u590d\u7528\u6c34\u51b2\u4e00\u4e0b\uff0c\u6d17\u53bb\u571f\u8c46\u4e1d\u8868\u5c42\u7684\u6dc0\u7c89\uff1b<\/p><p>4\u3001\u5c06\u6d17\u540e\u7684\u571f\u8c46\u4e1d\u635e\u51fa\u6ca5\u6c34\u5907\u7528\uff1b<\/p><p>5\u3001\u9752\u6912\u53bb\u8482\u53bb\u7c7d\u53bb\u6389\u8fa3\u7b4b\uff1b<\/p><p>6\u3001\u5c06\u9752\u6912\u5207\u6210\u7ec6\u4e1d\uff0c\u8471\u849c\u5207\u7247\u5907\u7528\uff1b<\/p><p>7\u3001\u9505\u4e2d\u653e\u9002\u91cf\u6cb9\uff0c\u52a0\u5165\u82b1\u6912\u4e00\u8d77\u70e7\u70ed\uff1b<\/p><p>8\u3001\u52a0\u5165\u849c\u7247\u8471\u82b1\u4e00\u8d77\u70b8\u9999\uff1b<\/p><p>9\u3001\u8471\u4e0e\u849c\u7247\u5448\u73b0\u91d1\u9ec4\u8272\u65f6\u4e0e\u82b1\u6912\u4e00\u8d77\u635e\u51fa\uff0c\u53ea\u7559\u9505\u4e2d\u7684\u6cb9\uff1b<\/p><p>10\u3001\u653e\u5165\u571f\u8c46\u4e1d\uff1b<\/p><p>11\u3001\u5feb\u901f\u7ffb\u7092\u81f3\u7565\u900f\u4eae\uff0c\u52a0\u5165\u9752\u6912\u4e1d\uff1b<\/p><p>12\u3001\u5feb\u901f\u7ffb\u7092\uff0c\u6ef4\u5165\u5c11\u8bb8\u767d\u918b\uff1b<\/p><p>13\u3001\u52a0\u5165\u9002\u91cf\u76d0\u518d\u6b21\u5feb\u901f\u7ffb\u5300\uff1b<\/p><p>14\u3001\u5173\u706b\u540e\uff0c\u52a0\u5165\u5c11\u8bb8\u9e21\u7cbe\u8c03\u5473\u9053\u7ffb\u5300\u5373\u53ef\u3002<\/p><p><br\/><\/p><p>&nbsp;<\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-04 09:38:42"
+            }
+        }
+    }
+}

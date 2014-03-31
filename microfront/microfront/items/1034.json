@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "1034",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140318\/1395128678871.png",
+                "cover_url": "\/files\/upfiles\/20140318\/1395128675323.png",
+                "name": "\u679c\u852c\u4e50\u517b\u751f\u6c64",
+                "catalog_id": "27",
+                "old_price": "18.00",
+                "price": "16.00",
+                "sales": "0",
+                "total": "0",
+                "genre": "1",
+                "level": "20",
+                "content": "<p><em style=\"font-size: 13px; font-style: normal; color: rgb(204, 0, 0); font-family: arial; line-height: 19.5px; white-space: normal; background-color: rgb(255, 255, 255); \">\u679c\u852c<\/em><em style=\"font-size: 13px; font-style: normal; color: rgb(204, 0, 0); font-family: arial; line-height: 19.5px; white-space: normal; background-color: rgb(255, 255, 255); \">\u517b\u751f\u6c64<\/em><span style=\"color: rgb(51, 51, 51); font-family: arial; font-size: 13px; line-height: 19.5px; background-color: rgb(255, 255, 255);\">&nbsp;\u5065\u5eb7<\/span><em style=\"font-size: 13px; font-style: normal; color: rgb(204, 0, 0); font-family: arial; line-height: 19.5px; white-space: normal; background-color: rgb(255, 255, 255); \">\u529f\u6548<\/em><span style=\"color: rgb(51, 51, 51); font-family: arial; font-size: 13px; line-height: 19.5px; background-color: rgb(255, 255, 255);\">&nbsp;\u4fc3\u8fdb\u6d88\u5316\u3001\u589e\u5f3a\u62b5\u6297\u529b\u3001\u89e3\u6e34\u5229\u5c3f\u3001\u901a\u5229\u80a0\u80c3\u3001\u9632\u764c\u6297\u764c\u3001\u51cf\u80a5\u3001\u4fc3\u8fdb\u80c3\u80a0\u8815\u52a8\u3001\u964d\u4f4e\u80c6\u56fa\u9187\uff01<\/span><\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-18 15:45:30"
+            }
+        }
+    }
+}

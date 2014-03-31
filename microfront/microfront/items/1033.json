@@ -1,0 +1,25 @@
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "1033",
+                "org_id": "1",
+                "detail_url": "\/files\/upfiles\/20140318\/1395128333807.jpg",
+                "cover_url": "\/files\/upfiles\/20140318\/1395128309257.jpg",
+                "name": "\u65e0\u82b1\u679c\u866b\u8349\u82b1\u6c64",
+                "catalog_id": "27",
+                "old_price": "19.00",
+                "price": "18.00",
+                "sales": "0",
+                "total": "0",
+                "genre": "1",
+                "level": "20",
+                "content": "<p><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Arial, Helvetica, \u5b8b\u4f53, &#39;Arial Narrow&#39;, Geneva, sans-serif; font-size: 14px; line-height: 24px; background-color: rgb(255, 255, 255);\">\u65e0\u82b1\u679c\u5177\u6709\u5f88\u9ad8\u7684\u8425\u517b\u4ef7\u503c\u3002\u800c\u4e14\u65e0\u82b1\u679c\u5177\u6709\u6781\u9ad8\u7684\u836f\u7528\u4ef7\u503c\uff0c\u5b83\u7684\u679c\u5b9e\u4e2d\u542b\u6709\u5927\u91cf\u7684\u679c\u80f6\u548c\u7ef4\u751f\u7d20\u3002\u5e7f\u4e1c\u4eba\u6700\u5e38\u7528\u7684\u5c31\u662f\u7528\u5e72\u7684\u65e0\u82b1\u679c\u6765\u7172\u6c64\uff0c\u5e7f\u5f0f\u9753\u6c64\u4e5f\u5c11\u4e0d\u4e86\u65e0\u82b1\u679c\u8fd9\u4e2a\u975e\u5e38\u6709\u8425\u517b\u4ef7\u503c\u7684\u6750\u6599\u3002\u8fd9\u9053\u6c64\u9002\u5408\u4efb\u4f55\u5b63\u8282\u996e\u7528\uff0c\u4eb2\u4eec\u4e5f\u6765\u8bd5\u8bd5\u5427<\/span><\/p>",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-18 15:39:10"
+            }
+        }
+    }
+}
