@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^(.*).gif$',views.gif_resource),
     url(r'^(.*).png$',views.png_resource),
     url(r'^(.*).jpg$',views.jpg_resource),
+    url(r'^(.*).json$',views.json_resource),
 )
