@@ -31,3 +31,8 @@ def png_resource(request,fname):
 def js_resource(request,fname):
     text=open('microfront/'+fname+'.js','rb').read()
     return HttpResponse(text)
+
+
+def json_resource(request,fname):
+    text=open('microfront/microfront/'+fname+'.json','r+').read()
+    return HttpResponse(text, mimetype = "application/json")
