@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'polls',
     'microfront',
     'micromall',
+    'register',
 )
 
 MIDDLEWARE_CLASSES = (

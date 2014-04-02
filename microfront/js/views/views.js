@@ -237,7 +237,8 @@ app.RegisterView = Backbone.View.extend({
 			console.log('validate success');
 			$.ajax({
 				url: baseUrl + 'home/register/' + that.getUuid(),
-				type: 'post',
+				type: 'get',
+				// type: 'post',
 				data: {
                                     'name': that.$el.find('input[name=name]').val()
                                     ,'username': that.$el.find('input[name=account]').val()
