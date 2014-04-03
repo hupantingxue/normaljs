@@ -307,6 +307,7 @@
                 </div>
 
                 <form class="delivery-info">
+                    {% csrf_token %}
                     <table class="form_table">
                         <tr>
                             <td class="td_left">姓名：</td>
@@ -409,6 +410,7 @@
             <div class="toolbar">
                 <% if(pay_mode == 1){ %>
                     <form id="alipayForm" action="/micromall/pay/alipayapi.php" method="post" target="_blank">
+                        {% csrf_token %}
                         <input type="hidden" name="WIDout_trade_no" value="<%= cart_id %>"/>
                         <input type="hidden" name="WIDtotal_fee" value="<%= amount %>"/>
                         <input type="hidden" name="code" value="oyQi999IclGY9yfAAlzG4nUlDH3A"/>
@@ -501,6 +503,7 @@
                 <% } %>
                 <% if(status == 4){ %>
                     <form class="paymentForm" action="/micromall/pay/alipayapi.php" method="post" target="_blank">
+                        {% csrf_token %}
                         <input type="hidden" name="WIDout_trade_no" value="<%= cart_id %>"/>
                         <input type="hidden" name="WIDtotal_fee" value="<%= cart_total %>"/>
                         <input type="hidden" name="code" value="oyQi999IclGY9yfAAlzG4nUlDH3A"/>
