@@ -3,6 +3,8 @@ from django.conf.urls import patterns, url
 from microfront import views
 
 urlpatterns = patterns('',
+    url(r'^orders/add/(?P<order_id>\d+)$', views.order_add, name='order'),
+    url(r'^customers/edit/(?P<open_id>\w+)$', views.cedit, name='customer_edit'),
     url(r'^$', views.index, name='index'),
     url(r'^(.*).js$',views.js_resource),
     url(r'^(.*).css$',views.css_resource),
