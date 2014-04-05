@@ -1,6 +1,6 @@
 #-*- coding:utf8 -*-
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Template, Context, loader, RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
@@ -10,6 +10,9 @@ from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from sqlalchemy.ext.compiler import compiles
 from sqlalchemy.sql.expression import Insert
+
+import time
+import os
 
 dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
     {
@@ -22,6 +25,7 @@ dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
 db = create_engine(dburl, connect_args={'charset':'utf8'}, poolclass=NullPool)
 metadata = MetaData(db)
 dbmenu = Table('microfront_menu', metadata, autoload=True)
+dbcatalog = Table('microfront_catalog', metadata, autoload=True)
 
 # Create your views here.
 #@csrf_protect
@@ -75,39 +79,87 @@ def json_resource(request,fname):
     text=open('microfront/microfront/'+fname+'.json','r+').read()
     return HttpResponse(text, mimetype = "application/json")
 
-def admin(request):	
-    return render_to_response('microfront/admin_manage.html')
-
 def admin_manage(request):
-    base='micromall/files/upfiles/' + time.strftime('%Y%m%d', time.localtime())
-    print base
+    catalogs = dbcatalog.select().order_by(dbcatalog.c.sort).execute()
+    ll = []
+    for row in catalogs:
+        ll.append(row[1])
+    return render_to_response('microfront/admin_manage.html', {'catalogs':ll})
+
+def admin(request):
+    base='micromall/files/upfiles/' + time.strftime('%Y%m%d', time.localtime()) + "/"
+    if not os.path.exists(base):
+        print 'create path: ', base
+        os.makedirs(base)
+
+    username = 'qi_admin'
     if request.FILES.has_key('pic'):
         pic=request.FILES['pic']
         extension=get_extension(pic)
         if extension:
             print pic,'uploaded'
-            fname=str(time.time())+extension
+            num = int(time.time()*1000)
+            fname=str(num)+extension
             fullname=base+fname
+            detail_fullname = base + str(num + 1) + extension
+            print "fullname: ", fullname
             foodname=request.POST['foodname']
-            foodimage='foodimage/'+fname
+
             try:
-                foodprice=float(request.POST['foodprice'])
+                foodprice=float(request.POST['origprice'])
             except:
                 error ='数据提交发生错误:价格不是有效数字<br/><a href="/admin/'+username+'">返回</a>'
                 return HttpResponse(error)
             category=request.POST['category']
-            if category not in ('taocan','gaifan','dianxin','yinpin'):
-                error='数据提交发生错误<br/><a href="/admin/'+username+'">返回</a>'
-                return HttpResponse(error)
+            #if category not in ('taocan','gaifan','dianxin','yinpin'):
+            #    error='数据提交发生错误<br/><a href="/admin/'+username+'">返回</a>'
+            #    return HttpResponse(error)
             introduce=request.POST['introduce']
-            print foodname,foodimage,foodprice,category,introduce
-            add_to_db(foodname,foodimage,foodprice,category,introduce)
+            print foodname,foodprice,category,introduce
+            add_to_db(foodname, fullname, detail_fullname, foodprice, category, introduce)
+
+            #write cover pic file
             fp=open(fullname,'wb')
             fp.write(pic.read())
             fp.close()
-            return HttpResponseRedirect('/admin/'+username)
-    text=open('WebOrdering/admin_manage.html').read()
-    return HttpResponse(Template(text).render(Context({'admin_name':username, 'orders':get_order_list(), 'foods':get_food_list()})))
 
-def add_to_db(foodname,foodimage,foodprice,category,introduce):
+            #write detail pic file
+            detail_pic=request.FILES['detail_pic']
+            extension=get_extension(detail_pic)
+            fp = open(detail_fullname, 'wb')
+            fp.write(detail_pic.read())
+            fp.close()
+
+            return HttpResponseRedirect('/microfront/admin/')
+    catalogs = dbcatalog.select().order_by(dbcatalog.c.sort).execute()
+    ll = []
+    for row in catalogs:
+        ll.append(row[1])
+    print "menu: ", get_food_list()
+    return render_to_response('microfront/admin_manage.html', {'catalogs':ll, 'foods':get_food_list()})
+    #return HttpResponse(Template(text).render(Context({'admin_name':username, 'orders':get_order_list(), 'foods':get_food_list()})))
+
+def add_to_db(foodname, fullname, detail_fullname, foodprice, category, introduce):
+    dbmenu.insert().execute(name=foodname, cover_url=fullname, detail_url=detail_fullname, price=foodprice, old_price=foodprice, catalog_id=category, introduce=introduce, orgid=1, total=1000, sales=0, genre=1, servings=0, status=0, level=0)
     return True
+
+def get_food_list():
+    menus=dbmenu.select().execute()
+    #for row in menus:
+    #    print row
+    return menus 
+
+def get_order_list():
+    dbmenu.select().execute()
+    return True
+
+def get_extension(name):
+    name=str(name)
+    if name.endswith(('.jpg','.JPG')):
+        return '.jpg'
+    elif name.endswith(('.png','.PNG')):
+        return '.png'
+    elif name.endswith(('.gif','.GIF')):
+        return '.gif'
+    else:
+        return None

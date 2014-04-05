@@ -512,10 +512,10 @@ explain  -->
 
 <!-- start: foodlist -->
  <div id='foodlist'  style="width: 80%;float:left;margin-left: -2em;">
-    {%for category,url,name,foodprice,introduce in foods%}
+	{%for id, orgid, category, url, detail_url, old_price, foodprice, total, sales, genre,  level, name, status, servings, introduce in foods%}
     <div class='food'>
         <div class='food-img'>
-            <img src='../../{{url}}'>
+            <img src='/{{url}}'>
         </div>
         <div class='food-detail'>
             <table>

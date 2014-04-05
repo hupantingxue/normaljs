@@ -9,7 +9,7 @@ class Menu(models.Model):
     catalog_id = models.IntegerField()
     cover_url= models.CharField(max_length=200)
     detail_url = models.CharField(max_length=200)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
     old_price = models.FloatField(
         validators = [MinValueValidator(0.0), MaxValueValidator(9999)],
         default = 0.0)
@@ -20,7 +20,7 @@ class Menu(models.Model):
     sales = models.IntegerField()
     genre = models.IntegerField()
     level = models.IntegerField()
-    name = models.CharField(max_length=2000)
+    introduce = models.CharField(max_length=2000)
     status = models.IntegerField()
     servings = models.IntegerField()
 
