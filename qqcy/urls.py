@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     url(r'^microfront/', include('microfront.urls')),
     url(r'^micromall/', include('micromall.urls')),
     url(r'^polls/', include('polls.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    #url(r'^admin/', include(admin.site.urls)),
+    url(r'^microfront/admin/', include('microfront.urls')),
 )

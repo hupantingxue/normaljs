@@ -1,8 +1,27 @@
+#-*- coding:utf8 -*-
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.template import Template, Context, loader, RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
+
+#db operation
+from sqlalchemy import *
+from sqlalchemy.pool import NullPool
+from sqlalchemy.ext.compiler import compiles
+from sqlalchemy.sql.expression import Insert
+
+dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
+    {
+        'user' : 'root',
+        'pass' : 'root',
+        'host' : 'localhost',
+        'port' : 3306, 
+        'db' : 'test',
+   }
+db = create_engine(dburl, connect_args={'charset':'utf8'}, poolclass=NullPool)
+metadata = MetaData(db)
+dbmenu = Table('microfront_menu', metadata, autoload=True)
 
 # Create your views here.
 #@csrf_protect
@@ -55,3 +74,40 @@ def js_resource(request,fname):
 def json_resource(request,fname):
     text=open('microfront/microfront/'+fname+'.json','r+').read()
     return HttpResponse(text, mimetype = "application/json")
+
+def admin(request):	
+    return render_to_response('microfront/admin_manage.html')
+
+def admin_manage(request):
+    base='micromall/files/upfiles/' + time.strftime('%Y%m%d', time.localtime())
+    print base
+    if request.FILES.has_key('pic'):
+        pic=request.FILES['pic']
+        extension=get_extension(pic)
+        if extension:
+            print pic,'uploaded'
+            fname=str(time.time())+extension
+            fullname=base+fname
+            foodname=request.POST['foodname']
+            foodimage='foodimage/'+fname
+            try:
+                foodprice=float(request.POST['foodprice'])
+            except:
+                error ='数据提交发生错误:价格不是有效数字<br/><a href="/admin/'+username+'">返回</a>'
+                return HttpResponse(error)
+            category=request.POST['category']
+            if category not in ('taocan','gaifan','dianxin','yinpin'):
+                error='数据提交发生错误<br/><a href="/admin/'+username+'">返回</a>'
+                return HttpResponse(error)
+            introduce=request.POST['introduce']
+            print foodname,foodimage,foodprice,category,introduce
+            add_to_db(foodname,foodimage,foodprice,category,introduce)
+            fp=open(fullname,'wb')
+            fp.write(pic.read())
+            fp.close()
+            return HttpResponseRedirect('/admin/'+username)
+    text=open('WebOrdering/admin_manage.html').read()
+    return HttpResponse(Template(text).render(Context({'admin_name':username, 'orders':get_order_list(), 'foods':get_food_list()})))
+
+def add_to_db(foodname,foodimage,foodprice,category,introduce):
+    return True

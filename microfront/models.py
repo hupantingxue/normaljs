@@ -4,6 +4,26 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
+class Menu(models.Model):
+    orgid = models.IntegerField()
+    catalog_id = models.IntegerField()
+    cover_url= models.CharField(max_length=200)
+    detail_url = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    old_price = models.FloatField(
+        validators = [MinValueValidator(0.0), MaxValueValidator(9999)],
+        default = 0.0)
+    price = models.FloatField(
+        validators = [MinValueValidator(0.0), MaxValueValidator(9999)],
+        default = 0.0)
+    total = models.IntegerField()
+    sales = models.IntegerField()
+    genre = models.IntegerField()
+    level = models.IntegerField()
+    name = models.CharField(max_length=2000)
+    status = models.IntegerField()
+    servings = models.IntegerField()
+
 # menu catalog
 class Catalog(models.Model):
     name = models.CharField(max_length=200)
@@ -11,6 +31,7 @@ class Catalog(models.Model):
     sort = models.IntegerField()
     status = models.IntegerField()
     orgid = models.IntegerField()
+    stime = models.DateTimeField('start time')
 
 class Order(models.Model):
     cart_id = models.IntegerField(primary_key=True) 
@@ -21,11 +42,6 @@ class Order(models.Model):
     remark = models.CharField(max_length=500)
     pay_type = models.IntegerField()
     delivery_time = models.IntegerField()
-    #telphone = models.CharField(max_length=30)
-    #city = models.CharField(max_length=100,
-    #                    default=u'深圳')
-    #area = models.CharField(max_length=100)
-    #addr = models.CharField(max_length=500)
 
 # customer uid
 class Customer(models.Model):
