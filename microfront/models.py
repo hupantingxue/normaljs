@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from tinymce.models import HTMLField
 
 # Create your models here.
 class Menu(models.Model):
@@ -20,7 +21,7 @@ class Menu(models.Model):
     sales = models.IntegerField()
     genre = models.IntegerField()
     level = models.IntegerField()
-    introduce = models.CharField(max_length=2000)
+    introduce = HTMLField(verbose_name='detail context',max_length=200000, blank=True, null=True)
     status = models.IntegerField()
     servings = models.IntegerField()
 

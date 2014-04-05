@@ -140,7 +140,8 @@ def admin(request):
     #return HttpResponse(Template(text).render(Context({'admin_name':username, 'orders':get_order_list(), 'foods':get_food_list()})))
 
 def add_to_db(foodname, fullname, detail_fullname, foodprice, category, introduce):
-    dbmenu.insert().execute(name=foodname, cover_url=fullname, detail_url=detail_fullname, price=foodprice, old_price=foodprice, catalog_id=category, introduce=introduce, orgid=1, total=1000, sales=0, genre=1, servings=0, status=0, level=0)
+    categoryid=1
+    dbmenu.insert().execute(name=foodname, cover_url=fullname, detail_url=detail_fullname, price=foodprice, old_price=foodprice, catalog_id=categoryid, introduce=introduce, orgid=1, total=1000, sales=0, genre=1, servings=0, status=0, level=0)
     return True
 
 def get_food_list():
