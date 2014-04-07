@@ -493,21 +493,45 @@ explain  -->
 <!-- center -->
 <!-- 内容列表 -->
 <div id='order' style="width: 80%;float:left;margin-left: -2em;">
+
+  <table width="100%">
+  <tbody>
+  <tr>
+    <td width="80%">
+      <form action="orders.php" method="get" id="searchForm">
+        <input type="text" name="cdate" class="text-info" placeholder="输入选择日期" value="2014-04-07" onfocus="WdatePicker(_start)">
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="查询">
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="采购清单">
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="商品清单">
+        <h4>当前查询日营业额：<font color="red">0</font>(元),总营业额:<font color="red">0</font>(元)</h4>
+      </form>
+    </td>
+    <td width="20%" align="right">
+        <!--input type="button" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="打印" onclick="preview(1)"-->
+        <!--a href="export.php?orgid=109&amp;cdate=2014-04-07" target="_blank" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;">订单导出到Excel</a-->
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:12px;width=200px;" value="订单导出到Excel">
+    </td>
+   </tr>
+   </tbody>
+   </table>
+
+
+
+
 <form name="form2">
-<table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
-<tr bgcolor="#E7E7E7">
-    <td height="24" colspan="10" background="../skin/images/tbg.gif">&nbsp;文档列表&nbsp;</td>
-</tr>
+<table width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
 <tr align="center" bgcolor="#FAFAF1" height="22">
-    <td width="6%">订单号</td>
-    <td width="4%">订单总价</td>
-    <td width="18%">联系人</td>
-    <td width="10%">电话号码</td>
-    <td width="20%">地址</td>
-    <td width="8%">订单创建时间</td>
-    <td width="6%">预定时间</td>
-    <td width="8%">订单状态</td>
-    <td width="8%">备注</td>
+    <td width="8%">订单号</td>
+    <td width="8%">注册会员卡号</td>
+    <td width="10%">收货人/手机</td>
+    <td width="13%">用户住址</td>
+    <td width="4%">总价</td>
+    <td width="6%">商品数量</td>
+    <td width="8%">下单时间</td>
+    <td width="10%">配送时间</td>
+    <td width="6%">支付方式</td>
+    <td width="6%">支付状态</td>
+    <td width="6%">配送状态</td>
     <td width="10%">操作</td>
 </tr>
 <!-- order item list -->
@@ -531,6 +555,29 @@ explain  -->
 
 <!-- start: order search -->
 <div id='ordersearch' style="width: 80%;float:left;margin-left: -2em;">
+  <table width="100%">
+  <tbody>
+  <tr>
+    <td width="80%">
+      <form action="orders.php" method="get" id="searchForm">
+        <input type="text" name="cdate" class="text-info" placeholder="输入选择日期" value="2014-04-07" onfocus="WdatePicker(_start)">
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="查询">
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="采购清单">
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="商品清单">
+        <h4>当前查询日营业额：<font color="red">0</font>(元),总营业额:<font color="red">0</font>(元)</h4>
+      </form>
+    </td>
+    <td width="20%" align="right">
+        <!--input type="button" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="打印" onclick="preview(1)"-->
+        <!--a href="export.php?orgid=109&amp;cdate=2014-04-07" target="_blank" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;">订单导出到Excel</a-->
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:12px;width=200px;" value="订单导出到Excel">
+    </td>
+   </tr>
+   </tbody>
+   </table>
+</div>
+
+<!--div id='ordersearch' style="width: 80%;float:left;margin-left: -2em;">
 <form name="form3" action="" method="get">
 <input type="hidden" name="dopost" value="">
 <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CBD8AC" align="center" style="margin-top:8px">
@@ -566,7 +613,7 @@ explain  -->
   </tr>
 </tbody></table>
 </form>
-</div>
+</div-->
 <!-- end: order search -->
 
 <!-- start: foodlist -->
@@ -711,7 +758,7 @@ explain  -->
               <input type="checkbox" value="0" unchecked>
            </script-->
            </td>
-           <td><a href="#">编辑</a>|<a href="#">删除</a></td>
+           <td><a href="#" onclick='cataUpd()'>编辑</a>|<a href="#">删除</a></td>
         </tr>
         {%endfor%}
   </table>

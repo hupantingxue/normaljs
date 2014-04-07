@@ -45,12 +45,14 @@ def index(request):
     #return render_to_response('microfront/index.html', {'cur_usr':code}, context_instance=RequestContext(request))
     return render_to_response('microfront/index.html', {'cur_usr':code})
 
+#/microfront/orders/add
 def order_add(request, order_id):
     t = Template("Hello {{ name }}")
     c = Context({"name":"123order"})
     #return t.render(c)
     return HttpResponse('''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":20,"status":1,"pay_mode":"2"}}''')
 
+#/microfront/customers/edit
 def cedit(request, open_id):
     t = Template("Hello {{ name }}")
     c = Context({"name":"customer_edit"})
