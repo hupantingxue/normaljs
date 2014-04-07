@@ -5,7 +5,7 @@ from django.template import Template, Context, loader, RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
 
-from microfront.models import Catalog
+from microfront.models import Catalog, Customer
 
 #db operation
 from sqlalchemy import *
@@ -49,15 +49,30 @@ def index(request):
 def order_add(request, order_id):
     t = Template("Hello {{ name }}")
     c = Context({"name":"123order"})
+
+    print 'orders: ', request
     #return t.render(c)
     return HttpResponse('''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":20,"status":1,"pay_mode":"2"}}''')
 
 #/microfront/customers/edit
 def cedit(request, open_id):
-    t = Template("Hello {{ name }}")
-    c = Context({"name":"customer_edit"})
+    if request.POST.has_key('Customer[name]'):
+        name = request.POST['Customer[name]']
+        openid = request.POST['Customer[open_id]']
+        phone = request.POST['Customer[phone]']
+        city = str(request.POST['Customer[city]'])
+        area = str(request.POST['Customer[area]'])
+        address = str(request.POST['Customer[address]'])
+        remark = request.POST['Customer[remark]']
+        rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        cl = Customer(name=name, openid=openid, telphone=phone, city=city, area=area, addr=address, reg_date=rtime, modify_date=rtime)
+        cl.save()
+
     #return t.render(c)
-    return HttpResponse('''{"code":0,"msg":"modify success","data":{"id":"5546","org_id":"1","open_id":"oyQi888IclGY9yfAAlzG4nUlDH3A","account":"0473849","name":"\u6e05\u671d","email":"","mobile":"12345678910","province":null,"city":"381","area":"382","address":"aaaaaaaaaaaaaaaaaaa","pwd":"","create_time":"1396442478","money":"0.00","remark":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","member_num":null,"status":"1","update_at":1396442632}}''')
+    resp='''{"code":0,"msg":"modify success","data":{"id":"%d","org_id":"1","open_id":"%s","account":"0473849","name":"%s","email":"","mobile":"%s","province":null,"city":"%s","area":"%s","address":"%s","pwd":"","create_time":"1396442478","money":"0.00","remark":"%s","member_num":null,"status":"1","update_at":1396442632}}''' %(1, openid, name, phone, city, area, address, remark)
+    print 'resp post customer data: ', resp
+    return HttpResponse(resp)
+    #return HttpResponse('''{"code":0,"msg":"modify success","data":{"id":"5546","org_id":"1","open_id":"oyQi888IclGY9yfAAlzG4nUlDH3A","account":"0473849","name":"\u6e05\u671d","email":"","mobile":"12345678910","province":null,"city":"381","area":"382","address":"aaaaaaaaaaaaaaaaaaa","pwd":"","create_time":"1396442478","money":"0.00","remark":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","member_num":null,"status":"1","update_at":1396442632}}''')
     
 def css_resource(request,fname):
     text=open('microfront/'+fname+'.css').read()

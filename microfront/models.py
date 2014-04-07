@@ -54,7 +54,7 @@ class Customer(models.Model):
         (UNKNOWN, u'未知'),
     )
 
-    openid = models.CharField(primary_key=True,
+    openid = models.CharField(unique=True,
                               max_length=100)
     account = models.IntegerField(default=0)
     name = models.CharField(max_length=30)
@@ -69,4 +69,5 @@ class Customer(models.Model):
     sex = models.CharField(max_length=6,
                            choices=SEX_CHOICES,
                            default=MALE)
-    reg_date = models.DateTimeField('date registered')
+    reg_date = models.DateTimeField('date registered', default='0000-00-00 00:00:00')
+    modify_date = models.DateTimeField('date modified', default='0000-00-00 00:00:00')
