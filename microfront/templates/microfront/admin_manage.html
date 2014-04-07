@@ -92,26 +92,14 @@
         {
             $('#order').show();
             $('#catalist').hide();
-            $('#ordersearch').hide();
             $('#foodlist').hide();
             $('#foodupd').hide();
-            $('#cataupd').hide();
-        }
-
-        function orderMgt()
-        {
-            $('#ordersearch').show();
-            $('#foodlist').hide();
-            $('#foodupd').hide();
-            $('#order').hide();
-            $('#catalist').hide();
             $('#cataupd').hide();
         }
 
         function foodShow()
         {
             $('#foodlist').show();
-            $('#ordersearch').hide();
             $('#foodupd').hide();
             $('#order').hide();
             $('#catalist').hide();
@@ -121,7 +109,6 @@
         function foodUpd()
         {
             $('#foodupd').show();
-            $('#ordersearch').hide();
             $('#foodlist').hide();
             $('#order').hide();
             $('#catalist').hide();
@@ -132,7 +119,6 @@
         {
             $('#catalist').show();
             $('#foodlist').hide();
-            $('#ordersearch').hide();
             $('#foodupd').hide();
             $('#order').hide();
             $('#cataupd').hide();
@@ -142,7 +128,6 @@
         {
             $('#cataupd').show();
             $('#foodupd').hide();
-            $('#ordersearch').hide();
             $('#foodlist').hide();
             $('#order').hide();
             $('#catalist').hide();
@@ -330,7 +315,6 @@ a:link,a:visited {
 <script>
 $(function(){
     $('#order').show();
-    $('#ordersearch').hide();
     $('#foodlist').hide();
     $('#foodupd').hide();
     $('#catalist').hide();
@@ -415,11 +399,6 @@ explain  -->
                 <div class='fllct' onClick='orderQuery()'><a href='#' target='main'>当前订单</a></div>                
               </div>
             </li>
-            <li>
-              <div class='items'>
-                <div class='fllct' onClick='orderMgt()'><a href='#' target='main'>查询订单</a></div>
-              </div>
-            </li>            
           </ul>
         </dd>
       </dl>
@@ -552,69 +531,6 @@ explain  -->
 </table>
 </form>
 </div>
-
-<!-- start: order search -->
-<div id='ordersearch' style="width: 80%;float:left;margin-left: -2em;">
-  <table width="100%">
-  <tbody>
-  <tr>
-    <td width="80%">
-      <form action="orders.php" method="get" id="searchForm">
-        <input type="text" name="cdate" class="text-info" placeholder="输入选择日期" value="2014-04-07" onfocus="WdatePicker(_start)">
-        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="查询">
-        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="采购清单">
-        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="商品清单">
-        <h4>当前查询日营业额：<font color="red">0</font>(元),总营业额:<font color="red">0</font>(元)</h4>
-      </form>
-    </td>
-    <td width="20%" align="right">
-        <!--input type="button" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="打印" onclick="preview(1)"-->
-        <!--a href="export.php?orgid=109&amp;cdate=2014-04-07" target="_blank" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;">订单导出到Excel</a-->
-        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:12px;width=200px;" value="订单导出到Excel">
-    </td>
-   </tr>
-   </tbody>
-   </table>
-</div>
-
-<!--div id='ordersearch' style="width: 80%;float:left;margin-left: -2em;">
-<form name="form3" action="" method="get">
-<input type="hidden" name="dopost" value="">
-<table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CBD8AC" align="center" style="margin-top:8px">
-  <tbody><tr bgcolor="#EEF4EA">
-    <td background="../skin/images/wbg.gif" align="center">
-      <table border="0" cellpadding="0" cellspacing="0">
-        <tbody><tr>
-          <td width="90" align="center">搜索条件：</td>
-          <td width="160">
-          <select name="cid" style="width:150">
-          <option value="0">选择类型...</option>
-              <option value="1">名称</option>
-          </select>
-        </td>
-        <td width="70">
-          关键字：
-        </td>
-        <td width="160">
-              <input type="text" name="keyword" value="" style="width:150px">
-        </td>
-        <td width="110">
-            <select name="orderby" style="width:80px">
-            <option value="id">排序...</option>
-            <option value="pubdate">发布时间</option>
-          </select>
-        </td>
-        <td>
-          <input name="imageField" type="image" src="../skin/images/frame/search.gif" width="45" height="20" border="0" class="np">
-        </td>
-       </tr>
-      </tbody></table>
-    </td>
-  </tr>
-</tbody></table>
-</form>
-</div-->
-<!-- end: order search -->
 
 <!-- start: foodlist -->
  <div id='foodlist'  style="width: 80%;float:left;margin-left: -2em;">
