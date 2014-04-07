@@ -28,11 +28,10 @@ class Menu(models.Model):
 # menu catalog
 class Catalog(models.Model):
     name = models.CharField(max_length=200)
-    url  = models.CharField(max_length=200)
-    sort = models.IntegerField()
-    status = models.IntegerField()
-    orgid = models.IntegerField()
-    stime = models.DateTimeField('start time')
+    url  = models.CharField(max_length=200, default='url', blank=True)
+    sort = models.IntegerField(default=1)
+    status = models.IntegerField(default=1)
+    orgid = models.IntegerField(default=1)
 
 class Order(models.Model):
     cart_id = models.IntegerField(primary_key=True) 

@@ -91,9 +91,11 @@
         function orderQuery()
         {
             $('#order').show();
+            $('#catalist').hide();
             $('#ordersearch').hide();
             $('#foodlist').hide();
             $('#foodupd').hide();
+            $('#cataupd').hide();
         }
 
         function orderMgt()
@@ -102,6 +104,8 @@
             $('#foodlist').hide();
             $('#foodupd').hide();
             $('#order').hide();
+            $('#catalist').hide();
+            $('#cataupd').hide();
         }
 
         function foodShow()
@@ -110,6 +114,8 @@
             $('#ordersearch').hide();
             $('#foodupd').hide();
             $('#order').hide();
+            $('#catalist').hide();
+            $('#cataupd').hide();
         }
 
         function foodUpd()
@@ -118,8 +124,29 @@
             $('#ordersearch').hide();
             $('#foodlist').hide();
             $('#order').hide();
+            $('#catalist').hide();
+            $('#cataupd').hide();
         }
 
+        function cataShow()
+        {
+            $('#catalist').show();
+            $('#foodlist').hide();
+            $('#ordersearch').hide();
+            $('#foodupd').hide();
+            $('#order').hide();
+            $('#cataupd').hide();
+        }
+
+        function cataUpd()
+        {
+            $('#cataupd').show();
+            $('#foodupd').hide();
+            $('#ordersearch').hide();
+            $('#foodlist').hide();
+            $('#order').hide();
+            $('#catalist').hide();
+        }
     </script>
     <script language='javascript'>var curopenItem = '1';</script>
     <script language="javascript" type="text/javascript" src="../skin/js/frame/menu.js"></script>
@@ -239,6 +266,11 @@ a:link,a:visited {
             margin-top:20px;
             width:960px;
         }
+        #add-catalog{
+            margin-left:150px;
+            margin-top:50px;
+            //margin:0 auto;
+        }
         .food{
             height:220px;
         }
@@ -301,6 +333,8 @@ $(function(){
     $('#ordersearch').hide();
     $('#foodlist').hide();
     $('#foodupd').hide();
+    $('#catalist').hide();
+    $('#cataupd').hide();
 
     $('#update-food').hide();
     $('#food-list').show();
@@ -361,22 +395,7 @@ explain  -->
             [<a href="exit" target="_top">注销退出</a>]&nbsp;
       </td>
       </tr>
-      <!--<tr>
-        <td align="right" height="34" class="rmain">
-                    <dl id="tpa">
-                    <dd class='img'><a href="javascript:ChangeMenu(-1);"><img vspace="5" src="../skin/images/frame/arrl.gif" border="0" width="5" height="8" alt="缩小左框架"  title="缩小左框架" /></a></dd>
-                    <dd class='img'><a href="javascript:ChangeMenu(0);"><img vspace="3" src="../skin/images/frame/arrfc.gif" border="0" width="12" height="12" alt="显示/隐藏左框架" title="显示/隐藏左框架" /></a></dd>
-                    <dd class='img' style="margin-right:10px;"><a href="javascript:ChangeMenu(1);"><img vspace="5" src="../skin/images/frame/arrr.gif" border="0" width="5" height="8" alt="增大左框架" title="增大左框架" /></a></dd>
-                    <dd><div class='itemsel' id='item1' onMouseMove="mv(this,'move',1);" onMouseOut="mv(this,'o',1);"><a href="menu.asp" onclick="changeSel(1)" target="menu">主菜单</a></div></dd>
-                    <dd><div class='item' id='item2' onMouseMove="mv(this,'m',2);" onMouseOut="mv(this,'o',2);"><a href="menu.html" onclick="changeSel(2)" target="menu">内容发布</a></div></dd>
-                    <dd><div class='item' id='item8' onMouseMove="mv(this,'m',8);" onMouseOut="mv(this,'o',8);"><a href="menu.html" onclick="changeSel(8)" target="menu">插件模块</a></div></dd>
-                    <dd><div class='item' id='item4' onMouseMove="mv(this,'m',4);" onMouseOut="mv(this,'o',4);"><a href="menu.html" onclick="changeSel(4)" target="menu">HTML更新</a></div></dd>
-                    <dd><div class='item' id='item5' onMouseMove="mv(this,'m',5);" onMouseOut="mv(this,'o',5);"><a href="menu.html" onclick="changeSel(5)" target="menu">系统设置</a></div></dd>
-                    <dd><div class='item' id='item9' onMouseMove="mv(this,'m',9);" onMouseOut="mv(this,'o',9);"><a href="main.html" onclick="changeSel(9)" target="main">后台主页</a></div></dd>
-                    </dl>
-            </td>
-      </tr>-->
-    </tbody></table></td>
+      </tbody></table></td>
   </tr>
 </tbody>
 </table>
@@ -432,12 +451,12 @@ explain  -->
           <ul class='sitemu'>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='foodShow()'><a href='#' target='main'>查看分类</a></div>
+                <div class='fllct' onClick='cataShow()'><a href='#' target='main'>查看分类</a></div>
               </div>
             </li>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='foodUpd()'><a href='#' target='main'>添加分类</a></div>
+                <div class='fllct' onClick='cataUpd()'><a href='#' target='main'>添加分类</a></div>
               </div>
             </li>
           </ul>
@@ -612,8 +631,8 @@ explain  -->
             <td>目录名</td>
             <td>
                 <select name='category'>
-                    {%for name in catalogs %}
-                        <option>{{ name }}</option>
+                    {%for catalog in catalogs %}
+                        <option>{{ catalog.name }}</option>
                     {%endfor%}
                     <!--
                     <option value='taocan'>超值套餐</option>
@@ -621,7 +640,6 @@ explain  -->
                     <option value='dianxin'>小吃点心</option>
                     <option value='yinpin'>饮品</option>
                     -->
-
                 </select>
             </td>
         </tr>
@@ -670,6 +688,57 @@ explain  -->
     </form>
 </div>
 <!-- end: foodupdate -->
+
+<!-- start: catalist -->
+<div id="catalist" style="width: 80%;float:left;margin-left: -2em;">
+    <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
+        <tr align="center" bgcolor="#FAFAF1" height="22">
+          <td width="60%">名称</td>
+          <td width="10%">排序</td>
+          <td width="12%">是否启用</td>
+          <td width="10%">操作</td>
+        </tr>
+        {%for catalog in catalogs%}
+        <tr align="center" bgcolor="#FAFAF1" height="22">
+           <td>{{catalog.name}}</td>
+           <td><input onkeyup="#" value="{{catalog.sort}}"></td>
+           <td>
+           <input type="checkbox" value="{{catalog.status}}" checked>
+           <!--script type="text/javascript">
+           if (1=={{catalog.status}})
+              <input type="checkbox" value="1" checked>
+            else
+              <input type="checkbox" value="0" unchecked>
+           </script-->
+           </td>
+           <td><a href="#">编辑</a>|<a href="#">删除</a></td>
+        </tr>
+        {%endfor%}
+  </table>
+</div>
+<!-- end: catalist -->
+
+<!-- begin: cataupdate -->
+<div id='cataupd'  style="width: 80%;float:left;margin-left: -2em;">
+    <form id='form1' method='post' enctype="multipart/form-data">
+        <table id='add-catalog'>
+        <tr align="center" bgcolor="#FAFAF1" height="22">
+            <td>名称</td>
+            <td><input name='cataname' type='text'/></td>
+        </tr>
+        <tr align="center" bgcolor="#FAFAF1">
+            <td>排序</td>
+            <td><input type='text' name='cata_sort' size="1"/></td>
+        </tr>
+        <tr align="left" bgcolor="#FAFAF1">
+            <td>是否启用</td>
+            <td><input type='checkbox' name='cata_status'/></td>
+        </tr>
+        </table>
+        <input type='submit' value='提交'/>
+    </form>
+</div>
+<!-- end: cataupdate -->
 
 <frameset rows="60,*" cols="*" frameborder="no" border="0" framespacing="0">
   <frame src="top.html" name="topFrame" scrolling="no">

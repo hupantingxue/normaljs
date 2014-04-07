@@ -5,6 +5,8 @@ from django.template import Template, Context, loader, RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
 
+from microfront.models import Catalog
+
 #db operation
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
@@ -93,6 +95,16 @@ def admin(request):
         os.makedirs(base)
 
     username = 'qi_admin'
+    if request.POST.has_key('cataname'):
+        print 'cata: ', request.POST
+        cataname = request.POST['cataname']
+        sort = request.POST['cata_sort']
+        status = u'off'
+        if request.POST.has_key('cata_status'):
+            status = request.POST['cata_status']
+        add_catalog_db(cataname, sort, status);
+        return HttpResponseRedirect('/microfront/admin/')
+
     if request.FILES.has_key('pic'):
         pic=request.FILES['pic']
         extension=get_extension(pic)
@@ -129,19 +141,23 @@ def admin(request):
             fp = open(detail_fullname, 'wb')
             fp.write(detail_pic.read())
             fp.close()
-
             return HttpResponseRedirect('/microfront/admin/')
-    catalogs = dbcatalog.select().order_by(dbcatalog.c.sort).execute()
-    ll = []
-    for row in catalogs:
-        ll.append(row[1])
+    catalogs = Catalog.objects.all()
     print "menu: ", get_food_list()
-    return render_to_response('microfront/admin_manage.html', {'catalogs':ll, 'foods':get_food_list()})
+    return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'foods':get_food_list()})
     #return HttpResponse(Template(text).render(Context({'admin_name':username, 'orders':get_order_list(), 'foods':get_food_list()})))
 
 def add_to_db(foodname, fullname, detail_fullname, foodprice, category, introduce):
     categoryid=1
     dbmenu.insert().execute(name=foodname, cover_url=fullname, detail_url=detail_fullname, price=foodprice, old_price=foodprice, catalog_id=categoryid, introduce=introduce, orgid=1, total=1000, sales=0, genre=1, servings=0, status=0, level=0)
+    return True
+
+def add_catalog_db(cataname, sort, status):
+    nstatus = 0
+    if u'on' in status:
+        nstatus = 1
+    cata = Catalog(name=cataname, sort=sort, status=nstatus)
+    cata.save()
     return True
 
 def get_food_list():
