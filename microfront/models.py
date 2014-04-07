@@ -34,14 +34,20 @@ class Catalog(models.Model):
     orgid = models.IntegerField(default=1)
 
 class Order(models.Model):
-    cart_id = models.IntegerField(primary_key=True) 
-    amount = models.FloatField(
+    price = models.FloatField(
         validators = [MinValueValidator(0.0), MaxValueValidator(9999)],
         default = 0.0)
     openid = models.CharField(max_length=100)
     remark = models.CharField(max_length=500)
     pay_type = models.IntegerField()
     delivery_time = models.IntegerField()
+    phone = models.CharField(max_length=30)
+    address = models.CharField(max_length=500)
+    name = models.CharField(max_length=30)
+    delivery_status = models.IntegerField(default=0)
+    order_time = models.DateTimeField('order time', default='0000-00-00 00:00:00')
+    pay_status = models.IntegerField(default=0)
+    amount = models.IntegerField(default=0)
 
 # customer uid
 class Customer(models.Model):

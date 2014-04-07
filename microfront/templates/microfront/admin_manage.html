@@ -512,18 +512,20 @@ explain  -->
     <td width="10%">操作</td>
 </tr>
 <!-- order item list -->
-{%for order_id, order_price, contact, phone, address, create_time, order_time, status, comment, oper in orders%}
+{%for order in orders%}
     <tr align="center" bgcolor="#FAFAF1" height="22">
-    <td width="6%">{{order_id}}</td>
-    <td width="4%">{{orer_price}}</td>
-    <td width="18%">{{contact}}</td>
-    <td width="10%">{{phone}}</td>
-    <td width="20%">{{address}}</td>
-    <td width="8%">{{create_time}}</td>
-    <td width="6%">{{order_time}}</td>
-    <td width="8%">{{status}}</td>
-    <td width="8%">{{comment}}</td>
-    <td width="10%">{{oper}}</td>
+    <td width="8%">{{order.id}}</td>
+    <td width="8%">{{order.openid}}</td>
+    <td width="10%">{{order.phone}}</td>
+    <td width="13%">{{order.address}}</td>
+    <td width="4%">{{order.price}}</td>
+    <td width="6%">{{order.amount}}</td>
+    <td width="8%">{{order.order_time}}</td>
+    <td width="10%">{{order.delivery_time}}</td>
+    <td width="6%">{{order.pay_type}}</td>
+    <td width="6%">{{order.pay_status}}</td>
+    <td width="6%">{{order.delivery_status}}</td>
+    <td width="10%">编辑|删除</td>
     </tr>
 {%endfor%}
 </table>
