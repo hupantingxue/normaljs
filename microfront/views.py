@@ -23,7 +23,7 @@ dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
         'user' : 'root',
         'pass' : 'root',
         'host' : 'localhost',
-        'port' : 3306, 
+        'port' : 3306,
         'db' : 'test',
    }
 db = create_engine(dburl, connect_args={'charset':'utf8'}, poolclass=NullPool)
@@ -53,7 +53,7 @@ def order_add(request, order_id):
     if request.POST.has_key('open_id'):
         try:
             post = request.POST
-            pay_type = post['payType'] 
+            pay_type = post['payType']
             delivery_time = post['deliveryTime']
             openid = post['open_id']
             name = post['name']
@@ -114,7 +114,7 @@ def order_export(request):
     response = HttpResponse(wrapper, content_type="text/plain")
     response['Content-Length'] = os.path.getsize(filename)
     response['Content-Disposition'] = 'attachment; filename="%s"' % filename
-    return response 
+    return response
 
 #/microfront/customers/edit
 def cedit(request, open_id):
@@ -140,7 +140,7 @@ def cedit(request, open_id):
     print 'resp post customer data: ', resp
     return HttpResponse(resp)
     #return HttpResponse('''{"code":0,"msg":"modify success","data":{"id":"5546","org_id":"1","open_id":"oyQi888IclGY9yfAAlzG4nUlDH3A","account":"0473849","name":"\u6e05\u671d","email":"","mobile":"12345678910","province":null,"city":"381","area":"382","address":"aaaaaaaaaaaaaaaaaaa","pwd":"","create_time":"1396442478","money":"0.00","remark":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","member_num":null,"status":"1","update_at":1396442632}}''')
-    
+
 def css_resource(request,fname):
     text=open('microfront/'+fname+'.css').read()
     return HttpResponse(text)
@@ -200,6 +200,7 @@ def admin(request):
             detail_fullname = base + str(num + 1) + extension
             print "fullname: ", fullname
             foodname=request.POST['foodname']
+            total = request.POST['amount']
 
             try:
                 foodprice=float(request.POST['origprice'])
@@ -212,7 +213,7 @@ def admin(request):
             #    return HttpResponse(error)
             introduce=request.POST['introduce']
             print foodname,foodprice,category,introduce
-            add_to_db(foodname, fullname, detail_fullname, foodprice, category, introduce)
+            add_to_db(foodname, fullname, detail_fullname, foodprice, category, total, introduce)
 
             #write cover pic file
             fp=open(fullname,'wb')
@@ -232,9 +233,9 @@ def admin(request):
     return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'orders':orders, 'foods':get_food_list()})
     #return HttpResponse(Template(text).render(Context({'admin_name':username, 'orders':get_order_list(), 'foods':get_food_list()})))
 
-def add_to_db(foodname, fullname, detail_fullname, foodprice, category, introduce):
+def add_to_db(foodname, fullname, detail_fullname, foodprice, category, total, introduce):
     categoryid=1
-    dbmenu.insert().execute(name=foodname, cover_url=fullname, detail_url=detail_fullname, price=foodprice, old_price=foodprice, catalog_id=categoryid, introduce=introduce, orgid=1, total=1000, sales=0, genre=1, servings=0, status=0, level=0)
+    dbmenu.insert().execute(name=foodname, cover_url=fullname, detail_url=detail_fullname, price=foodprice, old_price=foodprice, catalog_id=categoryid, introduce=introduce, orgid=1, total=total, sales=0, genre=1, servings=0, status=0, level=0)
     return True
 
 def add_catalog_db(cataname, sort, status):
@@ -249,7 +250,7 @@ def get_food_list():
     menus=dbmenu.select().execute()
     #for row in menus:
     #    print row
-    return menus 
+    return menus
 
 def get_order_list():
     dbmenu.select().execute()
