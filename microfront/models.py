@@ -6,19 +6,19 @@ from tinymce.models import HTMLField
 
 # Create your models here.
 class Menu(models.Model):
+    name = models.CharField(unique=True, max_length=100)
     orgid = models.IntegerField()
     catalog_id = models.IntegerField()
     cover_url= models.CharField(max_length=200)
     detail_url = models.CharField(max_length=200)
-    name = models.CharField(max_length=100)
     old_price = models.FloatField(
         validators = [MinValueValidator(0.0), MaxValueValidator(9999)],
         default = 0.0)
     price = models.FloatField(
         validators = [MinValueValidator(0.0), MaxValueValidator(9999)],
         default = 0.0)
-    total = models.IntegerField()
-    sales = models.IntegerField()
+    total = models.IntegerField() #total amount
+    sales = models.IntegerField() #sale amount
     genre = models.IntegerField()
     level = models.IntegerField()
     introduce = HTMLField(verbose_name='detail context',max_length=200000, blank=True, null=True)
