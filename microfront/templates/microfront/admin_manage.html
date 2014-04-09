@@ -548,7 +548,14 @@ explain  -->
         </tr>
         {%for food in foods%}
         <tr align="center" bgcolor="#FAFAF1" height="22">
+           <td><img style="width:20px; height:20px;" src='/{{food.cover_url}}'></td>
            <td>{{food.name}}</td>
+           <td>{{food.catalog_id}}</td>
+           <td>{{food.old_price}}</td>
+           <td>{{food.price}}</td>
+           <td>{{food.status}}</td>
+           <td>{{food.genre}}</td>
+           <td>{{food.level}}</td>
            <td><a href="#" onclick='cataUpd()'>编辑</a>|<a href="#">删除</a></td>
         </tr>
         {%endfor%}
