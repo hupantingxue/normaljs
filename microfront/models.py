@@ -17,13 +17,13 @@ class Menu(models.Model):
     price = models.FloatField(
         validators = [MinValueValidator(0.0), MaxValueValidator(9999)],
         default = 0.0)
-    total = models.IntegerField() #total amount
-    sales = models.IntegerField() #sale amount
-    genre = models.IntegerField()
-    level = models.IntegerField()
+    total = models.IntegerField(null=True) #total amount
+    sales = models.IntegerField(null=True, default=0) #sale amount
+    genre = models.IntegerField(null=True, default=0)
+    level = models.IntegerField(null=True, default=0)
     introduce = HTMLField(verbose_name='detail context',max_length=200000, blank=True, null=True)
-    status = models.IntegerField()
-    servings = models.IntegerField()
+    status = models.IntegerField(null=True, default=0)
+    servings = models.IntegerField(null=True, default=0)
 
 # menu catalog
 class Catalog(models.Model):

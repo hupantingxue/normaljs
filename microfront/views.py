@@ -6,7 +6,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
 from django.core.servers.basehttp import FileWrapper
 
-from microfront.models import Catalog, Customer,Order
+from microfront.models import Catalog, Customer,Order, Menu
 
 #db operation
 from sqlalchemy import *
@@ -190,6 +190,7 @@ def admin(request):
         return HttpResponseRedirect('/microfront/admin/')
 
     if request.FILES.has_key('pic'):
+        print "menu_add === ", request
         pic=request.FILES['pic']
         extension=get_extension(pic)
         if extension:
@@ -204,6 +205,7 @@ def admin(request):
 
             try:
                 foodprice=float(request.POST['origprice'])
+                sprice=float(request.POST['sprice'])
             except:
                 error ='数据提交发生错误:价格不是有效数字<br/><a href="/admin/'+username+'">返回</a>'
                 return HttpResponse(error)
@@ -213,7 +215,10 @@ def admin(request):
             #    return HttpResponse(error)
             introduce=request.POST['introduce']
             print foodname,foodprice,category,introduce
-            add_to_db(foodname, fullname, detail_fullname, foodprice, category, total, introduce)
+
+            # catalog_id need to check
+            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname, detail_url=detail_fullname, old_price=foodprice, price=sprice, catalog_id=1, total=total, introduce=introduce)
+            menu.save()
 
             #write cover pic file
             fp=open(fullname,'wb')
