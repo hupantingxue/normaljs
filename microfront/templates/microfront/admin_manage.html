@@ -534,28 +534,28 @@ explain  -->
 
 <!-- start: foodlist -->
  <div id='foodlist'  style="width: 80%;float:left;margin-left: -2em;">
-    {%for id, orgid, category, url, detail_url, old_price, foodprice, total, sales, genre,  level, name, status, servings, introduce in foods%}
+    {%for food in foods%}
     <div class='food'>
         <div class='food-img'>
-            <img src='/{{url}}'>
+            <img src='/{{food.cover_url}}'>
         </div>
         <div class='food-detail'>
             <table>
                 <tr>
                     <td>商品名称</td>
-                    <td>{{name}}</td>
+                    <td>{{food.name}}</td>
                 </tr>
                 <tr>
                     <td>目录名</td>
-                    <td class='category'>{{category}}</td>
+                    <td class='category'>{{food.catalog_id}}</td>
                 </tr>
                 <tr>
                     <td>商品价格</td>
-                    <td>{{foodprice}}</td>
+                    <td>{{food.price}}</td>
                 </tr>
                 <tr>
                     <td>商品描述</td>
-                    <td>{{introduce}}</td>
+                    <td>{{food.introduce}}</td>
                 </tr>
             </table>
         </div>
