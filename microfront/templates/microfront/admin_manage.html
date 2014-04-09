@@ -533,55 +533,26 @@ explain  -->
 </div>
 
 <!-- start: foodlist -->
- <div id='foodlist'  style="width: 80%;float:left;margin-left: -2em;">
-    {%for food in foods%}
-    <div class='food'>
-        <div class='food-img'>
-            <img src='/{{food.cover_url}}'>
-        </div>
-        <div class='food-detail'>
-            <table>
-                <tr>
-                    <td>商品名称</td>
-                    <td>{{food.name}}</td>
-                </tr>
-                <tr>
-                    <td>目录名</td>
-                    <td class='category'>{{food.catalog_id}}</td>
-                </tr>
-                <tr>
-                    <td>商品价格</td>
-                    <td>{{food.price}}</td>
-                </tr>
-                <tr>
-                    <td>商品描述</td>
-                    <td>{{food.introduce}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    {%endfor%}
-    <script>
-        $(function(){
-            var categories = $('.category')
-            var len = categories.length
-            for(var i = 0; i < len; i++){
-                var category=categories[i];
-                if(category.innerHTML=='taocan'){
-                    category.innerHTML='超值套餐'
-                }
-                if(category.innerHTML=='gaifan'){
-                    category.innerHTML='经典盖饭'
-                }
-                if(category.innerHTML=='dianxin'){
-                    category.innerHTML='小吃点心'
-                }
-                if(category.innerHTML=='yinpin'){
-                    category.innerHTML='饮品'
-                }
-            }
-        })
-    </script>
+<div id="foodlist" style="width: 80%;float:left;margin-left: -2em;">
+    <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
+        <tr align="center" bgcolor="#FAFAF1" height="22">
+          <td width="6%">图片</td>
+          <td width="14%">商品名称</td>
+          <td width="7%">目录名</td>
+          <td width="8%">原价(元)</td>
+          <td width="9%">优惠价(元)</td>
+          <td width="8%">上/下架</td>
+          <td width="14%">特价/推荐/普通</td>
+          <td width="8%">优先级</td>
+          <td width="10%">操作</td>
+        </tr>
+        {%for food in foods%}
+        <tr align="center" bgcolor="#FAFAF1" height="22">
+           <td>{{food.name}}</td>
+           <td><a href="#" onclick='cataUpd()'>编辑</a>|<a href="#">删除</a></td>
+        </tr>
+        {%endfor%}
+  </table>
 </div>
 <!-- end: foodlist -->
 
