@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Template, Context, loader, RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
+from django.core.servers.basehttp import FileWrapper
 
 from microfront.models import Catalog, Customer,Order
 
@@ -15,6 +16,7 @@ from sqlalchemy.sql.expression import Insert
 
 import time
 import os
+import xlsxwriter
 
 dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
     {
@@ -47,7 +49,7 @@ def index(request):
 
 #/microfront/orders/add
 def order_add(request, order_id):
-    print 'orders: ', request
+    #print 'orders: ', request
     if request.POST.has_key('open_id'):
         try:
             post = request.POST
@@ -56,12 +58,63 @@ def order_add(request, order_id):
             openid = post['open_id']
             name = post['name']
             remark = post['remark']
-            ol = Order(openid=openid, remark=remark, pay_type=pay_type, delivery_time=delivery_time)
+            rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+            ol = Order(openid=openid, remark=remark, pay_type=pay_type, delivery_time=delivery_time, order_time=rtime)
             ol.save()
             resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":20,"status":1,"pay_mode":"2"}}'''
         except Exception as e:
             resp = e
     return HttpResponse(resp)
+
+#/microfront/orders/export
+def order_export(request):
+    filename=time.strftime('%Y%m%d%H%M%S', time.localtime())+".xlsx"
+
+    workbook = xlsxwriter.Workbook(filename)
+    worksheet = workbook.add_worksheet()
+    worksheet.set_column('A:J', 20)
+    bold = workbook.add_format({'bold': True})
+
+    str = ['', u'订单号',  u'注册会员卡号', u'收货人/手机',  u'用户住址', u'总价', u'商品数量', u'下单时间', u'配送时间', u'支付方式', u'支付状态', u'配送状态']
+    ll = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    ii = 1
+    while ii <= 10:
+        loc = "%s1" %(ll[ii])
+        worksheet.write(loc, str[ii], bold)
+        ii = ii + 1
+
+    format = workbook.add_format({'num_format':'mmm d yyyy hh:mm AM/PM'})
+    orders = Order.objects.all()
+    line = 2
+    for order in orders:
+        loc = "A%d" % line
+        worksheet.write(loc, order.id)
+        loc = "B%d" % line
+        worksheet.write(loc, order.openid)
+        loc = "C%d" % line
+        worksheet.write(loc, order.phone)
+        loc = "D%d" % line
+        worksheet.write(loc, order.address)
+        loc = "E%d" % line
+        worksheet.write(loc, order.price)
+        loc = "F%d" % line
+        worksheet.write(loc, order.amount)
+        loc = "G%d" % line
+        worksheet.write(loc, order.order_time, format)
+        loc = "H%d" % line
+        worksheet.write(loc, order.delivery_time)
+        loc = "I%d" % line
+        worksheet.write(loc, order.pay_type)
+        loc = "J%d" % line
+        worksheet.write(loc, order.pay_status)
+        print "order: ", order.id, order.openid
+        line = line + 1
+    workbook.close()
+    wrapper = FileWrapper(file(filename))
+    response = HttpResponse(wrapper, content_type="text/plain")
+    response['Content-Length'] = os.path.getsize(filename)
+    response['Content-Disposition'] = 'attachment; filename="%s"' % filename
+    return response 
 
 #/microfront/customers/edit
 def cedit(request, open_id):
@@ -75,11 +128,13 @@ def cedit(request, open_id):
             address = str(request.POST['Customer[address]'])
             remark = request.POST['Customer[remark]']
             rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-            cl = Customer(name=name, openid=openid, telphone=phone, city=city, area=area, addr=address, reg_date=rtime, modify_date=rtime)
+            print "rtime: ", rtime
+            cl = Customer(name=name, openid=openid, telphone=phone, city=city, area=area, addr=address, reg_date=str(rtime), modify_date=str(rtime))
             cl.save()
             resp='''{"code":0,"msg":"modify success","data":{"id":"%d","org_id":"1","open_id":"%s","account":"0473849","name":"%s","email":"","mobile":"%s","province":null,"city":"%s","area":"%s","address":"%s","pwd":"","create_time":"1396442478","money":"0.00","remark":"%s","member_num":null,"status":"1","update_at":1396442632}}''' %(1, openid, name, phone, city, area, address, remark)
         except Exception as e:
             resp = e
+            resp='''{"code":0,"msg":"modify success","data":{"id":"%d","org_id":"1","open_id":"%s","account":"0473849","name":"%s","email":"","mobile":"%s","province":null,"city":"%s","area":"%s","address":"%s","pwd":"","create_time":"1396442478","money":"0.00","remark":"%s","member_num":null,"status":"1","update_at":1396442632}}''' %(1, openid, name, phone, city, area, address, remark)
             print e
 
     print 'resp post customer data: ', resp

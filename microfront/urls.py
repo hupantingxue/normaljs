@@ -4,7 +4,7 @@ from microfront import views
 
 urlpatterns = patterns('',
     url(r'^orders/add/(?P<order_id>\d+)$', views.order_add, name='order'),
-    url(r'^orders/export/(?P<search_id>\d+)$', views.order_export, name='order_export'),
+    url(r'^orders/export$', views.order_export, name='order_export'),
     url(r'^customers/edit/(?P<open_id>\w+)$', views.cedit, name='customer_edit'),
     url(r'^admin/$', views.admin, name='admin'),
     url(r'^$', views.index, name='index'),
