@@ -51,6 +51,7 @@ def index(request):
 def order_add(request, order_id):
     #print 'orders: ', request
     if request.POST.has_key('open_id'):
+        #exist user update info
         try:
             post = request.POST
             pay_type = post['payType']
@@ -58,12 +59,26 @@ def order_add(request, order_id):
             openid = post['open_id']
             name = post['name']
             remark = post['remark']
+            phone = post['phone']
+            #city = post['city']
+            #area = post['area']
+            address = post['address']
             rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-            ol = Order(openid=openid, remark=remark, pay_type=pay_type, delivery_time=delivery_time, order_time=rtime)
+
+            cart = post.getlist('')
+            price = 0.0
+            amount = 0
+            for key in post:
+                if 'count' in key:
+                    amount = amount + int(post[key])
+                print key, post[key]
+            price = amount * 20
+            ol = Order(openid=openid, remark=remark, pay_type=pay_type, phone=phone, address=address, delivery_time=delivery_time, order_time=rtime, price=price, amount=amount)
             ol.save()
             resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":20,"status":1,"pay_mode":"2"}}'''
         except Exception as e:
             resp = e
+            print "Exception:", e
     return HttpResponse(resp)
 
 #/microfront/orders/export
@@ -122,11 +137,23 @@ def register(request, open_id):
     print 'register: ', request
     if request.POST.has_key('username'):
         try:
+            p = Customer.objects.get(openid=open_id)
+            print 'exist user: ',p
+        except Customer.DoesNotExist:
+            p = None
+            print open_id, ' not exist.'
+
+        try:
             phone = request.POST['username']
             name = '%s' % request.POST['name']
             rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-            cl = Customer(openid=open_id, name=str(name), telphone=phone, reg_date=str(rtime), modify_date=str(rtime))
-            cl.save()
+            if p:
+                p.name = str(name)
+                p.telphone = phone
+                p.save()
+            else:
+                cl = Customer(openid=open_id, name=str(name), telphone=phone, reg_date=str(rtime), modify_date=str(rtime))
+                cl.save()
             #resp = u'''{"customer":"id":"6662","open_id":"%s","account":"8449640","city":"","area":"","money":0},"code":0,"msg":"注册成功，并且已经登陆"}''' %(open_id)
             resp = u'''{"customer":{"id":"5352","open_id":"%s","account":"7709535","city":"","area":"","money":0},"code":0,"msg":"注册成功，并且已经登陆"}''' % (open_id)
         except Exception as e:
@@ -140,7 +167,11 @@ def cedit(request, open_id):
     if request.POST.has_key('Customer[name]'):
         try:
             p = Customer.objects.get(openid=open_id)
-            print 'exist user: ',p 
+            print 'exist user: ',p
+        except Customer.DoesNotExist:
+            p = None
+            print open_id, ' not exist.'
+        try:
             name = request.POST['Customer[name]']
             phone = request.POST['Customer[phone]']
             city = str(request.POST['Customer[city]'])
@@ -149,7 +180,7 @@ def cedit(request, open_id):
             remark = request.POST['Customer[remark]']
             rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
             print "rtime: ", rtime
-            if not p:
+            if p:
                 print '%s has registered.' %(open_id)
                 p.name = name
                 p.phone = phone
