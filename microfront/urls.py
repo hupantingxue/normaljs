@@ -3,6 +3,7 @@ from django.conf.urls import patterns, url
 from microfront import views
 
 urlpatterns = patterns('',
+    url(r'^home/register/(?P<open_id>\w+)$', views.register, name='register'),
     url(r'^orders/add/(?P<order_id>\d+)$', views.order_add, name='order'),
     url(r'^orders/export$', views.order_export, name='order_export'),
     url(r'^customers/edit/(?P<open_id>\w+)$', views.cedit, name='customer_edit'),

@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'qqcy.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^microfront/home/register/', include('register.urls')),
+    #url(r'^microfront/home/register/', include('register.urls')),
     url(r'^microfront/', include('microfront.urls')),
     url(r'^micromall/', include('micromall.urls')),
     url(r'^polls/', include('polls.urls')),

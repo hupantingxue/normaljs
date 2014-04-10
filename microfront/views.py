@@ -116,12 +116,32 @@ def order_export(request):
     response['Content-Disposition'] = 'attachment; filename="%s"' % filename
     return response
 
+#/microfront/home/register
+def register(request, open_id):
+    resp='{"msg":u"注册信息为空"}'
+    print 'register: ', request
+    if request.POST.has_key('username'):
+        try:
+            phone = request.POST['username']
+            name = '%s' % request.POST['name']
+            rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+            cl = Customer(openid=open_id, name=str(name), telphone=phone, reg_date=str(rtime), modify_date=str(rtime))
+            cl.save()
+            #resp = u'''{"customer":"id":"6662","open_id":"%s","account":"8449640","city":"","area":"","money":0},"code":0,"msg":"注册成功，并且已经登陆"}''' %(open_id)
+            resp = u'''{"customer":{"id":"5352","open_id":"%s","account":"7709535","city":"","area":"","money":0},"code":0,"msg":"注册成功，并且已经登陆"}''' % (open_id)
+        except Exception as e:
+            resp = e
+            print e
+    print resp
+    return HttpResponse(resp)
+
 #/microfront/customers/edit
 def cedit(request, open_id):
     if request.POST.has_key('Customer[name]'):
         try:
+            p = Customer.objects.get(openid=open_id)
+            print 'exist user: ',p 
             name = request.POST['Customer[name]']
-            openid = request.POST['Customer[open_id]']
             phone = request.POST['Customer[phone]']
             city = str(request.POST['Customer[city]'])
             area = str(request.POST['Customer[area]'])
@@ -129,12 +149,24 @@ def cedit(request, open_id):
             remark = request.POST['Customer[remark]']
             rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
             print "rtime: ", rtime
-            cl = Customer(name=name, openid=openid, telphone=phone, city=city, area=area, addr=address, reg_date=str(rtime), modify_date=str(rtime))
-            cl.save()
-            resp='''{"code":0,"msg":"modify success","data":{"id":"%d","org_id":"1","open_id":"%s","account":"0473849","name":"%s","email":"","mobile":"%s","province":null,"city":"%s","area":"%s","address":"%s","pwd":"","create_time":"1396442478","money":"0.00","remark":"%s","member_num":null,"status":"1","update_at":1396442632}}''' %(1, openid, name, phone, city, area, address, remark)
+            if not p:
+                print '%s has registered.' %(open_id)
+                p.name = name
+                p.phone = phone
+                p.city = city
+                p.area = area
+                p.addr = address
+                p.remark = remark
+                p.modif_date = rtime
+                p.save()
+            else:
+                print '%s has not registered.' %(open_id)
+                cl = Customer(name=name, openid=open_id, telphone=phone, city=city, area=area, addr=address, reg_date=str(rtime), modify_date=str(rtime))
+                cl.save()
+            resp='''{"code":0,"msg":"modify success","data":{"id":"%d","org_id":"1","open_id":"%s","account":"0473849","name":"%s","email":"","mobile":"%s","province":null,"city":"%s","area":"%s","address":"%s","pwd":"","create_time":"1396442478","money":"0.00","remark":"%s","member_num":null,"status":"1","update_at":1396442632}}''' %(1, open_id, name, phone, city, area, address, remark)
         except Exception as e:
             resp = e
-            resp='''{"code":0,"msg":"modify success","data":{"id":"%d","org_id":"1","open_id":"%s","account":"0473849","name":"%s","email":"","mobile":"%s","province":null,"city":"%s","area":"%s","address":"%s","pwd":"","create_time":"1396442478","money":"0.00","remark":"%s","member_num":null,"status":"1","update_at":1396442632}}''' %(1, openid, name, phone, city, area, address, remark)
+            #resp='''{"code":0,"msg":"modify success","data":{"id":"%d","org_id":"1","open_id":"%s","account":"0473849","name":"%s","email":"","mobile":"%s","province":null,"city":"%s","area":"%s","address":"%s","pwd":"","create_time":"1396442478","money":"0.00","remark":"%s","member_num":null,"status":"1","update_at":1396442632}}''' %(1, open_id, name, phone, city, area, address, remark)
             print e
 
     print 'resp post customer data: ', resp
