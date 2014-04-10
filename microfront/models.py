@@ -64,15 +64,15 @@ class Customer(models.Model):
                               max_length=100)
     account = models.IntegerField(default=0)
     name = models.CharField(max_length=30)
-    city = models.CharField(max_length=100,
+    city = models.CharField(null=True, max_length=100,
                             default=u'深圳')
-    area = models.CharField(max_length=100)
-    addr = models.CharField(max_length=500)
-    money = models.FloatField(
+    area = models.CharField(null=True, max_length=100)
+    addr = models.CharField(null=True, max_length=500)
+    money = models.FloatField(null=True, 
         validators = [MinValueValidator(0.0), MaxValueValidator(9999)],
         default = 0.0)
     telphone = models.CharField(max_length=30)
-    sex = models.CharField(max_length=6,
+    sex = models.CharField(null=True, max_length=6,
                            choices=SEX_CHOICES,
                            default=MALE)
     reg_date = models.DateTimeField('date registered', default='0000-00-00 00:00:00')
