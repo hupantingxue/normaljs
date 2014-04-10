@@ -625,13 +625,74 @@ explain  -->
     <td width="4%">{{order.price}}</td>
     <td width="6%">{{order.amount}}</td>
     <td width="8%">{{order.order_time}}</td>
-    <td width="10%">{{order.delivery_time}}</td>
-    <td width="6%">{{order.pay_type}}</td>
-    <td width="6%">{{order.pay_status}}</td>
-    <td width="6%">{{order.delivery_status}}</td>
+    <td width="10%" class="deliverytime">{{order.delivery_time}}</td>
+    <td width="6%" class="paytype">{{order.pay_type}}</td>
+    <td width="6%" class="paystatus">{{order.pay_status}}</td>
+    <td width="6%" class="dlstatus">{{order.delivery_status}}</td>
     <td width="10%">编辑|删除</td>
     </tr>
 {%endfor%}
+<script>
+        $(function(){
+            var categories = $('.paytype')
+            var len = categories.length
+            for(var i = 0; i < len; i++){
+                var category=categories[i];
+                if(category.innerHTML=='1'){
+                    category.innerHTML='支付宝方式'
+                }
+                if(category.innerHTML=='0'){
+                    category.innerHTML='货到付款'
+                }
+                if(category.innerHTML=='2'){
+                    category.innerHTML='货到付款'
+                }
+                if(category.innerHTML=='yinpin'){
+                    category.innerHTML='饮品'
+                }
+            }
+        })
+        $(function(){
+            var categories = $('.deliverytime')
+            var len = categories.length
+            for(var i = 0; i < len; i++){
+                var category=categories[i];
+                if(category.innerHTML=='4'){
+                    category.innerHTML='11:00:00-14:30:00'
+                }
+                if(category.innerHTML=='65'){
+                    category.innerHTML='15:30:00-18:00:00'
+                }
+                if(category.innerHTML=='5'){
+                    category.innerHTML='19:30:00-21:00:00'
+                }
+            }
+        })
+        $(function(){
+            var categories = $('.paystatus')
+            var len = categories.length
+            for(var i = 0; i < len; i++){
+                var category=categories[i];
+                if(category.innerHTML=='0'){
+                    category.innerHTML='未支付'
+                }
+                if(category.innerHTML=='1'){
+                    category.innerHTML='已支付'
+                }
+            }
+        })
+         $(function(){
+            var categories = $('.dlstatus')
+            var len = categories.length
+            for(var i = 0; i < len; i++){
+                var category=categories[i];
+                if(category.innerHTML=='0'){
+                    category.innerHTML='未配送'
+                }
+            }
+        })
+ 
+    </script>
 </table>
 </form>
 </div>
