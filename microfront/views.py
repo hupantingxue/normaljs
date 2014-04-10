@@ -81,6 +81,9 @@ def order_add(request, order_id):
             print "Exception:", e
     return HttpResponse(resp)
 
+def order_querydate(request):
+    resp=''
+
 #/microfront/orders/export
 def order_export(request):
     filename=time.strftime('%Y%m%d%H%M%S', time.localtime())+".xlsx"
