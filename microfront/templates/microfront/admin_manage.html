@@ -110,6 +110,7 @@
         function foodUpd()
         {
             $('#foodupd').show();
+            $('#foodid').show();
             $('#foodlist').hide();
             $('#order').hide();
             $('#catalist').hide();
@@ -699,9 +700,10 @@ explain  -->
 <div id="foodlist" style="width: 80%;float:left;margin-left: -2em;">
     <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
         <tr align="center" bgcolor="#FAFAF1" height="22">
+          <td width="3%">id</td>
           <td width="6%">图片</td>
-          <td width="14%">商品名称</td>
-          <td width="7%">商品类别</td>
+          <td width="12%">商品名称</td>
+          <td width="6%">商品类别</td>
           <td width="8%">原价(元)</td>
           <td width="9%">优惠价(元)</td>
           <td width="6%">数量</td>
@@ -713,6 +715,7 @@ explain  -->
         </tr>
         {%for food in foods%}
         <tr align="center" bgcolor="#FAFAF1" height="22">
+           <td>{{food.id}}</td>
            <td><img style="width:20px; height:20px;" src='/{{food.cover_url}}'></td>
            <td>{{food.name}}</td>
            <td>{{food.catalog_id}}</td>
@@ -723,7 +726,7 @@ explain  -->
            <td>{{food.status}}</td>
            <td>{{food.genre}}</td>
            <td>{{food.level}}</td>
-           <td><a href="#" onclick='cataUpd()'>编辑</a>|<a href="#">删除</a></td>
+           <td><a href="#" onclick='foodUpd({{food.id}})'>编辑</a>|<a href="#" onclick='foodDel()'>删除</a></td>
         </tr>
         {%endfor%}
   </table>
@@ -742,12 +745,6 @@ explain  -->
                     {%for catalog in catalogs %}
                         <option>{{ catalog.name }}</option>
                     {%endfor%}
-                    <!--
-                    <option value='taocan'>超值套餐</option>
-                    <option value='gaifan'>经典盖饭</option>
-                    <option value='dianxin'>小吃点心</option>
-                    <option value='yinpin'>饮品</option>
-                    -->
                 </select>
             </td>
         </tr>
