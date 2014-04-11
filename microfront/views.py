@@ -6,7 +6,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
 from django.core.servers.basehttp import FileWrapper
 
-from microfront.models import Catalog, Customer,Order, Menu
+from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr
 
 #db operation
 from sqlalchemy import *
@@ -194,9 +194,29 @@ def register(request, open_id):
             print e
     print resp
     return HttpResponse(resp)
-#/microfront/add
-def save_addr(request):	
-    resp = 'recieve address request......'
+
+#/microfront/addr
+def save_addr(request):    
+    resp = {"code":0, "msg":{"id":1}}
+    try:
+        city = request.POST['city']
+        area = request.POST['area']
+        dl = Dladdr(city=city, area=area)
+        dl.save()
+    except Exception as e:
+        print e
+    return HttpResponse(resp)
+
+#/microfront/dltime
+def save_dltime(request):    
+    resp = {"code":0, "msg":{"id":1}}
+    try:
+        begin_time = request.POST['begin_time']
+        end_time = request.POST['end_time']
+        dl = Dltime(begin_time=begin_time, end_time=end_time)
+        dl.save()
+    except Exception as e:
+        print e
     return HttpResponse(resp)
 
 #/microfront/customers/edit

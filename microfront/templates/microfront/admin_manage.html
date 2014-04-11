@@ -48,9 +48,17 @@
     <script language='javascript'>
 	    function saveProvince() {
 			var myaddr = "广东省深圳市" + $("#area").val()
-		    $.post("../addr/", {"city":382, "addr": myaddr}, function(data){alert("已保存");});
+		    $.post("../addr/", {"city":382, "area": myaddr}, function(data){alert("保存成功");});
 			// alert("Value: " + myaddr)
 			$("#addr-header").after('<tr align="center" bgcolor="#FAFAF1" height="22"><td width=\"90%\">' + myaddr + '</td><td width=\"10%\">删除</td></tr>');
+		}
+
+	    function saveDltime() {
+			var mytime = $("#dlbegin").val()
+			mytime += "------"
+			mytime += $("#dlend").val()
+		    $.post("../dltime/", {"begin_time":$("#dlbegin").val(), "end_time": $("#dlend").val()}, function(data){alert("保存成功");});
+			$("#dltime-header").after('<tr align="left" bgcolor="#FAFAF1" height="22"><td width=\"80%\">' + mytime + '</td><td width=\"20%\">编辑|删除</td></tr>');
 		}
         var preFrameW = '206,*';
         var FrameHide = 0;
@@ -104,6 +112,7 @@
             $('#foodupd').hide();
             $('#cataupd').hide();
             $('#dladdrupd').hide();
+            $('#dltimeupd').hide();
         }
 
         function foodShow()
@@ -114,6 +123,7 @@
             $('#catalist').hide();
             $('#cataupd').hide();
             $('#dladdrupd').hide();
+            $('#dltimeupd').hide();
         }
 
         function foodUpd()
@@ -125,6 +135,7 @@
             $('#catalist').hide();
             $('#cataupd').hide();
             $('#dladdrupd').hide();
+            $('#dltimeupd').hide();
         }
 
         function cataShow()
@@ -135,6 +146,7 @@
             $('#order').hide();
             $('#cataupd').hide();
             $('#dladdrupd').hide();
+            $('#dltimeupd').hide();
         }
 
         function cataUpd()
@@ -145,11 +157,24 @@
             $('#order').hide();
             $('#catalist').hide();
             $('#dladdrupd').hide();
+            $('#dltimeupd').hide();
         }
 
         function dladdrUpd()
         {
             $('#dladdrupd').show();
+            $('#foodupd').hide();
+            $('#foodlist').hide();
+            $('#order').hide();
+            $('#catalist').hide();
+            $('#cataupd').hide();
+            $('#dltimeupd').hide();
+        }
+
+        function dltimeUpd()
+        {
+            $('#dltimeupd').show();
+            $('#dladdrupd').hide();
             $('#foodupd').hide();
             $('#foodlist').hide();
             $('#order').hide();
@@ -346,6 +371,7 @@ $(function(){
     $('#catalist').hide();
     $('#cataupd').hide();
     $('#dladdrupd').hide();
+    $('#dltimeupd').hide();
 
     $('#update-food').hide();
     $('#food-list').show();
@@ -504,8 +530,7 @@ explain  -->
                 <div class='fllct' onClick='dladdrUpd()'><a href='javascript:void(0)' target='main'>配送地址管理</a></div>
               </div>
 			</li>
-            <!--li><a href='javascript:void(0)' target='_blank'>配送地址管理</a></li-->            
-            <li><a href='javascript:void(0)' target='_blank'>配送时间管理</a></li>            
+            <li><div class='items'><div class='fllct' onClick='dltimeUpd()'><a href='javascript:void(0)' target='_blank'>配送时间管理</a></div></div></li>            
             <li><a href='javascript:void(0)' target='_blank'>首页文字管理</a></li>            
             <li><a href='javascript:void(0)' target='_blank'>首页目录管理</a></li>            
             <li><a href='javascript:void(0)' target='_blank'>会员充值赠送设置</a></li>            
@@ -900,6 +925,22 @@ explain  -->
 	</table>
 </div>
 <!-- end: dladdrupd -->
+
+<!-- start: dltimeupd-->
+<div id="dltimeupd" style="width: 80%;float:left;margin-left: -2em;">
+    <input type="text" class="span3" name="begin_dltime" id="dlbegin" placeholder="请输入开始时间">
+    <input type="text" class="span3" name="end_dltime" id="dlend" placeholder="请输入结束时间">
+    <input type="button" style="margin-top:-8px;" class="btn btn-info" value="保存" onclick="saveDltime();">;
+	<br />
+	<br />
+    <table id='add-dltime' width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
+        <tr id='dltime-header' align="center" bgcolor="#FAFAF1" height="22">
+          <td width="90%">配送时间</td>
+          <td width="10%">操作</td>
+        </tr>
+	</table>
+</div>
+<!-- end: dltimeupd -->
 
 <frameset rows="60,*" cols="*" frameborder="no" border="0" framespacing="0">
   <frame src="top.html" name="topFrame" scrolling="no">

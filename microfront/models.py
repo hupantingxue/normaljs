@@ -78,3 +78,14 @@ class Customer(models.Model):
                            default=MALE)
     reg_date = models.DateTimeField('date registered', default='0000-00-00 00:00:00')
     modify_date = models.DateTimeField('date modified', default='0000-00-00 00:00:00')
+
+# delivery time
+class Dltime(models.Model):
+    begin_time = models.CharField(max_length=50, null=True, default='00:00:00');
+    end_time = models.CharField(max_length=50, null=True, default='00:00:00');
+
+# delivery address
+class Dladdr(models.Model):
+    province = models.IntegerField(null=True, default=0)
+    city = models.IntegerField(null=True, default=0)
+    area = models.CharField(max_length=500, null=True, default='');
