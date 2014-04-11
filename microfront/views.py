@@ -15,6 +15,7 @@ from sqlalchemy.ext.compiler import compiles
 from sqlalchemy.sql.expression import Insert
 
 import time
+import datetime
 import os
 import xlsxwriter
 
@@ -60,12 +61,21 @@ def order_add(request, order_id):
             name = post['name']
             remark = post['remark']
             phone = post['phone']
-            #city = post['city']
-            #area = post['area']
-            address = post['address']
+            city = post['city']
+            area = post['area']
+            prex = ''
+            narea = int(area)
+            if 382 == narea:
+                prex = u'科技园'
+            if 383 == narea:
+                prex = u'腾讯大厦'
+            if 601 == narea:
+                prex = u'白石洲地铁B出口'
+            if 700 == narea:
+                prex = u'测试'
+            address = u'深圳市' + prex + post['address']
             rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
 
-            cart = post.getlist('')
             price = 0.0
             amount = 0
             for key in post:
@@ -75,14 +85,34 @@ def order_add(request, order_id):
             price = amount * 20
             ol = Order(openid=openid, remark=remark, pay_type=pay_type, phone=phone, address=address, delivery_time=delivery_time, order_time=rtime, price=price, amount=amount)
             ol.save()
-            resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":20,"status":1,"pay_mode":"2"}}'''
+            resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":%d,"status":1,"pay_mode":"%s"}}''' %(amount, pay_type)
         except Exception as e:
             resp = e
             print "Exception:", e
     return HttpResponse(resp)
 
+#/microfront/orders/date
 def order_querydate(request):
-    resp=''
+    orders = Order.objects.all()
+    if request.GET.has_key('cdate'):
+        try:
+            cdate = request.GET['cdate']
+            value = datetime.datetime.strptime(cdate, '%Y-%m-%d')
+            orders = Order.objects.filter(order_time__range=(
+                           datetime.datetime.combine(value, datetime.time.min),
+                           datetime.datetime.combine(value, datetime.time.max)))
+        except Exception as e:
+            print 'search fail...', e
+    else:
+        print '[===NOT EXIST CDATE!!!===]'
+    catalogs = Catalog.objects.all()    
+    return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'orders':orders, 'foods':get_food_list()})
+
+#/microfront/orders/shop
+def order_shoplist(request):
+    catalogs = Catalog.objects.all()
+    orders = Order.objects.all()
+    return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'orders':orders, 'foods':get_food_list()})
 
 #/microfront/orders/export
 def order_export(request):

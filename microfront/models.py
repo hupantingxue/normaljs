@@ -24,6 +24,7 @@ class Menu(models.Model):
     introduce = HTMLField(verbose_name='detail context',max_length=200000, blank=True, null=True)
     status = models.IntegerField(null=True, default=0)
     servings = models.IntegerField(null=True, default=0)
+    commodity = models.CharField(max_length=500, null=True, default=u'无')
 
 # menu catalog
 class Catalog(models.Model):
