@@ -922,6 +922,12 @@ explain  -->
           <td width="90%">地址</td>
           <td width="10%">操作</td>
         </tr>
+		{%for dladdr in dladdrs%}
+        <tr align="center" bgcolor="#FAFAF1" height="22">
+          <td width="90%">{{dladdr.area}}</td>
+          <td width="10%">删除</td>
+        </tr>
+		{%endfor%}
 	</table>
 </div>
 <!-- end: dladdrupd -->
@@ -938,6 +944,12 @@ explain  -->
           <td width="90%">配送时间</td>
           <td width="10%">操作</td>
         </tr>
+		{%for dltime in dltimes%}
+        <tr align="left" bgcolor="#FAFAF1" height="22">
+          <td width="90%">{{dltime.begin_time}}-----{{dltime.end_time}}</td>
+          <td width="10%">编辑|删除</td>
+        </tr>
+		{%endfor%}
 	</table>
 </div>
 <!-- end: dltimeupd -->

@@ -355,7 +355,9 @@ def admin(request):
     catalogs = Catalog.objects.all()
     print "menu: ", get_food_list()
     orders = Order.objects.all()
-    return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'orders':orders, 'foods':get_food_list()})
+    dladdrs = Dladdr.objects.all()
+    dltimes = Dltime.objects.all()
+    return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list()})
     #return HttpResponse(Template(text).render(Context({'admin_name':username, 'orders':get_order_list(), 'foods':get_food_list()})))
 
 def add_to_db(foodname, fullname, detail_fullname, foodprice, category, total, introduce):
