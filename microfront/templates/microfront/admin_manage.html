@@ -411,12 +411,12 @@ explain  -->
           <ul class='sitemu'>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='foodShow()'><a href='javascript:void(0)' target='main'>查看菜单</a></div>
+                <div class='fllct' onClick='foodShow()'><a href='javascript:void(0)' target='main'>查看商品</a></div>
               </div>
             </li>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='foodUpd()'><a href='javascript:void(0)' target='main'>添加菜单</a></div>
+                <div class='fllct' onClick='foodUpd()'><a href='javascript:void(0)' target='main'>添加商品</a></div>
               </div>
             </li>
             <li>
@@ -610,10 +610,11 @@ explain  -->
     <td width="6%">商品数量</td>
     <td width="8%">下单时间</td>
     <td width="10%">配送时间</td>
+    <td width="5%">备注信息</td>
     <td width="6%">支付方式</td>
-    <td width="6%">支付状态</td>
-    <td width="6%">配送状态</td>
-    <td width="10%">操作</td>
+    <td width="6%">所购产品</td>
+    <td width="6%">订单状态</td>
+    <td width="5%">操作</td>
 </tr>
 <!-- order item list -->
 {%for order in orders%}
@@ -626,10 +627,11 @@ explain  -->
     <td width="6%">{{order.amount}}</td>
     <td width="8%">{{order.order_time}}</td>
     <td width="10%" class="deliverytime">{{order.delivery_time}}</td>
+    <td width="5%">{{order.remark}}</td>
     <td width="6%" class="paytype">{{order.pay_type}}</td>
-    <td width="6%" class="paystatus">{{order.pay_status}}</td>
+    <td width="6%">无法显示</td>
     <td width="6%" class="dlstatus">{{order.delivery_status}}</td>
-    <td width="10%">编辑|删除</td>
+    <td width="5%">编辑|删除</td>
     </tr>
 {%endfor%}
 <script>
@@ -668,26 +670,22 @@ explain  -->
                 }
             }
         })
-        $(function(){
-            var categories = $('.paystatus')
-            var len = categories.length
-            for(var i = 0; i < len; i++){
-                var category=categories[i];
-                if(category.innerHTML=='0'){
-                    category.innerHTML='未支付'
-                }
-                if(category.innerHTML=='1'){
-                    category.innerHTML='已支付'
-                }
-            }
-        })
          $(function(){
             var categories = $('.dlstatus')
             var len = categories.length
             for(var i = 0; i < len; i++){
                 var category=categories[i];
                 if(category.innerHTML=='0'){
-                    category.innerHTML='未配送'
+                    category.innerHTML='已下单，未支付，未配送'
+                }
+                if(category.innerHTML=='1'){
+                    category.innerHTML='已下单，未支付，已配送'
+                }
+                if(category.innerHTML=='2'){
+                    category.innerHTML='已下单，已支付，未配送'
+                }
+                if(category.innerHTML=='3'){
+                    category.innerHTML='已下单，已支付，已配送'
                 }
             }
         })
@@ -703,13 +701,15 @@ explain  -->
         <tr align="center" bgcolor="#FAFAF1" height="22">
           <td width="6%">图片</td>
           <td width="14%">商品名称</td>
-          <td width="7%">目录名</td>
+          <td width="7%">商品类别</td>
           <td width="8%">原价(元)</td>
           <td width="9%">优惠价(元)</td>
-          <td width="8%">上/下架</td>
-          <td width="14%">特价/推荐/普通</td>
+          <td width="6%">数量</td>
+          <td width="6%">售出数量</td>
+          <td width="6%">上/下架</td>
+          <td width="6%">特价/推荐/普通</td>
           <td width="8%">优先级</td>
-          <td width="10%">操作</td>
+          <td width="8%">操作</td>
         </tr>
         {%for food in foods%}
         <tr align="center" bgcolor="#FAFAF1" height="22">
@@ -718,6 +718,8 @@ explain  -->
            <td>{{food.catalog_id}}</td>
            <td>{{food.old_price}}</td>
            <td>{{food.price}}</td>
+           <td>{{food.total}}</td>
+           <td>{{food.sales}}</td>
            <td>{{food.status}}</td>
            <td>{{food.genre}}</td>
            <td>{{food.level}}</td>
