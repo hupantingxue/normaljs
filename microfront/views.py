@@ -194,6 +194,10 @@ def register(request, open_id):
             print e
     print resp
     return HttpResponse(resp)
+#/microfront/add
+def save_addr(request):	
+    resp = 'recieve address request......'
+    return HttpResponse(resp)
 
 #/microfront/customers/edit
 def cedit(request, open_id):

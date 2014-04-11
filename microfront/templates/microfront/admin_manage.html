@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../skin/css/menu.css" type="text/css" />
 
     <script type="text/javascript" src="../skin/tiny_mce/tiny_mce.js"></script>
+    <script language="javascript" type="text/javascript" src="../skin/frame/addr.js"></script>
     <script type="text/javascript">
         tinyMCE.init({
             mode : "textareas",
@@ -45,6 +46,12 @@
     </script>
 
     <script language='javascript'>
+	    function saveProvince() {
+			var myaddr = "广东省深圳市" + $("#area").val()
+		    $.post("../addr/", {"city":382, "addr": myaddr}, function(data){alert("已保存");});
+			// alert("Value: " + myaddr)
+			$("#addr-header").after('<tr align="center" bgcolor="#FAFAF1" height="22"><td width=\"90%\">' + myaddr + '</td><td width=\"10%\">删除</td></tr>');
+		}
         var preFrameW = '206,*';
         var FrameHide = 0;
         var curStyle = 1;
@@ -96,6 +103,7 @@
             $('#foodlist').hide();
             $('#foodupd').hide();
             $('#cataupd').hide();
+            $('#dladdrupd').hide();
         }
 
         function foodShow()
@@ -105,6 +113,7 @@
             $('#order').hide();
             $('#catalist').hide();
             $('#cataupd').hide();
+            $('#dladdrupd').hide();
         }
 
         function foodUpd()
@@ -115,6 +124,7 @@
             $('#order').hide();
             $('#catalist').hide();
             $('#cataupd').hide();
+            $('#dladdrupd').hide();
         }
 
         function cataShow()
@@ -124,6 +134,7 @@
             $('#foodupd').hide();
             $('#order').hide();
             $('#cataupd').hide();
+            $('#dladdrupd').hide();
         }
 
         function cataUpd()
@@ -133,7 +144,20 @@
             $('#foodlist').hide();
             $('#order').hide();
             $('#catalist').hide();
+            $('#dladdrupd').hide();
         }
+
+        function dladdrUpd()
+        {
+            $('#dladdrupd').show();
+            $('#foodupd').hide();
+            $('#foodlist').hide();
+            $('#order').hide();
+            $('#catalist').hide();
+            $('#cataupd').hide();
+        }
+
+
     </script>
     <script language='javascript'>var curopenItem = '1';</script>
     <script language="javascript" type="text/javascript" src="../skin/js/frame/menu.js"></script>
@@ -321,6 +345,7 @@ $(function(){
     $('#foodupd').hide();
     $('#catalist').hide();
     $('#cataupd').hide();
+    $('#dladdrupd').hide();
 
     $('#update-food').hide();
     $('#food-list').show();
@@ -474,7 +499,12 @@ explain  -->
           <dt onClick='showHide("items5_1")'><b>管理面板</b></dt>
           <dd style='display:block' class='sitem' id='items5_1'>
           <ul class='sitemu'>
-            <li><a href='javascript:void(0)' target='_blank'>配送地址管理</a></li>            
+		    <li>
+              <div class='items'>
+                <div class='fllct' onClick='dladdrUpd()'><a href='javascript:void(0)' target='main'>配送地址管理</a></div>
+              </div>
+			</li>
+            <!--li><a href='javascript:void(0)' target='_blank'>配送地址管理</a></li-->            
             <li><a href='javascript:void(0)' target='_blank'>配送时间管理</a></li>            
             <li><a href='javascript:void(0)' target='_blank'>首页文字管理</a></li>            
             <li><a href='javascript:void(0)' target='_blank'>首页目录管理</a></li>            
@@ -848,6 +878,28 @@ explain  -->
     </form>
 </div>
 <!-- end: cataupdate -->
+
+<!-- start: dladdrupd-->
+<div id="dladdrupd" style="width: 80%;float:left;margin-left: -2em;">
+    选择配送地址
+    <select id="province" name="province">
+        <option value="0">---选择省/直辖市---</option>
+		<option value="440000">广东省</option>
+	</select>
+	<!--select id="city" name="city"><option value="0">--请先选择省/直辖市--</option><option value="440100">广州市</option><option value="440200">韶关市</option><option value="440300">深圳市</option><option value="440400">珠海市</option><option value="440500">汕头市</option><option value="440600">佛山市</option><option value="440700">江门市</option><option value="440800">湛江市</option><option value="440900">茂名市</option><option value="441200">肇庆市</option><option value="441300">惠州市</option><option value="441400">梅州市</option><option value="441500">汕尾市</option><option value="441600">河源市</option><option value="441700">阳江市</option><option value="441800">清远市</option><option value="441900">东莞市</option><option value="442000">中山市</option><option value="445100">潮州市</option><option value="445200">揭阳市</option><option value="445300">云浮市</option></select-->
+	<select id="city" name="city"><option value="0">--请先选择省/直辖市--</option><option value="440100">深圳市</option></select>
+    <input type="text" class="span3" name="area" id="area" placeholder="请输入详细位置">
+    <input type="button" style="margin-top:-8px;" class="btn btn-info" value="保存" onclick="saveProvince();">;
+	<br />
+	<br />
+    <table id='add-addr' width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
+        <tr id='addr-header' align="center" bgcolor="#FAFAF1" height="22">
+          <td width="90%">地址</td>
+          <td width="10%">操作</td>
+        </tr>
+	</table>
+</div>
+<!-- end: dladdrupd -->
 
 <frameset rows="60,*" cols="*" frameborder="no" border="0" framespacing="0">
   <frame src="top.html" name="topFrame" scrolling="no">
