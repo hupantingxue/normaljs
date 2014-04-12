@@ -137,6 +137,28 @@ def order_save(request):
 
     return HttpResponse(resp)
 
+#/microfront/orders/del
+def order_del(request):
+    resp = {"code":0}
+    try:
+        id = request.POST['order_id']
+    except Exception as e:
+        print e
+
+    try:
+        ol = Order.objects.get(id=id)
+    except Order.DoesNotExist:
+        ol = None
+        print id, " order not exist."
+    
+    if ol:
+        ol.delete()
+    else:
+        resp = "Order %s not exist." %(id)
+
+    return HttpResponse(resp)
+
+
 #/microfront/orders/export
 def order_export(request):
     filename=time.strftime('%Y%m%d%H%M%S', time.localtime())+".xlsx"

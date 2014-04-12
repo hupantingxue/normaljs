@@ -62,10 +62,12 @@
 		}
 
         function orderUpd(id) {
-		    // var el = id
-		    // var status = $("#orderstatus_"+id).val()
 		    $.post("../orders/save/", {"order_id":id, "order_status":$("#orderstatus_"+id).val()}, function(data){alert("保存成功");});
-		    // alert("Update order: "+el+status);
+		}
+
+        function orderDel(id) {
+		    $.post("../orders/del/", {"order_id":id}, function(data){alert("删除成功");});
+			$("#ordertr_"+id).remove();
 		}
 
         var preFrameW = '206,*';
@@ -682,7 +684,7 @@ explain  -->
 </tr>
 <!-- order item list -->
 {%for order in orders%}
-    <tr align="center" bgcolor="#FAFAF1" height="22">
+    <tr id="ordertr_{{order.id}}" align="center" bgcolor="#FAFAF1" height="22">
     <td width="8%">{{order.id}}</td>
     <td width="8%">{{order.openid}}</td>
     <td width="10%">{{order.phone}}</td>
