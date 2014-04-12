@@ -60,6 +60,14 @@
 		    $.post("../dltime/", {"begin_time":$("#dlbegin").val(), "end_time": $("#dlend").val()}, function(data){alert("保存成功");});
 			$("#dltime-header").after('<tr align="left" bgcolor="#FAFAF1" height="22"><td width=\"80%\">' + mytime + '</td><td width=\"20%\">编辑|删除</td></tr>');
 		}
+
+        function orderUpd(id) {
+		    // var el = id
+		    // var status = $("#orderstatus_"+id).val()
+		    $.post("../orders/save/", {"order_id":id, "order_status":$("#orderstatus_"+id).val()}, function(data){alert("保存成功");});
+		    // alert("Update order: "+el+status);
+		}
+
         var preFrameW = '206,*';
         var FrameHide = 0;
         var curStyle = 1;
@@ -686,8 +694,8 @@ explain  -->
     <td width="5%">{{order.remark}}</td>
     <td width="6%" class="paytype">{{order.pay_type}}</td>
     <td width="6%">无法显示</td>
-    <td width="6%" class="dlstatus">{{order.delivery_status}}</td>
-    <td width="5%">编辑|删除</td>
+    <td width="6%" class="dlstatus"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderstatus_{{order.id}}" value="{{order.order_status}}" /></td>
+    <td width="5%"><a href="#" onclick="orderUpd({{order.id}})">保存</a>|<a href="#" onclick="orderDel({{order.id}})">删除</a></td>
     </tr>
 {%endfor%}
 <script>

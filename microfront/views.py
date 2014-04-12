@@ -114,6 +114,29 @@ def order_shoplist(request):
     orders = Order.objects.all()
     return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'orders':orders, 'foods':get_food_list()})
 
+#/microfront/orders/date
+def order_save(request):
+    resp = {"code":0}
+    try:
+        id = request.POST['order_id']
+        status = request.POST['order_status']
+    except Exception as e:
+        print e
+
+    try:
+        ol = Order.objects.get(id=id)
+    except Order.DoesNotExist:
+        ol = None
+        print id, " order not exist."
+    
+    if ol:
+        ol.order_status = status
+        ol.save()
+    else:
+        resp = "Order %s not exist." %(id)
+
+    return HttpResponse(resp)
+
 #/microfront/orders/export
 def order_export(request):
     filename=time.strftime('%Y%m%d%H%M%S', time.localtime())+".xlsx"

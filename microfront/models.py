@@ -49,6 +49,7 @@ class Order(models.Model):
     order_time = models.DateTimeField('order time', default='0000-00-00 00:00:00')
     pay_status = models.IntegerField(default=0)
     amount = models.IntegerField(default=0)
+    order_status = models.CharField(max_length=100, null=True, default=u'已下单，未支付，未配送')
 
 # customer uid
 class Customer(models.Model):
