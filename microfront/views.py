@@ -5,6 +5,7 @@ from django.template import Template, Context, loader, RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
 from django.core.servers.basehttp import FileWrapper
+from django.db.models import Q
 
 from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr
 
@@ -294,7 +295,7 @@ def user_del(request):
 
     try:
         cl = Customer.objects.get(id=id)
-    except Order.DoesNotExist:
+    except Customer.DoesNotExist:
         cl = None
         print id, " order not exist."
     
@@ -305,11 +306,34 @@ def user_del(request):
 
     return HttpResponse(resp)
 
-
-
-
-
-
+#/microfront/users/query
+def user_query(request):
+    resp = '''{"cnt":0}'''
+    try:
+        keyword = request.POST['keyword']
+    except Exception as e:
+        print e
+    try:
+        cls = Customer.objects.filter(Q(name__contains=keyword)|Q(addr__contains=keyword))
+    except Customer.DoesNotExist:
+        cls = None
+        print keyword, " has no such users."
+    except Exception as e:
+        print e
+    
+    cnt = cls.count()
+    resp = '''{"cnt":%d}''' % cnt
+    str = ""
+    if 0 < cnt:
+        ii = 0
+        for cl in cls:
+            if 0 != ii:
+                str = str + ","
+            str = str + '''{"id":%d, "openid":"%s", "name":"%s", "phone":"%s", "money":"%f"}''' %(cl.id, cl.openid, cl.name, cl.telphone, cl.money)
+            ii = ii + 1
+    resp = '''{"cnt":%d, "user":[%s]}''' % (cnt, str)
+    print resp
+    return HttpResponse(resp)
 
 #/microfront/addr
 def save_addr(request):    

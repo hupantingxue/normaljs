@@ -80,7 +80,13 @@
         }
 
 		function queryUser() {
-		    alert("Query user;");
+            $.post("../users/query/", {"keyword":$("#usrsrch").val()}, function(data){
+			    //$.each(data.comments, function(i, item)) {
+				    //$("#users-header").append('<p>吴亮</p>');
+					alert("post data: "+data);
+				//});
+			});
+			$(".usertr").remove()
 		}
 
         var preFrameW = '206,*';
@@ -1003,10 +1009,10 @@ explain  -->
     <tbody>
       <tr>
         <td width="80%">
-          <form action="/microfront/users/query" method="post">
-            <input type="text" name="usersrch"  class="text-info" id="usersrch" placeholder="输入关键词搜索">
+          <!--form action="/microfront/users/query" method="post"-->
+            <input type="text" name="usrsrch"  class="text-info" id="usrsrch" placeholder="输入关键词搜索">
             <input type="button" style="margin-top:-8px;" class="btn btn-info" value="查询" onclick="queryUser();">;
-          </form>
+          <!--/form-->
         </td>
        </tr>
      </tbody>
@@ -1021,7 +1027,7 @@ explain  -->
           <td width="16%">操作</td>
         </tr>
         {%for user in users%}
-        <tr id="usertr_{{user.id}}" align="center" bgcolor="#FAFAF1" height="22">
+        <tr class="usertr" id="usertr_{{user.id}}" align="center" bgcolor="#FAFAF1" height="22">
           <td width="10%">{{user.openid}}</td>
           <td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrname_{{user.id}}" value="{{user.name}}" /></td>
           <td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrphone_{{user.id}}" value="{{user.telphone}}" /></td>
