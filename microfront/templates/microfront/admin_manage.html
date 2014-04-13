@@ -46,28 +46,41 @@
     </script>
 
     <script language='javascript'>
-	    function saveProvince() {
-			var myaddr = "广东省深圳市" + $("#area").val()
-		    $.post("../addr/", {"city":382, "area": myaddr}, function(data){alert("保存成功");});
-			// alert("Value: " + myaddr)
-			$("#addr-header").after('<tr align="center" bgcolor="#FAFAF1" height="22"><td width=\"90%\">' + myaddr + '</td><td width=\"10%\">删除</td></tr>');
-		}
+        function saveProvince() {
+            var myaddr = "广东省深圳市" + $("#area").val()
+            $.post("../addr/", {"city":382, "area": myaddr}, function(data){alert("保存成功");});
+            // alert("Value: " + myaddr)
+            $("#addr-header").after('<tr align="center" bgcolor="#FAFAF1" height="22"><td width=\"90%\">' + myaddr + '</td><td width=\"10%\">删除</td></tr>');
+        }
 
-	    function saveDltime() {
-			var mytime = $("#dlbegin").val()
-			mytime += "------"
-			mytime += $("#dlend").val()
-		    $.post("../dltime/", {"begin_time":$("#dlbegin").val(), "end_time": $("#dlend").val()}, function(data){alert("保存成功");});
-			$("#dltime-header").after('<tr align="left" bgcolor="#FAFAF1" height="22"><td width=\"80%\">' + mytime + '</td><td width=\"20%\">编辑|删除</td></tr>');
-		}
+        function saveDltime() {
+            var mytime = $("#dlbegin").val()
+            mytime += "------"
+            mytime += $("#dlend").val()
+            $.post("../dltime/", {"begin_time":$("#dlbegin").val(), "end_time": $("#dlend").val()}, function(data){alert("保存成功");});
+            $("#dltime-header").after('<tr align="left" bgcolor="#FAFAF1" height="22"><td width=\"80%\">' + mytime + '</td><td width=\"20%\">编辑|删除</td></tr>');
+        }
 
         function orderUpd(id) {
-		    $.post("../orders/save/", {"order_id":id, "order_status":$("#orderstatus_"+id).val()}, function(data){alert("保存成功");});
-		}
+            $.post("../orders/save/", {"order_id":id, "order_status":$("#orderstatus_"+id).val()}, function(data){alert("保存成功");});
+        }
 
         function orderDel(id) {
-		    $.post("../orders/del/", {"order_id":id}, function(data){alert("删除成功");});
-			$("#ordertr_"+id).remove();
+            $.post("../orders/del/", {"order_id":id}, function(data){alert("删除成功");});
+            $("#ordertr_"+id).remove();
+        }
+
+        function userUpd(id) {
+            $.post("../users/save/", {"id":id, "name":$("#usrname_"+id).val(), "phone":$("#usrphone_"+id).val(), "money":$("#usrmny_"+id).val()}, function(data){alert("保存成功");});
+        }
+
+        function userDel(id) {
+            $.post("../users/del/", {"id":id}, function(data){alert("删除成功");});
+            $("#usertr_"+id).remove();
+        }
+
+		function queryUser() {
+		    alert("Query user;");
 		}
 
         var preFrameW = '206,*';
@@ -123,6 +136,7 @@
             $('#cataupd').hide();
             $('#dladdrupd').hide();
             $('#dltimeupd').hide();
+            $('#usershow').hide();
         }
 
         function foodShow()
@@ -134,6 +148,7 @@
             $('#cataupd').hide();
             $('#dladdrupd').hide();
             $('#dltimeupd').hide();
+            $('#usershow').hide();
         }
 
         function foodUpd()
@@ -146,6 +161,7 @@
             $('#cataupd').hide();
             $('#dladdrupd').hide();
             $('#dltimeupd').hide();
+            $('#usershow').hide();
         }
 
         function cataShow()
@@ -157,6 +173,7 @@
             $('#cataupd').hide();
             $('#dladdrupd').hide();
             $('#dltimeupd').hide();
+            $('#usershow').hide();
         }
 
         function cataUpd()
@@ -168,6 +185,7 @@
             $('#catalist').hide();
             $('#dladdrupd').hide();
             $('#dltimeupd').hide();
+            $('#usershow').hide();
         }
 
         function dladdrUpd()
@@ -179,11 +197,25 @@
             $('#catalist').hide();
             $('#cataupd').hide();
             $('#dltimeupd').hide();
+            $('#usershow').hide();
         }
 
         function dltimeUpd()
         {
             $('#dltimeupd').show();
+            $('#dladdrupd').hide();
+            $('#foodupd').hide();
+            $('#foodlist').hide();
+            $('#order').hide();
+            $('#catalist').hide();
+            $('#cataupd').hide();
+            $('#usershow').hide();
+        }
+
+        function userShow()
+        {
+            $('#usershow').show();
+            $('#dltimeupd').hide();
             $('#dladdrupd').hide();
             $('#foodupd').hide();
             $('#foodlist').hide();
@@ -382,6 +414,7 @@ $(function(){
     $('#cataupd').hide();
     $('#dladdrupd').hide();
     $('#dltimeupd').hide();
+    $('#usershow').hide();
 
     $('#update-food').hide();
     $('#food-list').show();
@@ -535,11 +568,11 @@ explain  -->
           <dt onClick='showHide("items5_1")'><b>管理面板</b></dt>
           <dd style='display:block' class='sitem' id='items5_1'>
           <ul class='sitemu'>
-		    <li>
+            <li>
               <div class='items'>
                 <div class='fllct' onClick='dladdrUpd()'><a href='javascript:void(0)' target='main'>配送地址管理</a></div>
               </div>
-			</li>
+            </li>
             <li><div class='items'><div class='fllct' onClick='dltimeUpd()'><a href='javascript:void(0)' target='_blank'>配送时间管理</a></div></div></li>            
             <li><a href='javascript:void(0)' target='_blank'>首页文字管理</a></li>            
             <li><a href='javascript:void(0)' target='_blank'>首页目录管理</a></li>            
@@ -919,26 +952,26 @@ explain  -->
     选择配送地址
     <select id="province" name="province">
         <option value="0">---选择省/直辖市---</option>
-		<option value="440000">广东省</option>
-	</select>
-	<!--select id="city" name="city"><option value="0">--请先选择省/直辖市--</option><option value="440100">广州市</option><option value="440200">韶关市</option><option value="440300">深圳市</option><option value="440400">珠海市</option><option value="440500">汕头市</option><option value="440600">佛山市</option><option value="440700">江门市</option><option value="440800">湛江市</option><option value="440900">茂名市</option><option value="441200">肇庆市</option><option value="441300">惠州市</option><option value="441400">梅州市</option><option value="441500">汕尾市</option><option value="441600">河源市</option><option value="441700">阳江市</option><option value="441800">清远市</option><option value="441900">东莞市</option><option value="442000">中山市</option><option value="445100">潮州市</option><option value="445200">揭阳市</option><option value="445300">云浮市</option></select-->
-	<select id="city" name="city"><option value="0">--请先选择省/直辖市--</option><option value="440100">深圳市</option></select>
+        <option value="440000">广东省</option>
+    </select>
+    <!--select id="city" name="city"><option value="0">--请先选择省/直辖市--</option><option value="440100">广州市</option><option value="440200">韶关市</option><option value="440300">深圳市</option><option value="440400">珠海市</option><option value="440500">汕头市</option><option value="440600">佛山市</option><option value="440700">江门市</option><option value="440800">湛江市</option><option value="440900">茂名市</option><option value="441200">肇庆市</option><option value="441300">惠州市</option><option value="441400">梅州市</option><option value="441500">汕尾市</option><option value="441600">河源市</option><option value="441700">阳江市</option><option value="441800">清远市</option><option value="441900">东莞市</option><option value="442000">中山市</option><option value="445100">潮州市</option><option value="445200">揭阳市</option><option value="445300">云浮市</option></select-->
+    <select id="city" name="city"><option value="0">--请先选择省/直辖市--</option><option value="440100">深圳市</option></select>
     <input type="text" class="span3" name="area" id="area" placeholder="请输入详细位置">
     <input type="button" style="margin-top:-8px;" class="btn btn-info" value="保存" onclick="saveProvince();">;
-	<br />
-	<br />
+    <br />
+    <br />
     <table id='add-addr' width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
         <tr id='addr-header' align="center" bgcolor="#FAFAF1" height="22">
           <td width="90%">地址</td>
           <td width="10%">操作</td>
         </tr>
-		{%for dladdr in dladdrs%}
+        {%for dladdr in dladdrs%}
         <tr align="center" bgcolor="#FAFAF1" height="22">
           <td width="90%">{{dladdr.area}}</td>
           <td width="10%">删除</td>
         </tr>
-		{%endfor%}
-	</table>
+        {%endfor%}
+    </table>
 </div>
 <!-- end: dladdrupd -->
 
@@ -947,22 +980,58 @@ explain  -->
     <input type="text" class="span3" name="begin_dltime" id="dlbegin" placeholder="请输入开始时间">
     <input type="text" class="span3" name="end_dltime" id="dlend" placeholder="请输入结束时间">
     <input type="button" style="margin-top:-8px;" class="btn btn-info" value="保存" onclick="saveDltime();">;
-	<br />
-	<br />
+    <br />
+    <br />
     <table id='add-dltime' width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
         <tr id='dltime-header' align="center" bgcolor="#FAFAF1" height="22">
           <td width="90%">配送时间</td>
           <td width="10%">操作</td>
         </tr>
-		{%for dltime in dltimes%}
+        {%for dltime in dltimes%}
         <tr align="left" bgcolor="#FAFAF1" height="22">
           <td width="90%">{{dltime.begin_time}}-----{{dltime.end_time}}</td>
           <td width="10%">编辑|删除</td>
         </tr>
-		{%endfor%}
-	</table>
+        {%endfor%}
+    </table>
 </div>
 <!-- end: dltimeupd -->
+
+<!-- start: userShow-->
+<div id="usershow"  style="width: 80%;float:left;margin-left: -2em;">
+  <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
+    <tbody>
+      <tr>
+        <td width="80%">
+          <form action="/microfront/users/query" method="post">
+            <input type="text" name="usersrch"  class="text-info" id="usersrch" placeholder="输入关键词搜索">
+            <input type="button" style="margin-top:-8px;" class="btn btn-info" value="查询" onclick="queryUser();">;
+          </form>
+        </td>
+       </tr>
+     </tbody>
+   </table>
+
+    <table id='usertb' width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
+        <tr id='users-header' align="center" bgcolor="#FAFAF1" height="22">
+          <td width="10%">会员卡号</td>
+          <td width="12%">姓名</td>
+          <td width="12%">电话</td>
+          <td width="8%">账户余额</td>
+          <td width="16%">操作</td>
+        </tr>
+        {%for user in users%}
+        <tr id="usertr_{{user.id}}" align="center" bgcolor="#FAFAF1" height="22">
+          <td width="10%">{{user.openid}}</td>
+          <td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrname_{{user.id}}" value="{{user.name}}" /></td>
+          <td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrphone_{{user.id}}" value="{{user.telphone}}" /></td>
+          <td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrmny_{{user.id}}" value="{{user.money}}" /></td>
+          <td width="16%"><a href="#" onclick="userUpd({{user.id}})">编辑</a>|<a href="#" onclick="userDel({{user.id}})">删除</a></td>
+        </tr>
+        {%endfor%}
+    </table>
+</div>
+<!-- end: userShow -->
 
 <frameset rows="60,*" cols="*" frameborder="no" border="0" framespacing="0">
   <frame src="top.html" name="topFrame" scrolling="no">

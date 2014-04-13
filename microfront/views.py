@@ -241,6 +241,76 @@ def register(request, open_id):
     print resp
     return HttpResponse(resp)
 
+#/microfront/users/save
+def user_save(request):
+    resp = {"code":0}
+    try:
+        post = request.POST
+        id = post['id']
+        if post.has_key('name'):
+            name = post['name']
+        else:
+            name = None
+            
+        if post.has_key('phone'):
+            phone = post['phone']
+        else:
+            phone = None
+
+        if post.has_key('money'):
+            money = post['money']
+        else:
+            money = None
+    except Exception as e:
+        print e
+
+    try:
+        cl = Customer.objects.get(id=id)
+    except Order.DoesNotExist:
+        cl = None
+        print id, " customer not exist."
+    
+    if cl:
+        if name:
+            cl.name = name
+        if phone:
+            cl.telphone = phone
+        if money:
+            mny = float(money)
+            cl.money = mny
+        cl.save()
+    else:
+        resp = "Customer %s not exist." %(id)
+
+    return HttpResponse(resp)
+
+#/microfront/users/del
+def user_del(request):
+    resp = {"code":0}
+    try:
+        id = request.POST['id']
+    except Exception as e:
+        print e
+
+    try:
+        cl = Customer.objects.get(id=id)
+    except Order.DoesNotExist:
+        cl = None
+        print id, " order not exist."
+    
+    if cl:
+        cl.delete()
+    else:
+        resp = "Customer %s not exist." %(id)
+
+    return HttpResponse(resp)
+
+
+
+
+
+
+
 #/microfront/addr
 def save_addr(request):    
     resp = {"code":0, "msg":{"id":1}}
@@ -403,8 +473,8 @@ def admin(request):
     orders = Order.objects.all()
     dladdrs = Dladdr.objects.all()
     dltimes = Dltime.objects.all()
-    return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list()})
-    #return HttpResponse(Template(text).render(Context({'admin_name':username, 'orders':get_order_list(), 'foods':get_food_list()})))
+    users = Customer.objects.all()
+    return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list()})
 
 def add_to_db(foodname, fullname, detail_fullname, foodprice, category, total, introduce):
     categoryid=1
