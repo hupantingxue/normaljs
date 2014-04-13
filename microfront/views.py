@@ -212,7 +212,7 @@ def order_export(request):
 #/microfront/home/register
 def register(request, open_id):
     resp='{"msg":u"注册信息为空"}'
-    print 'register: ', request
+    #print 'register: ', request
     if request.POST.has_key('username'):
         try:
             p = Customer.objects.get(openid=open_id)
@@ -223,14 +223,15 @@ def register(request, open_id):
 
         try:
             phone = request.POST['username']
-            name = '%s' % request.POST['name']
+            name = request.POST['name']
+            print "phone[%s] name[%s]" %(phone, name)
             rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
             if p:
-                p.name = str(name)
+                p.name = name
                 p.telphone = phone
                 p.save()
             else:
-                cl = Customer(openid=open_id, name=str(name), telphone=phone, reg_date=str(rtime), modify_date=str(rtime))
+                cl = Customer(openid=open_id, name=name, telphone=phone, reg_date=str(rtime), modify_date=str(rtime))
                 cl.save()
             #resp = u'''{"customer":"id":"6662","open_id":"%s","account":"8449640","city":"","area":"","money":0},"code":0,"msg":"注册成功，并且已经登陆"}''' %(open_id)
             resp = u'''{"customer":{"id":"5352","open_id":"%s","account":"7709535","city":"","area":"","money":0},"code":0,"msg":"注册成功，并且已经登陆"}''' % (open_id)
