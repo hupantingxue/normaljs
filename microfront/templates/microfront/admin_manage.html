@@ -146,6 +146,7 @@
             $('#dladdrupd').hide();
             $('#dltimeupd').hide();
             $('#usershow').hide();
+            $('#configshow').hide();
         }
 
         function foodShow()
@@ -158,6 +159,7 @@
             $('#dladdrupd').hide();
             $('#dltimeupd').hide();
             $('#usershow').hide();
+            $('#configshow').hide();
         }
 
         function foodUpd()
@@ -171,6 +173,7 @@
             $('#dladdrupd').hide();
             $('#dltimeupd').hide();
             $('#usershow').hide();
+            $('#configshow').hide();
         }
 
         function cataShow()
@@ -183,6 +186,7 @@
             $('#dladdrupd').hide();
             $('#dltimeupd').hide();
             $('#usershow').hide();
+            $('#configshow').hide();
         }
 
         function cataUpd()
@@ -195,6 +199,7 @@
             $('#dladdrupd').hide();
             $('#dltimeupd').hide();
             $('#usershow').hide();
+            $('#configshow').hide();
         }
 
         function dladdrUpd()
@@ -207,6 +212,7 @@
             $('#cataupd').hide();
             $('#dltimeupd').hide();
             $('#usershow').hide();
+            $('#configshow').hide();
         }
 
         function dltimeUpd()
@@ -219,6 +225,7 @@
             $('#catalist').hide();
             $('#cataupd').hide();
             $('#usershow').hide();
+            $('#configshow').hide();
         }
 
         function userShow()
@@ -231,8 +238,21 @@
             $('#order').hide();
             $('#catalist').hide();
             $('#cataupd').hide();
+            $('#configshow').hide();
         }
 
+        function configShow()
+        {
+            $('#configshow').show();
+            $('#usershow').hide();
+            $('#dltimeupd').hide();
+            $('#dladdrupd').hide();
+            $('#foodupd').hide();
+            $('#foodlist').hide();
+            $('#order').hide();
+            $('#catalist').hide();
+            $('#cataupd').hide();
+        }
 
     </script>
     <script language='javascript'>var curopenItem = '1';</script>
@@ -424,6 +444,7 @@ $(function(){
     $('#dladdrupd').hide();
     $('#dltimeupd').hide();
     $('#usershow').hide();
+    $('#configshow').hide();
 
     $('#update-food').hide();
     $('#food-list').show();
@@ -589,7 +610,7 @@ explain  -->
             <li><a href='javascript:void(0)' target='_blank'>营业时间设置</a></li>            
             <li><a href='javascript:void(0)' target='_blank'>支付方式设置</a></li>            
             <li><a href='javascript:void(0)' target='_blank'>系统公告</a></li>            
-            <li><a href='javascript:void(0)' target='_blank'>其他设置</a></li>            
+            <li><div class='items'><div class='fllct' onClick='configShow();return false;'><a href='javascript:void(0)' target='_blank'>其他设置</a></div></div></li>            
           </ul>
         </dd>
       </dl>    
@@ -1041,6 +1062,35 @@ explain  -->
     </table>
 </div>
 <!-- end: userShow -->
+
+<!-- start: configShow -->
+<div id="configshow"  style="width: 80%;float:left;margin-left: -2em;">
+<div class="well">
+	    <form action="other-set.php" method="post" id="editForm"> 
+                <label>下单通知手机号码</label>
+		<input type="text" maxlength="12" class="span4" id="dx_mobile" name="dx_mobile" placeholder="用户在前端下单后，会把下单的消息发送到该手机，务必填写正确" value="15889613776">
+                <input type="radio" name="dx_status" value="1">启用
+                <input type="radio" name="dx_status" value="2" checked="">禁用
+		<label>客服电话</label>
+		<input type="text" maxlength="13" class="span7" id="kf_phone" name="kf_phone" placeholder="客户电话,如0755-88889999" value="">
+		<label>提示内容</label>
+		<textarea class="span7" rows="6" id="tip_content" name="tip_content" placeholder="下完单后的温馨提示内容"></textarea>
+		<label>配送范围</label>
+		<textarea class="span7" rows="6" id="distribution_range" name="distribution_range" placeholder="配送范围,比如XXX大厦500以内"></textarea>
+                <label>设置运费</label>
+		<input type="text" maxlength="6" class="span7" id="freight" name="freight" placeholder="设置配送运费,必须是数字" value="0.00">
+                <label></label>
+		<input type="button" class="btn btn-info" value="保存" onclick="saveOtherSet();"> 
+                <p style="margin-top: 20px;">
+                      客服电话：便于用户下单后久未见商品送达的情况下拨打电话给您“催一催”；<br>
+                      提示内容：用户提交订单后，系统给他的提示信息；<br>
+                      配送范围：显示微信前端，便于用户识别您的服务区域；<br>
+                      下单通知手机号码:用户在前端下单后，会把下单的消息发送到该手机上。
+                </p>
+	    </form>
+	</div>
+</div>
+<!-- end: configShow -->
 
 <frameset rows="60,*" cols="*" frameborder="no" border="0" framespacing="0">
   <frame src="top.html" name="topFrame" scrolling="no">
