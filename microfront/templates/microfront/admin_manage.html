@@ -83,10 +83,11 @@
 			$(".usertr").remove()
             $.post("../users/query/", {"keyword":$("#usrsrch").val()}, function(data){
 			    var jo = eval('('+data+')');
-				alert("post data: "+typeof(jo));
+				// alert("post data: "+typeof(jo));
 				$.each(jo.user, function(key, value){
 				    alert(value.openid);
- 				    $("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="10%">'+value.openid+'</td><td width="12%"><input type="text" id="usrname_'+value.id+'" value="'+value.name+'" /></td>');  // after
+ 				    // $("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="10%">'+value.openid+'</td><td width="12%"><input type="text" id="usrname_'+value.id+'" value="'+value.name+'" /></td>');  // after
+					$("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="10%">'+value.openid+'</td><td width="12%"><input type="text" id="usrname_'+value.id+'" value="'+value.name+'" /></td><td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrphone_'+value.id+'" value="'+value.phone+'" /></td><td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrmny_'+value.id+'" value="'+value.money+'" /></td><td width="16%"><a href="#" onclick="userUpd('+value.id+')">编辑</a>|<a href="#" onclick="userDel('+value.id+')">删除</a></td></tr>');  // after
 				}); // $.each()
 			}); // $.post()
 		}
