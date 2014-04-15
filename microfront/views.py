@@ -79,11 +79,26 @@ def order_add(request, order_id):
 
             price = 0.0
             amount = 0
+			count=[0]*10
+			goods=[0]*10
+
+			Goods={"id":27, "price":14.0}
+
             for key in post:
                 if 'count' in key:
-                    amount = amount + int(post[key])
+				    idx = int(key[5])
+					count[idx] = int(str[key])
+				if 'goods' in key:
+				    idx = int(key[5])
+					goods[idx] = int(str[key])
                 print key, post[key]
+			#count amount
+			amount = sum(count)
+
+			#count price
+			price = 0
             price = amount * 20
+
             ol = Order(openid=openid, name=name, remark=remark, pay_type=pay_type, phone=phone, address=address, delivery_time=delivery_time, order_time=rtime, price=price, amount=amount)
             ol.save()
             resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":%d,"status":1,"pay_mode":"%s"}}''' %(amount, pay_type)

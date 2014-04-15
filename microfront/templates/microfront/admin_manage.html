@@ -62,6 +62,7 @@
         }
 
         function orderUpd(id) {
+		    //$("orderedit_"+id).text()="保存";
             $.post("../orders/save/", {"order_id":id, "order_status":$("#orderstatus_"+id).val()}, function(data){alert("保存成功");});
         }
 
@@ -760,7 +761,7 @@ explain  -->
     <td width="6%" class="paytype">{{order.pay_type}}</td>
     <td width="6%">无法显示</td>
     <td width="6%" class="dlstatus"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderstatus_{{order.id}}" value="{{order.order_status}}" /></td>
-    <td width="5%"><a href="#" onclick="orderUpd({{order.id}})">保存</a>|<a href="#" onclick="orderDel({{order.id}})">删除</a></td>
+    <td width="5%"><a href="#" id="orderedit_{{order.id}}" onclick="orderUpd({{order.id}})">编辑</a>|<a href="#" onclick="orderDel({{order.id}})">删除</a></td>
     </tr>
 {%endfor%}
 <script>
