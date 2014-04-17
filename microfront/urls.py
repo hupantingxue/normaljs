@@ -4,6 +4,7 @@ from microfront import views
 
 urlpatterns = patterns('',
     url(r'^home/register/(?P<open_id>\w+)$', views.register, name='register'),
+    url(r'^home/login/(?P<open_id>\w+)$', views.login, name='login'),
     url(r'^orders/add/(?P<order_id>\d+)$', views.order_add, name='order'),
     url(r'^orders/export$', views.order_export, name='order_export'),
     url(r'^orders/date$', views.order_querydate, name='order_querydate'),

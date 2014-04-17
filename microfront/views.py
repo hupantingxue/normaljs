@@ -313,6 +313,12 @@ def register(request, open_id):
     print resp
     return HttpResponse(resp)
 
+#/microfront/home/login
+def login(request, open_id):
+    resp = u'''{"code":0, "msg":"登录成功"}'''
+    print resp
+    return HttpResponse(resp)
+
 #/microfront/users/save
 def user_save(request):
     resp = {"code":0}
