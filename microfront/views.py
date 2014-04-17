@@ -91,7 +91,7 @@ def order_add(request, order_id):
             for key in post:
                 if 'count' in key:
                     idx = int(key[5])
-                    print 'count idx: ', idx 
+                    print 'count idx: ', idx
                     count[idx] = int(post[key])
                     #print key, int(key[5])
                 if 'goods' in key:
@@ -150,7 +150,7 @@ def order_querydate(request):
     else:
         print '[===NOT EXIST CDATE!!!===]'
         turnover = total_turnover
-    catalogs = Catalog.objects.all()    
+    catalogs = Catalog.objects.all()
     return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':total_turnover})
 
 #/microfront/orders/shop
@@ -173,7 +173,7 @@ def order_save(request):
     except Order.DoesNotExist:
         ol = None
         print id, " order not exist."
-    
+
     if ol:
         ol.order_status = status
         ol.save()
@@ -195,7 +195,7 @@ def order_del(request):
     except Order.DoesNotExist:
         ol = None
         print id, " order not exist."
-    
+
     if ol:
         ol.delete()
     else:
@@ -208,7 +208,7 @@ def get_paytype(type):
     if 1 == type:
         stype=u'支付宝方式'
     return stype
-        
+
 def get_dltime(dl):
     dltime = '11:00:00-14:30:00';
     if 65 == dl:
@@ -317,7 +317,7 @@ def user_save(request):
             name = post['name']
         else:
             name = None
-            
+
         if post.has_key('phone'):
             phone = post['phone']
         else:
@@ -335,7 +335,7 @@ def user_save(request):
     except Order.DoesNotExist:
         cl = None
         print id, " customer not exist."
-    
+
     if cl:
         if name:
             cl.name = name
@@ -363,7 +363,7 @@ def user_del(request):
     except Customer.DoesNotExist:
         cl = None
         print id, " order not exist."
-    
+
     if cl:
         cl.delete()
     else:
@@ -385,7 +385,7 @@ def user_query(request):
         print keyword, " has no such users."
     except Exception as e:
         print e
-    
+
     cnt = cls.count()
     resp = '''{"cnt":%d}''' % cnt
     str = ""
@@ -401,7 +401,7 @@ def user_query(request):
     return HttpResponse(resp)
 
 #/microfront/addr
-def save_addr(request):    
+def save_addr(request):
     resp = {"code":0, "msg":{"id":1}}
     try:
         city = request.POST['city']
@@ -413,7 +413,7 @@ def save_addr(request):
     return HttpResponse(resp)
 
 #/microfront/dltime
-def save_dltime(request):    
+def save_dltime(request):
     resp = {"code":0, "msg":{"id":1}}
     try:
         begin_time = request.POST['begin_time']
@@ -515,7 +515,7 @@ def admin(request):
         return HttpResponseRedirect('/microfront/admin/')
 
     if request.FILES.has_key('pic'):
-        print "menu_add === ", request
+        #print "menu_add === ", request
         pic=request.FILES['pic']
         extension=get_extension(pic)
         if extension:
@@ -539,7 +539,7 @@ def admin(request):
             #    error='数据提交发生错误<br/><a href="/admin/'+username+'">返回</a>'
             #    return HttpResponse(error)
             introduce=request.POST['introduce']
-            print foodname,foodprice,category,introduce
+            #print foodname,foodprice,category,introduce
 
             # catalog_id need to check
             menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname, detail_url=detail_fullname, old_price=foodprice, price=sprice, catalog_id=1, total=total, introduce=introduce)
@@ -564,7 +564,7 @@ def admin(request):
     dltimes = Dltime.objects.all()
     users = Customer.objects.all()
     turnover = Order.objects.aggregate(Sum('price'))
-    
+
     print "turnover", turnover
     return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover})
 
