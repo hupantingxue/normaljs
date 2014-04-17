@@ -165,13 +165,21 @@
 
         function foodUpd(id)
         {
-            if (typeof(id) != 'undefined'){
+            if (typeof(id) != 'undefined' && id != '0'){
                 // $("#updfoodname").val() = $("#foodname_"+id).val();
                 $("#updfoodname").val($("#foodname_"+id).text());
                 $("#updfoodamount").val($("#foodtotal_"+id).text());
                 $("#updfoodoprice").val($("#foodoprice_"+id).text());
                 $("#updfoodprice").val($("#foodprice_"+id).text());
                 $("#updfoodstatus").val("off");
+            } 
+            if (id == '0'){
+                alert(id)
+                $("#updfoodname").val("");
+                $("#updfoodamount").val("");
+                $("#updfoodoprice").val("");
+                $("#updfoodprice").val("");
+                $("#updfoodstatus").val("on");
             }
             $('#foodupd').show();
             $('#foodlist').hide();
@@ -549,7 +557,7 @@ explain  -->
             </li>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='foodUpd()'><a href='javascript:void(0)' target='main'>添加商品</a></div>
+                <div class='fllct' onClick='foodUpd(0)'><a href='javascript:void(0)' target='main'>添加商品</a></div>
               </div>
             </li>
             <li>
