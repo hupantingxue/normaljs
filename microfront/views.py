@@ -51,11 +51,13 @@ def index(request):
 
     try:
         cl = Customer.objects.get(openid=code)
+        status = "CUSTOMER"
     except Exception as e:
         cl = None
+        status = "NEW_USER"
         print e
 
-    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl})
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status})
 
 #/microfront/orders/add
 def order_add(request, order_id):
