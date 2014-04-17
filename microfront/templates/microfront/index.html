@@ -312,12 +312,12 @@
                         <tr>
                             <td class="td_left">姓名：</td>
                             <td class="td_right">
-                                <input type="text" name="username" id="username" placeholder="务必使用真实姓名" value="" required>
+                                <input type="text" name="username" id="username" placeholder="务必使用真实姓名" value="{{cusr.name}}" required>
                             </td>
                         </tr>
                         <tr>
                             <td class="td_left">手机：</td>
-                            <td class="td_right"><input type="text" name="tel" id="tel" placeholder="" value="" required></td>
+                            <td class="td_right"><input type="text" name="tel" id="tel" placeholder="" value="{{cusr.telphone}}" required></td>
                         </tr>
 
                         <tr>
@@ -554,7 +554,8 @@
 
 	<script>
             var current_user = "{{ cur_usr }}";
-            var user_status  = "NEW_USER";
+            // var user_status  = "NEW_USER";
+            var user_status  = "CUSTOMER";
             var baseUrl = '/microfront/';
             var cust = {"Customer":{"open_id":"oyQi999IclGY9yfAAlzG4nUlDH3A","org_id":"1","city":"","area":"","money":"0.00"}};
             var organization = {"Organization":{"id":"1","name":"\u9752\u9752\u83dc\u56ed","kf_phone":"075533100289","tip_content":"\u60a8\u7684\u8ba2\u5355\u6211\u4eec\u5c06\u5728\u9884\u5b9a\u7684\u914d\u9001\u65f6\u95f4\u6bb5\u9001\u8fbe\u3002","distribution_range":"tcl\u5927\u53a6\u9644\u8fd11000\u7c73\r\n\u817e\u8baf\u5927\u53a6\u9644\u8fd11000\u7c73","freight":"0.00"}};

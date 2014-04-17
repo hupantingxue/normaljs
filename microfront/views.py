@@ -48,7 +48,14 @@ def index(request):
     context = Context({
         'cur_usr': code,
     })
-    return render_to_response('microfront/index.html', {'cur_usr':code})
+
+    try:
+        cl = Customer.objects.get(openid=code)
+    except Exception as e:
+        cl = None
+        print e
+
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl})
 
 #/microfront/orders/add
 def order_add(request, order_id):
