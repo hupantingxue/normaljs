@@ -127,6 +127,16 @@ def order_add(request, order_id):
             print shoplist
             ol = Order(openid=openid, name=name, remark=remark, pay_type=pay_type, phone=phone, address=address, delivery_time=delivery_time, order_time=rtime, price=price, shoplist=shoplist, amount=amount)
             ol.save()
+
+            try:
+                cl = Customer.objects.get(openid=openid)
+            except Exception as e:
+                cl = None
+
+            if not cl:
+                cl.amount = cl.amount + 1
+                cl.save()
+
             resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":%d,"status":1,"pay_mode":"%s"}}''' %(amount, pay_type)
         except Exception as e:
             resp = e
