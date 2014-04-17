@@ -1,3 +1,4 @@
 *.pyc
 micromall/files/upfiles/
 run.sh
+run.log
