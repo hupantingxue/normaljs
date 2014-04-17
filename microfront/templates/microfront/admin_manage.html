@@ -1091,32 +1091,32 @@ explain  -->
    </table>
 
     <table id='usertb' width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
-        <tr id='users-header' align="center" bgcolor="#FAFAF1" height="22">
-          <td width="6%">姓名</td>
-          <td width="15%">会员卡号</td>
-          <td width="2%">性别</td>
-          <td width="6%">手机/电话</td>
-          <td width="6%">所在城市</td>
-          <td width="6%">所在区域</td>
-          <td width="17%">详细地址</td>
+        <tr id='users-header' align="center" bgcolor="#FAFAF1" height="12">
+          <td width="12%">姓名</td>
+          <td width="12%">会员卡号</td>
+          <td width="5%">性别</td>
+          <td width="9%">手机/电话</td>
+          <td width="8%">所在城市</td>
+          <td width="9%">所在区域</td>
+          <td width="8%">详细地址</td>
           <td width="8%">注册时间</td>
-          <td width="9%">下单次数</td>
-          <td width="9%">总消费金额</td>
-          <td width="17%">操作</td>
+          <td width="8%">下单次数</td>
+          <td width="8%">总消费金额</td>
+          <td width="15%">操作</td>
         </tr>
         {%for user in users%}
-        <tr class="usertr" id="usertr_{{user.id}}" align="center" bgcolor="#FAFAF1" height="22">
-          <td width="6%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrname_{{user.id}}" value="{{user.name}}" /></td>
-          <td width="15%">{{user.openid}}</td>
-          <td width="2%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrsex_{{user.id}}" value="{{user.sex}}" /></td>
-          <td width="6%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrphone_{{user.id}}" value="{{user.telphone}}" /></td>
-          <td width="6%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrcity_{{user.id}}" value="{{user.city}}" /></td>
-          <td width="6%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrarea_{{user.id}}" value="{{user.area}}" /></td>
-          <td width="17%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usraddr_{{user.id}}" value="{{user.addr}}" /></td>
-          <td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrdate_{{user.id}}" value="{{user.reg_date}}" /></td>
-          <td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usraccount_{{user.id}}" value="{{user.account}}" /></td>
-          <td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrmny_{{user.id}}" value="{{user.money}}" /></td>
-          <td width="17%"><a href="#" onclick="userUpd({{user.id}})">保存</a>|<a href="#" onclick="userDel({{user.id}})">删除</a></td>
+        <tr class="usertr" id="usertr_{{user.id}}" align="center" bgcolor="#FAFAF1" height="12">
+          <td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:50px;" id="usrname_{{user.id}}" value="{{user.name}}" /></td>
+          <td width="12%">{{user.openid}}</td>
+          <td width="5%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usrsex_{{user.id}}" value="{{user.sex}}" /></td>
+          <td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:90px;" id="usrphone_{{user.id}}" value="{{user.telphone}}" /></td>
+          <td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usrcity_{{user.id}}" value="深圳" /></td>
+          <td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usrarea_{{user.id}}" value="南山" /></td>
+          <td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usraddr_{{user.id}}" value="{{user.addr}}" /></td>
+          <td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrdate_{{user.id}}" value="{{user.reg_date|date:'Y-m-d H:i'}}" /></td>
+          <td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usraccount_{{user.id}}" value="{{user.account}}" /></td>
+          <td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usrmny_{{user.id}}" value="{{user.money}}" /></td>
+          <td width="15%"><a href="#" onclick="userUpd({{user.id}})">保存</a>|<a href="#" onclick="userDel({{user.id}})">删除</a></td>
         </tr>
         {%endfor%}
     </table>

@@ -48,7 +48,6 @@ def index(request):
     context = Context({
         'cur_usr': code,
     })
-    #return render_to_response('microfront/index.html', {'cur_usr':code}, context_instance=RequestContext(request))
     return render_to_response('microfront/index.html', {'cur_usr':code})
 
 #/microfront/orders/add
