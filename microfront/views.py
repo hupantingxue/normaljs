@@ -1,11 +1,13 @@
-#-*- coding:utf8 -*-
+#!/usr/bin/python
+#-*- coding:utf-8 -*-
+
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Template, Context, loader, RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
 from django.core.servers.basehttp import FileWrapper
-from django.db.models import Q
+from django.db.models import Q, Sum
 
 from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr
 
@@ -51,7 +53,7 @@ def index(request):
 
 #/microfront/orders/add
 def order_add(request, order_id):
-    #print 'orders: ', request
+    print 'orders: ', request
     if request.POST.has_key('open_id'):
         #exist user update info
         try:
@@ -79,27 +81,43 @@ def order_add(request, order_id):
 
             price = 0.0
             amount = 0
-			count=[0]*10
-			goods=[0]*10
+            count=[0]*10
+            goods=[0]*10
 
-			Goods={"id":27, "price":14.0}
+            good_price={"161":"14.0", "1033":"18.00","1034":"16.00","1036":"17.00","1305":"8.00","154":"20.00","153":"14.00","149":"14.00","155":"18.00","895":"20.00","1037":"13.00","1039":"19.00","1040":"18.00","1041":"16.00","1042":"28.00","910":"10.00","918":"11.00","146":"16.00","150":"13.00","200":"10.00","197":"7.00","164":"16.00","203":"14.00","194":"10.00","919":"7.00","152":"20.00","193":"7.00","162":"10.00","195":"6.00","196":"6.00","157":"14.00","159":"16.00","145":"8.00","147":"20.00","148":"14.00","151":"10.00","158":"8.00","160":"8.00","163":"16.00","165":"14.00","191":"12.00","192":"8.00","198":"14.00","201":"8.00","204":"8.00","1000":"8.00","999":"12.00","998":"10.00","997":"13.00","996":"32.00","995":"15.00","994":"10.00","993":"15.00","992":"10.00","991":"10.00","990":"8.00","981":"25.00","982":"30.00","983":"35.00","979":"35.00","984":"30.00","985":"15.00","973":"38.00","986":"15.00","977":"30.00","987":"23.00","978":"30.00","988":"23.00","989":"12.00","1001":"8.00","1002":"8.00","1003":"5.00","1004":"12.00","1006":"6.00","1007":"16.00","1008":"6.00","1009":"6.00","1010":"6.00","1011":"6.00","1012":"25.00","1013":"6.00","1014":"6.00","1015":"6.00","1016":"8.00","1017":"6.00","1018":"20.00","1019":"10.00","1021":"15.00","1022":"12.00","1023":"28.00","1024":"12.00","1025":"12.00","930":"7.00","928":"6.00","929":"6.00"}
+            good_name={"161":u"毛豆香干肉丝", "910":u"什锦炒豆芽", "918":u"西兰花彩蔬小炒","146":u"板栗烧鸡", "150":u"荷兰豆炒腊肠","200":u"五花肉手撕包菜", "197":u"蒜蓉西兰花", "164":u"农家小炒肉", "203":u"香菇鸡块","194":u"上汤娃娃菜", "919":u"素烧萝卜", "152":u"红烧排骨","193":u"清炒莴笋丝", "162":u"木耳炒山药","195":u"蒜蓉上海青", "196":u"耗油生菜", "157":u"尖椒炒鸡块", "159":u"可乐鸡翅", "145":u"地三鲜","147":u"葱爆肥牛", "148":u"宫保鸡丁", "151":u"荷塘小炒"}
+            print good_name
 
             for key in post:
                 if 'count' in key:
-				    idx = int(key[5])
-					count[idx] = int(str[key])
-				if 'goods' in key:
-				    idx = int(key[5])
-					goods[idx] = int(str[key])
-                print key, post[key]
-			#count amount
-			amount = sum(count)
+                    idx = int(key[5])
+                    print 'count idx: ', idx 
+                    count[idx] = int(post[key])
+                    #print key, int(key[5])
+                if 'goods' in key:
+                    idx = int(key[5])
+                    goods[idx] = post[key]
+                    print 'goods idx: ', idx
+                    #print key, type(key)
+                #print key, post[key]
+            print count, goods
 
-			#count price
-			price = 0
-            price = amount * 20
+            #count amount
+            amount = sum(count)
 
-            ol = Order(openid=openid, name=name, remark=remark, pay_type=pay_type, phone=phone, address=address, delivery_time=delivery_time, order_time=rtime, price=price, amount=amount)
+            #count price
+            price = 0
+            ii = 0
+            shoplist = ""
+            while ii < 10:
+                if 0 >= count[ii] or 0 >= goods[ii]:
+                    break
+                price = price + count[ii] * float(good_price.get(goods[ii], 14.0))
+                #print goods[ii], type(goods[ii]), good_name.get(goods[ii], u"好食"), type(good_name.get(goods[ii], u"好食").encode())
+                shoplist = shoplist + u"%s %d 份;\n" %(good_name.get(goods[ii], u"好食"), count[ii])
+                ii = ii + 1
+            print shoplist
+            ol = Order(openid=openid, name=name, remark=remark, pay_type=pay_type, phone=phone, address=address, delivery_time=delivery_time, order_time=rtime, price=price, shoplist=shoplist, amount=amount)
             ol.save()
             resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":%d,"status":1,"pay_mode":"%s"}}''' %(amount, pay_type)
         except Exception as e:
@@ -110,6 +128,7 @@ def order_add(request, order_id):
 #/microfront/orders/date
 def order_querydate(request):
     orders = Order.objects.all()
+    total_turnover = orders.aggregate(Sum('price'))
     if request.GET.has_key('cdate'):
         try:
             cdate = request.GET['cdate']
@@ -117,12 +136,22 @@ def order_querydate(request):
             orders = Order.objects.filter(order_time__range=(
                            datetime.datetime.combine(value, datetime.time.min),
                            datetime.datetime.combine(value, datetime.time.max)))
+            if None == orders:
+                turnover = {'price__sum':0}
+            else:
+                turnover = orders.aggregate(Sum('price'))
         except Exception as e:
-            print 'search fail...', e
+            str = time.strftime('%Y-%m-%d',time.localtime(time.time()))
+            value = datetime.datetime.strptime(str, '%Y-%m-%d')
+            orders = Order.objects.filter(order_time__range=(
+                           datetime.datetime.combine(value, datetime.time.min),
+                           datetime.datetime.combine(value, datetime.time.max)))
+            turnover = orders.aggregate(Sum('price'))
     else:
         print '[===NOT EXIST CDATE!!!===]'
+        turnover = total_turnover
     catalogs = Catalog.objects.all()    
-    return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'orders':orders, 'foods':get_food_list()})
+    return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':total_turnover})
 
 #/microfront/orders/shop
 def order_shoplist(request):
@@ -174,6 +203,20 @@ def order_del(request):
 
     return HttpResponse(resp)
 
+def get_paytype(type):
+    stype = u'货到付款'
+    if 1 == type:
+        stype=u'支付宝方式'
+    return stype
+        
+def get_dltime(dl):
+    dltime = '11:00:00-14:30:00';
+    if 65 == dl:
+        dltime = '15:30:00-18:00:00'
+    if 5 == dl:
+        dltime = '19:30:00-21:00:00'
+    return dltime
+
 
 #/microfront/orders/export
 def order_export(request):
@@ -181,13 +224,13 @@ def order_export(request):
 
     workbook = xlsxwriter.Workbook(filename)
     worksheet = workbook.add_worksheet()
-    worksheet.set_column('A:J', 20)
+    worksheet.set_column('A:M', 20)
     bold = workbook.add_format({'bold': True})
 
-    str = ['', u'订单号',  u'注册会员卡号', u'收货人/手机',  u'用户住址', u'总价', u'商品数量', u'下单时间', u'配送时间', u'支付方式', u'支付状态', u'配送状态']
-    ll = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    str = ['', u'订单号',  u'注册会员卡号', u'收货人/手机',  u'用户住址', u'总价', u'商品数量', u'下单时间', u'配送时间', u'备注信息', u'支付方式', u'所购产品', u'订单状态']
+    ll = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']
     ii = 1
-    while ii <= 10:
+    while ii <= 12:
         loc = "%s1" %(ll[ii])
         worksheet.write(loc, str[ii], bold)
         ii = ii + 1
@@ -201,7 +244,8 @@ def order_export(request):
         loc = "B%d" % line
         worksheet.write(loc, order.openid)
         loc = "C%d" % line
-        worksheet.write(loc, order.phone)
+        str=order.name+"/"+order.phone
+        worksheet.write(loc, str)
         loc = "D%d" % line
         worksheet.write(loc, order.address)
         loc = "E%d" % line
@@ -211,11 +255,17 @@ def order_export(request):
         loc = "G%d" % line
         worksheet.write(loc, order.order_time, format)
         loc = "H%d" % line
-        worksheet.write(loc, order.delivery_time)
+        str = get_dltime(int(order.delivery_time))
+        worksheet.write(loc, str)
         loc = "I%d" % line
-        worksheet.write(loc, order.pay_type)
+        worksheet.write(loc, order.remark)
         loc = "J%d" % line
-        worksheet.write(loc, order.pay_status)
+        str = get_paytype(int(order.pay_type))
+        worksheet.write(loc, str)
+        loc = "K%d" % line
+        worksheet.write(loc, order.shoplist)
+        loc = "L%d" % line
+        worksheet.write(loc, order.order_status)
         print "order: ", order.id, order.openid
         line = line + 1
     workbook.close()
@@ -386,9 +436,9 @@ def cedit(request, open_id):
         try:
             name = request.POST['Customer[name]']
             phone = request.POST['Customer[phone]']
-            city = str(request.POST['Customer[city]'])
-            area = str(request.POST['Customer[area]'])
-            address = str(request.POST['Customer[address]'])
+            city = request.POST['Customer[city]']
+            area = request.POST['Customer[area]']
+            address = request.POST['Customer[address]']
             remark = request.POST['Customer[remark]']
             rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
             print "rtime: ", rtime
@@ -513,7 +563,10 @@ def admin(request):
     dladdrs = Dladdr.objects.all()
     dltimes = Dltime.objects.all()
     users = Customer.objects.all()
-    return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list()})
+    turnover = Order.objects.aggregate(Sum('price'))
+    
+    print "turnover", turnover
+    return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover})
 
 def add_to_db(foodname, fullname, detail_fullname, foodprice, category, total, introduce):
     categoryid=1

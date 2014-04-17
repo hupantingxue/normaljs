@@ -163,10 +163,17 @@
             $('#configshow').hide();
         }
 
-        function foodUpd()
+        function foodUpd(id)
         {
+            if (typeof(id) != 'undefined'){
+                // $("#updfoodname").val() = $("#foodname_"+id).val();
+                $("#updfoodname").val($("#foodname_"+id).text());
+                $("#updfoodamount").val($("#foodtotal_"+id).text());
+                $("#updfoodoprice").val($("#foodoprice_"+id).text());
+                $("#updfoodprice").val($("#foodprice_"+id).text());
+                $("#updfoodstatus").val("off");
+            }
             $('#foodupd').show();
-            $('#foodid').show();
             $('#foodlist').hide();
             $('#order').hide();
             $('#catalist').hide();
@@ -713,11 +720,11 @@ explain  -->
   <tr>
     <td width="80%">
       <form action="/microfront/orders/date" method="get" id="searchForm">
-        <input type="text" name="cdate" class="text-info" placeholder="输入选择日期" value="2014-04-07" onfocus="WdatePicker(_start)">
+        <input type="text" name="cdate" class="text-info" placeholder="输入选择日期(格式:年-月-日)"" onfocus="WdatePicker(_start)">
         <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="查询">
         <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="采购清单">
         <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="商品清单">
-        <h4>当前查询日营业额：<font color="red">0</font>(元),总营业额:<font color="red">0</font>(元)</h4>
+        <h4>当前查询日营业额：<font color="red">{{turnover.price__sum}}</font>(元),总营业额:<font color="red">{{total_turnover.price__sum}}</font>(元)</h4>
       </form>
     </td>
     <td width="20%" align="right">
@@ -732,34 +739,34 @@ explain  -->
 <form name="form2">
 <table width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
 <tr align="center" bgcolor="#FAFAF1" height="22">
-    <td width="8%">订单号</td>
+    <td width="1%">订单号</td>
     <td width="8%">注册会员卡号</td>
     <td width="10%">收货人/手机</td>
     <td width="13%">用户住址</td>
     <td width="4%">总价</td>
-    <td width="6%">商品数量</td>
+    <td width="2%">商品数量</td>
     <td width="8%">下单时间</td>
     <td width="10%">配送时间</td>
     <td width="5%">备注信息</td>
     <td width="6%">支付方式</td>
-    <td width="6%">所购产品</td>
+    <td width="17%">所购产品</td>
     <td width="6%">订单状态</td>
     <td width="5%">操作</td>
 </tr>
 <!-- order item list -->
 {%for order in orders%}
     <tr id="ordertr_{{order.id}}" align="center" bgcolor="#FAFAF1" height="22">
-    <td width="8%">{{order.id}}</td>
+    <td width="1%">{{order.id}}</td>
     <td width="8%">{{order.openid}}</td>
     <td width="10%">{{order.name}}/{{order.phone}}</td>
     <td width="13%">{{order.address}}</td>
     <td width="4%">{{order.price}}</td>
-    <td width="6%">{{order.amount}}</td>
-    <td width="8%">{{order.order_time}}</td>
+    <td width="2%">{{order.amount}}</td>
+    <td width="6%">{{order.order_time|date:'Y-m-d H:i'}}</td>
     <td width="10%" class="deliverytime">{{order.delivery_time}}</td>
     <td width="5%">{{order.remark}}</td>
     <td width="6%" class="paytype">{{order.pay_type}}</td>
-    <td width="6%">无法显示</td>
+    <td width="19%">{{order.shoplist}}</td>
     <td width="6%" class="dlstatus"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderstatus_{{order.id}}" value="{{order.order_status}}" /></td>
     <td width="5%"><a href="#" id="orderedit_{{order.id}}" onclick="orderUpd({{order.id}})">编辑</a>|<a href="#" onclick="orderDel({{order.id}})">删除</a></td>
     </tr>
@@ -846,18 +853,50 @@ explain  -->
         <tr align="center" bgcolor="#FAFAF1" height="22">
            <td>{{food.id}}</td>
            <td><img style="width:20px; height:20px;" src='/{{food.cover_url}}'></td>
-           <td>{{food.name}}</td>
-           <td>{{food.catalog_id}}</td>
-           <td>{{food.old_price}}</td>
-           <td>{{food.price}}</td>
-           <td>{{food.total}}</td>
+           <td id="foodname_{{food.id}}">{{food.name}}</td>
+           <td id="foodcata_{{food.id}}">{{food.catalog_id}}</td>
+           <td id="foodoprice_{{food.id}}">{{food.old_price}}</td>
+           <td id="foodprice_{{food.id}}">{{food.price}}</td>
+           <td id="foodtotal_{{food.id}}">{{food.total}}</td>
            <td>{{food.sales}}</td>
-           <td>{{food.status}}</td>
-           <td>{{food.genre}}</td>
-           <td>{{food.level}}</td>
+           <td id="foodstatus_{{food.id}}" class="foodstatus">{{food.status}}</td>
+           <td id="foodgenre_{{food.id}}" class="foodgenre">{{food.genre}}</td>
+           <td class="foodlevel">{{food.level}}</td>
            <td><a href="#" onclick='foodUpd({{food.id}})'>编辑</a>|<a href="#" onclick='foodDel()'>删除</a></td>
         </tr>
         {%endfor%}
+        <script>
+            $(function(){
+                var categories = $('.foodstatus')
+                var len = categories.length
+                for(var i = 0; i < len; i++){
+                    var category=categories[i];
+                    if(category.innerHTML=='1'){
+                        category.innerHTML='下架'
+                    }
+                    if(category.innerHTML=='0'){
+                        category.innerHTML='上架'
+                    }
+                }
+            })
+
+            $(function(){
+                var categories = $('.foodgenre')
+                var len = categories.length
+                for(var i = 0; i < len; i++){
+                    var category=categories[i];
+                    if(category.innerHTML=='0'){
+                        category.innerHTML='普通'
+                    }
+                    if(category.innerHTML=='1'){
+                        category.innerHTML='特价'
+                    }
+                    if(category.innerHTML=='2'){
+                        category.innerHTML='推荐'
+                    }
+                }
+            })
+        </script>
   </table>
 </div>
 <!-- end: foodlist -->
@@ -879,24 +918,24 @@ explain  -->
         </tr>
         <tr>
             <td>商品名称</td>
-            <td><input name='foodname' type='text'/></td>
+            <td><input id='updfoodname' name='foodname' type='text' /></td>
         </tr>
         <tr>
             <td>商品数量</td>
-            <td><input name='amount' type='text'/></td>
+            <td><input id="updfoodamount" name='amount' type='text'/></td>
         </tr>
         <tr>
             <td>商品原价</td>
-            <td><input type='text' name='origprice'/></td>
+            <td><input id="updfoodoprice" type='text' name='origprice'/></td>
         </tr>
         <tr>
             <td>商品特价</td>
-            <td><input type='text' name='sprice'/></td>
+            <td><input id="updfoodprice" type='text' name='sprice'/></td>
         </tr>
         <tr>
             <td>是否上架</td>
             <td>
-                <select name='onshelf'>
+                <select id="updfoodstatus" name='onshelf'>
                 <option value='on'>是</option>
                 <option value='off'>否</option>
             </td>
