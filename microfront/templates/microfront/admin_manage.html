@@ -210,8 +210,18 @@
             $('#configshow').hide();
         }
 
-        function cataUpd()
+        function cataUpd(id)
         {
+            if (typeof(id) != 'undefined' && id != '0'){
+                $('#updcataname').val($("#cataname_"+id).val())
+                $('#updcatasort').val($("#catasort_"+id).val())
+                $('#updcatastatus').val($("#catasts_"+id).val())
+            }
+            if (id == '0') {
+                $('#updcataname').val("")
+                $('#updcatasort').val("")
+                $('#updcatastatus').val("")
+            }
             $('#cataupd').show();
             $('#foodupd').hide();
             $('#foodlist').hide();
@@ -572,7 +582,7 @@ explain  -->
             </li>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='cataUpd()'><a href='javascript:void(0)' target='main'>添加分类</a></div>
+                <div class='fllct' onClick='cataUpd(0)'><a href='javascript:void(0)' target='main'>添加分类</a></div>
               </div>
             </li>
 
@@ -991,10 +1001,10 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         </tr>
         {%for catalog in catalogs%}
         <tr align="center" bgcolor="#FAFAF1" height="22" id="catatr_{{catalog.id}}">
-           <td>{{catalog.name}}</td>
-           <td><input onkeyup="#" value="{{catalog.sort}}"></td>
-           <td>
-           <input type="checkbox" value="{{catalog.status}}" checked>
+            <td><input id="cataname_{{catalog.id}}" value="{{catalog.name}}" /></td>
+            <td><input id="catasort_{{catalog.id}}" value="{{catalog.sort}}" /></td>
+            <td>
+               <input id="catasts_{{catalog.id}}"  type="checkbox" value="{{catalog.status}}" checked>
            <!--script type="text/javascript">
            if (1=={{catalog.status}})
               <input type="checkbox" value="1" checked>
@@ -1015,15 +1025,15 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         <table id='add-catalog'>
         <tr align="center" bgcolor="#FAFAF1" height="22">
             <td>名称</td>
-            <td><input name='cataname' type='text'/></td>
+            <td><input id='updcataname' name='cataname' type='text'/></td>
         </tr>
         <tr align="center" bgcolor="#FAFAF1">
             <td>排序</td>
-            <td><input type='text' name='cata_sort' size="1"/></td>
+            <td><input type='text' id='updcatasort' name='cata_sort' size="1"/></td>
         </tr>
         <tr align="left" bgcolor="#FAFAF1">
             <td>是否启用</td>
-            <td><input type='checkbox' name='cata_status'/></td>
+            <td><input type='checkbox' id='updcatastatus' name='cata_status'/></td>
         </tr>
         </table>
         <input type='submit' value='提交'/>
