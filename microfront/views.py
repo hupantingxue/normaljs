@@ -231,6 +231,27 @@ def order_del(request):
 
     return HttpResponse(resp)
 
+# /microfront/catalog/del
+def cata_del(request):
+    resp = {"code":0}
+    try:
+        id = request.POST['catalog_id']
+    except Exception as e:
+        print e
+
+    try:
+        cl = Catalog.objects.get(id=id)
+    except Catalog.DoesNotExist:
+        cl = None
+        print id, " catalog not exist."
+
+    if cl:
+        cl.delete()
+    else:
+        resp = "Catalog %s not exist." %(id)
+
+    return HttpResponse(resp)
+
 def get_paytype(type):
     stype = u'货到付款'
     if 1 == type:

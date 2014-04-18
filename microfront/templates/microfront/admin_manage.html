@@ -71,6 +71,11 @@
             $("#ordertr_"+id).remove();
         }
 
+        function cataDel(id) {
+            $.post("../catalog/del/", {"catalog_id":id}, function(data){alert("删除成功");});
+            $("#catatr_"+id).remove();
+        }
+
         function userUpd(id) {
             $.post("../users/save/", {"id":id, "name":$("#usrname_"+id).val(), "phone":$("#usrphone_"+id).val(), "money":$("#usrmny_"+id).val()}, function(data){alert("保存成功");});
         }
@@ -985,7 +990,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
           <td width="10%">操作</td>
         </tr>
         {%for catalog in catalogs%}
-        <tr align="center" bgcolor="#FAFAF1" height="22">
+        <tr align="center" bgcolor="#FAFAF1" height="22" id="catatr_{{catalog.id}}">
            <td>{{catalog.name}}</td>
            <td><input onkeyup="#" value="{{catalog.sort}}"></td>
            <td>
@@ -997,7 +1002,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
               <input type="checkbox" value="0" unchecked>
            </script-->
            </td>
-           <td><a href="#" onclick='cataUpd()'>编辑</a>|<a href="#">删除</a></td>
+           <td><a href="#" onclick='cataUpd({{catalog.id}})'>编辑</a>|<a href="#" onclick='cataDel({{catalog.id}})'>删除</a></td>
         </tr>
         {%endfor%}
   </table>
