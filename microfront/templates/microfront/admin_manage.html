@@ -85,6 +85,10 @@
             $.post("../dltime/del/", {"dltime_id":id}, function(data){alert("删除成功");});
         }
 
+		function saveOtherSet() {
+            $.post("../otherset/save/", {"dx_mobile":$("#dx_mobile").val(), "kf_phone":$("#kf_phone").val(), "tip_content":$("#tip_content").val(), "distribution_range":$("#distribution_range").val(), "freight":$("#freight").val()}, function(data){alert("保存成功");});
+		}
+
         function orderUpd(id) {
 		    //$("orderedit_"+id).text()="保存";
             $.post("../orders/save/", {"order_id":id, "order_status":$("#orderstatus_"+id).val(), "order_info":$("#orderinfo_"+id).val(), "order_addr":$("#orderaddr_"+id).val()}, function(data){alert("保存成功");});
@@ -1171,12 +1175,12 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
 <!-- start: configShow -->
 <div id="configshow"  style="width: 80%;float:left;margin-left: -2em;">
 <div class="well">
-	    <form action="other-set.php" method="post" id="editForm"> 
+          {%for otherset in othersets%}
                 <table id="other-config">
                 <tr>
                     <td>下单通知手机号码</td>
 		    <td>
-                        <input type="text" maxlength="12" class="span4" id="dx_mobile" name="dx_mobile" placeholder="用户在前端下单后，会把下单的消息发送到该手机，务必填写正确" value="15889613776">
+                        <input type="text" maxlength="12" class="span4" id="dx_mobile" name="dx_mobile" placeholder="用户在前端下单后，会把下单的消息发送到该手机，务必填写正确" value="{{otherset.dx_mobile}}">
                         <input type="radio" name="dx_status" value="1">启用
                         <input type="radio" name="dx_status" value="2" checked="">禁用
                     </td>
@@ -1185,19 +1189,19 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
 
                 <tr>
 		    <td>客服电话</td>
-		    <td><input type="text" maxlength="13" class="span7" id="kf_phone" name="kf_phone" placeholder="客户电话,如0755-88889999" value=""></td>
+		    <td><input type="text" maxlength="13" class="span7" id="kf_phone" name="kf_phone" placeholder="客户电话,如0755-88889999" value="{{otherset.kf_phone}}"></td>
                 </tr>
                 <br />
 
                 <tr>
 		    <td>提示内容</td>
-		    <td><textarea class="span7" rows="6" id="tip_content" name="tip_content" placeholder="下完单后的温馨提示内容"></textarea></td>
+		    <td><textarea class="span7" rows="6" id="tip_content" name="tip_content" placeholder="下完单后的温馨提示内容">{{otherset.tip_content}}</textarea></td>
                 </tr>
                 <br />
 
                 <tr>
 		    <td>配送范围</td>
-		    <td><textarea class="span7" rows="6" id="distribution_range" name="distribution_range" placeholder="配送范围,比如XXX大厦500以内"></textarea></td>
+		    <td><textarea class="span7" rows="6" id="distribution_range" name="distribution_range" placeholder="配送范围,比如XXX大厦500以内">{{otherset.distribution_range}}</textarea></td>
                 </tr>
                 <br />
 
@@ -1217,7 +1221,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                   <label>下单通知手机号码:用户在前端下单后，会把下单的消息发送到该手机上。</label>
                 </td></tr-->
                 </table>
-	    </form>
+		{%endfor%}
 	</div>
 </div>
 <!-- end: configShow -->

@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.core.servers.basehttp import FileWrapper
 from django.db.models import Q, Sum
 
-from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr
+from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr, Otherset
 
 #db operation
 from sqlalchemy import *
@@ -579,6 +579,32 @@ def save_dltime(request):
         resp = "Dltime %s not exist" %(id)
     return HttpResponse(resp)
 
+#/microfront/otherset/save
+def save_otherset(request):    
+    resp = 0
+    try:
+        dx_mobile = request.POST['dx_mobile']
+        kf_phone = request.POST['kf_phone']
+        tip_content = request.POST['tip_content']
+        distribution_range = request.POST['distribution_range']
+        freight = float(request.POST['freight'])
+    except Exception as e:
+        print e
+
+    try:
+        other = Otherset.objects.get(id=1)
+        other.dx_mobile = dx_mobile
+        other.kf_phone = kf_phone 
+        other.tip_content = tip_content 
+        other.distribution_range = distribution_range
+        other.freight = freight 
+        other.save()
+    except Otherset.DoesNotExist:
+        other = Otherset(dx_mobile=dx_mobile, kf_phone=kf_phone, tip_content=tip_content, distribution_range=distribution_range, freight=freight)
+        other.save()
+        
+    return HttpResponse(resp)
+
 #/microfront/dltime/del
 def del_dltime(request):
     resp = 0
@@ -739,9 +765,11 @@ def admin(request):
     dltimes = Dltime.objects.all()
     users = Customer.objects.all()
     turnover = Order.objects.aggregate(Sum('price'))
+    othersets = Otherset.objects.all()
 
     print "turnover", turnover
-    return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover})
+    print "otherset", othersets
+    return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
 
 def add_to_db(foodname, fullname, detail_fullname, foodprice, category, total, introduce):
     categoryid=1

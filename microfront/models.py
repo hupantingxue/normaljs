@@ -91,3 +91,11 @@ class Dladdr(models.Model):
     province = models.IntegerField(null=True, default=0)
     city = models.IntegerField(null=True, default=0)
     area = models.CharField(max_length=500, null=True, default='');
+
+# other set
+class Otherset(models.Model):    
+    dx_mobile = models.CharField(max_length=20, null=True, default='15889613776');
+    kf_phone = models.CharField(max_length=20, null=True, default='0755-88889999');
+    tip_content = models.CharField(max_length=500, null=True, default='');
+    distribution_range = models.CharField(max_length=500, null=True, default='');
+    freight = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(9999)], default = 0.0)
