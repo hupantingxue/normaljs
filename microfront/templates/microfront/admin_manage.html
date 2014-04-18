@@ -221,17 +221,6 @@
 
         function cataUpd(id)
         {
-            if (typeof(id) != 'undefined' && id != '0'){
-                $('#updcataname').val($("#cataname_"+id).val())
-                $('#updcatasort').val($("#catasort_"+id).val())
-                sts=$("#catasts_"+id).attr("checked");
-                $('#updcatastatus').attr("checked", sts);
-            }
-            if (id == '0') {
-                $('#updcataname').val("");
-                $('#updcatasort').val("");
-                $('#updcatastatus').attr("checked", false);
-            }
             $('#cataupd').show();
             $('#foodupd').hide();
             $('#foodlist').hide();
