@@ -63,7 +63,7 @@
 
         function orderUpd(id) {
 		    //$("orderedit_"+id).text()="保存";
-            $.post("../orders/save/", {"order_id":id, "order_status":$("#orderstatus_"+id).val()}, function(data){alert("保存成功");});
+            $.post("../orders/save/", {"order_id":id, "order_status":$("#orderstatus_"+id).val(), "order_info":$("#orderinfo_"+id).val(), "order_addr":$("#orderaddr_"+id).val()}, function(data){alert("保存成功");});
         }
 
         function orderDel(id) {
@@ -766,8 +766,9 @@ explain  -->
     <tr id="ordertr_{{order.id}}" align="center" bgcolor="#FAFAF1" height="22">
     <td width="1%">{{order.id}}</td>
     <td width="8%">{{order.openid}}</td>
-    <td width="10%">{{order.name}}/{{order.phone}}</td>
-    <td width="13%">{{order.address}}</td>
+    <td width="10%" class="orderinfo"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderinfo_{{order.id}}" value="{{order.name}}/{{order.phone}}" /></td>
+    <td width="13%" class="orderaddr"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-s
+tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" /></td>
     <td width="4%">{{order.price}}</td>
     <td width="2%">{{order.amount}}</td>
     <td width="6%">{{order.order_time|date:'Y-m-d H:i'}}</td>

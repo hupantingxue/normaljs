@@ -21,6 +21,7 @@ import time
 import datetime
 import os
 import xlsxwriter
+import json
 
 dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
     {
@@ -49,6 +50,8 @@ def index(request):
         'cur_usr': code,
     })
 
+    get_menujson()
+
     try:
         cl = Customer.objects.get(openid=code)
         status = "CUSTOMER"
@@ -57,7 +60,7 @@ def index(request):
         status = "NEW_USER"
         print e
 
-    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status})
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson()})
 
 #/microfront/orders/add
 def order_add(request, order_id):
@@ -133,8 +136,9 @@ def order_add(request, order_id):
             except Exception as e:
                 cl = None
 
-            if not cl:
-                cl.amount = cl.amount + 1
+            if cl:
+                cl.account = cl.account + 1
+                cl.money = cl.money + price
                 cl.save()
 
             resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":%d,"status":1,"pay_mode":"%s"}}''' %(amount, pay_type)
@@ -183,6 +187,9 @@ def order_save(request):
     try:
         id = request.POST['order_id']
         status = request.POST['order_status']
+        info = request.POST['order_info']
+        addr = request.POST['order_addr']
+        name, phone = info.split('/')
     except Exception as e:
         print e
 
@@ -194,6 +201,9 @@ def order_save(request):
 
     if ol:
         ol.order_status = status
+        ol.name = name
+        ol.phone = phone
+        ol.address = addr
         ol.save()
     else:
         resp = "Order %s not exist." %(id)
@@ -625,3 +635,58 @@ def get_extension(name):
         return '.gif'
     else:
         return None
+
+# Get catalog json
+def get_catajson():
+    strjson='''['''
+    idx = 0
+    catalogs = Catalog.objects.all()
+    for catalog in catalogs:
+        if 1 == catalog.status:
+            if 0 == idx:
+                str = u'''{"Catalog":{"id":"%d","name":"%s","url":"url","sort":"%d","status":"%d","org_id":"1"}}''' %(catalog.id, catalog.name, catalog.sort, catalog.status)
+            else:
+                str = u''',{"Catalog":{"id":"%d","name":"%s","url":"url","sort":"%d","status":"%d","org_id":"1"}}''' %(catalog.id, catalog.name, catalog.sort, catalog.status)
+            strjson = strjson + str
+            idx = idx + 1
+    strjson = strjson + "]"
+    strjson = json.loads(strjson)
+    strjson = json.dumps(strjson)
+    print strjson
+    return strjson
+
+# Get menu json
+def get_menujson():
+    strjson='''['''
+    idx = 0
+    try:
+        #cataids = Catalog.objects.values_list('id').distinct
+        cataids = Catalog.objects.order_by('id').values('id').distinct()
+        cids = []
+        for kk in cataids:
+            jj = kk['id']
+            cids.append(jj)
+        print cids
+        #print "get cataids:", cataids, type(cataids)
+        for cataid in cids:
+            menus = Menu.objects.get(catalog_id=cataid)
+            print "get menus ", menus.count(), " with cataid:", cataid
+            if menus:
+                idx = 0
+                for menu in menus:
+                    if 0 == idx:
+                        str = '''{"%d":["Goods":{"id":"%d","org_id":"1", "detail_url":"%s", "cover_url":"%s", "name":"%s", "catalog_id":"%d", "old_price":"%f", "price":"%f", "sales":"0","total":"0","genre":"1","level":"20","content":"%s", "status":"1","servings":"1","stime":"2014-03-18 15:39:10"}]}''' %(cataid, menu.id, menu.detail_url, menu.cover_url, menu.old_price, menu.price)
+                    else:
+                        str = ''',{"id":"%d","org_id":"1", "detail_url":"%s", "cover_url":"%s", "name":"%s", "catalog_id":"%d", "old_price":"%f", "price":"%f", "sales":"0","total":"0","genre":"1","level":"20","content":"%s", "status":"1","servings":"1","stime":"2014-03-18 15:39:10"}''' %(cataid, menu.id, menu.detail_url, menu.cover_url, menu.old_price, menu.price)
+                    strjson = strjson + str
+                    idx = idx + 1
+        print strjson
+    except Exception as e:
+        print e
+    print "Menu catalogs: ", cataids
+    menus = Menu.objects.all()
+    strjson = strjson + "]"
+    strjson = json.loads(strjson)
+    strjson = json.dumps(strjson)
+    print "menu json", strjson
+    return strjson
