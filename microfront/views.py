@@ -60,7 +60,7 @@ def index(request):
         status = "NEW_USER"
         print e
 
-    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson(), 'org_json':get_orgjson()})
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson()})
 
 #/microfront/orders/add
 def order_add(request, order_id):
@@ -870,3 +870,21 @@ def get_orgjson():
     strjson = json.dumps(strjson)
     print strjson
     return strjson    
+    
+# Get dltime json
+def get_dltimejson():
+    strjson='''['''
+    idx = 0
+    dltimes = Dltime.objects.all()
+    for dltime in dltimes:
+        if 0 == idx:
+            str = u'''{"DeliveryTime":{"id":"%d","start_time":"%s","end_time":"%s", "org_id":"1"}}''' %(dltime.id, dltime.begin_time, dltime.end_time)
+        else:
+            str = u''',{"DeliveryTime":{"id":"%d","start_time":"%s","end_time":"%s", "org_id":"1"}}''' %(dltime.id, dltime.begin_time, dltime.end_time)
+        strjson = strjson + str
+        idx = idx + 1
+    strjson = strjson + "]"
+    strjson = json.loads(strjson)
+    strjson = json.dumps(strjson)
+    print strjson
+    return strjson

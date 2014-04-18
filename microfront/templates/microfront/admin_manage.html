@@ -83,6 +83,7 @@
 
         function dlTimeDel(id) {
             $.post("../dltime/del/", {"dltime_id":id}, function(data){alert("删除成功");});
+			$("#dltime_"+id).remove();
         }
 
 		function saveOtherSet() {
