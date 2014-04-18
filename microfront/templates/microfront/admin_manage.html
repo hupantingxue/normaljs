@@ -50,7 +50,7 @@
             // var myaddr = "广东省深圳市" + $("#area").val()
             var myaddr = $("#dlscity").val() + $("#dlsarea").val() + $("#area").val()
 			var id = '';
-            $.post("../addr/", {"area": myaddr}, function(data){id=data;alert("recv: "+id);alert("保存成功");
+            $.post("../addr/", {"area": myaddr}, function(data){id=data;alert("保存成功");
                 $("#addr-header").after('<tr id="dladdr_'+id+'" align="center" bgcolor="#FAFAF1" height="22"><td width=\"90%\"><input id="dlarea_'+id+'" type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:530px;" value="' + myaddr + '" /></td><td width=\"10%\"><a href="#" onclick="saveAddr('+id+')">编辑</a>|<a href="#" onclick="delAddr('+id+')">删除</a></td></tr>');
 			});
         }
@@ -64,12 +64,23 @@
 			$("#dladdr_"+id).remove();
 		}
 
-        function saveDltime() {
+        function dlTimeAdd() {
             var mytime = $("#dlbegin").val()
-            mytime += "------"
+            mytime += "-----"
             mytime += $("#dlend").val()
-            $.post("../dltime/", {"begin_time":$("#dlbegin").val(), "end_time": $("#dlend").val()}, function(data){alert("保存成功");});
-            $("#dltime-header").after('<tr align="left" bgcolor="#FAFAF1" height="22"><td width=\"80%\">' + mytime + '</td><td width=\"20%\">编辑|删除</td></tr>');
+            $.post("../dltime/add/", {"begin_time":$("#dlbegin").val(), "end_time": $("#dlend").val()}, function(data){
+			    var id = data;
+			    alert("保存成功");
+                $("#dltime-header").after('<tr id="dltime_'+id+'" align="left" bgcolor="#FAFAF1" height="22"><td width=\"90%\"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:530px;" id="dltimeinfo_'+id+'" value="' + mytime + '" /></td><td width=\"10%\"><a href="#" onclick="dlTimeUpd('+id+')">编辑</a>|<a href="#" onclick="dlTimeDel(' + id + ')">删除</a></td></tr>');
+			});
+        }
+
+        function dlTimeUpd(id) {
+            $.post("../dltime/save/", {"dltime_id":id, "dltime_info":$("#dltimeinfo_"+id).val()}, function(data){alert("保存成功");});
+        }
+
+        function dlTimeDel(id) {
+            $.post("../dltime/del/", {"dltime_id":id}, function(data){alert("删除成功");});
         }
 
         function orderUpd(id) {
@@ -1089,7 +1100,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
 <div id="dltimeupd" style="width: 80%;float:left;margin-left: -2em;">
     <input type="text" class="span3" name="begin_dltime" id="dlbegin" placeholder="请输入开始时间">
     <input type="text" class="span3" name="end_dltime" id="dlend" placeholder="请输入结束时间">
-    <input type="button" style="margin-top:-8px;" class="btn btn-info" value="保存" onclick="saveDltime();">;
+    <input type="button" style="margin-top:-8px;" class="btn btn-info" value="保存" onclick="dlTimeAdd();">;
     <br />
     <br />
     <table id='add-dltime' width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
@@ -1098,9 +1109,9 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
           <td width="10%">操作</td>
         </tr>
         {%for dltime in dltimes%}
-        <tr align="left" bgcolor="#FAFAF1" height="22">
-          <td width="90%">{{dltime.begin_time}}-----{{dltime.end_time}}</td>
-          <td width="10%">编辑|删除</td>
+        <tr id="dltime_{{dltime.id}}" align="left" bgcolor="#FAFAF1" height="22">
+          <td width="90%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:530px;" id="dltimeinfo_{{dltime.id}}" value="{{dltime.begin_time}}-----{{dltime.end_time}}" /></td>
+          <td width="10%"><a href="#" onclick="dlTimeUpd({{dltime.id}})">编辑</a>|<a href="#" onclick="dlTimeDel({{dltime.id}})">删除</a></td>
         </tr>
         {%endfor%}
     </table>

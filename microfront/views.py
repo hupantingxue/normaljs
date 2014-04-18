@@ -538,16 +538,65 @@ def add_addr(request):
         print e
     return HttpResponse(resp)
 
-#/microfront/dltime
-def save_dltime(request):
-    resp = {"code":0, "msg":{"id":1}}
+#/microfront/dltime/add
+def add_dltime(request):
+    resp = 0
     try:
         begin_time = request.POST['begin_time']
         end_time = request.POST['end_time']
         dl = Dltime(begin_time=begin_time, end_time=end_time)
         dl.save()
+        resp = dl.id
     except Exception as e:
         print e
+    return HttpResponse(resp)
+
+#/microfront/dltime/save
+def save_dltime(request):
+    resp = 0
+    try:
+        id = request.POST['dltime_id']
+        dltime = request.POST['dltime_info']
+        print id, dltime
+        dlinfo = dltime.split('-')
+        begin_time = dlinfo[0]
+        end_time = dlinfo[-1]
+        print begin_time, end_time
+    except Exception as e:
+        print "dltime save", e
+    
+    try:
+        dl = Dltime.objects.get(id=id)
+    except Dltime.DoesNotExist:
+        dl = None
+        print id, " dltime not exist."
+
+    if dl:
+        dl.begin_time = begin_time
+        dl.end_time = end_time
+        dl.save()
+    else:
+        resp = "Dltime %s not exist" %(id)
+    return HttpResponse(resp)
+
+#/microfront/dltime/del
+def del_dltime(request):
+    resp = 0
+    try:
+        id = request.POST['dltime_id']
+    except Exception as e:
+        print e
+    
+    try:
+        dl = Dltime.objects.get(id=id)
+    except Dltime.DoesNotExist:
+        dl = None
+        print id, " dltime not exist."
+
+    if dl:
+        dl.delete()
+    else:
+        resp = "Dltime %s not exist" %(id)
     return HttpResponse(resp)
 
 #/microfront/customers/edit
