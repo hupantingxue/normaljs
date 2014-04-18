@@ -76,6 +76,15 @@
             $("#catatr_"+id).remove();
         }
 
+        function cataSave(id) {
+            if ($("#catasts_"+id).attr("checked")) {
+                status = 1;
+            } else {
+                status = 0;
+            }
+            $.post("../catalog/save/", {"catalog_id":id, "catalog_sts":status, "catalog_sort":$("#catasort_"+id).val()}, function(data){alert("保存成功");});
+        }
+
         function userUpd(id) {
             $.post("../users/save/", {"id":id, "name":$("#usrname_"+id).val(), "phone":$("#usrphone_"+id).val(), "money":$("#usrmny_"+id).val()}, function(data){alert("保存成功");});
         }
@@ -215,12 +224,13 @@
             if (typeof(id) != 'undefined' && id != '0'){
                 $('#updcataname').val($("#cataname_"+id).val())
                 $('#updcatasort').val($("#catasort_"+id).val())
-                $('#updcatastatus').val($("#catasts_"+id).val())
+                sts=$("#catasts_"+id).attr("checked");
+                $('#updcatastatus').attr("checked", sts);
             }
             if (id == '0') {
-                $('#updcataname').val("")
-                $('#updcatasort').val("")
-                $('#updcatastatus').val("")
+                $('#updcataname').val("");
+                $('#updcatasort').val("");
+                $('#updcatastatus').attr("checked", false);
             }
             $('#cataupd').show();
             $('#foodupd').hide();
@@ -1004,15 +1014,19 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
             <td><input id="cataname_{{catalog.id}}" value="{{catalog.name}}" /></td>
             <td><input id="catasort_{{catalog.id}}" value="{{catalog.sort}}" /></td>
             <td>
-               <input id="catasts_{{catalog.id}}"  type="checkbox" value="{{catalog.status}}" checked>
-           <!--script type="text/javascript">
-           if (1=={{catalog.status}})
-              <input type="checkbox" value="1" checked>
-            else
-              <input type="checkbox" value="0" unchecked>
-           </script-->
+               <input id="catasts_{{catalog.id}}"  type="checkbox" value="{{catalog.status}}">
+           <script type="text/javascript">
+               if (1=={{catalog.status}}) {
+                   $("catasts_"+id).val("1");
+                   $("catasts_"+id).attr("checked", true);
+               }
+               else {
+                   $("catasts_"+id).val("0");
+                   $("catasts_"+id).attr("checked", false);
+               }
+           </script>
            </td>
-           <td><a href="#" onclick='cataUpd({{catalog.id}})'>编辑</a>|<a href="#" onclick='cataDel({{catalog.id}})'>删除</a></td>
+           <td><a href="#" onclick='cataSave({{catalog.id}});'>编辑</a>|<a href="#" onclick='cataDel({{catalog.id}})'>删除</a></td>
         </tr>
         {%endfor%}
   </table>
