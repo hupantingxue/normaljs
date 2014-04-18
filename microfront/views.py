@@ -277,6 +277,51 @@ def cata_save(request):
         resp = "Catalog %s not exist." %(id)
     return HttpResponse(resp)
 
+# /microfront/dladdr/save
+def dladdr_save(request):
+    resp = {"code":0}
+    try:
+        id = request.POST['dladdr_id']
+        area = request.POST['area']
+    except Exception as e:
+        print "Dladdr save", e
+
+    try:
+        dl = Dladdr.objects.get(id=id)
+    except Dladdr.DoesNotExist:
+        dl = None
+        print id, " dladdr not exist."
+
+    if dl:
+        dl.area = area
+        dl.save()
+    else:
+        resp = "Dladdr %s not exist." %(id)
+    return HttpResponse(resp)
+
+
+# /microfront/dladdr/del
+def dladdr_del(request):
+    resp = {"code":0}
+    try:
+        id = request.POST['dladdr_id']
+    except Exception as e:
+        print "Dladdr save", e
+
+    try:
+        dl = Dladdr.objects.get(id=id)
+    except Dladdr.DoesNotExist:
+        dl = None
+        print id, " dladdr not exist."
+
+    if dl:
+        dl.delete()
+    else:
+        resp = "Dladdr %s not exist." %(id)
+    return HttpResponse(resp)
+
+
+# 
 def get_paytype(type):
     stype = u'货到付款'
     if 1 == type:
@@ -481,13 +526,14 @@ def user_query(request):
     return HttpResponse(resp)
 
 #/microfront/addr
-def save_addr(request):
-    resp = {"code":0, "msg":{"id":1}}
+def add_addr(request):
+    resp = 999
     try:
-        city = request.POST['city']
         area = request.POST['area']
-        dl = Dladdr(city=city, area=area)
+        dl = Dladdr(area=area)
         dl.save()
+        print '====add addr id: ', dl.id
+        resp = dl.id
     except Exception as e:
         print e
     return HttpResponse(resp)

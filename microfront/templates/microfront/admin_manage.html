@@ -47,11 +47,22 @@
 
     <script language='javascript'>
         function saveProvince() {
-            var myaddr = "广东省深圳市" + $("#area").val()
-            $.post("../addr/", {"city":382, "area": myaddr}, function(data){alert("保存成功");});
-            // alert("Value: " + myaddr)
-            $("#addr-header").after('<tr align="center" bgcolor="#FAFAF1" height="22"><td width=\"90%\">' + myaddr + '</td><td width=\"10%\">删除</td></tr>');
+            // var myaddr = "广东省深圳市" + $("#area").val()
+            var myaddr = $("#dlscity").val() + $("#dlsarea").val() + $("#area").val()
+			var id = '';
+            $.post("../addr/", {"area": myaddr}, function(data){id=data;alert("recv: "+id);alert("保存成功");
+                $("#addr-header").after('<tr id="dladdr_'+id+'" align="center" bgcolor="#FAFAF1" height="22"><td width=\"90%\"><input id="dlarea_'+id+'" type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:530px;" value="' + myaddr + '" /></td><td width=\"10%\"><a href="#" onclick="saveAddr('+id+')">编辑</a>|<a href="#" onclick="delAddr('+id+')">删除</a></td></tr>');
+			});
         }
+		
+		function saveAddr(id) {
+            $.post("../dladdr/save/", {"dladdr_id":id, "area":$("#dlarea_"+id).val()}, function(data){alert("保存成功");});
+		}
+		
+		function delAddr(id) {
+            $.post("../dladdr/del/", {"dladdr_id":id}, function(data){alert("删除成功");});
+			$("#dladdr_"+id).remove();
+		}
 
         function saveDltime() {
             var mytime = $("#dlbegin").val()
@@ -1050,12 +1061,11 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
 <!-- start: dladdrupd-->
 <div id="dladdrupd" style="width: 80%;float:left;margin-left: -2em;">
     选择配送地址
-    <select id="province" name="province">
-        <option value="0">---选择省/直辖市---</option>
-        <option value="440000">广东省</option>
+    <select id="dlscity" name="dlscity">
+        <option value="深圳市">深圳市</option>
     </select>
     <!--select id="city" name="city"><option value="0">--请先选择省/直辖市--</option><option value="440100">广州市</option><option value="440200">韶关市</option><option value="440300">深圳市</option><option value="440400">珠海市</option><option value="440500">汕头市</option><option value="440600">佛山市</option><option value="440700">江门市</option><option value="440800">湛江市</option><option value="440900">茂名市</option><option value="441200">肇庆市</option><option value="441300">惠州市</option><option value="441400">梅州市</option><option value="441500">汕尾市</option><option value="441600">河源市</option><option value="441700">阳江市</option><option value="441800">清远市</option><option value="441900">东莞市</option><option value="442000">中山市</option><option value="445100">潮州市</option><option value="445200">揭阳市</option><option value="445300">云浮市</option></select-->
-    <select id="city" name="city"><option value="0">--请先选择省/直辖市--</option><option value="440100">深圳市</option></select>
+    <select id="dlsarea" name="dlsarea"><option value="罗湖区">罗湖区</option><option value="福田区">福田区</option><option value="宝安区">宝安区</option><option value="南山区">南山区</option></select>
     <input type="text" class="span3" name="area" id="area" placeholder="请输入详细位置">
     <input type="button" style="margin-top:-8px;" class="btn btn-info" value="保存" onclick="saveProvince();">;
     <br />
@@ -1066,9 +1076,9 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
           <td width="10%">操作</td>
         </tr>
         {%for dladdr in dladdrs%}
-        <tr align="center" bgcolor="#FAFAF1" height="22">
-          <td width="90%">{{dladdr.area}}</td>
-          <td width="10%">删除</td>
+        <tr id="dladdr_{{dladdr.id}}" align="center" bgcolor="#FAFAF1" height="22">
+          <td width="90%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:530px;" id="dlarea_{{dladdr.id}}" value="{{dladdr.area}}" /></td>
+          <td width="10%"><a href="#" onclick="saveAddr({{dladdr.id}})">编辑</a>|<a href="#" onclick="delAddr({{dladdr.id}})">删除</a></td>
         </tr>
         {%endfor%}
     </table>
