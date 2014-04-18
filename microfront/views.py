@@ -60,7 +60,7 @@ def index(request):
         status = "NEW_USER"
         print e
 
-    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson()})
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson(), 'org_json':get_orgjson()})
 
 #/microfront/orders/add
 def order_add(request, order_id):
@@ -859,3 +859,14 @@ def get_menujson():
     strjson = json.dumps(strjson)
     print "menu json", strjson
     return strjson
+
+# Get organization json
+def get_orgjson():
+    idx = 0
+    org = Otherset.objects.get(id=1)
+    strjson = u'''{"Organization":{"id":"1","name":"爱好食","kf_phone":"%s","tip_content":"%s","distribution_range":"%s","freight":"%f"}}''' %(org.kf_phone, org.tip_content, org.distribution_range, org.freight)
+    print "org json:", strjson
+    strjson = json.loads(strjson)
+    strjson = json.dumps(strjson)
+    print strjson
+    return strjson    
