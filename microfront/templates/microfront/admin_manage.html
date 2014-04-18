@@ -77,7 +77,8 @@
         }
 
         function cataSave(id) {
-            if ($("#catasts_"+id).attr("checked")) {
+            // $("#catasts_"+id).attr("checked", true);
+            if ($("#catasts_"+id).is(":checked")) {
                 status = 1;
             } else {
                 status = 0;
@@ -1003,20 +1004,22 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
             <td><input id="cataname_{{catalog.id}}" value="{{catalog.name}}" /></td>
             <td><input id="catasort_{{catalog.id}}" value="{{catalog.sort}}" /></td>
             <td>
-               <input id="catasts_{{catalog.id}}"  type="checkbox" value="{{catalog.status}}">
-           <script type="text/javascript">
-               if (1=={{catalog.status}}) {
-                   $("catasts_"+id).val("1");
-                   $("catasts_"+id).attr("checked", true);
-               }
-               else {
-                   $("catasts_"+id).val("0");
-                   $("catasts_"+id).attr("checked", false);
-               }
-           </script>
-           </td>
+               <input id="catasts_{{catalog.id}}" class="catastatus" type="checkbox" value="{{catalog.status}}">
+            </td>
            <td><a href="#" onclick='cataSave({{catalog.id}});'>编辑</a>|<a href="#" onclick='cataDel({{catalog.id}})'>删除</a></td>
         </tr>
+        <script>
+           $('.catastatus').each(function(){
+              sts = parseInt($(this).val());
+              if (0 == sts) {
+                  $(this).attr("checked", false);
+              }
+
+              if (1 == sts) {
+                  $(this).attr("checked", true);
+              }
+            });
+        </script>
         {%endfor%}
   </table>
 </div>

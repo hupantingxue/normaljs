@@ -270,6 +270,8 @@ def cata_save(request):
         print id, " catalog not exist."
 
     if cl:
+        cl.sort = sort
+        cl.status = sts
         cl.save()
     else:
         resp = "Catalog %s not exist." %(id)
