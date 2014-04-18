@@ -1027,7 +1027,7 @@ app.DeliveryView = Backbone.View.extend({
             })
         } else if (current_user == undefined) {
             var pop = new app.OrderInfoPopupView({
-                    msg: '错误的用户，请重新关注青青菜园^_^'
+                    msg: '错误的用户，请重新关注爱好食^_^'
             });
             that.$el.append(pop.render().el)
         }
