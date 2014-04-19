@@ -964,7 +964,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
             <td>
                 <select name='category'>
                     {%for catalog in catalogs %}
-                        <option>{{ catalog.name }}</option>
+                        <option value="{{catalog.id}}">{{ catalog.name }}</option>
                     {%endfor%}
                 </select>
             </td>

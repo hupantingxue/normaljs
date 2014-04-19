@@ -50,7 +50,6 @@ def index(request):
         'cur_usr': code,
     })
 
-    get_menujson()
 
     try:
         cl = Customer.objects.get(openid=code)
@@ -60,7 +59,7 @@ def index(request):
         status = "NEW_USER"
         print e
 
-    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson()})
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'menu_json':get_menujson(), 'catalog_json':get_catajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson()})
 
 #/microfront/orders/add
 def order_add(request, order_id):
@@ -716,7 +715,7 @@ def admin(request):
         return HttpResponseRedirect('/microfront/admin/')
 
     if request.FILES.has_key('pic'):
-        #print "menu_add === ", request
+        print "menu_add === ", request
         pic=request.FILES['pic']
         extension=get_extension(pic)
         if extension:
@@ -735,15 +734,13 @@ def admin(request):
             except:
                 error ='数据提交发生错误:价格不是有效数字<br/><a href="/admin/'+username+'">返回</a>'
                 return HttpResponse(error)
-            category=request.POST['category']
-            #if category not in ('taocan','gaifan','dianxin','yinpin'):
-            #    error='数据提交发生错误<br/><a href="/admin/'+username+'">返回</a>'
-            #    return HttpResponse(error)
+            category=int(request.POST['category'])
+            print "menu add category ======", category
             introduce=request.POST['introduce']
-            #print foodname,foodprice,category,introduce
+            print foodname,foodprice,category,introduce
 
             # catalog_id need to check
-            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname, detail_url=detail_fullname, old_price=foodprice, price=sprice, catalog_id=1, total=total, introduce=introduce)
+            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname, detail_url=detail_fullname, old_price=foodprice, price=sprice, catalog_id=category, total=total, introduce=introduce)
             menu.save()
 
             #write cover pic file
@@ -826,38 +823,43 @@ def get_catajson():
 
 # Get menu json
 def get_menujson():
-    strjson='''['''
+    strjson=''
     idx = 0
+    cidx = 0
     try:
-        #cataids = Catalog.objects.values_list('id').distinct
         cataids = Catalog.objects.order_by('id').values('id').distinct()
-        cids = []
-        for kk in cataids:
-            jj = kk['id']
-            cids.append(jj)
-        print cids
-        #print "get cataids:", cataids, type(cataids)
-        for cataid in cids:
-            menus = Menu.objects.get(catalog_id=cataid)
-            print "get menus ", menus.count(), " with cataid:", cataid
-            if menus:
+        for cataid in cataids:
+            cid = cataid['id']
+            menus = Menu.objects.filter(catalog_id=cid)
+            cnt = menus.count();
+
+            if 0 < cnt:
+                #The first catalog add prefix '{'
+                if 0 == cidx:
+                    strjson = strjson + '{'
+                else: #The normal catalog add prefix ','
+                    strjson = strjson + ','
+
                 idx = 0
                 for menu in menus:
                     if 0 == idx:
-                        str = '''{"%d":["Goods":{"id":"%d","org_id":"1", "detail_url":"%s", "cover_url":"%s", "name":"%s", "catalog_id":"%d", "old_price":"%f", "price":"%f", "sales":"0","total":"0","genre":"1","level":"20","content":"%s", "status":"1","servings":"1","stime":"2014-03-18 15:39:10"}]}''' %(cataid, menu.id, menu.detail_url, menu.cover_url, menu.old_price, menu.price)
+                        str = '''"%d":[{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"1","level":"20","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(cid, menu.id, menu.detail_url, menu.cover_url, menu.name, menu.catalog_id, menu.old_price, menu.price, menu.introduce.replace('"', '\''))
                     else:
-                        str = ''',{"id":"%d","org_id":"1", "detail_url":"%s", "cover_url":"%s", "name":"%s", "catalog_id":"%d", "old_price":"%f", "price":"%f", "sales":"0","total":"0","genre":"1","level":"20","content":"%s", "status":"1","servings":"1","stime":"2014-03-18 15:39:10"}''' %(cataid, menu.id, menu.detail_url, menu.cover_url, menu.old_price, menu.price)
+                        str = ''',{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"1","level":"20","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(menu.id, menu.detail_url, menu.cover_url, menu.name, menu.catalog_id, menu.old_price, menu.price, menu.introduce.replace('"','\''))
                     strjson = strjson + str
                     idx = idx + 1
-        print strjson
+                # all menu scaned, add ']'
+                strjson = strjson + "]"
+                cidx = cidx + 1
+
+        # all catalog scaned, add '}'
+        strjson = strjson + '}'
+
     except Exception as e:
         print e
-    print "Menu catalogs: ", cataids
-    menus = Menu.objects.all()
-    strjson = strjson + "]"
+    print '''===menujson===: %s''' %(strjson)
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
-    print "menu json", strjson
     return strjson
 
 # Get organization json
