@@ -1,4 +1,6 @@
 *.pyc
 micromall/files/upfiles/
+micromall/micromall/files/upfiles/
+microfront/microfront/items/
 run.sh
 run.log

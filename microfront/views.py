@@ -59,7 +59,7 @@ def index(request):
         status = "NEW_USER"
         print e
 
-    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'menu_json':get_menujson(), 'catalog_json':get_catajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson()})
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson(), 'menu_json':get_menujson()})
 
 #/microfront/orders/add
 def order_add(request, order_id):
@@ -671,7 +671,8 @@ def css_resource(request,fname):
     return HttpResponse(text)
 
 def jpg_resource(request,fname):
-    text=open('microfront/'+fname+'.jpg','rb').read()
+    #text=open('micromall/'+fname+'.jpg','rb').read()
+    text=open(fname+'.jpg','rb').read()
     return HttpResponse(text)
 
 def gif_resource(request,fname):
@@ -698,7 +699,7 @@ def admin_manage(request):
     return render_to_response('microfront/admin_manage.html', {'catalogs':ll})
 
 def admin(request):
-    base='micromall/files/upfiles/' + time.strftime('%Y%m%d', time.localtime()) + "/"
+    base='micromall/micromall/files/upfiles/' + time.strftime('%Y%m%d', time.localtime()) + "/"
     if not os.path.exists(base):
         print 'create path: ', base
         os.makedirs(base)
@@ -736,11 +737,11 @@ def admin(request):
                 return HttpResponse(error)
             category=int(request.POST['category'])
             print "menu add category ======", category
-            introduce=request.POST['introduce']
+            introduce=request.POST['introduce'].replace('\n','')
             print foodname,foodprice,category,introduce
 
             # catalog_id need to check
-            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname, detail_url=detail_fullname, old_price=foodprice, price=sprice, catalog_id=category, total=total, introduce=introduce)
+            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[10:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, total=total, introduce=introduce)
             menu.save()
 
             #write cover pic file
@@ -832,7 +833,7 @@ def get_menujson():
             cid = cataid['id']
             menus = Menu.objects.filter(catalog_id=cid)
             cnt = menus.count();
-
+            
             if 0 < cnt:
                 #The first catalog add prefix '{'
                 if 0 == cidx:
@@ -843,20 +844,24 @@ def get_menujson():
                 idx = 0
                 for menu in menus:
                     if 0 == idx:
-                        str = '''"%d":[{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"1","level":"20","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(cid, menu.id, menu.detail_url, menu.cover_url, menu.name, menu.catalog_id, menu.old_price, menu.price, menu.introduce.replace('"', '\''))
+                        str = '''"%d":[{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"1","level":"20","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(cid, menu.id, menu.detail_url, menu.cover_url, menu.name, menu.catalog_id, menu.old_price, menu.price, menu.introduce)
                     else:
-                        str = ''',{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"1","level":"20","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(menu.id, menu.detail_url, menu.cover_url, menu.name, menu.catalog_id, menu.old_price, menu.price, menu.introduce.replace('"','\''))
+                        str = ''',{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"1","level":"20","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(menu.id, menu.detail_url, menu.cover_url, menu.name, menu.catalog_id, menu.old_price, menu.price, menu.introduce)
                     strjson = strjson + str
                     idx = idx + 1
                 # all menu scaned, add ']'
+                print 'begin !!!!!!!!!add ]'
                 strjson = strjson + "]"
+                print 'end !!!!!!!!!add ]'
                 cidx = cidx + 1
 
         # all catalog scaned, add '}'
         strjson = strjson + '}'
 
+        print "strjson===", strjson
+
     except Exception as e:
-        print e
+        print 'exception..........', e
     print '''===menujson===: %s''' %(strjson)
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
