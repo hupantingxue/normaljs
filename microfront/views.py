@@ -735,14 +735,15 @@ def admin(request):
             except:
                 error ='数据提交发生错误:价格不是有效数字<br/><a href="/admin/'+username+'">返回</a>'
                 return HttpResponse(error)
+
             category=int(request.POST['category'])
             print "menu add category ======", category
             introduce=request.POST['introduce'].replace('\n','')
             print foodname,foodprice,category,introduce
 
-            # catalog_id need to check
-            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[10:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, total=total, introduce=introduce)
+            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[20:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, total=total, introduce=introduce)
             menu.save()
+            add_menu_json(1, detail_fullname[20:], fullname[20:], category, foodprice, sprice, introduce)
 
             #write cover pic file
             fp=open(fullname,'wb')
@@ -768,6 +769,37 @@ def admin(request):
     print "turnover", turnover
     print "otherset", othersets
     return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
+
+def add_menu_json(id, detail_url, cover_url, catalog_id, oprice, price, introduce):
+    menujson = '''
+{
+    "rt_obj": {
+        "code": 0,
+        "data": {
+            "Goods": {
+                "id": "%d",
+                "org_id": "1",
+                "detail_url": "%s",
+                "cover_url": "%s",
+                "name": "%s",
+                "catalog_id": "%s",
+                "old_price": "%f",
+                "price": "%f",
+                "sales": "0",
+                "total": "0",
+                "genre": "1",
+                "level": "20",
+                "content": "%s",
+                "status": "1",
+                "servings": "1",
+                "stime": "2014-03-18 14:38:40"
+            }
+        }
+    }
+}
+    ''' %(id, detail_url, cover_url, catalog_id, oprice, price, introduce)
+    print "add menu json:", menujson
+
 
 def add_to_db(foodname, fullname, detail_fullname, foodprice, category, total, introduce):
     categoryid=1
