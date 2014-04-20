@@ -17,6 +17,7 @@ from sqlalchemy.pool import NullPool
 from sqlalchemy.ext.compiler import compiles
 from sqlalchemy.sql.expression import Insert
 
+import sys
 import time
 import datetime
 import os
@@ -738,17 +739,33 @@ def admin(request):
 
             category=int(request.POST['category'])
             print "menu add category ======", category
-            introduce=request.POST['introduce'].replace('\n','')
+            introduce=request.POST['introduce']#.replace('\n','')
+            #introduce = introduce + "\n"
             print foodname,foodprice,category,introduce
-
-            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[20:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, total=total, introduce=introduce)
-            menu.save()
-            add_menu_json(1, detail_fullname[20:], fullname[20:], category, foodprice, sprice, introduce)
 
             #write cover pic file
             fp=open(fullname,'wb')
             fp.write(pic.read())
             fp.close()
+
+            foodid = int(request.POST['foodid'])
+            if 0 == foodid:
+                menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[19:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, total=total, introduce='')
+                menu.save()
+                add_menu_json(1, detail_fullname[20:], fullname[20:], foodname, category, foodprice, sprice, introduce)
+            else:
+                menu = Menu.objects.get(id=foodid)
+                menu.name = foodname
+                menu.cover_url = fullname[19:]
+                menu.detail_url = detail_fullname[10:]
+                menu.old_price = foodprice
+                menu.price = sprice
+                menu.catalog_id = category
+                menu.total = total
+                menu.introduce = ''
+                menu.save()
+                print "foodname type: ", type(foodname)
+                add_menu_json(foodid, detail_fullname[20:], fullname[20:], foodname, category, foodprice, sprice, introduce)
 
             #write detail pic file
             detail_pic=request.FILES['detail_pic']
@@ -770,7 +787,9 @@ def admin(request):
     print "otherset", othersets
     return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
 
-def add_menu_json(id, detail_url, cover_url, catalog_id, oprice, price, introduce):
+def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce):
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
     menujson = '''
 {
     "rt_obj": {
@@ -797,9 +816,17 @@ def add_menu_json(id, detail_url, cover_url, catalog_id, oprice, price, introduc
         }
     }
 }
-    ''' %(id, detail_url, cover_url, catalog_id, oprice, price, introduce)
-    print "add menu json:", menujson
+    ''' %(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce)
+     
+    print "Menujson[%s]" % (menujson)
 
+    jsonfn = 'microfront/microfront/items/' + str(id) + '.json'
+    print "Write menu json file: ", jsonfn
+    fd = open(jsonfn, 'wb') 
+    fd.write(menujson)
+    fd.write('\n')
+    fd.close()
+    print "add menu json:", menujson
 
 def add_to_db(foodname, fullname, detail_fullname, foodprice, category, total, introduce):
     categoryid=1
@@ -882,9 +909,7 @@ def get_menujson():
                     strjson = strjson + str
                     idx = idx + 1
                 # all menu scaned, add ']'
-                print 'begin !!!!!!!!!add ]'
                 strjson = strjson + "]"
-                print 'end !!!!!!!!!add ]'
                 cidx = cidx + 1
 
         # all catalog scaned, add '}'

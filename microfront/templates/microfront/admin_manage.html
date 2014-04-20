@@ -216,6 +216,7 @@
                 $("#updfoodoprice").val($("#foodoprice_"+id).text());
                 $("#updfoodprice").val($("#foodprice_"+id).text());
                 $("#updfoodstatus").val("off");
+                $("#updfoodid").val(id);
             } 
             if (id == '0'){
                 // alert(id)
@@ -959,6 +960,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
     <form id='form1' method='post' enctype="multipart/form-data" accept-charset="UTF-8">
         {% csrf_token %}
         <table id='add-food'>
+		<tr><input id="updfoodid" name='foodid' type='hidden' value='0' /></tr>
         <tr>
             <td>目录名</td>
             <td>
