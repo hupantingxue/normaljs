@@ -908,7 +908,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
            <td>{{food.id}}</td>
            <td><img style="width:20px; height:20px;" src='/micromall/{{food.cover_url}}'></td>
            <td id="foodname_{{food.id}}">{{food.name}}</td>
-           <td id="foodcata_{{food.id}}">{{food.catalog_id}}</td>
+           <td id="foodcata_{{food.id}}" class="foodcatalog">{{food.catalog_id}}</td>
            <td id="foodoprice_{{food.id}}">{{food.old_price}}</td>
            <td id="foodprice_{{food.id}}">{{food.price}}</td>
            <td id="foodtotal_{{food.id}}">{{food.total}}</td>
@@ -920,6 +920,14 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         </tr>
         {%endfor%}
         <script>
+            // var g_cata={"3":"肉", "6":"素食", "7":"靓汤"};
+            var g_cata={{ g_catajson|safe }}
+			$('.foodcatalog').each(function(){
+			    cid = $(this).text();
+				// alert("category:"+cid);
+				$(this).text(g_cata[cid]);
+			});
+
             $(function(){
                 var categories = $('.foodstatus')
                 var len = categories.length

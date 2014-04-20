@@ -60,7 +60,7 @@ def index(request):
         status = "NEW_USER"
         print e
 
-    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson(), 'menu_json':get_menujson()})
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson()[0], 'org_json':get_orgjson(), 'dltime_json':get_dltimejson(), 'menu_json':get_menujson()})
 
 #/microfront/orders/add
 def order_add(request, order_id):
@@ -785,7 +785,7 @@ def admin(request):
 
     print "turnover", turnover
     print "otherset", othersets
-    return render_to_response('microfront/admin_manage.html', {'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
+    return render_to_response('microfront/admin_manage.html', {'g_catajson': get_catajson()[1], 'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
 
 def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce):
     reload(sys)
@@ -838,21 +838,28 @@ def get_extension(name):
 # Get catalog json
 def get_catajson():
     strjson='''['''
+    g_catajson = '''{'''
     idx = 0
     catalogs = Catalog.objects.all()
     for catalog in catalogs:
         if 1 == catalog.status:
             if 0 == idx:
                 str = u'''{"Catalog":{"id":"%d","name":"%s","url":"url","sort":"%d","status":"%d","org_id":"1"}}''' %(catalog.id, catalog.name, catalog.sort, catalog.status)
+                str2 = u'''"%d":"%s"''' %(catalog.id, catalog.name)
             else:
                 str = u''',{"Catalog":{"id":"%d","name":"%s","url":"url","sort":"%d","status":"%d","org_id":"1"}}''' %(catalog.id, catalog.name, catalog.sort, catalog.status)
+                str2 = u''',"%d":"%s"''' %(catalog.id, catalog.name)
             strjson = strjson + str
+            g_catajson = g_catajson + str2
             idx = idx + 1
     strjson = strjson + "]"
+    g_catajson = g_catajson + "}"
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
-    print strjson
-    return strjson
+    g_catajson = json.loads(g_catajson)
+    g_catajson = json.dumps(g_catajson)
+    print strjson, g_catajson
+    return strjson, g_catajson
 
 # Get menu json
 def get_menujson():
