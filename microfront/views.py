@@ -231,6 +231,28 @@ def order_del(request):
 
     return HttpResponse(resp)
 
+#/microfront/foods/del
+def food_del(request):
+    resp = {"code":0}
+    try:
+        id = request.POST['food_id']
+    except Exception as e:
+        print e
+
+    try:
+        ml = Menu.objects.get(id=id)
+    except Menu.DoesNotExist:
+        ml = None
+        print id, " menu not exist."
+
+    if ml:
+        ml.delete()
+    else:
+        resp = "Menu %s not exist." %(id)
+
+    return HttpResponse(resp)
+
+
 # /microfront/catalog/del
 def cata_del(request):
     resp = {"code":0}

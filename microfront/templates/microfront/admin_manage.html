@@ -237,6 +237,11 @@
             $('#configshow').hide();
         }
 
+		function foodDel(id) {
+		    $.post("../foods/del/", {"food_id":id}, function(data){alert("删除成功");});
+			$("#foodtr_"+id).remove();
+		}
+
         function cataShow()
         {
             $('#catalist').show();
@@ -904,7 +909,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
           <td width="8%">操作</td>
         </tr>
         {%for food in foods%}
-        <tr align="center" bgcolor="#FAFAF1" height="22">
+        <tr id="foodtr_{{food.id}}" align="center" bgcolor="#FAFAF1" height="22">
            <td>{{food.id}}</td>
            <td><img style="width:20px; height:20px;" src='/micromall/{{food.cover_url}}'></td>
            <td id="foodname_{{food.id}}">{{food.name}}</td>
@@ -916,7 +921,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
            <td id="foodstatus_{{food.id}}" class="foodstatus">{{food.status}}</td>
            <td id="foodgenre_{{food.id}}" class="foodgenre">{{food.genre}}</td>
            <td class="foodlevel">{{food.level}}</td>
-           <td><a href="#" onclick='foodUpd({{food.id}})'>编辑</a>|<a href="#" onclick='foodDel()'>删除</a></td>
+           <td><a href="#" onclick='foodUpd({{food.id}})'>编辑</a>|<a href="#" onclick='foodDel({{food.id}})'>删除</a></td>
         </tr>
         {%endfor%}
         <script>
