@@ -112,7 +112,7 @@
             } else {
                 status = 0;
             }
-            $.post("../catalog/save/", {"catalog_id":id, "catalog_sts":status, "catalog_sort":$("#catasort_"+id).val()}, function(data){alert("保存成功");});
+            $.post("../catalog/save/", {"catalog_id":id, "catalog_name":$("#cataname_"+id).val(), "catalog_sts":status, "catalog_sort":$("#catasort_"+id).val()}, function(data){alert("保存成功");});
         }
 
         function userUpd(id) {
