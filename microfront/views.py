@@ -752,7 +752,7 @@ def admin(request):
             if 0 == foodid:
                 menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[19:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, total=total, introduce='')
                 menu.save()
-                add_menu_json(1, detail_fullname[20:], fullname[20:], foodname, category, foodprice, sprice, introduce)
+                add_menu_json(menu.id, detail_fullname[20:], fullname[20:], foodname, category, foodprice, sprice, introduce)
             else:
                 menu = Menu.objects.get(id=foodid)
                 menu.name = foodname
@@ -790,43 +790,16 @@ def admin(request):
 def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce):
     reload(sys)
     sys.setdefaultencoding('utf-8')
-    menujson = '''
-{
-    "rt_obj": {
-        "code": 0,
-        "data": {
-            "Goods": {
-                "id": "%d",
-                "org_id": "1",
-                "detail_url": "%s",
-                "cover_url": "%s",
-                "name": "%s",
-                "catalog_id": "%s",
-                "old_price": "%f",
-                "price": "%f",
-                "sales": "0",
-                "total": "0",
-                "genre": "1",
-                "level": "20",
-                "content": "%s",
-                "status": "1",
-                "servings": "1",
-                "stime": "2014-03-18 14:38:40"
-            }
-        }
-    }
-}
-    ''' %(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce)
+    menujson = u'''{"rt_obj":{"code":0,"data":{"Goods":{"id":"%d","org_id": "1","detail_url": "%s","cover_url": "%s","name": "%s","catalog_id":"%s","old_price": "%f","price": "%f","sales":"0","total": "0","genre": "1","level": "20","content": "%s","status": "1","servings": "1","stime": "2014-03-18 14:38:40"}}}}''' %(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce)
+    menujson = json.loads(menujson)
+    menujson = json.dumps(menujson)
      
-    print "Menujson[%s]" % (menujson)
-
     jsonfn = 'microfront/microfront/items/' + str(id) + '.json'
     print "Write menu json file: ", jsonfn
+    print "Menujson[%s]" % (menujson)
     fd = open(jsonfn, 'wb') 
     fd.write(menujson)
-    fd.write('\n')
     fd.close()
-    print "add menu json:", menujson
 
 def add_to_db(foodname, fullname, detail_fullname, foodprice, category, total, introduce):
     categoryid=1
