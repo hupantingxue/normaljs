@@ -252,6 +252,37 @@ def food_del(request):
 
     return HttpResponse(resp)
 
+#/microfront/foods/del
+def food_srch(request):
+    try:
+        if request.POST.has_key['name']:
+	        fname = request.POST['name']
+
+        if request.POST.has_key['sstaus']:
+	        sstaus = request.POST['sstaus']
+		else:
+		    sstaus = None
+			
+        if request.POST.has_key['sgenre']:
+	        sgenre = request.POST['sgenre']
+		else:
+		    sgenre = None
+
+        if request.POST.has_key['scatalog']:
+	        scatalog = request.POST['scatalog']
+		else:
+		    scatalog = None
+    except Exception as e:
+	    print e
+	
+	try:
+	    foods = Food.objects.filter(Q(name__contains=fname))
+	except Food.DoesNotExist:
+	    foods = None
+		print fname, " has no such good."
+	except Exception as e:
+	    print e
+	return render_to_response({'food_srch':foods})
 
 # /microfront/catalog/del
 def cata_del(request):
