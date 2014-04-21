@@ -99,3 +99,22 @@ class Otherset(models.Model):
     tip_content = models.CharField(max_length=500, null=True, default='');
     distribution_range = models.CharField(max_length=500, null=True, default='');
     freight = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(9999)], default = 0.0)
+
+class Ingredient(models.Model):
+    UNIT_KE = 1
+    UNIT_BAO = 2
+    UNIT_GE = 3
+    UNIT_LI = 4
+    UNIT_CHOICES = (
+        (UNIT_KE, u'克'), 
+        (UNIT_BAO, u'包'), 
+        (UNIT_GE, u'个'), 
+        (UNIT_LI, u'粒'),)
+    CLASS_ZHU = 1
+    CLASS_FU = 2
+    CLASS_CHOICES = ((CLASS_ZHU, u'主料'), (CLASS_FU, u'辅料'),)
+    menu_id = models.IntegerField()
+    name = models.CharField(max_length=200)
+    mclass = models.IntegerField(choices=CLASS_CHOICES, default=CLASS_ZHU) #1: Ingredient  2: accessorie
+    quantity = models.IntegerField(default=1)
+    unit = models.IntegerField(choices=UNIT_CHOICES, default=UNIT_KE)
