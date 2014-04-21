@@ -243,7 +243,7 @@
 		}
 
 		function foodSrch() {
-		    $.post("../foods/srch/", {"name":$("fsrch_kw").val(), "sstaus":$("#fsrch_staus").val(), "sgenre":$("#fsrch_genre").val(), "scatalog":$("fsrch_cata").val()}, function(data){alert("查询成功");});
+		    $.post("../foods/srch/", {"name":$("#fsrch_kw").val(), "sstaus":$("#fsrch_staus").val(), "sgenre":$("#fsrch_genre").val(), "scatalog":$("#fsrch_cata").val()}, function(data){alert(data);});
 		    alert("Search food...");
 		}
 
@@ -901,7 +901,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
    <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
   	  <tr>
   		<td width="50%">
-  		   <input type="text" id="fsrch_kw" class="text-info" placeholder="输入关键字搜索" value="">
+  		   <input type="text" id="fsrch_kw" class="text-info" placeholder="输入关键字搜索" />
            <select class="span2" id="fsrch_staus">
            	  <option value="" selected="selected">全部</option>
   			  <option value="1">已上架</option>

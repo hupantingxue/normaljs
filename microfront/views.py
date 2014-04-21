@@ -8,6 +8,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
 from django.core.servers.basehttp import FileWrapper
 from django.db.models import Q, Sum
+from django.core import serializers
 
 from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr, Otherset
 
@@ -255,34 +256,65 @@ def food_del(request):
 #/microfront/foods/del
 def food_srch(request):
     try:
-        if request.POST.has_key['name']:
-	        fname = request.POST['name']
+        if request.POST.has_key('name'):
+            keyword = request.POST['name']
+        else:
+            keyword = ''
 
-        if request.POST.has_key['sstaus']:
-	        sstaus = request.POST['sstaus']
-		else:
-		    sstaus = None
-			
-        if request.POST.has_key['sgenre']:
-	        sgenre = request.POST['sgenre']
-		else:
-		    sgenre = None
+        if request.POST.has_key('sstaus'):
+            status = request.POST['sstaus']
+            print "status", status
+            if '' == status:
+                status = [0, 1, 2]
+            else:
+                status = [int(status)]
+        else:
+            status = [0, 1, 2]
+            
+        if request.POST.has_key('sgenre'):
+            sgenre = request.POST['sgenre']
+            print "sgenre", sgenre 
+            if '' == sgenre:
+                sgenre = [0, 1, 2, 3]
+            else:
+                sgenre = [int(sgenre)]
+        else:
+            sgenre = [0, 1, 2, 3]
 
-        if request.POST.has_key['scatalog']:
-	        scatalog = request.POST['scatalog']
-		else:
-		    scatalog = None
+        if request.POST.has_key('scatalog'):
+            scatalog = request.POST['scatalog']
+            print "scatalog", scatalog
+            if '' == scatalog:
+                scatalog = range(100)
+            else:
+                scatalog = [int(scatalog)]
+        else:
+            scatalog = range(100)
     except Exception as e:
-	    print e
-	
-	try:
-	    foods = Food.objects.filter(Q(name__contains=fname))
-	except Food.DoesNotExist:
-	    foods = None
-		print fname, " has no such good."
-	except Exception as e:
-	    print e
-	return render_to_response({'food_srch':foods})
+        print 'foodsrch params query ', e
+    
+    try:
+        foods = Menu.objects.filter(Q(name__contains=keyword)&Q(status__in=status)&Q(genre__in=sgenre)&Q(catalog_id__in=scatalog))
+        #foods = Menu.objects.get(id=12)
+        #foods = Menu.objects.all()
+    except Menu.DoesNotExist:
+        foods = None
+        print " has no such good."
+    except Exception as e:
+        foods = None
+        print 'foods query', e
+
+    if foods:
+        data = serializers.serialize('json', foods)
+
+        #if 1 >= foods.count():
+        #    data = serializers.serialize('json', [foods])
+        #else:
+        #    data = serializers.serialize('json', foods)
+        return HttpResponse(data)
+    else:
+        print "foods is none."
+        return HttpResponse({'food_srch':''})
 
 # /microfront/catalog/del
 def cata_del(request):
