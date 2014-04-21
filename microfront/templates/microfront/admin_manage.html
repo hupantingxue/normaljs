@@ -257,46 +257,49 @@
 						$("#foodtr_header").after('<tr id="' + food_id + '" class="foodtr" align="center" bgcolor="#FAFAF1" height="22"><td>' + food_id + '</td><td><img style="width:20px; height:20px;" src="/micromall/'+ fields['cover_url'] + '"></td><td id="foodname_' + food_id + '">' + fields['name'] + '</td><td id="foodcata_' + food_id + '" class="foodcatalog">' + fields['catalog_id'] + '</td><td id="foodoprice_' + food_id + '">' + fields['old_price'] + '</td><td id="foodprice_' + food_id + '">' + fields['price'] + '</td><td id="foodtotal_' + food_id + '">' + fields['total'] + '</td><td>' + fields['sales'] + '</td><td id="foodstatus_' + food_id + '" class="foodstatus">' + fields['status'] + '</td><td id="foodgenre_' + food_id + '" class="foodgenre">' + fields['genre'] + '</td><td class="foodlevel">' + fields['level'] + '</td><td><a href="#" onclick="foodUpd(' + food_id + ')">编辑</a>|<a href="#" onclick="foodDel(' + food_id + ')">删除</a></td></tr>');
 					}
 				}
+
+                var g_cata={{ g_catajson|safe }}
+				$('.foodcatalog').each(function(){
+					cid = $(this).text();
+					// alert("category:"+g_cata[cid]);
+					$(this).text(g_cata[cid]);
+				});
+
+				$(function(){
+					var categories = $('.foodstatus')
+					var len = categories.length
+					for(var i = 0; i < len; i++){
+						var category=categories[i];
+						if(category.innerHTML=='1'){
+							category.innerHTML='下架'
+						}
+						if(category.innerHTML=='0'){
+							category.innerHTML='上架'
+						}
+					}
+				})
+
+				$(function(){
+					var categories = $('.foodgenre')
+					var len = categories.length
+					for(var i = 0; i < len; i++){
+						var category=categories[i];
+						if(category.innerHTML=='0'){
+							category.innerHTML='普通'
+						}
+						if(category.innerHTML=='1'){
+							category.innerHTML='特价'
+						}
+						if(category.innerHTML=='2'){
+							category.innerHTML='推荐'
+						}
+					}
+				}) // function foodgenre
+
 			}); // post
+
 		    // alert("Search food...");
 
-            var g_cata={{ g_catajson|safe }}
-            $('.foodcatalog').each(function(){
-                cid = $(this).text();
-                // alert("category:"+cid);
-                $(this).text(g_cata[cid]);
-            });
-
-            $(function(){
-                var categories = $('.foodstatus')
-                var len = categories.length
-                for(var i = 0; i < len; i++){
-                    var category=categories[i];
-                    if(category.innerHTML=='1'){
-                        category.innerHTML='下架'
-                    }
-                    if(category.innerHTML=='0'){
-                        category.innerHTML='上架'
-                    }
-                }
-            })
-
-            $(function(){
-                var categories = $('.foodgenre')
-                var len = categories.length
-                for(var i = 0; i < len; i++){
-                    var category=categories[i];
-                    if(category.innerHTML=='0'){
-                        category.innerHTML='普通'
-                    }
-                    if(category.innerHTML=='1'){
-                        category.innerHTML='特价'
-                    }
-                    if(category.innerHTML=='2'){
-                        category.innerHTML='推荐'
-                    }
-                }
-            }) // function foodgenre
 		} // foodSrch()
 
         function cataShow()
