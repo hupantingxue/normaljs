@@ -294,7 +294,10 @@ def food_srch(request):
         print 'foodsrch params query ', e
     
     try:
-        foods = Menu.objects.filter(Q(name__contains=keyword)&Q(status__in=status)&Q(genre__in=sgenre)&Q(catalog_id__in=scatalog))
+        if '' == keyword:
+            foods = Menu.objects.filter(Q(status__in=status)&Q(genre__in=sgenre)&Q(catalog_id__in=scatalog))
+        else:
+            foods = Menu.objects.filter(Q(name__contains=keyword)&Q(status__in=status)&Q(genre__in=sgenre)&Q(catalog_id__in=scatalog))
         #foods = Menu.objects.get(id=12)
         #foods = Menu.objects.all()
     except Menu.DoesNotExist:
