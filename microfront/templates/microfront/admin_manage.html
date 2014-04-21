@@ -243,7 +243,16 @@
 		}
 
 		function foodSrch() {
-		    $.post("../foods/srch/", {"name":$("#fsrch_kw").val(), "sstaus":$("#fsrch_staus").val(), "sgenre":$("#fsrch_genre").val(), "scatalog":$("#fsrch_cata").val()}, function(data){alert(data);});
+		    $.post("../foods/srch/", {"name":$("#fsrch_kw").val(), "sstaus":$("#fsrch_staus").val(), "sgenre":$("#fsrch_genre").val(), "scatalog":$("#fsrch_cata").val()}, function(data){
+			    if ("food_srch"==data) {
+					$(".foodtr").remove();
+				    alert("未找到符合条件的结果");
+				} else {
+				    $.each(data, function(key, value) {
+					    alert(data.id);
+					});
+				}
+			});
 		    alert("Search food...");
 		}
 
@@ -940,7 +949,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
           <td width="8%">操作</td>
         </tr>
         {%for food in foods%}
-        <tr id="foodtr_{{food.id}}" align="center" bgcolor="#FAFAF1" height="22">
+        <tr id="foodtr_{{food.id}}" class="foodtr" align="center" bgcolor="#FAFAF1" height="22">
            <td>{{food.id}}</td>
            <td><img style="width:20px; height:20px;" src='/micromall/{{food.cover_url}}'></td>
            <td id="foodname_{{food.id}}">{{food.name}}</td>
