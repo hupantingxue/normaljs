@@ -248,9 +248,11 @@
 					$(".foodtr").remove();
 				    alert("未找到符合条件的结果");
 				} else {
-				    $.each(data, function(key, value) {
-					    alert(data.id);
-					});
+				    jsond = eval('(' + data + ')'); 
+				    for (ii in jsond) {
+					    fields = jsond[ii]['fields'];
+					    alert(fields['name']);
+					}
 				}
 			});
 		    alert("Search food...");
