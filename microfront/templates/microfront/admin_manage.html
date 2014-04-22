@@ -1471,7 +1471,8 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         function saveIngredt() {
             type = $("#ingredtype").val();
             foodid = $("#updfoodid").val();
-            alert("save ingredt id" + foodid);
+			$.post("../ingredit/save/", {"goods_id":foodid }, function(data){alert("保存成功");});
+            // alert("save ingredt id" + foodid);
         }
 
         function addIngredt() {
@@ -1488,6 +1489,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
 
         function saveUnit(ingid, val) {
             $("#unit_"+ingid).val(val);
+			// $.post("../ingredit/save/", {"goods_id":id }, function(data){alert("保存成功");});
         }
 
         function delRow(line) {

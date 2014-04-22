@@ -693,6 +693,11 @@ def save_otherset(request):
         
     return HttpResponse(resp)
 
+#/microfront/ingredit/save
+def ingredit_save(request):
+    code = 0
+    return HttpResponse(code)
+
 #/microfront/dltime/del
 def del_dltime(request):
     resp = 0
