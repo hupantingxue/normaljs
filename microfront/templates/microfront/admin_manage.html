@@ -1452,14 +1452,19 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         function chgIngtype(id) {
             // alert("chgingtype: "+id);
             $("#ingredtype").val(id);
+			// $(this).css("class", "active");
 			if ('2' == id) {
 			    $(".tr_2").show();
 			    $(".tr_1").hide();
+				$("#fuliao").addClass("active");
+				$("#zhuliao").removeClass("active");
 			}
 		    
 			if ('1' == id) {
 			    $(".tr_1").show();
 			    $(".tr_2").hide();
+				$("#zhuliao").addClass("active");
+				$("#fuliao").removeClass("active");
 			}
         }
 
@@ -1475,9 +1480,9 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
             alert(typeof(typeid));
             // $("#ingredttr-header").after('<tr class="tr_'+ingid+'"><td><input type="text" ingid="name_'+ingid+'" name="names"></td></td></tr>');
             if ('2' == typeid) {
-                $("#ingredttr-header").after('<tr class="tr_2">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
+                $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_2">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
             } else {
-                $("#ingredttr-header").after('<tr class="tr_1">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
+                $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_1">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
             }
         }
 
@@ -1486,12 +1491,12 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         }
 
         function delRow(line) {
-            $(".tr_"+line).remove();
+            $("#ingtr_"+line).remove();
         }
     </script>
     <ul class="nav nav-tabs">
-        <li><a href="#" onclick="chgIngtype(1);return false;">主料</a></li>
-        <li><a href="#" onclick="chgIngtype(2);return false;">辅料</a></li>
+        <li id="zhuliao"><a href="#" onclick="chgIngtype(1);return false;">主料</a></li>
+        <li id="fuliao"><a href="#" onclick="chgIngtype(2);return false;">辅料</a></li>
     </ul>
     <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
         <tr><input id="ingredtype" name='ingredtype' type='hidden' value='0' /></tr>
