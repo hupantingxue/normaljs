@@ -269,6 +269,14 @@
                     $(this).text(g_cata[cid]);
                 });
 
+                var g_foodstatus={"2":"下架", "1":"上架", "0":"上架"};
+                $('.foodstatus').each(function(){
+                    cid = $(this).text();
+                    // alert("status:"+g_foodstatus[cid]);
+                    $(this).text(g_foodstatus[cid]);
+                });
+
+                /*
                 $(function(){
                     var categories = $('.foodstatus')
                     var len = categories.length
@@ -284,7 +292,7 @@
                             category.innerHTML='上架'
                         }
                     }
-                })
+                })*/
 
                 $(function(){
                     var categories = $('.foodgenre')
@@ -1152,6 +1160,9 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                     if(category.innerHTML=='2'){
                         category.innerHTML='下架'
                     }
+                    if(category.innerHTML=='0'){
+                        category.innerHTML='上架'
+                    }
                 }
             })
 
@@ -1168,6 +1179,9 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                     }
                     if(category.innerHTML=='3'){
                         category.innerHTML='推荐'
+                    }
+                    if(category.innerHTML=='0'){
+                        category.innerHTML='普通'
                     }
                 }
             })
