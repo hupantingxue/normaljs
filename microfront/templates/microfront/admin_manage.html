@@ -11,7 +11,7 @@
         tinyMCE.init({
             // mode : "textareas",
             mode : "specific_textareas",
-			editor_selector : "myTextEditor",
+            editor_selector : "myTextEditor",
             theme : "advanced",
             plugins : "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
          
@@ -51,30 +51,30 @@
         function saveProvince() {
             // var myaddr = "广东省深圳市" + $("#area").val()
             var myaddr = $("#dlscity").val() + $("#dlsarea").val() + $("#area").val()
-			var id = '';
+            var id = '';
             $.post("../addr/", {"area": myaddr}, function(data){id=data;alert("保存成功");
                 $("#addr-header").after('<tr id="dladdr_'+id+'" align="center" bgcolor="#FAFAF1" height="22"><td width=\"90%\"><input id="dlarea_'+id+'" type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:530px;" value="' + myaddr + '" /></td><td width=\"10%\"><a href="#" onclick="saveAddr('+id+')">编辑</a>|<a href="#" onclick="delAddr('+id+')">删除</a></td></tr>');
-			});
+            });
         }
-		
-		function saveAddr(id) {
+        
+        function saveAddr(id) {
             $.post("../dladdr/save/", {"dladdr_id":id, "area":$("#dlarea_"+id).val()}, function(data){alert("保存成功");});
-		}
-		
-		function delAddr(id) {
+        }
+        
+        function delAddr(id) {
             $.post("../dladdr/del/", {"dladdr_id":id}, function(data){alert("删除成功");});
-			$("#dladdr_"+id).remove();
-		}
+            $("#dladdr_"+id).remove();
+        }
 
         function dlTimeAdd() {
             var mytime = $("#dlbegin").val()
             mytime += "-----"
             mytime += $("#dlend").val()
             $.post("../dltime/add/", {"begin_time":$("#dlbegin").val(), "end_time": $("#dlend").val()}, function(data){
-			    var id = data;
-			    alert("保存成功");
+                var id = data;
+                alert("保存成功");
                 $("#dltime-header").after('<tr id="dltime_'+id+'" align="left" bgcolor="#FAFAF1" height="22"><td width=\"90%\"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:530px;" id="dltimeinfo_'+id+'" value="' + mytime + '" /></td><td width=\"10%\"><a href="#" onclick="dlTimeUpd('+id+')">编辑</a>|<a href="#" onclick="dlTimeDel(' + id + ')">删除</a></td></tr>');
-			});
+            });
         }
 
         function dlTimeUpd(id) {
@@ -83,15 +83,15 @@
 
         function dlTimeDel(id) {
             $.post("../dltime/del/", {"dltime_id":id}, function(data){alert("删除成功");});
-			$("#dltime_"+id).remove();
+            $("#dltime_"+id).remove();
         }
 
-		function saveOtherSet() {
+        function saveOtherSet() {
             $.post("../otherset/save/", {"dx_mobile":$("#dx_mobile").val(), "kf_phone":$("#kf_phone").val(), "tip_content":$("#tip_content").val(), "distribution_range":$("#distribution_range").val(), "freight":$("#freight").val()}, function(data){alert("保存成功");});
-		}
+        }
 
         function orderUpd(id) {
-		    //$("orderedit_"+id).text()="保存";
+            //$("orderedit_"+id).text()="保存";
             $.post("../orders/save/", {"order_id":id, "order_status":$("#orderstatus_"+id).val(), "order_info":$("#orderinfo_"+id).val(), "order_addr":$("#orderaddr_"+id).val()}, function(data){alert("保存成功");});
         }
 
@@ -124,18 +124,18 @@
             $("#usertr_"+id).remove();
         }
 
-		function queryUser() {
-			$(".usertr").remove()
+        function queryUser() {
+            $(".usertr").remove()
             $.post("../users/query/", {"keyword":$("#usrsrch").val()}, function(data){
-			    var jo = eval('('+data+')');
-				// alert("post data: "+typeof(jo));
-				$.each(jo.user, function(key, value){
-				    // alert(value.openid);
- 				    // $("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="10%">'+value.openid+'</td><td width="12%"><input type="text" id="usrname_'+value.id+'" value="'+value.name+'" /></td>');  // after
-					$("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="10%">'+value.openid+'</td><td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrname_'+value.id+'" value="'+value.name+'" /></td><td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrphone_'+value.id+'" value="'+value.phone+'" /></td><td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrmny_'+value.id+'" value="'+value.money+'" /></td><td width="16%"><a href="#" onclick="userUpd('+value.id+')">保存</a>|<a href="#" onclick="userDel('+value.id+')">删除</a></td></tr>');  // after
-				}); // $.each()
-			}); // $.post()
-		}
+                var jo = eval('('+data+')');
+                // alert("post data: "+typeof(jo));
+                $.each(jo.user, function(key, value){
+                    // alert(value.openid);
+                     // $("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="10%">'+value.openid+'</td><td width="12%"><input type="text" id="usrname_'+value.id+'" value="'+value.name+'" /></td>');  // after
+                    $("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="10%">'+value.openid+'</td><td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrname_'+value.id+'" value="'+value.name+'" /></td><td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrphone_'+value.id+'" value="'+value.phone+'" /></td><td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrmny_'+value.id+'" value="'+value.money+'" /></td><td width="16%"><a href="#" onclick="userUpd('+value.id+')">保存</a>|<a href="#" onclick="userDel('+value.id+')">删除</a></td></tr>');  // after
+                }); // $.each()
+            }); // $.post()
+        }
 
         var preFrameW = '206,*';
         var FrameHide = 0;
@@ -192,6 +192,7 @@
             $('#dltimeupd').hide();
             $('#usershow').hide();
             $('#configshow').hide();
+            $('#ingredt').hide();
         }
 
         function foodShow()
@@ -205,6 +206,7 @@
             $('#dltimeupd').hide();
             $('#usershow').hide();
             $('#configshow').hide();
+            $('#ingredt').hide();
         }
 
         function foodUpd(id)
@@ -235,72 +237,73 @@
             $('#dltimeupd').hide();
             $('#usershow').hide();
             $('#configshow').hide();
+            $('#ingredt').hide();
         }
 
-		function foodDel(id) {
-		    $.post("../foods/del/", {"food_id":id}, function(data){alert("删除成功");});
-			$("#foodtr_"+id).remove();
-		}
+        function foodDel(id) {
+            $.post("../foods/del/", {"food_id":id}, function(data){alert("删除成功");});
+            $("#foodtr_"+id).remove();
+        }
 
-		function foodSrch() {
-		    $.post("../foods/srch/", {"name":$("#fsrch_kw").val(), "sstaus":$("#fsrch_staus").val(), "sgenre":$("#fsrch_genre").val(), "scatalog":$("#fsrch_cata").val()}, function(data){
-			    if ("food_srch"==data) {
-					$(".foodtr").remove();
-				    alert("未找到符合条件的结果");
-				} else {
-				    jsond = eval('(' + data + ')'); 
-					$(".foodtr").remove();
-				    for (ii in jsond) {
-					    fields = jsond[ii]['fields'];
-						food_id = jsond[ii]['pk'];
-						// $("#foodtr_header").after('<tr id="' + fields['id'] + '" class="foodtr" align="center" bgcolor="#FAFAF1" height="22"><td>' + fields['id'] + '</td><td><img style="width:20px; height:20px;" src="/micromall/'+ fields['cover_url'] + '"></td><td id="foodname_' + fields['id'] + '">' + fields['name'] + '</td><td id="foodcata_' + fields['id'] + '" class="foodcatalog">' + fields['catalog_id'] + '</td><td id="foodoprice_' + fields['id'] + '">' + fields['old_price'] + '</td><td id="foodprice_' + fields['id'] + '">' + fields['price'] + '</td><td id="foodtotal_' + fields['id'] + '">' + fields['total'] + '</td><td>' + fields['sales'] + '</td><td id="foodstatus_' + fields['id'] + '" class="foodstatus">' + fields['status'] + '</td><td id="foodgenre_' + fields['id'] + '" class="foodgenre">' + fields['genre'] + '</td><td class="foodlevel">' + fields['level'] + '</td><td><a href="#" onclick="foodUpd(' + fields['id'] + ')">编辑</a>|<a href="#" onclick="foodDel(' + fields['id'] + ')">删除</a></td></tr>')
-						$("#foodtr_header").after('<tr id="' + food_id + '" class="foodtr" align="center" bgcolor="#FAFAF1" height="22"><td>' + food_id + '</td><td><img style="width:20px; height:20px;" src="/micromall/'+ fields['cover_url'] + '"></td><td id="foodname_' + food_id + '">' + fields['name'] + '</td><td id="foodcata_' + food_id + '" class="foodcatalog">' + fields['catalog_id'] + '</td><td id="foodoprice_' + food_id + '">' + fields['old_price'] + '</td><td id="foodprice_' + food_id + '">' + fields['price'] + '</td><td id="foodtotal_' + food_id + '">' + fields['total'] + '</td><td>' + fields['sales'] + '</td><td id="foodstatus_' + food_id + '" class="foodstatus">' + fields['status'] + '</td><td id="foodgenre_' + food_id + '" class="foodgenre">' + fields['genre'] + '</td><td class="foodlevel">' + fields['level'] + '</td><td><a href="#" onclick="foodUpd(' + food_id + ')">编辑</a>|<a href="#" onclick="foodDel(' + food_id + ')">删除</a></td></tr>');
-					}
-				}
+        function foodSrch() {
+            $.post("../foods/srch/", {"name":$("#fsrch_kw").val(), "sstaus":$("#fsrch_staus").val(), "sgenre":$("#fsrch_genre").val(), "scatalog":$("#fsrch_cata").val()}, function(data){
+                if ("food_srch"==data) {
+                    $(".foodtr").remove();
+                    alert("未找到符合条件的结果");
+                } else {
+                    jsond = eval('(' + data + ')'); 
+                    $(".foodtr").remove();
+                    for (ii in jsond) {
+                        fields = jsond[ii]['fields'];
+                        food_id = jsond[ii]['pk'];
+                        // $("#foodtr_header").after('<tr id="' + fields['id'] + '" class="foodtr" align="center" bgcolor="#FAFAF1" height="22"><td>' + fields['id'] + '</td><td><img style="width:20px; height:20px;" src="/micromall/'+ fields['cover_url'] + '"></td><td id="foodname_' + fields['id'] + '">' + fields['name'] + '</td><td id="foodcata_' + fields['id'] + '" class="foodcatalog">' + fields['catalog_id'] + '</td><td id="foodoprice_' + fields['id'] + '">' + fields['old_price'] + '</td><td id="foodprice_' + fields['id'] + '">' + fields['price'] + '</td><td id="foodtotal_' + fields['id'] + '">' + fields['total'] + '</td><td>' + fields['sales'] + '</td><td id="foodstatus_' + fields['id'] + '" class="foodstatus">' + fields['status'] + '</td><td id="foodgenre_' + fields['id'] + '" class="foodgenre">' + fields['genre'] + '</td><td class="foodlevel">' + fields['level'] + '</td><td><a href="#" onclick="foodUpd(' + fields['id'] + ')">编辑</a>|<a href="#" onclick="foodDel(' + fields['id'] + ')">删除</a></td></tr>')
+                        $("#foodtr_header").after('<tr id="' + food_id + '" class="foodtr" align="center" bgcolor="#FAFAF1" height="22"><td>' + food_id + '</td><td><img style="width:20px; height:20px;" src="/micromall/'+ fields['cover_url'] + '"></td><td id="foodname_' + food_id + '">' + fields['name'] + '</td><td id="foodcata_' + food_id + '" class="foodcatalog">' + fields['catalog_id'] + '</td><td id="foodoprice_' + food_id + '">' + fields['old_price'] + '</td><td id="foodprice_' + food_id + '">' + fields['price'] + '</td><td id="foodtotal_' + food_id + '">' + fields['total'] + '</td><td>' + fields['sales'] + '</td><td id="foodstatus_' + food_id + '" class="foodstatus">' + fields['status'] + '</td><td id="foodgenre_' + food_id + '" class="foodgenre">' + fields['genre'] + '</td><td class="foodlevel">' + fields['level'] + '</td><td><a href="#" onclick="foodUpd(' + food_id + ')">编辑</a>|<a href="#" onclick="foodDel(' + food_id + ')">删除</a></td></tr>');
+                    }
+                }
 
                 var g_cata={{ g_catajson|safe }}
-				$('.foodcatalog').each(function(){
-					cid = $(this).text();
-					// alert("category:"+g_cata[cid]);
-					$(this).text(g_cata[cid]);
-				});
+                $('.foodcatalog').each(function(){
+                    cid = $(this).text();
+                    // alert("category:"+g_cata[cid]);
+                    $(this).text(g_cata[cid]);
+                });
 
-				$(function(){
-					var categories = $('.foodstatus')
-					var len = categories.length
-					for(var i = 0; i < len; i++){
-						var category=categories[i];
-						if(category.innerHTML=='1'){
-							category.innerHTML='下架'
-						}
-						if(category.innerHTML=='0'){
-							category.innerHTML='上架'
-						}
-					}
-				})
+                $(function(){
+                    var categories = $('.foodstatus')
+                    var len = categories.length
+                    for(var i = 0; i < len; i++){
+                        var category=categories[i];
+                        if(category.innerHTML=='1'){
+                            category.innerHTML='下架'
+                        }
+                        if(category.innerHTML=='0'){
+                            category.innerHTML='上架'
+                        }
+                    }
+                })
 
-				$(function(){
-					var categories = $('.foodgenre')
-					var len = categories.length
-					for(var i = 0; i < len; i++){
-						var category=categories[i];
-						if(category.innerHTML=='0'){
-							category.innerHTML='普通'
-						}
-						if(category.innerHTML=='1'){
-							category.innerHTML='特价'
-						}
-						if(category.innerHTML=='2'){
-							category.innerHTML='推荐'
-						}
-					}
-				}) // function foodgenre
+                $(function(){
+                    var categories = $('.foodgenre')
+                    var len = categories.length
+                    for(var i = 0; i < len; i++){
+                        var category=categories[i];
+                        if(category.innerHTML=='0'){
+                            category.innerHTML='普通'
+                        }
+                        if(category.innerHTML=='1'){
+                            category.innerHTML='特价'
+                        }
+                        if(category.innerHTML=='2'){
+                            category.innerHTML='推荐'
+                        }
+                    }
+                }) // function foodgenre
 
-			}); // post
+            }); // post
 
-		    // alert("Search food...");
+            // alert("Search food...");
 
-		} // foodSrch()
+        } // foodSrch()
 
         function cataShow()
         {
@@ -313,6 +316,7 @@
             $('#dltimeupd').hide();
             $('#usershow').hide();
             $('#configshow').hide();
+            $('#ingredt').hide();
         }
 
         function cataUpd(id)
@@ -326,6 +330,7 @@
             $('#dltimeupd').hide();
             $('#usershow').hide();
             $('#configshow').hide();
+            $('#ingredt').hide();
         }
 
         function dladdrUpd()
@@ -339,6 +344,7 @@
             $('#dltimeupd').hide();
             $('#usershow').hide();
             $('#configshow').hide();
+            $('#ingredt').hide();
         }
 
         function dltimeUpd()
@@ -352,6 +358,7 @@
             $('#cataupd').hide();
             $('#usershow').hide();
             $('#configshow').hide();
+            $('#ingredt').hide();
         }
 
         function userShow()
@@ -365,6 +372,7 @@
             $('#catalist').hide();
             $('#cataupd').hide();
             $('#configshow').hide();
+            $('#ingredt').hide();
         }
 
         function configShow()
@@ -378,8 +386,22 @@
             $('#order').hide();
             $('#catalist').hide();
             $('#cataupd').hide();
+            $('#ingredt').hide();
         }
 
+        function ingredtShow()
+        {
+            $('#ingredt').show();
+            $('#configshow').hide();
+            $('#usershow').hide();
+            $('#dltimeupd').hide();
+            $('#dladdrupd').hide();
+            $('#foodupd').hide();
+            $('#foodlist').hide();
+            $('#order').hide();
+            $('#catalist').hide();
+            $('#cataupd').hide();
+        }
     </script>
     <script language='javascript'>var curopenItem = '1';</script>
     <script language="javascript" type="text/javascript" src="../skin/js/frame/menu.js"></script>
@@ -460,6 +482,93 @@ a:link,a:visited {
 .itemsel a:hover {
     color: #ffffff;
     border-bottom:2px solid #E9FC65;
+}
+
+.container-fluid {
+  padding-right: 20px;
+  padding-left: 20px;
+  *zoom: 1;
+}
+.container-fluid:before,
+.container-fluid:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.container-fluid:after {
+  clear: both;
+}
+
+.nav {
+  margin-left: 0;
+  margin-bottom: 20px;
+  list-style: none;
+}
+.nav > li > a {
+  display: block;
+}
+
+.nav > li > a {
+  display: block;
+}
+
+.nav > li > a:hover {
+  text-decoration: none;
+  background-color: #FAFAF1;
+}
+
+.nav-tabs,
+.nav-pills {
+  *zoom: 1;
+}
+.nav-tabs:before,
+.nav-pills:before,
+.nav-tabs:after,
+.nav-pills:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.nav-tabs:after,
+.nav-pills:after {
+  clear: both;
+}
+.nav-tabs > li,
+.nav-pills > li {
+  float: left;
+}
+.nav-tabs > li > a,
+.nav-pills > li > a {
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: 2px;
+  line-height: 14px;
+}
+.nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+.nav-tabs > li {
+  margin-bottom: -1px;
+}
+.nav-tabs > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 20px;
+  border: 1px solid transparent;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+.nav-tabs > li > a:hover {
+  border-color: #eeeeee #eeeeee #dddddd;
+}
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover {
+  color: #555555;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+  cursor: default;
 }
 
 .rmain {
@@ -573,6 +682,7 @@ $(function(){
     $('#configshow').hide();
 
     $('#update-food').hide();
+    $('#ingredt').hide();
     $('#food-list').show();
     $('#admin-manage').show();
     
@@ -595,24 +705,28 @@ $(function(){
     })
     
     $('#form1').submit(function(){
+        var foodid=$("#updfoodid").val();
         var foodname=$('input[name="foodname"]').val()
         var foodprice=$('input[name="foodprice"]').val()
         var foodimage=$('input[type="file"]').val();
-        if(foodname==''){
-            alert('请输入商品名称');
-            return false;
-        }
-        if(foodprice==''){
-            alert('请输入商品价格');
-            return false;
-            if(isNaN(foodprice)){
-                alert('请输入有效商品价格');
+        alert(typeof(foodid));
+        if ('0' == foodid) {
+            if(foodname==''){
+                alert('请输入商品名称');
                 return false;
             }
-        }
-        if(foodimage==''){
-            alert('请上传商品图片')
-            return false;
+            if(foodprice==''){
+                alert('请输入商品价格');
+                return false;
+                if(isNaN(foodprice)){
+                    alert('请输入有效商品价格');
+                    return false;
+                }
+            }
+            if(foodimage==''){
+                alert('请上传商品图片')
+                return false;
+            }
         }
     })
 })
@@ -954,29 +1068,29 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
 <!-- start: foodlist -->
 <div id="foodlist" style="width: 80%;float:left;margin-left: -2em;">
    <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
-  	  <tr>
-  		<td width="50%">
-  		   <input type="text" id="fsrch_kw" class="text-info" placeholder="输入关键字搜索" />
+        <tr>
+          <td width="50%">
+             <input type="text" id="fsrch_kw" class="text-info" placeholder="输入关键字搜索" />
            <select class="span2" id="fsrch_staus">
-           	  <option value="" selected="selected">全部</option>
-  			  <option value="1">已上架</option>
+                 <option value="" selected="selected">全部</option>
+                <option value="1">已上架</option>
               <option value="2">未上架</option>
            </select>
            <select class="span2" id="fsrch_genre">
-           	  <option value="" selected="selected">全部</option>
-  			  <option value="1">普通</option>
+                 <option value="" selected="selected">全部</option>
+                <option value="1">普通</option>
               <option value="2">推荐</option>
               <option value="3">特价</option>
             </select>
            <select style="width:80px;" id="fsrch_cata">
               <option value="" selected="selected">全部</option>
-			  {%for catalog in catalogs %}
-			      <option value="{{catalog.id}}">{{ catalog.name }}</option>
-			  {%endfor%}
+              {%for catalog in catalogs %}
+                  <option value="{{catalog.id}}">{{ catalog.name }}</option>
+              {%endfor%}
            </select>
-  		   <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="查询" onclick='foodSrch()';'>
-  		</td>
-  	  </tr>							
+             <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="查询" onclick='foodSrch()';'>
+          </td>
+        </tr>                            
     </table> 
 
     <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
@@ -1013,11 +1127,11 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         <script>
             // var g_cata={"3":"肉", "6":"素食", "7":"靓汤"};
             var g_cata={{ g_catajson|safe }}
-			$('.foodcatalog').each(function(){
-			    cid = $(this).text();
-				// alert("category:"+cid);
-				$(this).text(g_cata[cid]);
-			});
+            $('.foodcatalog').each(function(){
+                cid = $(this).text();
+                // alert("category:"+cid);
+                $(this).text(g_cata[cid]);
+            });
 
             $(function(){
                 var categories = $('.foodstatus')
@@ -1059,7 +1173,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
     <form id='form1' method='post' enctype="multipart/form-data" accept-charset="UTF-8">
         {% csrf_token %}
         <table id='add-food'>
-		<tr><input id="updfoodid" name='foodid' type='hidden' value='0' /></tr>
+        <tr><input id="updfoodid" name='foodid' type='hidden' value='0' /></tr>
         <tr>
             <td>目录名</td>
             <td>
@@ -1118,7 +1232,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         </tr>
         </table>
             <input style="font-size:15px;width:50px;margin-left:50;" type='submit' value='提交'/>
-            <input style="font-size:15px;width:150px;margin-left:50;" type='submit' value='保存,进入材料添加页' onclick="alert(1);return false;";/>
+            <input style="font-size:15px;width:150px;margin-left:50;" type='submit' value='保存,进入材料添加页' onclick="ingredtShow(0);return false;";/>
     </form>
 </div>
 <!-- end: foodupdate -->
@@ -1284,7 +1398,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                 <table id="other-config">
                 <tr>
                     <td>下单通知手机号码</td>
-		    <td>
+            <td>
                         <input type="text" maxlength="12" class="span4" id="dx_mobile" name="dx_mobile" placeholder="用户在前端下单后，会把下单的消息发送到该手机，务必填写正确" value="{{otherset.dx_mobile}}">
                         <input type="radio" name="dx_status" value="1">启用
                         <input type="radio" name="dx_status" value="2" checked="">禁用
@@ -1293,31 +1407,31 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                 <br />
 
                 <tr>
-		    <td>客服电话</td>
-		    <td><input type="text" maxlength="13" class="span7" id="kf_phone" name="kf_phone" placeholder="客户电话,如0755-88889999" value="{{otherset.kf_phone}}"></td>
+            <td>客服电话</td>
+            <td><input type="text" maxlength="13" class="span7" id="kf_phone" name="kf_phone" placeholder="客户电话,如0755-88889999" value="{{otherset.kf_phone}}"></td>
                 </tr>
                 <br />
 
                 <tr>
-		    <td>提示内容</td>
-		    <td><textarea class="span7" rows="6" id="tip_content" name="tip_content" placeholder="下完单后的温馨提示内容">{{otherset.tip_content}}</textarea></td>
+            <td>提示内容</td>
+            <td><textarea class="span7" rows="6" id="tip_content" name="tip_content" placeholder="下完单后的温馨提示内容">{{otherset.tip_content}}</textarea></td>
                 </tr>
                 <br />
 
                 <tr>
-		    <td>配送范围</td>
-		    <td><textarea class="span7" rows="6" id="distribution_range" name="distribution_range" placeholder="配送范围,比如XXX大厦500以内">{{otherset.distribution_range}}</textarea></td>
+            <td>配送范围</td>
+            <td><textarea class="span7" rows="6" id="distribution_range" name="distribution_range" placeholder="配送范围,比如XXX大厦500以内">{{otherset.distribution_range}}</textarea></td>
                 </tr>
                 <br />
 
                 <tr>
                     <td><label>设置运费</label></td>
-		    <td><input type="text" maxlength="6" class="span7" id="freight" name="freight" placeholder="设置配送运费,必须是数字" value="0.00"></td>
+            <td><input type="text" maxlength="6" class="span7" id="freight" name="freight" placeholder="设置配送运费,必须是数字" value="0.00"></td>
                 </tr>
 
                 <label></label>
                 <tr>
-		    <td><input type="button" class="btn btn-info" value="保存" onclick="saveOtherSet();"></td>
+            <td><input type="button" class="btn btn-info" value="保存" onclick="saveOtherSet();"></td>
                 </tr>
                 <!--tr><td>
                   <label>客服电话：便于用户下单后久未见商品送达的情况下拨打电话给您“催一催”“ </label>
@@ -1326,10 +1440,69 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                   <label>下单通知手机号码:用户在前端下单后，会把下单的消息发送到该手机上。</label>
                 </td></tr-->
                 </table>
-		{%endfor%}
-	</div>
+        {%endfor%}
+    </div>
 </div>
 <!-- end: configShow -->
+
+<!-- start: ingredientslist -->
+<div id="ingredt" style="width: 80%;float:left;margin-left: -2em;">
+    <script type="text/javascript">
+        var ingid = 0;
+        function chgIngtype(id) {
+            // alert("chgingtype: "+id);
+            $("#ingredtype").val(id);
+        }
+
+        function saveIngredt() {
+            type = $("#ingredtype").val();
+            foodid = $("#updfoodid").val();
+            alert("save ingredt id" + foodid);
+        }
+
+        function addIngredt() {
+            ingid = ingid + 1;
+            typeid = $("#ingredtype").val();
+            alert(typeof(typeid));
+            // $("#ingredttr-header").after('<tr class="tr_'+ingid+'"><td><input type="text" ingid="name_'+ingid+'" name="names"></td></td></tr>');
+            if ('2' == typeid) {
+                $("#ingredttr-header").after('<tr class="tr_2">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
+            } else {
+                $("#ingredttr-header").after('<tr class="tr_1">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
+            }
+        }
+
+        function saveUnit(ingid, val) {
+            $("#unit_"+ingid).val(val);
+        }
+
+        function delRow(line) {
+            $(".tr_"+line).remove();
+        }
+    </script>
+    <ul class="nav nav-tabs">
+        <li><a href="#" onclick="chgIngtype(1);return false;">主料</a></li>
+        <li><a href="#" onclick="chgIngtype(2);return false;">辅料</a></li>
+    </ul>
+    <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
+        <tr><input id="ingredtype" name='ingredtype' type='hidden' value='0' /></tr>
+        <tr>
+            <td width="70%"></td>
+            <td width=30%>
+                <input type="button" style="margin-top:-8px;" class="btn btn-info" value="保存" onclick="saveIngredt();" />
+                <input type="button" style="margin-top:-8px;" class="btn btn-info" value="添加行" onclick="addIngredt();" />
+            </td>
+        </tr>
+    </table>
+    <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
+        <tr id='ingredttr-header' align="center" bgcolor="#FAFAF1" height="12">
+              <td width="40%">名称</td>
+              <td width="40%">分量</td>
+              <td width="10%">操作</td>
+        </tr>
+    </table>
+</dvi>
+<!-- end: ingredientslist -->
 
 <frameset rows="60,*" cols="*" frameborder="no" border="0" framespacing="0">
   <frame src="top.html" name="topFrame" scrolling="no">
