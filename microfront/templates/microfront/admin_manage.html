@@ -217,7 +217,8 @@
                 $("#updfoodamount").val($("#foodtotal_"+id).text());
                 $("#updfoodoprice").val($("#foodoprice_"+id).text());
                 $("#updfoodprice").val($("#foodprice_"+id).text());
-                $("#updfoodstatus").val("off");
+                $("#updfoodstatus").val($("#foodstatus_"+id).val());
+                $("#updfoodgenre").val($("#foodgenre_"+id).val());
                 $("#updfoodid").val(id);
             } 
             if (id == '0'){
@@ -273,8 +274,11 @@
                     var len = categories.length
                     for(var i = 0; i < len; i++){
                         var category=categories[i];
-                        if(category.innerHTML=='1'){
+                        if(category.innerHTML=='2'){
                             category.innerHTML='下架'
+                        }
+                        if(category.innerHTML=='1'){
+                            category.innerHTML='上架'
                         }
                         if(category.innerHTML=='0'){
                             category.innerHTML='上架'
@@ -287,14 +291,17 @@
                     var len = categories.length
                     for(var i = 0; i < len; i++){
                         var category=categories[i];
-                        if(category.innerHTML=='0'){
+                        if(category.innerHTML=='1'){
                             category.innerHTML='普通'
                         }
-                        if(category.innerHTML=='1'){
+                        if(category.innerHTML=='2'){
                             category.innerHTML='特价'
                         }
-                        if(category.innerHTML=='2'){
+                        if(category.innerHTML=='3'){
                             category.innerHTML='推荐'
+                        }
+                        if (category.innerHTML=='0'){
+                            category.innerHTML='普通'
                         }
                     }
                 }) // function foodgenre
@@ -1140,10 +1147,10 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                 for(var i = 0; i < len; i++){
                     var category=categories[i];
                     if(category.innerHTML=='1'){
-                        category.innerHTML='下架'
-                    }
-                    if(category.innerHTML=='0'){
                         category.innerHTML='上架'
+                    }
+                    if(category.innerHTML=='2'){
+                        category.innerHTML='下架'
                     }
                 }
             })
@@ -1153,13 +1160,13 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                 var len = categories.length
                 for(var i = 0; i < len; i++){
                     var category=categories[i];
-                    if(category.innerHTML=='0'){
+                    if(category.innerHTML=='1'){
                         category.innerHTML='普通'
                     }
-                    if(category.innerHTML=='1'){
+                    if(category.innerHTML=='2'){
                         category.innerHTML='特价'
                     }
-                    if(category.innerHTML=='2'){
+                    if(category.innerHTML=='3'){
                         category.innerHTML='推荐'
                     }
                 }
@@ -1210,11 +1217,12 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
             </td>
         </tr>
         <tr>
-            <td>是否今日推荐</td>
+            <td>特价/推荐/普通</td>
             <td>
-                <select name='onrecommend'>
-                <option value='off'>否</option>
-                <option value='on'>是</option>
+                <select id="updfood_genre" name='food_genre'>
+				<option value="1">普通</option>
+				<option value="2">推荐</option>
+				<option value="3">特价</option>
             </td>
         </tr>
         <tr>
