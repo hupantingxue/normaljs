@@ -1452,6 +1452,15 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         function chgIngtype(id) {
             // alert("chgingtype: "+id);
             $("#ingredtype").val(id);
+			if ('2' == id) {
+			    $(".tr_2").show();
+			    $(".tr_1").hide();
+			}
+		    
+			if ('1' == id) {
+			    $(".tr_1").show();
+			    $(".tr_2").hide();
+			}
         }
 
         function saveIngredt() {
