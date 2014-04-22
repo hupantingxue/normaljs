@@ -813,60 +813,63 @@ def admin(request):
         print "menu_add === ", request
         pic=request.FILES['pic']
         extension=get_extension(pic)
-        if extension:
+        if extension:  #without pic file
             print pic,'uploaded'
             num = int(time.time()*1000)
             fname=str(num)+extension
             fullname=base+fname
             detail_fullname = base + str(num + 1) + extension
             print "fullname: ", fullname
-            foodname=request.POST['foodname']
-            total = request.POST['amount']
-
-            try:
-                foodprice=float(request.POST['origprice'])
-                sprice=float(request.POST['sprice'])
-            except:
-                error ='数据提交发生错误:价格不是有效数字<br/><a href="/admin/'+username+'">返回</a>'
-                return HttpResponse(error)
-
-            category=int(request.POST['category'])
-            print "menu add category ======", category
-            introduce=request.POST['introduce']#.replace('\n','')
-            #introduce = introduce + "\n"
-            print foodname,foodprice,category,introduce
-
             #write cover pic file
             fp=open(fullname,'wb')
             fp.write(pic.read())
             fp.close()
 
-            foodid = int(request.POST['foodid'])
-            if 0 == foodid:
-                menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[19:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, total=total, introduce='')
-                menu.save()
-                add_menu_json(menu.id, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce)
-            else:
-                menu = Menu.objects.get(id=foodid)
-                menu.name = foodname
-                menu.cover_url = fullname[19:]
-                menu.detail_url = detail_fullname[10:]
-                menu.old_price = foodprice
-                menu.price = sprice
-                menu.catalog_id = category
-                menu.total = total
-                menu.introduce = ''
-                menu.save()
-                print "foodname type: ", type(foodname)
-                add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce)
+        foodname=request.POST['foodname']
+ 
+        try:
+            foodprice=float(request.POST['origprice'])
+            sprice=float(request.POST['sprice'])
+        except:
+            error ='数据提交发生错误:价格不是有效数字<br/><a href="/admin/'+username+'">返回</a>'
+            return HttpResponse(error)
 
-            #write detail pic file
-            detail_pic=request.FILES['detail_pic']
-            extension=get_extension(detail_pic)
-            fp = open(detail_fullname, 'wb')
-            fp.write(detail_pic.read())
-            fp.close()
-            return HttpResponseRedirect('/microfront/admin/')
+        category=int(request.POST['category'])
+        print "menu add category ======", category
+        introduce=request.POST['introduce']#.replace('\n','')
+        #introduce = introduce + "\n"
+        print foodname,foodprice,category,introduce
+
+        total = request.POST['amount']
+        foodid = int(request.POST['foodid'])
+
+        if 0 == foodid:
+            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[19:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, total=total, introduce='')
+            menu.save()
+            add_menu_json(menu.id, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce)
+        else:
+		    #need to update info;
+            menu = Menu.objects.get(id=foodid)
+            menu.name = foodname
+            menu.cover_url = fullname[19:]
+            menu.detail_url = detail_fullname[10:]
+            menu.old_price = foodprice
+            menu.price = sprice
+            menu.catalog_id = category
+            menu.total = total
+            menu.introduce = ''
+            menu.save()
+            print "foodname type: ", type(foodname)
+            add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce)
+
+        #write detail pic file
+        detail_pic=request.FILES['detail_pic']
+        extension=get_extension(detail_pic)
+        fp = open(detail_fullname, 'wb')
+        fp.write(detail_pic.read())
+        fp.close()
+        return HttpResponseRedirect('/microfront/admin/')
+
     catalogs = Catalog.objects.all()
     print "menu: ", get_food_list()
     orders = Order.objects.all()
