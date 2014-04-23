@@ -408,6 +408,7 @@
         {
             $('#ingredt').show();
             $("#zhuliao").addClass("active");
+            $("#fuliao").removeClass("active");
             $('#configshow').hide();
             $('#usershow').hide();
             $('#dltimeupd').hide();
@@ -1128,7 +1129,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         <tr id="foodtr_{{food.id}}" class="foodtr" align="center" bgcolor="#FAFAF1" height="22">
            <td>{{food.id}}</td>
            <td><img style="width:20px; height:20px;" src='/micromall/{{food.cover_url}}'></td>
-           <td id="foodname_{{food.id}}">{{food.name}}</td>
+           <td id="foodname_{{food.id}}"><a href="#" onclick="getIngredts({{food.id}}, 1)">{{food.name}}</a></td>
            <td id="foodcata_{{food.id}}" class="foodcatalog">{{food.catalog_id}}</td>
            <td id="foodoprice_{{food.id}}">{{food.old_price}}</td>
            <td id="foodprice_{{food.id}}">{{food.price}}</td>
@@ -1472,20 +1473,33 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
 <div id="ingredt" style="width: 80%;float:left;margin-left: -2em;">
     <script type="text/javascript">
         var ingid = 0;
+
+	function isPositiveIntegers(val){
+	     var re = /^[1-9]+[0-9]*]*$/
+	     if (!re.test(val)){
+		return false;
+	     }
+		 return true;
+	}
+
         function chgIngtype(id) {
             // alert("chgingtype: "+id);
             $("#ingredtype").val(id);
             // $(this).css("class", "active");
             if ('2' == id) {
-                $(".tr_2").show();
-                $(".tr_1").hide();
+                // $(".tr_2").show();
+                // $(".tr_1").hide();
+                ingid = 0;
+                $(".tr_1").remove();
                 $("#fuliao").addClass("active");
                 $("#zhuliao").removeClass("active");
             }
             
             if ('1' == id) {
-                $(".tr_1").show();
-                $(".tr_2").hide();
+                // $(".tr_1").show();
+                // $(".tr_2").hide();
+                ingid = 0;
+                $(".tr_2").remove();
                 $("#zhuliao").addClass("active");
                 $("#fuliao").removeClass("active");
             }
@@ -1494,8 +1508,58 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         function saveIngredt() {
             type = $("#ingredtype").val();
             foodid = $("#updfoodid").val();
-            $.post("../ingredit/save/", {"goods_id":foodid }, function(data){alert("保存成功");});
-            // alert("save ingredt id" + foodid);
+            foodname = $("#updfoodname").val();
+            var names = "",quantitys="",units="";
+	    var isNull=true;
+	    $("input[name='names']").each( 
+		function(){ 
+		    var val = $(this).val();
+		    val = val.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		    if(val==''){
+			isNull=false;
+		    }
+		    names+=val+"|"; 
+		}  
+	    );
+
+            var isInt=true;
+	    $("input[name='quantitys']").each( 
+		function(){ 
+		    var val = $(this).val();
+		    val = val.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		    if(isPositiveIntegers(val)){
+		       quantitys+=val+"|"; 
+		    }else{
+			isInt=false;
+		    }
+		}  
+	    );
+
+	    $("input[name='units']").each( 
+		function(){ 
+		    units+=$(this).val()+"|"; 
+		}  
+	    );
+	    if(!isNull){
+		alert("名称不能为空");
+		isNull = true;
+		return;
+	    }
+	    if(!isInt){
+		alert("份量只能是正整数");
+		isInt = true;
+		return;
+	    }
+	    if(names=='' || quantitys==''){
+		alert("名称或份量不能为空");
+		return;
+	    }else{
+		names = names.substring(0,names.length-1);
+		quantitys = quantitys.substring(0,quantitys.length-1);
+	    }
+
+
+            $.post("../ingredit/save/", {"goods_id":foodid, "goods_name":foodname, "type":type, "names":names, "quantitys":quantitys, "units":units}, function(data){alert("保存成功");});
         }
 
         function addIngredt() {
@@ -1508,6 +1572,30 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
             } else {
                 $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_1">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
             }
+        }
+
+        function getIngredts(id, type) {
+            ingid = 1;
+            alert("query foodid: "+id);
+            ingredtShow();
+            $(".tr_1").remove();
+            $(".tr_2").remove();
+            $.post("../ingredit/query/", {"goods_id":id, "type":type}, function(data){
+                if ("ingredt_query"==data) { 
+                    alert("未找到符合条件的结果");
+                } else {
+                    jsond = eval('('+data+')');
+                    for (ii in jsond) {
+                        fields = jsond[ii]['fields'];
+                        $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_1">  <td><input type="text" id="name_'+ingid+'" name="names" value="'+ fields['name'] + '"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys"  value="'+ fields['quantity'] + '">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
+                        // $("input[name='danweis_5']").get(fields['unit']).checked = true;
+                        // $("input[name='danweis_5'][value='fields["unit"]']").attr("checked", "checked");
+                        alert("Unit: "+typeof(fields['unit']));
+                        ingid = ingid + 1;
+                    }
+                }
+                alert("查询成功");
+            });
         }
 
         function saveUnit(ingid, val) {

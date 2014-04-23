@@ -10,7 +10,7 @@ from django.core.servers.basehttp import FileWrapper
 from django.db.models import Q, Sum
 from django.core import serializers
 
-from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr, Otherset
+from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr, Otherset, Ingredient
 
 #db operation
 from sqlalchemy import *
@@ -347,6 +347,7 @@ def cata_save(request):
         id = request.POST['catalog_id']
         sort = request.POST['catalog_sort']
         sts = request.POST['catalog_sts']
+        name = request.POST['catalog_name']
         print "Catalog save: ", id, sort, sts
     except Exception as e:
         print "Catalog save", e
@@ -360,6 +361,7 @@ def cata_save(request):
     if cl:
         cl.sort = sort
         cl.status = sts
+        cl.name = name
         cl.save()
     else:
         resp = "Catalog %s not exist." %(id)
@@ -696,7 +698,61 @@ def save_otherset(request):
 #/microfront/ingredit/save
 def ingredit_save(request):
     code = 0
+    try:
+        goodsid = int(request.POST['goods_id'])
+        goodsname = request.POST['goods_name']
+        type = int(request.POST['type'])
+        names = request.POST['names']
+        quantitys = request.POST['quantitys']
+        units = request.POST['units']
+    except Exception as e:
+        print e
+
+    if 0 == type:
+        type = 1
+
+    if 0 == goodsid:
+        # search goods by name
+        goods = Menu.objects.get(name=goodsname)
+        try:
+            goodsid = goods.id
+        except NameError:
+            print "get none goods by name:", goodsname
+
+    namel = names.split('|')
+    quntyl = quantitys.split('|')
+    unitl = units.split('|')
+
+    for ii in range(len(namel)):
+        name = namel[ii]
+        qunty = quntyl[ii]
+        unit = unitl[ii]
+        ingredt = Ingredient(menu_id = goodsid, name = name, mclass = type, quantity=qunty, unit=unit)
+        ingredt.save()
     return HttpResponse(code)
+
+#/microfront/ingredit/query
+def ingredit_query(request):
+    code = 0
+    try:
+        goodsid = int(request.POST['goods_id'])
+        type = int(request.POST['type'])
+    except Exception as e:
+        print e
+
+    try:
+        ingredts = Ingredient.objects.filter(Q(menu_id=goodsid)&Q(mclass=type))
+    except Ingredient.DoesNotExist:
+        print "Not exist such ingredts."
+    except Exception as e:
+        print "Ingredients query exception: ", e
+
+    if 'ingredts' in dir():
+        data = serializers.serialize('json', ingredts)
+        return HttpResponse(data)
+    else:
+        return HttpResponse({"ingredt_query":""})
+
 
 #/microfront/dltime/del
 def del_dltime(request):
