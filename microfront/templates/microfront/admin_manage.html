@@ -1485,23 +1485,39 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         function chgIngtype(id) {
             // alert("chgingtype: "+id);
             $("#ingredtype").val(id);
+            foodid = $("#updfoodid").val();
             // $(this).css("class", "active");
             if ('2' == id) {
                 // $(".tr_2").show();
                 // $(".tr_1").hide();
                 ingid = 0;
-                $(".tr_1").remove();
                 $("#fuliao").addClass("active");
                 $("#zhuliao").removeClass("active");
+                if ('0' == foodid) {
+                    // alert("foodid"+foodid+"remove");
+                    $(".tr_1").remove();
+                }
+                else {
+                    $(".tr_1").hide();
+                    // alert("foodid"+foodid+"not remove");
+                    getIngredts(foodid, 2);
+                }
             }
             
             if ('1' == id) {
                 // $(".tr_1").show();
                 // $(".tr_2").hide();
                 ingid = 0;
-                $(".tr_2").remove();
                 $("#zhuliao").addClass("active");
                 $("#fuliao").removeClass("active");
+                if ('0' == foodid) {
+                    // alert("foodid"+foodid+"remove");
+                    $(".tr_2").remove();
+                } else {
+                    $(".tr_2").hide();
+                    // alert("foodid"+foodid+"not remove");
+                    getIngredts(foodid, 1);
+                }
             }
         }
 
@@ -1576,7 +1592,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
 
         function getIngredts(id, type) {
             ingid = 1;
-            alert("query foodid: "+id);
+            // alert("query foodid: "+id);
             ingredtShow();
             $(".tr_1").remove();
             $(".tr_2").remove();
@@ -1584,13 +1600,14 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                 if ("ingredt_query"==data) { 
                     alert("未找到符合条件的结果");
                 } else {
+                    $("#updfoodid").val(id);
                     jsond = eval('('+data+')');
                     for (ii in jsond) {
                         fields = jsond[ii]['fields'];
                         $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_1">  <td><input type="text" id="name_'+ingid+'" name="names" value="'+ fields['name'] + '"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys"  value="'+ fields['quantity'] + '">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
                         // $("input[name='danweis_5']").get(fields['unit']).checked = true;
                         // $("input[name='danweis_5'][value='fields["unit"]']").attr("checked", "checked");
-                        alert("Unit: "+typeof(fields['unit']));
+                        // alert("Unit: "+typeof(fields['unit']));
                         ingid = ingid + 1;
                     }
                 }

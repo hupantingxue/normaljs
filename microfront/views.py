@@ -855,6 +855,7 @@ def admin(request):
         os.makedirs(base)
 
     username = 'qi_admin'
+    print "+++++++++++++++++++++++++++++++", request
     if request.POST.has_key('cataname'):
         print 'cata: ', request.POST
         cataname = request.POST['cataname']
@@ -865,21 +866,35 @@ def admin(request):
         add_catalog_db(cataname, sort, status);
         return HttpResponseRedirect('/microfront/admin/')
 
-    if request.FILES.has_key('pic'):
+    if request.POST.has_key('foodid'):
         print "menu_add === ", request
-        pic=request.FILES['pic']
-        extension=get_extension(pic)
-        if extension:  #without pic file
-            print pic,'uploaded'
-            num = int(time.time()*1000)
-            fname=str(num)+extension
-            fullname=base+fname
-            detail_fullname = base + str(num + 1) + extension
-            print "fullname: ", fullname
-            #write cover pic file
-            fp=open(fullname,'wb')
-            fp.write(pic.read())
+
+        if request.FILES.has_key('pic'):
+            pic=request.FILES['pic']
+            extension=get_extension(pic)
+            if extension:  #without pic file
+	        print pic,'uploaded'
+		num = int(time.time()*1000)
+		fname=str(num)+extension
+		fullname=base+fname
+		detail_fullname = base + str(num + 1) + extension
+		print "fullname: ", fullname
+		#write cover pic file
+		fp=open(fullname,'wb')
+		fp.write(pic.read())
+		fp.close()
+        else:
+            fullname = ''
+
+        #write detail pic file
+        if request.FILES.has_key('detail_pic'):
+            detail_pic=request.FILES['detail_pic']
+            extension=get_extension(detail_pic)
+            fp = open(detail_fullname, 'wb')
+            fp.write(detail_pic.read())
             fp.close()
+        else:
+            detail_fullname = ''
 
         foodname=request.POST['foodname']
  
@@ -910,8 +925,10 @@ def admin(request):
 
             menu = Menu.objects.get(id=foodid)
             menu.name = foodname
-            menu.cover_url = fullname[19:]
-            menu.detail_url = detail_fullname[10:]
+            if 19 < len(fullname):
+                menu.cover_url = fullname[19:]
+            if 10 < len(detail_fullname):
+                menu.detail_url = detail_fullname[10:]
             menu.old_price = foodprice
             menu.price = sprice
             menu.catalog_id = category
@@ -920,15 +937,10 @@ def admin(request):
             menu.status=foodstatus
             menu.genre=foodgenre
             menu.save()
-            print "foodname type: ", type(foodname)
+            print "******************update food content: ", introduce
             add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce)
 
-        #write detail pic file
-        detail_pic=request.FILES['detail_pic']
-        extension=get_extension(detail_pic)
-        fp = open(detail_fullname, 'wb')
-        fp.write(detail_pic.read())
-        fp.close()
+        
         return HttpResponseRedirect('/microfront/admin/')
 
     catalogs = Catalog.objects.all()
