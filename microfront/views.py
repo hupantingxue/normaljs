@@ -938,7 +938,7 @@ def admin(request):
             menu.genre=foodgenre
             menu.save()
             print "******************update food content: ", introduce
-            add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce)
+            add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce, 1)
 
         
         return HttpResponseRedirect('/microfront/admin/')
@@ -956,7 +956,7 @@ def admin(request):
     print "otherset", othersets
     return render_to_response('microfront/admin_manage.html', {'g_catajson': get_catajson()[1], 'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
 
-def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce):
+def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce, type=0):
     reload(sys)
     sys.setdefaultencoding('utf-8')
     menujson = u'''{"rt_obj":{"code":0,"data":{"Goods":{"id":"%d","org_id": "1","detail_url": "%s","cover_url": "%s","name": "%s","catalog_id":"%s","old_price": "%f","price": "%f","sales":"0","total": "0","genre": "1","level": "20","content": "%s","status": "1","servings": "1","stime": "2014-03-18 14:38:40"}}}}''' %(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce.replace('\r\n', '').replace('"', '\\\"'))
