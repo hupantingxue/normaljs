@@ -938,7 +938,7 @@ def admin(request):
             menu.genre=foodgenre
             menu.save()
             print "******************update food content: ", introduce
-            add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce, 1)
+            #add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce, 1)
 
         
         return HttpResponseRedirect('/microfront/admin/')
