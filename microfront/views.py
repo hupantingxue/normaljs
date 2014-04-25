@@ -61,7 +61,7 @@ def index(request):
         status = "NEW_USER"
         print e
 
-    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson()[0], 'org_json':get_orgjson(), 'dltime_json':get_dltimejson(), 'menu_json':get_menujson()})
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson()[0], 'morecatalog_json':get_morecatajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson(), 'menu_json':get_menujson()})
 
 #/microfront/orders/add
 def order_add(request, order_id):
@@ -718,6 +718,12 @@ def ingredit_save(request):
             goodsid = goods.id
         except NameError:
             print "get none goods by name:", goodsname
+    else:
+	try:
+	    ingredts = Ingredient.objects.filter(Q(menu_id=goodsid)&Q(mclass=type))
+            ingredts.delete()
+	except Exception as e:
+	    print "Ingredients query exception: ", e
 
     namel = names.split('|')
     quntyl = quantitys.split('|')
@@ -841,6 +847,10 @@ def json_resource(request,fname):
     text=open('microfront/microfront/'+fname+'.json','r+').read()
     return HttpResponse(text, mimetype = "application/json")
 
+def htm_resource(request,fname):
+    text=open('microfront/skin/'+fname+'.htm','rb').read()
+    return HttpResponse(text, mimetype="text/html")
+
 def admin_manage(request):
     catalogs = dbcatalog.select().order_by(dbcatalog.c.sort).execute()
     ll = []
@@ -954,7 +964,7 @@ def admin(request):
 
     print "turnover", turnover
     print "otherset", othersets
-    return render_to_response('microfront/admin_manage.html', {'g_catajson': get_catajson()[1], 'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
+    return render_to_response('microfront/admin_manage.html', {'g_catajson': get_gcatajson(), 'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
 
 def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce, type=0):
     reload(sys)
@@ -1009,7 +1019,8 @@ def get_catajson():
     strjson='''['''
     g_catajson = '''{'''
     idx = 0
-    catalogs = Catalog.objects.all()
+    allcatalogs = Catalog.objects.order_by('sort')
+    catalogs = allcatalogs[:4]
     for catalog in catalogs:
         if 1 == catalog.status:
             if 0 == idx:
@@ -1029,6 +1040,49 @@ def get_catajson():
     g_catajson = json.dumps(g_catajson)
     print strjson, g_catajson
     return strjson, g_catajson
+
+# Get catalog json
+def get_gcatajson():
+    g_catajson = '''{'''
+    idx = 0
+    catalogs = Catalog.objects.order_by('sort')
+    for catalog in catalogs:
+        if 0 == idx:
+            str2 = u'''"%d":"%s"''' %(catalog.id, catalog.name)
+        else:
+            str2 = u''',"%d":"%s"''' %(catalog.id, catalog.name)
+        g_catajson = g_catajson + str2
+        idx = idx + 1
+    g_catajson = g_catajson + "}"
+    g_catajson = json.loads(g_catajson)
+    g_catajson = json.dumps(g_catajson)
+    print  g_catajson
+    return g_catajson
+
+# Get catalog json
+def get_morecatajson():
+    strjson='''['''
+    g_catajson = '''{'''
+    idx = 0
+    allcatalogs = Catalog.objects.order_by('sort')
+    catalogs = allcatalogs[4:]
+    if 0 >= len(catalogs):
+        mjson = {}
+        return mjson
+    for catalog in catalogs:
+        if 1 == catalog.status:
+            if 0 == idx:
+                str = u'''{"Catalog":{"id":"%d","name":"%s","url":"url","sort":"%d","status":"%d","org_id":"1"}}''' %(catalog.id, catalog.name, catalog.sort, catalog.status)
+            else:
+                str = u''',{"Catalog":{"id":"%d","name":"%s","url":"url","sort":"%d","status":"%d","org_id":"1"}}''' %(catalog.id, catalog.name, catalog.sort, catalog.status)
+            strjson = strjson + str
+            idx = idx + 1
+    strjson = strjson + "]"
+    strjson = json.loads(strjson)
+    strjson = json.dumps(strjson)
+    print strjson
+    return strjson
+
 
 # Get menu json
 def get_menujson():
