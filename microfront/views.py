@@ -183,17 +183,14 @@ def order_query(request):
     try:
         odate = request.POST['odate']
         value = datetime.datetime.strptime(odate, '%Y-%m-%d')
-    except Exception as e:
-        print e
-
-    try:
         orders = Order.objects.filter(order_time__range=(
                        datetime.datetime.combine(value, datetime.time.min),
-                       datetime.datetime.combine(value, datetime.time.max))).order_by('-order_time')
+                       datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
     except Order.DoesNotExist:
         print "Not exist such orders."
     except Exception as e:
         print "Orders query exception: ", e
+        orders = Order.objects.filter().order_by('order_time')
 
     if ('orders' in dir()) and (0 < orders.count()):
         data = serializers.serialize('json', orders)
