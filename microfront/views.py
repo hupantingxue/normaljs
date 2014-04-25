@@ -719,11 +719,11 @@ def ingredit_save(request):
         except NameError:
             print "get none goods by name:", goodsname
     else:
-	try:
-	    ingredts = Ingredient.objects.filter(Q(menu_id=goodsid)&Q(mclass=type))
+        try:
+            ingredts = Ingredient.objects.filter(Q(menu_id=goodsid)&Q(mclass=type))
             ingredts.delete()
-	except Exception as e:
-	    print "Ingredients query exception: ", e
+        except Exception as e:
+            print "Ingredients query exception: ", e
 
     namel = names.split('|')
     quntyl = quantitys.split('|')
@@ -883,16 +883,17 @@ def admin(request):
             pic=request.FILES['pic']
             extension=get_extension(pic)
             if extension:  #without pic file
-	        print pic,'uploaded'
-		num = int(time.time()*1000)
-		fname=str(num)+extension
-		fullname=base+fname
-		detail_fullname = base + str(num + 1) + extension
-		print "fullname: ", fullname
-		#write cover pic file
-		fp=open(fullname,'wb')
-		fp.write(pic.read())
-		fp.close()
+                print pic,'uploaded'
+
+                num = int(time.time()*1000)
+                fname=str(num)+extension
+                fullname=base+fname
+                detail_fullname = base + str(num + 1) + extension
+                print "fullname: ", fullname
+                #write cover pic file
+                fp=open(fullname,'wb')
+                fp.write(pic.read())
+                fp.close()
         else:
             fullname = ''
 
@@ -1083,6 +1084,31 @@ def get_morecatajson():
     print strjson
     return strjson
 
+# Get menu info(include price, name) json
+def get_menuinfo():
+    strjson=''
+    idx = 0
+    try:
+        foods = Menu.objects.order_by('id')
+        for food in foods:
+            foodid = food.id
+            name = food.name
+            price = food.price
+            if 0 == idx:
+                infostr = u'''{"%d":{"price":"%f", "name":"%s"}''' %(foodid, price, name)
+                strjson = strjson + infostr
+            else:
+                infostr = u''',"%d":{"price":"%f", "name":"%s"}''' %(foodid, price, name)
+                strjson = strjson + infostr
+            idx = idx + 1
+        strjson = strjson + "}"
+    except Exception as e:
+        print 'exception..........', e
+
+    print '''===menuinfo json===: %s''' %(strjson)
+    strjson = json.loads(strjson)
+    #strjson = json.dumps(strjson)
+    return strjson
 
 # Get menu json
 def get_menujson():
@@ -1095,7 +1121,6 @@ def get_menujson():
             cid = cataid['id']
             menus = Menu.objects.filter(catalog_id=cid)
             cnt = menus.count();
-            
             if 0 < cnt:
                 #The first catalog add prefix '{'
                 if 0 == cidx:
