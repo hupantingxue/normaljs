@@ -178,6 +178,29 @@ def order_querydate(request):
     catalogs = Catalog.objects.all()
     return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':total_turnover})
 
+#/microfront/orders/query
+def order_query(request):
+    try:
+        odate = request.POST['odate']
+        value = datetime.datetime.strptime(odate, '%Y-%m-%d')
+    except Exception as e:
+        print e
+
+    try:
+        orders = Order.objects.filter(order_time__range=(
+                       datetime.datetime.combine(value, datetime.time.min),
+                       datetime.datetime.combine(value, datetime.time.max))).order_by('-order_time')
+    except Order.DoesNotExist:
+        print "Not exist such orders."
+    except Exception as e:
+        print "Orders query exception: ", e
+
+    if ('orders' in dir()) and (0 < orders.count()):
+        data = serializers.serialize('json', orders)
+        return HttpResponse(data)
+    else:
+        return HttpResponse({"order_query":""})
+
 #/microfront/orders/shop
 def order_shoplist(request):
     catalogs = Catalog.objects.all()

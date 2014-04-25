@@ -48,6 +48,20 @@
     </script>
 
     <script language='javascript'>
+
+        function orderSrch() {
+		    var odate = $("#osrchdate").val()
+            $.post("../orders/query/", {"odate":odate}, function(data){
+				if ("order_query" == data) {
+				    alert("未找到符合条件的订单");
+				} else {
+				    jsond = eval('(' + data + ')');
+					$(".ordertr").remove();
+			        alert("查询成功");
+				}
+			});
+        }
+        
         function saveProvince() {
             // var myaddr = "广东省深圳市" + $("#area").val()
             var myaddr = $("#dlscity").val() + $("#dlsarea").val() + $("#area").val()
@@ -977,13 +991,17 @@ explain  -->
   <tbody>
   <tr>
     <td width="80%">
-      <form action="/microfront/orders/date" method="get" id="searchForm">
+      <!--form action="/microfront/orders/date" method="get" id="searchForm">
         <input type="text" name="cdate" class="text-info" placeholder="输入选择日期(格式:年-月-日)"" onfocus="WdatePicker(_start)">
-        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="查询">
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="orderSrch()" value="查询">
         <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="采购清单">
         <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" value="商品清单">
         <h4>当前查询日营业额：<font color="red">{{turnover.price__sum}}</font>(元),总营业额:<font color="red">{{total_turnover.price__sum}}</font>(元)</h4>
-      </form>
+      </form-->
+        <input type="text" name="cdate" id="osrchdate" class="text-info" placeholder="输入选择日期(格式:年-月-日)" />
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="orderSrch()" value="查询">
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="purchaseQuery()" value="采购清单">
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="shoplistQuery()" value="商品清单">
     </td>
     <td width="20%" align="right">
         <a href="/microfront/orders/export?orgid=109&cdate=2014-04-07" target="_blank" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;">订单导出到Excel</a>
@@ -996,7 +1014,7 @@ explain  -->
 
 <form name="form2">
 <table width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
-<tr align="center" bgcolor="#FAFAF1" height="22">
+<tr id="ordertr_header" align="center" bgcolor="#FAFAF1" height="22">
     <td width="1%">订单号</td>
     <td width="8%">注册会员卡号</td>
     <td width="10%">收货人/手机</td>
@@ -1013,7 +1031,7 @@ explain  -->
 </tr>
 <!-- order item list -->
 {%for order in orders%}
-    <tr id="ordertr_{{order.id}}" align="center" bgcolor="#FAFAF1" height="22">
+    <tr id="ordertr_{{order.id}}" class="ordertr" align="center" bgcolor="#FAFAF1" height="22">
     <td width="1%">{{order.id}}</td>
     <td width="8%">{{order.openid}}</td>
     <td width="10%" class="orderinfo"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderinfo_{{order.id}}" value="{{order.name}}/{{order.phone}}" /></td>
