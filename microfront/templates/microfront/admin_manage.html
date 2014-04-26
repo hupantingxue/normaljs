@@ -48,6 +48,8 @@
     </script>
 
     <script language='javascript'>
+        var g_dltime = {{ g_dltimejson|safe }};
+
 	    function shoplistQuery() {
 		    var odate = $("#osrchdate").val()
 			$("#ordertable").hide();
@@ -81,9 +83,17 @@
 					    order_id = jsond[ii]['pk'];
 						$("#ordertr_header").after('<tr id="ordertr_' + order_id + '" class="ordertr" align="center" bgcolor="#FAFAF1" height="22"><td width="1%">' + order_id + '</td><td width="8%">' + fields['openid'] + '</td><td width="10%" class="orderinfo"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderinfo_' + order_id + '" value="' + fields['name'] + '/' + fields['phone'] + '" /></td><td width="13%" class="orderaddr"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderaddr_' + order_id + '" value="' + fields['address'] + '" /></td><td width="4%">' + fields['price'] + '</td><td width="2%">' + fields['amount'] + '</td><td width="6%">' + fields['order_time'] + '</td><td width="10%" class="deliverytime">' + fields['delivery_time'] + '</td><td width="5%">' + fields['remark'] + '</td><td width="6%" class="paytype">' + fields['pay_type'] + '</td><td width="19%">' + fields['shoplist'] + '</td><td width="6%" class="dlstatus"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderstatus_' + order_id + '" value="' + fields['order_status'] + '" /></td><td width="5%"><a href="#" id="orderedit_' + order_id + '" onclick="orderUpd(' + order_id + ')">编辑</a>|<a href="#" onclick="orderDel(' + order_id + ')">删除</a></td></tr>');
 					}
-			        alert("查询成功");
+			        // alert("查询成功");
 				}
-			});
+
+				$('.deliverytime').each(function(){
+					dlid = $(this).text();
+					$(this).text(g_dltime[dlid]);
+				});
+
+				$('.paytype').text('货到付款');
+
+			}); // post
         }
         
         function saveProvince() {
