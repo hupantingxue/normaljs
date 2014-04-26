@@ -51,6 +51,7 @@
 	    function shoplistQuery() {
 		    var odate = $("#osrchdate").val()
 			$("#ordertable").hide();
+			$("#shopqingdantbl").remove();
             $.post("../orders/shoppinglist/", {"odate":odate}, function(data){
 			    $('#orderform2').append('<table id="shopqingdantbl" width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px"><tr id="shopqingdan_header" align="center" bgcolor="#FAFAF1" height="22"><td width="90%">名称</td><td width="10%">数量</td></tr></table>');
 				if ("shopdict" == data) {
