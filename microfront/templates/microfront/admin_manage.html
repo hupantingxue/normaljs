@@ -50,10 +50,30 @@
     <script language='javascript'>
         var g_dltime = {{ g_dltimejson|safe }};
 
+		function purchaseQuery() {
+		    var odate = $("#osrchdate").val()
+			$("#ordertable").hide();
+			$("#shopqingdantbl").remove();
+			$("#purchasetbl").remove();
+            $.post("../orders/purchase/", {"odate":odate}, function(data){
+			    $('#orderform2').append('<table id="purchasetbl" width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px"><tr id="purchase_header" align="center" bgcolor="#FAFAF1" height="22"><td width="90%">名称</td><td width="10%">份量</td></tr></table>');
+				if ("shopdict" == data) {
+				    alert("未找到符合条件的订单");
+				} else {
+				    $.each(data,  function(key, value){
+					    $("#purchase_header").after('<tr class="purchase" align="center" bgcolor="#FAFAF1" height="22"><td width="90%">'+key+'</td><td width="10%">'+value+'</td></tr>')
+					    // alert(key+":"+value);
+					});
+			        // alert("查询成功");
+				}
+			}); // post
+        }
+
 	    function shoplistQuery() {
 		    var odate = $("#osrchdate").val()
 			$("#ordertable").hide();
 			$("#shopqingdantbl").remove();
+			$("#purchasetbl").remove();
             $.post("../orders/shoppinglist/", {"odate":odate}, function(data){
 			    $('#orderform2').append('<table id="shopqingdantbl" width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px"><tr id="shopqingdan_header" align="center" bgcolor="#FAFAF1" height="22"><td width="90%">名称</td><td width="10%">数量</td></tr></table>');
 				if ("shopdict" == data) {
@@ -71,6 +91,7 @@
         function orderSrch() {
 		    $("#ordertable").show();
 		    $("#shopqingdantbl").remove();
+		    $("#purchasetbl").remove();
 		    var odate = $("#osrchdate").val()
             $.post("../orders/query/", {"odate":odate}, function(data){
 				if ("order_query" == data) {

@@ -237,6 +237,45 @@ def order_shoplist(request):
     else:
         return HttpResponse({"shopdict":""}, mimetype = "application/json")
 
+#/microfront/orders/purchase
+def order_purchase(request):
+    shopdict = {}
+    try:
+        odate = request.POST['odate']
+        value = datetime.datetime.strptime(odate, '%Y-%m-%d')
+        orders = Order.objects.filter(order_time__range=(
+                       datetime.datetime.combine(value, datetime.time.min),
+                       datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
+    except Order.DoesNotExist:
+        print "Not exist such orders."
+    except Exception as e:
+        print "Orders query exception: ", e
+        orders = Order.objects.filter().order_by('order_time')
+
+    if ('orders' in dir()) and (0 < orders.count()):
+        for order in orders:
+            shopstr = order.shoplist
+            shopstr = shopstr.strip('\n')
+            shopset = shopstr.split(';')
+            for shop in shopset:
+                try:
+                    shop = shop.strip('\n')
+                    name, cnt, unit= shop.split()
+                    cnt = int(cnt)
+                    if name in shopdict:
+                        shopdict[name] = shopdict[name] + cnt
+                    else:
+                        shopdict[name] = cnt
+                except Exception as e:
+                    print shop, e
+        #data = serializers.serialize('json', shopdict)
+        shopdictstr = json.dumps(shopdict)
+        print 'shopdict: ', shopdictstr
+        return HttpResponse(shopdictstr, mimetype = "application/json")
+    else:
+        return HttpResponse({"shopdict":""}, mimetype = "application/json")
+
+
 #/microfront/orders/date
 def order_save(request):
     resp = {"code":0}
