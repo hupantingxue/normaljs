@@ -61,7 +61,7 @@ def index(request):
         status = "NEW_USER"
         print e
 
-    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson()[0], 'morecatalog_json':get_morecatajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson(), 'menu_json':get_menujson()})
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson()[0], 'morecatalog_json':get_morecatajson(), 'org_json':get_orgjson(), 'g_dltimejson':get_gdltimejson(), 'menu_json':get_menujson()})
 
 #/microfront/orders/add
 def order_add(request, order_id):
@@ -987,7 +987,7 @@ def admin(request):
 
     print "turnover", turnover
     print "otherset", othersets
-    return render_to_response('microfront/admin_manage.html', {'g_catajson': get_gcatajson(), 'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
+    return render_to_response('microfront/admin_manage.html', {'g_dltimejson':get_gdltimejson(), 'g_catajson': get_gcatajson(), 'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
 
 def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce, type=0):
     reload(sys)
@@ -1198,6 +1198,25 @@ def get_dltimejson():
         strjson = strjson + str
         idx = idx + 1
     strjson = strjson + "]"
+    strjson = json.loads(strjson)
+    strjson = json.dumps(strjson)
+    print strjson
+    return strjson
+
+ 
+# Get global dltime json
+def get_gdltimejson():
+    strjson='''{'''
+    idx = 0
+    dltimes = Dltime.objects.all()
+    for dltime in dltimes:
+        if 0 == idx:
+            str = u'''"%d":"%s---%s"''' %(dltime.id, dltime.begin_time, dltime.end_time)
+        else:
+            str = u''',"%d":"%s---%s"''' %(dltime.id, dltime.begin_time, dltime.end_time)
+        strjson = strjson + str
+        idx = idx + 1
+    strjson = strjson + "}"
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
     print strjson
