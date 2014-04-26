@@ -50,11 +50,19 @@
     <script language='javascript'>
         var g_dltime = {{ g_dltimejson|safe }};
 
+		function orderExport() {
+		    var odate = $("#osrchdate").val()
+            $.get("../orders/export/", {"odate":odate}, function(data){
+			   // do nothing 
+			}); // post
+		}
+
 		function purchaseQuery() {
 		    var odate = $("#osrchdate").val()
 			$("#ordertable").hide();
 			$("#shopqingdantbl").remove();
 			$("#purchasetbl").remove();
+			$("#order_export").attr("href", "/microfront/orders/export/?odate="+odate);
             $.post("../orders/purchase/", {"odate":odate}, function(data){
 			    $('#orderform2').append('<table id="purchasetbl" width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px"><tr id="purchase_header" align="center" bgcolor="#FAFAF1" height="22"><td width="90%">名称</td><td width="10%">份量</td></tr></table>');
 				if ("shopdict" == data) {
@@ -74,6 +82,7 @@
 			$("#ordertable").hide();
 			$("#shopqingdantbl").remove();
 			$("#purchasetbl").remove();
+			$("#order_export").attr("href", "/microfront/orders/export/?odate="+odate);
             $.post("../orders/shoppinglist/", {"odate":odate}, function(data){
 			    $('#orderform2').append('<table id="shopqingdantbl" width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px"><tr id="shopqingdan_header" align="center" bgcolor="#FAFAF1" height="22"><td width="90%">名称</td><td width="10%">数量</td></tr></table>');
 				if ("shopdict" == data) {
@@ -93,6 +102,7 @@
 		    $("#shopqingdantbl").remove();
 		    $("#purchasetbl").remove();
 		    var odate = $("#osrchdate").val()
+			$("#order_export").attr("href", "/microfront/orders/export/?odate="+odate);
             $.post("../orders/query/", {"odate":odate}, function(data){
 				if ("order_query" == data) {
 				    alert("未找到符合条件的订单");
@@ -262,7 +272,7 @@
             $('#usershow').hide();
             $('#configshow').hide();
             $('#ingredt').hide();
-			$('#shopqingdantbl').remove();
+			// $('#shopqingdantbl').remove();
         }
 
         function foodShow()
@@ -1062,7 +1072,7 @@ explain  -->
     </td>
     <td width="20%" align="right">
         <!--a href="/microfront/orders/export?orgid=109&cdate=2014-04-07" target="_blank" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;">订单导出到Excel</a-->
-        <a href="/microfront/orders/export?orgid=109&cdate=2014-04-07" target="_blank" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;">订单导出到Excel</a>
+        <a id="order_export" href="/microfront/orders/export/?odate=2014-04-26" target="_blank" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;">订单导出到Excel</a>
     </td>
    </tr>
    </tbody>

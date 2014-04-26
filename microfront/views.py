@@ -539,7 +539,18 @@ def order_export(request):
         ii = ii + 1
 
     format = workbook.add_format({'num_format':'mmm d yyyy hh:mm AM/PM'})
-    orders = Order.objects.all()
+    try:
+        odate = request.GET['odate']
+        value = datetime.datetime.strptime(odate, '%Y-%m-%d')
+    except Exception as e:
+        print 'odate format error: ', e
+        odate = time.strftime('%Y-%m-%d', time.localtime())
+        value = datetime.datetime.strptime(odate, '%Y-%m-%d')
+
+    orders = Order.objects.filter(order_time__range=(
+                    datetime.datetime.combine(value, datetime.time.min),
+                    datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
+
     line = 2
     for order in orders:
         loc = "A%d" % line
