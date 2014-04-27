@@ -137,17 +137,17 @@
                 </div-->
                 <% if(parseFloat(Goods.price) < parseFloat(Goods.old_price)){ %>
                 <div class="item-cost">
-                    <span><s>￥<%= Goods.old_price %></s></span>
+                    <span><s>￥<%= parseFloat(Goods.old_price).toFixed(2) %></s></span>
                 </div>
                 <div class="item-price">
-                    <span class="hotspot">今日特价：￥<%= Goods.price %></span>
+                    <span class="hotspot">今日特价：￥<%= parseFloat(Goods.price).toFixed(2) %></span>
                 </div>
                 <% } else {%>
                 <div class="item-cost">
-                    <span style="color:white;"><s>￥<%= Goods.old_price %></s></span>
+                    <span style="color:white;"><s>￥<%= parseFloat(Goods.old_price).toFixed(2) %></s></span>
                 </div>
                 <div class="item-price">
-                    <span class="hotspot" style="color:black;">单价：￥<%= Goods.price %></span>
+                    <span class="hotspot" style="color:black;">单价：￥<%= parseFloat(Goods.price).toFixed(2) %></span>
                 </div>
                 <% } %>
                 <div class="item-detail">
@@ -174,10 +174,10 @@
                     <span><%= Goods.servings %>人份</span>
                 </div-->
                 <div class="item-cost">
-                    <span><s>￥<%= Goods.price %></s></span>
+                    <span><s>￥<%= parseFloat(Goods.price).toFixed(2) %></s></span>
                 </div>
                 <div class="item-price">
-                    <span class="hotspot">今日特价：￥<%= Goods.price %></span>
+                    <span class="hotspot">今日特价：￥<%= parseFloat(Goods.price).toFixed(2) %></span>
                 </div>
 
                 <div class="item-detail">
@@ -221,7 +221,7 @@
                 </div>
                 <div class="detail-content">
                     <ul>
-                        <li>价格： <%= Goods.price %>元</li>
+                        <li>价格： <%= parseFloat(Goods.price).toFixed(2) %>元</li>
                         <!--li>分量： <%= Goods.servings %>人份</li-->
                         <li><div><%= Goods.content %></div></li>
                     </ul>
@@ -254,7 +254,7 @@
                     </ul>
                     <div class="total-info">
                         <span>
-                            运费：<span class="items-total-amount"><%= organization.Organization.freight||0 %></span>元，共<span class="items-total-price"><%= (parseFloat(item_total) + parseFloat(organization.Organization.freight||0)).toFixed(2) %></span>元
+                            运费：<span class="items-total-amount"><%= parseFloat(organization.Organization.freight||0).toFixed(2) %></span>元，共<span class="items-total-price"><%= (parseFloat(item_total) + parseFloat(organization.Organization.freight||0)).toFixed(2) %></span>元
                         </span>
                     </div>
                 </div>
@@ -281,8 +281,8 @@
                     <span class="item-name" title="<%= Goods.name %>"><%= Goods.name %><br/></span>
                     <span class="item-price-info">
                         <span>
-                            <span class="item-total-price">￥<%= total %></span>
-                            (<span class="item-single-price"><%= Goods.price %></span>×<span class="item-amount"><%= count %></span>)
+                            <span class="item-total-price">￥<%= parseFloat(total).toFixed(2) %></span>
+                            (<span class="item-single-price"><%= parseFloat(Goods.price).toFixed(2) %></span>×<span class="item-amount"><%= count %></span>)
                         </span>
                     </span>
                 </div>
@@ -435,7 +435,7 @@
                     <div class="divider"></div>
                     <div class="total-info">
                         <span>
-                                运费：<span><%= organization.Organization.freight||0 %></span>元，共<span><%= (parseFloat(item_total) + parseFloat(organization.Organization.freight||0)).toFixed(2) %></span>元
+                                运费：<span><%= parseFloat(organization.Organization.freight||0).toFixed(2) %></span>元，共<span><%= (parseFloat(item_total) + parseFloat(organization.Organization.freight||0)).toFixed(2) %></span>元
                         </span>
                         <!-- span class="cancelOrder">取消订单</span -->
                     </div>				
@@ -452,7 +452,7 @@
 	<!-- 订单中普通菜品条目视图模版 -->
 	<script type="text/template" id="resultItemView-template">
             <span class="order-item-name"><%= Goods.goods_name %></span>
-            <span class="order-item-price">￥<%= total %></span>
+            <span class="order-item-price">￥<%= parseFloat(total).toFixed(2) %></span>
             <span class="order-item-amount"><%= count %>份</span>
 	</script>
 
@@ -513,7 +513,7 @@
                 <div class="divider"></div>
                 <div class="total-info">
                     <span>
-                        运费：<span><%= freight||0 %></span>元，共<span><%= cart_total %></span>元
+                        运费：<span><%= parseFloat(freight||0).toFixed(2) %></span>元，共<span><%= parseFloat(cart_total).toFixed(2) %></span>元
                     </span>
                     <% if(delivery_status == 2) { %>
                         <a class="btn dail-small">拨打电话催一催</a>
