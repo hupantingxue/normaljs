@@ -1108,7 +1108,7 @@ explain  -->
     <td width="10%" class="orderinfo"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderinfo_{{order.id}}" value="{{order.name}}/{{order.phone}}" /></td>
     <td width="13%" class="orderaddr"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-s
 tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" /></td>
-    <td width="4%">{{order.price}}</td>
+    <td width="4%">{{order.price|floatformat:"2"}}</td>
     <td width="2%">{{order.amount}}</td>
     <td width="6%">{{order.order_time|date:'Y-m-d H:i'}}</td>
     <td width="10%" class="deliverytime">{{order.delivery_time}}</td>
@@ -1220,8 +1220,8 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
            <td><img style="width:20px; height:20px;" src='/micromall/{{food.cover_url}}'></td>
            <td id="foodname_{{food.id}}"><a href="#" onclick="getIngredts({{food.id}}, 1)">{{food.name}}</a></td>
            <td id="foodcata_{{food.id}}" class="foodcatalog">{{food.catalog_id}}</td>
-           <td id="foodoprice_{{food.id}}">{{food.old_price}}</td>
-           <td id="foodprice_{{food.id}}">{{food.price}}</td>
+           <td id="foodoprice_{{food.id}}">{{food.old_price|floatformat:"2"}}</td>
+           <td id="foodprice_{{food.id}}">{{food.price|floatformat:"2"}}</td>
            <td id="foodtotal_{{food.id}}">{{food.total}}</td>
            <td>{{food.sales}}</td>
            <td id="foodstatus_{{food.id}}" class="foodstatus" value="{{food.status}}">{{food.status}}</td>
