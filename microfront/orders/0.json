@@ -1,0 +1,36 @@
+{
+    "rt_obj": {
+        "data": {
+            "orders": [
+                {
+                    "Order": {
+                        "id": "042711901765",
+                        "org_id": "1",
+                        "user_id": "5546",
+                        "status": "1",
+                        "order_time": "2014-04-27 11:14:46",
+                        "order_date": "20140427",
+                        "order_money": "12.80",
+                        "pay_mode": "2",
+                        "delivery_status": "2",
+                        "freight": "0.00"
+                    }
+                }
+            ],
+            "orderItems": {
+                "042711901765": [
+                    {
+                        "OrderGoods": {
+                            "order_id": "042711901765",
+                            "goods_id": "2722",
+                            "goods_price": "12.80",
+                            "goods_num": "1",
+                            "goods_name": "\u80e1\u841d\u535c\u7092\u732a\u809d",
+                            "customers": "2"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -338,6 +338,28 @@ def order_del(request):
 
     return HttpResponse(resp)
 
+#/microfront/orders/delete for order cacel
+def order_cancel(request, order_id):
+    resp = u'''{"code":0, "msg":"订单删除成功"}'''
+    try:
+        id = order_id
+    except Exception as e:
+        print e
+
+    try:
+        ol = Order.objects.get(id=id)
+    except Order.DoesNotExist:
+        ol = None
+        print id, " order not exist."
+
+    if ol:
+        ol.delete()
+    else:
+        resp = "Order %s not exist." %(id)
+        resp = u'''{"code":0, "msg":"订单删除成功"}'''
+    return HttpResponse(resp)
+
+
 #/microfront/foods/del
 def food_del(request):
     resp = {"code":0}
@@ -967,6 +989,10 @@ def json_resource(request,fname):
 def htm_resource(request,fname):
     text=open('microfront/skin/'+fname+'.htm','rb').read()
     return HttpResponse(text, mimetype="text/html")
+
+def orderjson_resource(request,fname):
+    text=open('microfront/orders/'+fname+'.json','r+').read()
+    return HttpResponse(text, mimetype = "application/json")
 
 def admin_manage(request):
     catalogs = dbcatalog.select().order_by(dbcatalog.c.sort).execute()
