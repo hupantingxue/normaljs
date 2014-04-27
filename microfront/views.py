@@ -190,7 +190,11 @@ def order_query(request):
         print "Not exist such orders."
     except Exception as e:
         print "Orders query exception: ", e
-        orders = Order.objects.filter().order_by('order_time')
+        odate = time.strftime("%Y-%m-%d", time.localtime())
+        value = datetime.datetime.strptime(odate, '%Y-%m-%d')
+        orders = Order.objects.filter(order_time__range=(
+                       datetime.datetime.combine(value, datetime.time.min),
+                       datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
 
     if ('orders' in dir()) and (0 < orders.count()):
         data = serializers.serialize('json', orders)
@@ -212,7 +216,11 @@ def order_shoplist(request):
         print "Not exist such orders."
     except Exception as e:
         print "Orders query exception: ", e
-        orders = Order.objects.filter().order_by('order_time')
+        odate = time.strftime("%Y-%m-%d", time.localtime())
+        value = datetime.datetime.strptime(odate, '%Y-%m-%d')
+        orders = Order.objects.filter(order_time__range=(
+                       datetime.datetime.combine(value, datetime.time.min),
+                       datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
 
     if ('orders' in dir()) and (0 < orders.count()):
         for order in orders:
@@ -250,7 +258,11 @@ def order_purchase(request):
         print "Not exist such orders."
     except Exception as e:
         print "Orders query exception: ", e
-        orders = Order.objects.filter().order_by('order_time')
+        odate = time.strftime("%Y-%m-%d", time.localtime())
+        value = datetime.datetime.strptime(odate, '%Y-%m-%d')
+        orders = Order.objects.filter(order_time__range=(
+                       datetime.datetime.combine(value, datetime.time.min),
+                       datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
 
     if ('orders' in dir()) and (0 < orders.count()):
         for order in orders:

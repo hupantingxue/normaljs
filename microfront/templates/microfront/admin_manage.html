@@ -109,12 +109,16 @@
 				} else {
 				    jsond = eval('(' + data + ')');
 					$(".ordertr").remove();
+					yingyee = 0
 					for (ii in jsond) {
 					    fields = jsond[ii]['fields'];
 					    order_id = jsond[ii]['pk'];
+						yingyee = yingyee + parseFloat(fields['price']);
 						$("#ordertr_header").after('<tr id="ordertr_' + order_id + '" class="ordertr" align="center" bgcolor="#FAFAF1" height="22"><td width="1%">' + order_id + '</td><td width="8%">' + fields['openid'] + '</td><td width="10%" class="orderinfo"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderinfo_' + order_id + '" value="' + fields['name'] + '/' + fields['phone'] + '" /></td><td width="13%" class="orderaddr"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderaddr_' + order_id + '" value="' + fields['address'] + '" /></td><td width="4%">' + fields['price'] + '</td><td width="2%">' + fields['amount'] + '</td><td width="6%">' + fields['order_time'] + '</td><td width="10%" class="deliverytime">' + fields['delivery_time'] + '</td><td width="5%">' + fields['remark'] + '</td><td width="6%" class="paytype">' + fields['pay_type'] + '</td><td width="19%">' + fields['shoplist'] + '</td><td width="6%" class="dlstatus"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderstatus_' + order_id + '" value="' + fields['order_status'] + '" /></td><td width="5%"><a href="#" id="orderedit_' + order_id + '" onclick="orderUpd(' + order_id + ')">编辑</a>|<a href="#" onclick="orderDel(' + order_id + ')">删除</a></td></tr>');
 					}
 			        // alert("查询成功");
+					// alert(yingyee);
+					$("#yingyee").text(yingyee);
 				}
 
 				$('.deliverytime').each(function(){
@@ -1068,7 +1072,7 @@ explain  -->
         <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="orderSrch()" value="查询">
         <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="purchaseQuery()" value="采购清单">
         <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="shoplistQuery()" value="商品清单">
-        <h4>当前查询日营业额：<font color="red">{{turnover.price__sum}}</font>(元),总营业额:<font color="red">{{total_turnover.price__sum}}</font>(元)</h4>
+        <h4>当前查询日营业额：<font color="red"><label id="yingyee">{{turnover.price__sum}}</label></font>(元),总营业额:<font color="red">{{total_turnover.price__sum}}</font>(元)</h4>
     </td>
     <td width="20%" align="right">
         <!--a href="/microfront/orders/export?orgid=109&cdate=2014-04-07" target="_blank" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;">订单导出到Excel</a-->
