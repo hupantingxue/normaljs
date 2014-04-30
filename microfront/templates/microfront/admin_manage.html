@@ -303,6 +303,8 @@
                 $("#updfoodprice").val($("#foodprice_"+id).text());
                 $("#updfoodstatus").val($("#foodstatus_"+id).val());
 
+                $("#updfoodlevel").val($("#foodlevel_"+id).text());
+
                 var foodcatav = $("#foodcata_"+id).text();
                 $("#updfoodcata option:contains("+foodcatav+")").attr("selected", 'selected');
 
@@ -351,8 +353,8 @@
                     for (ii in jsond) {
                         fields = jsond[ii]['fields'];
                         food_id = jsond[ii]['pk'];
-                        // $("#foodtr_header").after('<tr id="' + fields['id'] + '" class="foodtr" align="center" bgcolor="#FAFAF1" height="22"><td>' + fields['id'] + '</td><td><img style="width:20px; height:20px;" src="/micromall/'+ fields['cover_url'] + '"></td><td id="foodname_' + fields['id'] + '">' + fields['name'] + '</td><td id="foodcata_' + fields['id'] + '" class="foodcatalog">' + fields['catalog_id'] + '</td><td id="foodoprice_' + fields['id'] + '">' + fields['old_price'] + '</td><td id="foodprice_' + fields['id'] + '">' + fields['price'] + '</td><td id="foodtotal_' + fields['id'] + '">' + fields['total'] + '</td><td>' + fields['sales'] + '</td><td id="foodstatus_' + fields['id'] + '" class="foodstatus">' + fields['status'] + '</td><td id="foodgenre_' + fields['id'] + '" class="foodgenre">' + fields['genre'] + '</td><td class="foodlevel">' + fields['level'] + '</td><td><a href="#" onclick="foodUpd(' + fields['id'] + ')">编辑</a>|<a href="#" onclick="foodDel(' + fields['id'] + ')">删除</a></td></tr>')
-                        $("#foodtr_header").after('<tr id="' + food_id + '" class="foodtr" align="center" bgcolor="#FAFAF1" height="22"><td>' + food_id + '</td><td><img style="width:20px; height:20px;" src="/micromall/'+ fields['cover_url'] + '"></td><td id="foodname_' + food_id + '">' + fields['name'] + '</td><td id="foodcata_' + food_id + '" class="foodcatalog">' + fields['catalog_id'] + '</td><td id="foodoprice_' + food_id + '">' + fields['old_price'] + '</td><td id="foodprice_' + food_id + '">' + fields['price'] + '</td><td id="foodtotal_' + food_id + '">' + fields['total'] + '</td><td>' + fields['sales'] + '</td><td id="foodstatus_' + food_id + '" class="foodstatus">' + fields['status'] + '</td><td id="foodgenre_' + food_id + '" class="foodgenre">' + fields['genre'] + '</td><td class="foodlevel">' + fields['level'] + '</td><td><a href="#" onclick="foodUpd(' + food_id + ')">编辑</a>|<a href="#" onclick="foodDel(' + food_id + ')">删除</a></td></tr>');
+                        // $("#foodtr_header").after('<tr id="' + fields['id'] + '" class="foodtr" align="center" bgcolor="#FAFAF1" height="22"><td>' + fields['id'] + '</td><td><img style="width:20px; height:20px;" src="/micromall/'+ fields['cover_url'] + '"></td><td id="foodname_' + fields['id'] + '">' + fields['name'] + '</td><td id="foodcata_' + fields['id'] + '" class="foodcatalog">' + fields['catalog_id'] + '</td><td id="foodoprice_' + fields['id'] + '">' + fields['old_price'] + '</td><td id="foodprice_' + fields['id'] + '">' + fields['price'] + '</td><td id="foodtotal_' + fields['id'] + '">' + fields['total'] + '</td><td>' + fields['sales'] + '</td><td id="foodstatus_' + fields['id'] + '" class="foodstatus">' + fields['status'] + '</td><td id="foodgenre_' + fields['id'] + '" class="foodgenre">' + fields['genre'] + '</td><td id="foodlevel_' + fields['id'] + '" class="foodlevel">' + fields['level'] + '</td><td><a href="#" onclick="foodUpd(' + fields['id'] + ')">编辑</a>|<a href="#" onclick="foodDel(' + fields['id'] + ')">删除</a></td></tr>')
+                        $("#foodtr_header").after('<tr id="' + food_id + '" class="foodtr" align="center" bgcolor="#FAFAF1" height="22"><td>' + food_id + '</td><td><img style="width:20px; height:20px;" src="/micromall/'+ fields['cover_url'] + '"></td><td id="foodname_' + food_id + '">' + fields['name'] + '</td><td id="foodcata_' + food_id + '" class="foodcatalog">' + fields['catalog_id'] + '</td><td id="foodoprice_' + food_id + '">' + fields['old_price'] + '</td><td id="foodprice_' + food_id + '">' + fields['price'] + '</td><td id="foodtotal_' + food_id + '">' + fields['total'] + '</td><td>' + fields['sales'] + '</td><td id="foodstatus_' + food_id + '" class="foodstatus">' + fields['status'] + '</td><td id="foodgenre_' + food_id + '" class="foodgenre">' + fields['genre'] + '</td><td id="foodlevel_' + fields['id'] + '" class="foodlevel">' + fields['level'] + '</td><td><a href="#" onclick="foodUpd(' + food_id + ')">编辑</a>|<a href="#" onclick="foodDel(' + food_id + ')">删除</a></td></tr>');
                     }
                 }
 
@@ -1231,7 +1233,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
            <td>{{food.sales}}</td>
            <td id="foodstatus_{{food.id}}" class="foodstatus" value="{{food.status}}">{{food.status}}</td>
            <td id="foodgenre_{{food.id}}" class="foodgenre" value="{{food.genre}}">{{food.genre}}</td>
-           <td class="foodlevel">{{food.level}}</td>
+           <td id="foodlevel_{{food.id}}" class="foodlevel">{{food.level}}</td>
            <td><a href="#" onclick='foodUpd({{food.id}})'>编辑</a>|<a href="#" onclick='foodDel({{food.id}})'>删除</a></td>
         </tr>
         {%endfor%}
@@ -1317,6 +1319,11 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
             <td>商品特价</td>
             <td><input id="updfoodprice" type='text' name='sprice'/></td>
         </tr>
+        <tr>
+            <td>优先级</td>
+            <td><input id="updfoodlevel" type='text' name='food_level'/></td>
+        </tr>
+
         <tr>
             <td>是否上架</td>
             <td>

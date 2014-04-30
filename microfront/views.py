@@ -1063,19 +1063,20 @@ def admin(request):
             error ='数据提交发生错误:价格不是有效数字<br/><a href="/admin/'+username+'">返回</a>'
             return HttpResponse(error)
 
+        foodlevel = int(request.POST['food_level'])
         foodstatus = int(request.POST['food_status'])
         foodgenre = int(request.POST['food_genre'])
         category=int(request.POST['category'])
         print "menu genre and status ======", foodgenre, foodstatus
         introduce=request.POST['introduce']#.replace('\n','')
         #introduce = introduce + "\n"
-        print foodname,foodprice,category,introduce, foodgenre, foodstatus
+        print foodname,foodprice,category,introduce, foodgenre, foodstatus, foodlevel
 
         total = request.POST['amount']
         foodid = int(request.POST['foodid'])
 
         if 0 == foodid:
-            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[19:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, status=foodstatus, genre=foodgenre, total=total, introduce='')
+            menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[19:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, status=foodstatus, genre=foodgenre, level=foodlevel, total=total, introduce='')
             menu.save()
             add_menu_json(menu.id, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce)
         else:
@@ -1094,6 +1095,7 @@ def admin(request):
             menu.introduce = ''
             menu.status=foodstatus
             menu.genre=foodgenre
+            menu.level=foodlevel
             menu.save()
             print "******************update food content: ", introduce
             #add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce, 1)
