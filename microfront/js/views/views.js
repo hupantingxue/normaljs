@@ -41,14 +41,21 @@ app.ItemView = Backbone.View.extend({
 					'height': '110px',
 					'margin-top': '0'
 				});
-				if (priority == '2' || priority == '3') {
+
+                                if (priority == '3') {
+			            $img.css('height', '180px');
+				    that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日推荐</span>')
+				}
+
+				/* if (priority == '2' || priority == '3') {
 					$img.css('height', '180px');
 					if (priority == "3") {
 						that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日特价</span>')
 					} else {
 						that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日推荐</span>')
 					}
-				}
+				} */
+
 			}
 			img.src = url
 		}
@@ -471,7 +478,7 @@ app.ItemListView = Backbone.View.extend({
 				var $el = $(itemview.render().el);
                                 var genre = models[i].get('Goods').genre;
                                 var catalogId = models[i].get('Goods').catalog_id;
-				if (genre == "2" || genre == "3" || catalogId == "1") {
+				if (genre == "3" || catalogId == "1") {
 					$el.addClass('large');
 					$el.find('.select-shadow').addClass("large")
 				}
@@ -483,7 +490,7 @@ app.ItemListView = Backbone.View.extend({
 				var $el = $(itemview.render().el);
                                 var genre = models[i].get('Goods').genre;
                                 var catalogId = models[i].get('Goods').catalog_id;
-				if (genre == "2" || genre == "3" || catalogId == "1") {
+				if (genre == "3" || catalogId == "1") {
 					$el.addClass('large');
 					$el.find('.select-shadow-no-img').addClass("large")
 				}

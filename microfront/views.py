@@ -1274,9 +1274,9 @@ def get_menujson():
                 idx = 0
                 for menu in menus:
                     if 0 == idx:
-                        str = '''"%d":[{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"1","level":"20","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(cid, menu.id, menu.detail_url, menu.cover_url, menu.name, menu.catalog_id, menu.old_price, menu.price, menu.introduce)
+                        str = '''"%d":[{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"%d","level":"%d","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(cid, menu.id, menu.detail_url, menu.cover_url, menu.name, menu.catalog_id, menu.old_price, menu.price, menu.genre, menu.level, menu.introduce)
                     else:
-                        str = ''',{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"1","level":"20","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(menu.id, menu.detail_url, menu.cover_url, menu.name, menu.catalog_id, menu.old_price, menu.price, menu.introduce)
+                        str = ''',{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"%d","level":"%d","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(menu.id, menu.detail_url, menu.cover_url, menu.name, menu.catalog_id, menu.old_price, menu.price, menu.genre, menu.level, menu.introduce)
                     strjson = strjson + str
                     idx = idx + 1
                 # all menu scaned, add ']'
@@ -1286,7 +1286,7 @@ def get_menujson():
         # all catalog scaned, add '}'
         strjson = strjson + '}'
 
-        #print "strjson===", strjson
+        print "strjson===", strjson
 
     except Exception as e:
         print 'exception..........', e
