@@ -1268,7 +1268,7 @@ def get_menujson():
         cataids = Catalog.objects.order_by('id').values('id').distinct()
         for cataid in cataids:
             cid = cataid['id']
-            menus = Menu.objects.filter(catalog_id=cid)
+            menus = Menu.objects.filter(catalog_id=cid).order_by('-genre', 'level')
             cnt = menus.count();
             if 0 < cnt:
                 #The first catalog add prefix '{'
