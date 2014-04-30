@@ -578,10 +578,14 @@ def order_export(request):
         value = datetime.datetime.strptime(odate, '%Y-%m-%d')
     except Exception as e:
         print 'odate format error: ', e
-        odate = time.strftime('%Y-%m-%d', time.localtime())
-        value = datetime.datetime.strptime(odate, '%Y-%m-%d')
+        #odate = time.strftime('%Y-%m-%d', time.localtime())
+        #value = datetime.datetime.strptime(odate, '%Y-%m-%d')
+        value = None
 
-    orders = Order.objects.filter(order_time__range=(
+    if value is None:
+        orders = Order.objects.all()
+    else:
+        orders = Order.objects.filter(order_time__range=(
                     datetime.datetime.combine(value, datetime.time.min),
                     datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
 
