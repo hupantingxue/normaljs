@@ -1286,7 +1286,7 @@ def get_menujson():
         # all catalog scaned, add '}'
         strjson = strjson + '}'
 
-        print "strjson===", strjson
+        #print "strjson===", strjson
 
     except Exception as e:
         print 'exception..........', e
