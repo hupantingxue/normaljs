@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.core.servers.basehttp import FileWrapper
 from django.db.models import Q, Sum
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr, Otherset, Ingredient
 
@@ -24,6 +25,8 @@ import datetime
 import os
 import xlsxwriter
 import json
+import Image
+from PIL import ImageFile
 
 dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
     {
@@ -1348,3 +1351,36 @@ def get_gdltimejson():
     strjson = json.dumps(strjson)
     print strjson
     return strjson
+
+@csrf_exempt
+def upload_image(request):  
+    if request.method == 'POST':  
+        if "upload_file" in request.FILES:  
+            f = request.FILES["upload_file"]  
+            parser = ImageFile.Parser()
+            for chunk in f.chunks():  
+                parser.feed(chunk)  
+            img = parser.close()  
+            #在img被保存之前，可以进行图片的各种操作，在各种操作完成后，在进行一次写操作
+            #dt = datetime.now()
+            #cur_dir = '%s_%s_%s' % (dt.year, dt.month, dt.day)
+            #file_path = os.path.join(STATIC_ROOT,IMAGES_UPLOAD_DIR, cur_dir)
+            file_path = 'micromall/micromall/files/upfiles/' + time.strftime('%Y%m%d', time.localtime()) + "/"
+            if not os.path.exists(file_path):
+                os.mkdirs(file_path)
+
+            print "upload file dir path: ", file_path
+
+            num = int(time.time())*1000
+            file_name = file_path + str(num + 9)
+            thumb_fn = file_name+'_min'
+            print "upload file path: ", file_path
+            f = file_name
+            tf = thumb_fn
+
+            new_img=img.resize((120,120), Image.ANTIALIAS)
+            new_img.save(tf+'.jpg','JPEG')
+            img.save(f+'.jpg','JPEG')
+            print "upload image: ", file_name
+            return HttpResponse('%s.jpg' % (file_name))
+    return HttpResponse(u"Some error!Upload faild!格式：jpeg")
