@@ -882,7 +882,7 @@ explain  -->
           <ul class='sitemu'>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='orderQuery()'><a href='javascript:void(0)' target='main'>当前订单</a></div>                
+                <div class='fllct' onClick='orderQuery();return false;'><a href='javascript:void(0)' target='main'>当前订单</a></div>                
               </div>
             </li>
           </ul>
@@ -896,22 +896,22 @@ explain  -->
           <ul class='sitemu'>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='foodShow()'><a href='javascript:void(0)' target='main'>查看商品</a></div>
+                <div class='fllct' onClick='foodShow();return false;'><a href='javascript:void(0)' target='main'>查看商品</a></div>
               </div>
             </li>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='foodUpd(0)'><a href='javascript:void(0)' target='main'>添加商品</a></div>
+                <div class='fllct' onClick='foodUpd(0);return false;'><a href='javascript:void(0)' target='main'>添加商品</a></div>
               </div>
             </li>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='cataShow()'><a href='javascript:void(0)' target='main'>查看分类</a></div>
+                <div class='fllct' onClick='cataShow();return false;'><a href='javascript:void(0)' target='main'>查看分类</a></div>
               </div>
             </li>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='cataUpd(0)'><a href='javascript:void(0)' target='main'>添加分类</a></div>
+                <div class='fllct' onClick='cataUpd(0);return false;'><a href='javascript:void(0)' target='main'>添加分类</a></div>
               </div>
             </li>
 
@@ -927,12 +927,12 @@ explain  -->
           <ul class='sitemu'>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='cataShow()'><a href='javascript:void(0)' target='main'>查看分类</a></div>
+                <div class='fllct' onClick='cataShow()';return false;><a href='javascript:void(0)' target='main'>查看分类</a></div>
               </div>
             </li>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='cataUpd()'><a href='javascript:void(0)' target='main'>添加分类</a></div>
+                <div class='fllct' onClick='cataUpd();return false;'><a href='javascript:void(0)' target='main'>添加分类</a></div>
               </div>
             </li>
           </ul>
@@ -942,10 +942,10 @@ explain  -->
 
       <!-- Item 3 Strat -->
       <dl class='bitem'>
-          <dt onClick='showHide("items3_1")'><b>会员管理</b></dt>
+          <dt onClick='showHide("items3_1");return false;'><b>会员管理</b></dt>
           <dd style='display:block' class='sitem' id='items3_1'>
           <ul class='sitemu'>
-            <li><div class='items'><div class='fllct' onClick='userShow()'><a href='javascript:void(0)' target='main'>会员管理</a></div></div></li>            
+            <li><div class='items'><div class='fllct' onClick='userShow();return false;'><a onClick='userShow();return false;' href='javascript:void(0)' target='main'>会员管理</a></div></div></li>            
             <li><a href='javascript:void(0)' target='_blank'>特权管理</a></li>            
             <li><a href='javascript:void(0)' target='_blank'>会员等级</a></li>            
           </ul>
@@ -960,10 +960,10 @@ explain  -->
           <ul class='sitemu'>
             <li>
               <div class='items'>
-                <div class='fllct' onClick='dladdrUpd()'><a href='javascript:void(0)' target='main'>配送地址管理</a></div>
+                <div class='fllct' onClick='dladdrUpd();return false;'><a href='javascript:void(0)' target='main'>配送地址管理</a></div>
               </div>
             </li>
-            <li><div class='items'><div class='fllct' onClick='dltimeUpd()'><a href='javascript:void(0)' target='_blank'>配送时间管理</a></div></div></li>            
+            <li><div class='items'><div class='fllct' onClick='dltimeUpd();return false;'><a href='javascript:void(0)' target='_blank'>配送时间管理</a></div></div></li>            
             <li><a href='javascript:void(0)' target='_blank'>首页文字管理</a></li>            
             <li><a href='javascript:void(0)' target='_blank'>首页目录管理</a></li>            
             <li><a href='javascript:void(0)' target='_blank'>会员充值赠送设置</a></li>            
