@@ -251,6 +251,7 @@ def order_shoplist(request):
 #/microfront/orders/purchase
 def order_purchase(request):
     shopdict = {}
+    ingredt_dict = {}
     try:
         odate = request.POST['odate']
         value = datetime.datetime.strptime(odate, '%Y-%m-%d')
@@ -284,11 +285,21 @@ def order_purchase(request):
                 except Exception as e:
                     print shop, e
         #data = serializers.serialize('json', shopdict)
-        shopdictstr = json.dumps(shopdict)
-        print 'shopdict: ', shopdictstr
-        return HttpResponse(shopdictstr, mimetype = "application/json")
+
+        #get ingredit by menu name
+        for name in shopdict:
+            ingredts = Ingredient.objects.filter(menu_name=name);
+            for ingredt in ingredts:
+                if ingredt.name in ingredt_dict:
+                    ingredt_dict[ingredt.name] = ingredt_dict[ingredt.name] + ingredt.quantity * shopdict[name]
+                else:
+                    ingredt_dict[ingredt.name] = ingredt.quantity * shopdict[name]
+
+        ingredt_dictstr = json.dumps(ingredt_dict)
+        print 'ingredt dict: ', ingredt_dictstr 
+        return HttpResponse(ingredt_dictstr, mimetype = "application/json")
     else:
-        return HttpResponse({"shopdict":""}, mimetype = "application/json")
+        return HttpResponse({"ingredt_dict":""}, mimetype = "application/json")
 
 
 #/microfront/orders/date
@@ -879,7 +890,7 @@ def ingredit_save(request):
         name = namel[ii]
         qunty = quntyl[ii]
         unit = unitl[ii]
-        ingredt = Ingredient(menu_id = goodsid, name = name, mclass = type, quantity=qunty, unit=unit)
+        ingredt = Ingredient(menu_id = goodsid, menu_name = goodsname, name = name, mclass = type, quantity=qunty, unit=unit)
         ingredt.save()
     return HttpResponse(code)
 

@@ -114,6 +114,7 @@ class Ingredient(models.Model):
     CLASS_FU = 2
     CLASS_CHOICES = ((CLASS_ZHU, u'主料'), (CLASS_FU, u'辅料'),)
     menu_id = models.IntegerField()
+    menu_name = models.CharField(max_length=100, null=True, default = '')
     name = models.CharField(max_length=200)
     mclass = models.IntegerField(choices=CLASS_CHOICES, default=CLASS_ZHU) #1: Ingredient  2: accessorie
     quantity = models.IntegerField(default=1)

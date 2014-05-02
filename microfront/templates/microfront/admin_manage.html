@@ -1614,7 +1614,8 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         function saveIngredt() {
             type = $("#ingredtype").val();
             foodid = $("#updfoodid").val();
-            foodname = $("#updfoodname").val();
+            // foodname = $("#updfoodname").val();
+			foodname = $("#foodname_"+foodid).text();
             var names = "",quantitys="",units="";
 	    var isNull=true;
 	    $("input[name='names']").each( 
