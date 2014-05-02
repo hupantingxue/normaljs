@@ -1100,8 +1100,8 @@ def admin(request):
             menu.genre=foodgenre
             menu.level=foodlevel
             menu.save()
-            print "******************update food content: ", introduce
-            #add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce, 1)
+            #print "******************update food content: ", introduce
+            add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce, 1)
 
         
         return HttpResponseRedirect('/microfront/admin/')
@@ -1122,13 +1122,42 @@ def admin(request):
 def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce, type=0):
     reload(sys)
     sys.setdefaultencoding('utf-8')
-    menujson = u'''{"rt_obj":{"code":0,"data":{"Goods":{"id":"%d","org_id": "1","detail_url": "%s","cover_url": "%s","name": "%s","catalog_id":"%s","old_price": "%f","price": "%f","sales":"0","total": "0","genre": "1","level": "20","content": "%s","status": "1","servings": "1","stime": "2014-03-18 14:38:40"}}}}''' %(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce.replace('\r\n', '').replace('"', '\\\"'))
-    menujson = json.loads(menujson)
-    menujson = json.dumps(menujson)
-     
     jsonfn = 'microfront/microfront/items/' + str(id) + '.json'
     print "Write menu json file: ", jsonfn
-    print "Menujson[%s]" % (menujson)
+    if 0 == type:
+        menujson = u'''{"rt_obj":{"code":0,"data":{"Goods":{"id":"%d","org_id": "1","detail_url": "%s","cover_url": "%s","name": "%s","catalog_id":"%s","old_price": "%f","price": "%f","sales":"0","total": "0","genre": "1","level": "20","content": "%s","status": "1","servings": "1","stime": "2014-03-18 14:38:40"}}}}''' %(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce.replace('\r\n', '').replace('"', '\\\"'))
+        menujson = json.loads(menujson)
+        menujson = json.dumps(menujson)
+    else:
+        fdr = open(jsonfn, 'r') 
+        jstr = fdr.read()
+        menujson = json.loads(jstr)
+        if 1 < len(introduce):
+            #print "*****************Update content************** len:", len(introduce)
+            menujson['rt_obj']['data']['Goods']['content'] = introduce
+        else:
+            #print "*****************Not Update content************** "
+            menujson['rt_obj']['data']['Goods']['content'] = menujson['rt_obj']['data']['Goods']['content']
+        if price is not None:
+            menujson['rt_obj']['data']['Goods']['price'] = price 
+        if oprice is not None:
+            menujson['rt_obj']['data']['Goods']['oprice'] = oprice 
+
+        if 1 < len(detail_url):
+            menujson['rt_obj']['data']['Goods']['detail_url'] = detail_url 
+        else:
+            #print "*****************Not Update Detail url ************** "
+            menujson['rt_obj']['data']['Goods']['detail_url'] = menujson['rt_obj']['data']['Goods']['detail_url'] 
+
+        if 1 < len(cover_url):
+            menujson['rt_obj']['data']['Goods']['cover_url'] = cover_url 
+        else:
+            #print "*****************Not Update Cover url ************** "
+            menujson['rt_obj']['data']['Goods']['cover_url'] = menujson['rt_obj']['data']['Goods']['cover_url'] 
+        fdr.close()
+        menujson = json.dumps(menujson)
+
+    print "add Menujson[%s]" % (menujson)
     fd = open(jsonfn, 'wb') 
     fd.write(menujson)
     fd.close()
