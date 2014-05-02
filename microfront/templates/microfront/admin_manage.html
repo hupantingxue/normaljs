@@ -306,16 +306,18 @@
                 $("#updfoodlevel").val($("#foodlevel_"+id).text());
 
                 var foodcatav = $("#foodcata_"+id).text();
-                $("#updfoodcata option:contains("+foodcatav+")").attr("selected", 'selected');
+                // $("#updfoodcata option:contains("+foodcatav+")").attr("selected", 'selected');
+                $("#updfoodcata option:contains("+foodcatav+")").prop("selected", 'selected');
 
                 var foodstv = $("#foodstatus_"+id).text();
-                $("#updfoodstatus option:contains("+foodstv+")").attr("selected", 'selected');
+                $("#updfoodstatus option:contains("+foodstv+")").prop("selected", 'selected');
 
                 var foodgnv = $("#foodgenre_"+id).text();
-                $("#updfood_genre option:contains("+foodgnv+")").attr("selected", 'selected');
+                $("#updfood_genre option:contains("+foodgnv+")").prop("selected", 'selected');
 
-		$("#updfoodid").val(id);
+		        $("#updfoodid").val(id);
             } 
+
             if (id == '0'){
                 // alert(id)
                 $("#updfoodname").val("");
