@@ -135,8 +135,10 @@
 	<!-- 菜谱条目模版 -->
 	<script type="text/template" id="item-template">		
             <div class="item-title"><%= Goods.name %></div>
-			<span class="zan_num" style=" top: 20%;left: 90%;width: 26px;height: 26px;cursor: pointer;float: right;padding: 5px 5px; color: #ff9c00;">33</span>
-			<span class="zan" style=" top: 20%;left: 90%;width: 26px;height: 26px; background: url(&quot;img/zaned.png&quot;) center no-repeat; cursor: pointer; opacity: 0.85;float: right;padding: 5px 5px;"></span>
+			<div class="zan">
+			    <span class="zan_num" style=" top: 20%;left: 90%;width: 26px;height: 26px;cursor: pointer;float: right;padding: 5px 5px; color: #ff9c00;">0</span>
+			    <span style=" top: 20%;left: 90%;width: 26px;height: 26px; background: url(&quot;img/zaned.png&quot;) center no-repeat; cursor: pointer; opacity: 0.85;float: right;padding: 5px 5px;"></span>
+			</div>
             <div class="item-image">
                 <img src="img/ajax-loader.gif" lazy-src="/micromall<%= Goods.cover_url %>" alt="item image">
             </div>
@@ -592,6 +594,8 @@
         if(sc.getWechatId() && sc.getWechatId() != getUuid()){
             setCookie('wechat_id','',-1);
         }
+
+		$(".zan").click(function(){alert("haha");});
 	</script>
 
 
