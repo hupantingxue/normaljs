@@ -18,7 +18,6 @@
             </li>
         </ul>
     </div>
-
 	<!-- 弹出窗口模版 -->
 	<script type="text/template" id="popupView-template">
 
@@ -136,7 +135,7 @@
 	<script type="text/template" id="item-template">		
             <div class="item-title"><%= Goods.name %></div>
 			<div class="zan">
-			    <span class="zan_num" style=" top: 20%;left: 90%;width: 26px;height: 26px;cursor: pointer;float: right;padding: 5px 5px; color: #ff9c00;">0</span>
+			    <i class="zan_num" style=" top: 20%;left: 90%;width: 26px;height: 26px;cursor: pointer;float: right;padding: 5px 5px; color: #ff9c00;">0</i>
 			    <span style=" top: 20%;left: 90%;width: 26px;height: 26px; background: url(&quot;img/zaned.png&quot;) center no-repeat; cursor: pointer; opacity: 0.85;float: right;padding: 5px 5px;"></span>
 			</div>
             <div class="item-image">
@@ -595,8 +594,17 @@
             setCookie('wechat_id','',-1);
         }
 
-		$(".zan").click(function(){alert("haha");});
-	</script>
-
+        jQuery(document).ready(function($) {
+		$(".zan").click(function(e){
+			var $i=$(".zan i");
+                        var n=parseInt($i.text());
+			
+			$i.text(n+1);
+			$.post("",{zan:$i.text()});
+			
+			e.stopPropagation();
+		});
+	});
+</script>
 
 </body></html>

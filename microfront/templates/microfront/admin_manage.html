@@ -326,7 +326,8 @@
                 $("#updfoodprice").val("");
                 $("#updfoodstatus").val("on");
                 $("#updfoodlevel").val("");
-		        $("#updfoodid").val(0);
+		$("#updfoodid").val(0);
+                $("#updfood_detail").val('');
             }
             $('#foodupd').show();
             $('#foodlist').hide();
@@ -1354,7 +1355,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         </tr>
         <tr>
             <td>商品描述</td>
-            <td><textarea class="myTextEditor" rows=10 name='introduce'></textarea></td>
+            <td><textarea id="updfood_detail" class="myTextEditor" rows=10 name='introduce'></textarea></td>
         </tr>
         <tr>
         </tr>
