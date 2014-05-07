@@ -154,6 +154,15 @@ def order_add(request, order_id):
                 #print goods[ii], type(goods[ii]), good_name.get(goods[ii], u"好食"), type(good_name.get(goods[ii], u"好食").encode())
                 #shoplist = shoplist + u"%s %d 份;\n" %(good_name.get(goods[ii], u"好食"), count[ii])
                 shoplist = shoplist + u"%s %d 份;\n" %(good_info.get(goods[ii]).get('name', u'好食'), count[ii])
+
+                try:
+                    order_goodsid = int(goods[ii])
+                    order_goods = Menu.objects.get(id=order_goodsid)
+                    order_goods.sales = order_goods.sales + count[ii]
+                    order_goods.save()
+                except Excpetion as e:
+                    print 'order add menu id %d not found' %(order_goodsid)
+
                 ii = ii + 1
             print shoplist
             ol = Order(openid=openid, name=name, remark=remark, pay_type=pay_type, phone=phone, address=address, delivery_time=delivery_time, order_time=rtime, price=price, shoplist=shoplist, amount=amount)
