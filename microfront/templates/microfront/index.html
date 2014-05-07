@@ -136,7 +136,7 @@
             <div class="item-title"><%= Goods.name %></div>
 			<div class="zan">
 			    <i class="zan_num" style=" top: 20%;left: 90%;width: 26px;height: 26px;cursor: pointer;float: right;padding: 5px 5px; color: #ff9c00;">0</i>
-			    <span style=" top: 20%;left: 90%;width: 26px;height: 26px; background: url(&quot;img/zaned.png&quot;) center no-repeat; cursor: pointer; opacity: 0.85;float: right;padding: 5px 5px;"></span>
+			    <span class="zan_span" style=" top: 20%;left: 90%;width: 26px;height: 26px; background: url(&quot;img/zan.png&quot;) center no-repeat; cursor: pointer; opacity: 0.85;float: right;padding: 5px 5px;"></span>
 			</div>
             <div class="item-image">
                 <img src="img/ajax-loader.gif" lazy-src="/micromall<%= Goods.cover_url %>" alt="item image">
@@ -571,7 +571,7 @@
             // var areas = {"381":[{"Address":{"id":"382","name":"\u79d1\u6280\u56ed","parent_id":"381","level":"3","org_id":"1","hat_id":null}},{"Address":{"id":"383","name":"\u817e\u8baf\u5927\u53a6","parent_id":"381","level":"3","org_id":"1","hat_id":null}},{"Address":{"id":"601","name":"\u767d\u77f3\u6d32\u5730\u94c1B\u51fa\u53e3","parent_id":"381","level":"3","org_id":"1","hat_id":null}},{"Address":{"id":"700","name":"\u6d4b\u8bd5","parent_id":"381","level":"3","org_id":"1","hat_id":null}}]};
             var areas = {"381":[{"Address":{"id":"382","name":"\u5B9D\u5B89\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}},{"Address":{"id":"383","name":"\u5357\u5C71\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}},{"Address":{"id":"601","name":"\u798F\u7530\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}},{"Address":{"id":"700","name":"\u7F57\u6E56\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}}]};
             var tradeTime = [];
-            widget.init(data_from_django);
+            // widget.init(data_from_django);
 	</script>
         
 	<script src="js/components/jquery/jquery.min.js"></script>
@@ -589,22 +589,22 @@
                 $(".dail-small").text(organization.Organization.kf_phone);
             }
         });
+
+        $(document).on('click', '.zan', function(){
+		var $i=$(this).children(".zan_num");
+		var $j=$(this).children(".zan_span");
+                var n=parseInt($i.text());
+                var id=$(this).parent().attr('id');
+
+                if (1 != parseInt($i.val())) {
+		    $.post("zan/",{zan:id}, function(data){$i.text(n+1);$j.css("background-image", "url(img/zaned.png)");$i.val("1");});
+                }
+        });
         
         if(sc.getWechatId() && sc.getWechatId() != getUuid()){
             setCookie('wechat_id','',-1);
         }
 
-        jQuery(document).ready(function($) {
-		$(".zan").click(function(e){
-			var $i=this.i;
-                        var n=parseInt($i.text());
-			
-			$i.text(n+1);
-			$.post("",{zan:$i.text()});
-			
-			e.stopPropagation();
-		});
-	});
 </script>
 
 </body></html>

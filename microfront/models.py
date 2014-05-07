@@ -25,6 +25,7 @@ class Menu(models.Model):
     status = models.IntegerField(null=True, default=0)
     servings = models.IntegerField(null=True, default=0)
     commodity = models.CharField(max_length=500, null=True, default=u'无')
+    zan_num = models.IntegerField(null=True, default=0)
 
 # menu catalog
 class Catalog(models.Model):

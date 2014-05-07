@@ -66,6 +66,28 @@ def index(request):
 
     return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson()[0], 'morecatalog_json':get_morecatajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson(), 'menu_json':get_menujson()})
 
+#/microfront/zan/
+def zan_add(request):
+    resp = 0
+    itemid = 0
+    if request.POST.has_key('zan'):
+        try:
+            post = request.POST
+            item = post['zan']
+            itemid = int(item[5:])
+            print "itemid: ", itemid
+        except Exception as e:
+            print "zan_add: ", e
+
+        try:
+            ml = Menu.objects.get(id=itemid)
+            ml.zan_num = ml.zan_num + 1
+            ml.save()
+        except Menu.DoesNotExist:
+            ml = None
+            print itemid, " menu not exist."
+    return HttpResponse(resp)
+
 #/microfront/orders/add
 def order_add(request, order_id):
     print 'orders: ', request
