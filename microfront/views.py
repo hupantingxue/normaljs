@@ -178,7 +178,9 @@ def order_add(request, order_id):
                 cl.money = cl.money + price
                 cl.save()
 
-            resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"040220357129","amount":%d,"status":1,"pay_mode":"%s"}}''' %(amount, pay_type)
+            cart_id = "%s%04d" %(time.strftime("%Y%m%d", time.localtime()), 1)
+
+            resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"%s","amount":%d,"status":1,"pay_mode":"%s"}}''' %(cart_id, amount, pay_type)
         except Exception as e:
             resp = e
             print "Exception:", e
