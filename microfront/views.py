@@ -388,7 +388,7 @@ def order_save(request):
 
     return HttpResponse(resp)
 
-#/microfront/orders/del
+#/microfront/orders/del  for admin  cancel
 def order_del(request):
     resp = {"code":0}
     try:
@@ -409,10 +409,11 @@ def order_del(request):
 
     return HttpResponse(resp)
 
-#/microfront/orders/delete for order cacel
+#/microfront/orders/delete for user order cancel
 def order_cancel(request, order_id):
     resp = u'''{"code":0, "msg":"订单删除成功"}'''
     try:
+        order_id = int(order_id[8:])
         id = order_id
     except Exception as e:
         print e
@@ -424,7 +425,14 @@ def order_cancel(request, order_id):
         print id, " order not exist."
 
     if ol:
-        ol.delete()
+        #set order status
+        ol.order_status = 4
+        ol.save()
+
+        #empty myorder json file: orders/0.json
+        rt_obj = {"rt_obj":{"data":{"orders":[], "orderItems":{}}}}
+        write_order_json(rt_obj)
+
     else:
         resp = "Order %s not exist." %(id)
         resp = u'''{"code":0, "msg":"订单删除成功"}'''

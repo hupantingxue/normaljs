@@ -114,12 +114,30 @@
 					    fields = jsond[ii]['fields'];
 					    order_id = jsond[ii]['pk'];
 						yingyee = yingyee + parseFloat(fields['price']);
-						$("#ordertr_header").after('<tr id="ordertr_' + order_id + '" class="ordertr" align="center" bgcolor="#FAFAF1" height="22"><td width="1%">' + order_id + '</td><td width="8%">' + fields['openid'] + '</td><td width="10%" class="orderinfo"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderinfo_' + order_id + '" value="' + fields['name'] + '/' + fields['phone'] + '" /></td><td width="13%" class="orderaddr"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderaddr_' + order_id + '" value="' + fields['address'] + '" /></td><td width="4%">' + fields['price'] + '</td><td width="2%">' + fields['amount'] + '</td><td width="6%">' + fields['order_time'] + '</td><td width="10%" class="deliverytime">' + fields['delivery_time'] + '</td><td width="5%">' + fields['remark'] + '</td><td width="6%" class="paytype">' + fields['pay_type'] + '</td><td width="19%">' + fields['shoplist'] + '</td><td width="6%" class="dlstatus"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderstatus_' + order_id + '" value="' + fields['order_status'] + '" /></td><td width="5%"><a href="#" id="orderedit_' + order_id + '" onclick="orderUpd(' + order_id + ')">编辑</a>|<a href="#" onclick="orderDel(' + order_id + ')">删除</a></td></tr>');
+						$("#ordertr_header").after('<tr id="ordertr_' + order_id + '" class="ordertr" align="center" bgcolor="#FAFAF1" height="22"><td width="1%">' + order_id + '</td><td width="8%">' + fields['openid'] + '</td><td width="10%" class="orderinfo"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderinfo_' + order_id + '" value="' + fields['name'] + '/' + fields['phone'] + '" /></td><td width="13%" class="orderaddr"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderaddr_' + order_id + '" value="' + fields['address'] + '" /></td><td width="4%">' + fields['price'] + '</td><td width="2%">' + fields['amount'] + '</td><td width="6%">' + fields['order_time'] + '</td><td width="10%" class="deliverytime">' + fields['delivery_time'] + '</td><td width="5%">' + fields['remark'] + '</td><td width="6%" class="paytype">' + fields['pay_type'] + '</td><td width="19%">' + fields['shoplist'] + '</td><td width="6%" class="dlstatus"><input class="orderstatus" type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderstatus_' + order_id + '" value="' + fields['order_status'] + '" /></td><td width="5%"><a href="#" id="orderedit_' + order_id + '" onclick="orderUpd(' + order_id + ')">编辑</a>|<a href="#" onclick="orderDel(' + order_id + ')">删除</a></td></tr>');
 					}
 			        // alert("查询成功");
 					// alert(yingyee);
 					$("#yingyee").text(yingyee);
 				}
+
+				$('.orderstatus').each(function(){
+					if ('4' == $(this).val()) {
+						$(this).val("订单取消");
+					}
+					if ('0' == $(this).val()) {
+						$(this).val("已下单，未支付，未配送");
+					}
+					if ('1' == $(this).val()) {
+						$(this).val("已下单，未支付，已配送");
+					}
+					if ('2' == $(this).val()) {
+						$(this).val("已下单，已支付，未配送");
+					}
+					if ('3' == $(this).val()) {
+						$(this).val("已下单，已支付，已配送");
+					}
+				});
 
 				$('.deliverytime').each(function(){
 					dlid = $(this).text();
@@ -1132,7 +1150,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
     <td width="5%">{{order.remark}}</td>
     <td width="6%" class="paytype">{{order.pay_type}}</td>
     <td width="19%">{{order.shoplist}}</td>
-    <td width="6%" class="dlstatus"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderstatus_{{order.id}}" value="{{order.order_status}}" /></td>
+    <td width="6%" class="dlstatus"><input class="orderstatus" type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderstatus_{{order.id}}" value="{{order.order_status}}" /></td>
     <td width="5%"><a href="#" id="orderedit_{{order.id}}" onclick="orderUpd({{order.id}})">编辑</a>|<a href="#" onclick="orderDel({{order.id}})">删除</a></td>
     </tr>
 {%endfor%}
@@ -1141,6 +1159,24 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
 		$('.deliverytime').each(function(){
 		    dlid = $(this).text();
 		    $(this).text(g_dltime[dlid]);
+		});
+
+		$('.orderstatus').each(function(){
+		    if ('4' == $(this).val()) {
+			    $(this).val("订单取消");
+			}
+		    if ('0' == $(this).val()) {
+			    $(this).val("已下单，未支付，未配送");
+			}
+		    if ('1' == $(this).val()) {
+			    $(this).val("已下单，未支付，已配送");
+			}
+		    if ('2' == $(this).val()) {
+			    $(this).val("已下单，已支付，未配送");
+			}
+		    if ('3' == $(this).val()) {
+			    $(this).val("已下单，已支付，已配送");
+			}
 		});
 
         $(function(){
@@ -1162,27 +1198,6 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                 }
             }
         })
-
-         $(function(){
-            var categories = $('.dlstatus')
-            var len = categories.length
-            for(var i = 0; i < len; i++){
-                var category=categories[i];
-                if(category.innerHTML=='0'){
-                    category.innerHTML='已下单，未支付，未配送'
-                }
-                if(category.innerHTML=='1'){
-                    category.innerHTML='已下单，未支付，已配送'
-                }
-                if(category.innerHTML=='2'){
-                    category.innerHTML='已下单，已支付，未配送'
-                }
-                if(category.innerHTML=='3'){
-                    category.innerHTML='已下单，已支付，已配送'
-                }
-            }
-        })
- 
     </script>
 </table>
 </form>
