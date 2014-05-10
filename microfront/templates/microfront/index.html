@@ -462,6 +462,7 @@
 	<!-- 订单中普通菜品条目视图模版 -->
 	<script type="text/template" id="resultItemView-template">
             <span class="order-item-name"><%= Goods.name %></span>
+            <span class="order-item-name"><%= Goods.goods_name %></span>
             <span class="order-item-price">￥<%= parseFloat(total).toFixed(2) %></span>
             <span class="order-item-amount"><%= count %>份</span>
 	</script>
