@@ -2,6 +2,7 @@
 micromall/files/upfiles/
 micromall/micromall/files/upfiles/
 microfront/microfront/items/
-microfront/orders/
+microfront/orders/0.json
+microfront/orders/1.json
 run.sh
 run.log
