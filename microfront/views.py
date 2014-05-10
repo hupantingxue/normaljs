@@ -118,8 +118,8 @@ def order_add(request, order_id):
 
             price = 0.0
             amount = 0
-            count=[0]*10
-            goods=[0]*10
+            count=[0]*100
+            goods=[0]*100
 
             good_info = get_menuinfo()
             print json.dumps(good_info)
@@ -145,7 +145,7 @@ def order_add(request, order_id):
             price = 0
             ii = 0
             shoplist = ""
-            while ii < 10:
+            while ii < 100:
                 if 0 >= count[ii] or 0 >= goods[ii]:
                     break
                 price = price + count[ii] * float(good_info.get(goods[ii]).get('price', 14.0))
@@ -176,8 +176,33 @@ def order_add(request, order_id):
                 cl.money = cl.money + price
                 cl.save()
 
-            cart_id = "%s%04d" %(time.strftime("%Y%m%d", time.localtime()), ol.id)
-            write_order_json()
+            rdate = time.strftime("%Y%m%d", time.localtime())
+            cart_id = "%s%04d" %(rdate, ol.id)
+
+            ########################################################################
+            #  write good items info to json file(begin)
+            ########################################################################
+            ii = 0
+            rt_obj = {"data":{"orders":[], "orderItems":{}}}
+            rt_obj['data']['orderItems'][cart_id]=[]
+            while ii < 100:
+                if 0 >= count[ii] or 0 >= goods[ii]:
+                    break
+                order_jsitem = u'''{"OrderGoods": {"order_id": "%s","goods_id": "%s","goods_price": "%f","goods_num": "%d","goods_name": "%s","customers": "2"}}''' %(cart_id, goods[ii], float(good_info.get(goods[ii]).get('price', 14.0)), count[ii], good_info.get(goods[ii]).get('name', u'好食'))
+                print '%d order_jsitem [%s]' %(ii, order_jsitem)
+                order_jsitem = json.loads(order_jsitem)
+                rt_obj['data']['orderItems'][cart_id].append(order_jsitem)
+                ii = ii + 1
+
+            item_info = '''{"Order": {"id": "%s","org_id": "1","user_id": "%s","status": "1","order_time": "%s","order_date": "%s","order_money": "%s","pay_mode": "%s","delivery_status": "2","freight": "0.00"}}''' %(cart_id, openid, rtime, rdate, price, pay_type)
+            item_info = json.loads(item_info)
+            rt_obj["data"]["orders"].append(item_info)
+            rt_obj = {"rt_obj":rt_obj}
+            print "===========================notice: ", repr(rt_obj)
+            write_order_json(rt_obj)
+            ########################################################################
+            #  write good items info to json file(end)
+            ########################################################################
 
             resp = '''{"code":0,"msg":"\u4e0b\u5355\u6210\u529f\uff0c\u901a\u8fc7\u201c\u6211\u7684\u8ba2\u5355\u201d\u67e5\u770b~","data":{"cart_id":"%s","amount":%d,"status":1,"pay_mode":"%s"}}''' %(cart_id, amount, pay_type)
         except Exception as e:
@@ -1369,11 +1394,11 @@ def get_menujson():
         # all catalog scaned, add '}'
         strjson = strjson + '}'
 
-        print "strjson===", strjson
+        #print "strjson===", strjson
 
     except Exception as e:
         print 'exception..........', e
-    print '''===menujson===: %s''' %(strjson)
+    #print '''===menujson===: %s''' %(strjson)
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
     return strjson
@@ -1459,74 +1484,10 @@ def upload_image(request):
             return HttpResponse('%s.jpg' % (file_name))
     return HttpResponse(u"Some error!Upload faild!格式：jpeg")
 
-def write_order_json():
+def write_order_json(rt_obj):
     jsonfn = 'microfront/orders/0.json'
     print "Write order json file: ", jsonfn
-    order_json = '''{
-    "rt_obj": {
-        "data": {
-            "orders": [
-                {
-                    "Order": {
-                        "id": "050923591002",
-                        "org_id": "1",
-                        "user_id": "5546",
-                        "status": "1",
-                        "order_time": "2014-05-09 23:39:31",
-                        "order_date": "20140509",
-                        "order_money": "22.00",
-                        "pay_mode": "2",
-                        "delivery_status": "2",
-                        "freight": "0.00"
-                    }
-                },
-                {
-                    "Order": {
-                        "id": "050923492437",
-                        "org_id": "1",
-                        "user_id": "5546",
-                        "status": "1",
-                        "order_time": "2014-05-09 23:39:15",
-                        "order_date": "20140509",
-                        "order_money": "17.00",
-                        "pay_mode": "2",
-                        "delivery_status": "2",
-                        "freight": "0.00"
-                    }
-                }
-            ],
-            "orderItems": {
-                "050923591002": [
-                    {
-                        "OrderGoods": {
-                            "order_id": "050923591002",
-                            "goods_id": "2485",
-                            "goods_price": "22.00",
-                            "goods_num": "1",
-                            "goods_name": "\u82e6\u74dc\u725b\u8089",
-                            "customers": "2"
-                        }
-                    }
-                ],
-                "050923492437": [
-                    {
-                        "OrderGoods": {
-                            "order_id": "050923492437",
-                            "goods_id": "2515",
-                            "goods_price": "17.00",
-                            "goods_num": "1",
-                            "goods_name": "\u68a7\u6850\u82b1\u7092\u97ed\u83dc",
-                            "customers": "2"
-                        }
-                    }
-                ]
-            }
-        }
-    }
-}'''
-    
-    order_json = json.loads(order_json)
-    order_json = json.dumps(order_json)
+    order_json = json.dumps(rt_obj)    
     fd = open(jsonfn, 'wb')
     fd.write(order_json)
     fd.close()
