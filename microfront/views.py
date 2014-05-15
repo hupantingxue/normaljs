@@ -271,7 +271,7 @@ def order_shoplist(request):
         value = datetime.datetime.strptime(odate, '%Y-%m-%d')
         orders = Order.objects.filter(order_time__range=(
                        datetime.datetime.combine(value, datetime.time.min),
-                       datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
+                       datetime.datetime.combine(value, datetime.time.max))).filter(~Q(order_status=4)).order_by('order_time')
     except Order.DoesNotExist:
         print "Not exist such orders."
     except Exception as e:
@@ -280,7 +280,7 @@ def order_shoplist(request):
         value = datetime.datetime.strptime(odate, '%Y-%m-%d')
         orders = Order.objects.filter(order_time__range=(
                        datetime.datetime.combine(value, datetime.time.min),
-                       datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
+                       datetime.datetime.combine(value, datetime.time.max))).filter(~Q(order_status=4)).order_by('order_time')
 
     if ('orders' in dir()) and (0 < orders.count()):
         for order in orders:
@@ -314,7 +314,7 @@ def order_purchase(request):
         value = datetime.datetime.strptime(odate, '%Y-%m-%d')
         orders = Order.objects.filter(order_time__range=(
                        datetime.datetime.combine(value, datetime.time.min),
-                       datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
+                       datetime.datetime.combine(value, datetime.time.max))).filter(~Q(order_status=4)).order_by('order_time')
     except Order.DoesNotExist:
         print "Not exist such orders."
     except Exception as e:
@@ -323,7 +323,7 @@ def order_purchase(request):
         value = datetime.datetime.strptime(odate, '%Y-%m-%d')
         orders = Order.objects.filter(order_time__range=(
                        datetime.datetime.combine(value, datetime.time.min),
-                       datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
+                       datetime.datetime.combine(value, datetime.time.max))).filter(~Q(order_status=4)).order_by('order_time')
 
     if ('orders' in dir()) and (0 < orders.count()):
         for order in orders:
