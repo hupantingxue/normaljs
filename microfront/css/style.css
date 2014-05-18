@@ -107,8 +107,8 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 .marquee{width:95%;margin:60px auto 0 auto;margin-top:53px;height:21px}
 .main{width:100%;height:auto;overflow:hidden;}
 .items,.tuans{width:100%;height:auto}
-.item,.tuan{float:left;position:relative;display:inline-block;margin:10px 2.5%;width:45%;border-radius:3px;-webkit-box-shadow:1px 1px 6px #888;box-shadow:1px 1px 6px #888;background:#fff}
-.item .item-title,.tuan .tuan-title{overflow:hidden;float:left;padding:5px 10px;text-align:left;line-height:1.5;font-size:14px;white-space:nowrap; color:#ff9c00;}
+.item,.tuan{float:left;position:relative;display:inline-block;margin:10px 2.5%;width:45%;border-radius:3px;-webkit-box-shadow:1px 1px 6px #888;box-shadow:1px 1px 6px #888;background:#eee}
+.item .item-title,.tuan .tuan-title{overflow:hidden;float:left;padding:5px 10px;text-align:left;line-height:1.5;font-size:14px;white-space:nowrap; color:#ffa500;}
 .tuan .tuan-delivery-info{overflow:hidden;float:right;padding:5px 10px;text-align:right;color:#ff9c00;line-height:1.5;font-size:14px;white-space:nowrap}
 .item .item-image,.tuan .tuan-image{margin-top:31px;width:100%;height:110px;text-align:center}
 .item .item-image img,.tuan .tuan-image img{margin-top:47px;width:16px}
@@ -127,8 +127,8 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 .item.large .item-amount,.tuan.large .tuan-amount{display:block;float:right;width:32%;margin:0 auto;text-align:right;padding:5px 2.5%;line-height:1.7}
 .item.large .item-detail,.tuan.large .tuan-detail{display:block;float:right;width:38%;margin:0;padding:5px 2.5%;color:#ff9c00;line-height:1.7;font-size:15px;text-align:right;border:0}
 .item.large .item-detail a,.tuan.large .tuan-detail a{color:#ff9c00;}
-.select-shadow{display:none;position:absolute;z-index:0;height:70px;width:100%;top:31px;padding-top:40px;background:rgba(0,0,0,0.5);text-align:center;color:#fff;font-size:16px;cursor:pointer}
-.select-shadow img{width:25px}
+.select-shadow{display:none;position:absolute;z-index:0;height:100%;width:100%;top:0px;padding-top:40px;background:rgba(0,0,0,0.5);text-align:center;color:#fff;font-size:16px;cursor:pointer}
+.select-shadow img{width:128px}
 .select-shadow.large{height:105px;padding-top:75px}
 .select-shadow-no-img{display:none;position:absolute;z-index:0;height:70px;width:100%;top:31px;padding-top:40px;background:rgba(0,0,0,0.5);text-align:center;color:#fff;font-size:18px;cursor:pointer}
 .select-shadow-no-img img{width:32px}
