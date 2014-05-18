@@ -107,7 +107,7 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 .marquee{width:95%;margin:60px auto 0 auto;margin-top:53px;height:21px}
 .main{width:100%;height:auto;overflow:hidden;}
 .items,.tuans{width:100%;height:auto}
-.item,.tuan{float:left;position:relative;display:inline-block;margin:10px 2.5%;width:45%;border-radius:3px;-webkit-box-shadow:1px 1px 6px #888;box-shadow:1px 1px 6px #888;background:#eee}
+.item,.tuan{float:left;position:relative;display:inline-block;margin:10px 2.5%;width:43%;border-radius:3px;-webkit-box-shadow:1px 1px 6px #888;box-shadow:1px 1px 6px #888;background:#eee; border-style:solid; border-width:1px; border-color:#90EE90}
 .item .item-title,.tuan .tuan-title{overflow:hidden;float:left;padding:5px 10px;text-align:left;line-height:1.5;font-size:14px;white-space:nowrap; color:#ffa500;}
 .tuan .tuan-delivery-info{overflow:hidden;float:right;padding:5px 10px;text-align:right;color:#ff9c00;line-height:1.5;font-size:14px;white-space:nowrap}
 .item .item-image,.tuan .tuan-image{margin-top:31px;width:100%;height:110px;text-align:center}
