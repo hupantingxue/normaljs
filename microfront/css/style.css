@@ -32,7 +32,7 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
     width: 95%;
     height: 36px;
     margin: 0px auto;
-    color: #ff9c00;
+    color: #ffa500;
     border: 2px solid #D3D3D3;
     border-radius: 5px;
     line-height: 2;
@@ -55,10 +55,10 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 .types ul li.active{
     color:white;
     border-radius:4px;
-    border:1px solid #ff9c00;
-    background-image:-moz-linear-gradient(top,#ff9c00,#ff9c00);
-    background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#ff9c00),color-stop(1,#ff9c00));
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff9c00',endColorstr='#ff9c00',GradientType='0')
+    border:1px solid #90ee90;
+    background-image:-moz-linear-gradient(top,#90ee90,#90ee90);
+    background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#90ee90),color-stop(1,#90ee90));
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#90ee90',endColorstr='#90ee90',GradientType='0')
 }
 #more-types {
     width: 16%;
