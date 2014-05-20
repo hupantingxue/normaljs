@@ -341,6 +341,7 @@ footer a{color:#000!important; font-size:12px;}
 .body{
     padding-bottom:40px;
     -webkit-box-sizing:border-box;
+   background:url(v71_2.jpg) no-repeat 0 130px; 
 }
 .body ~ footer{
     text-align:center;
