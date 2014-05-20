@@ -9,7 +9,7 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 .btn-success{color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,0.25);background-color:#ff9c00;background-image:-moz-linear-gradient(top,#ff9c00,#ff8800);background-image:-webkit-gradient(linear,0 0,0 100%,from(#ff9c00),to(#ff8800));background-image:-webkit-linear-gradient(top,#ff9c00,#ff8800);background-image:-o-linear-gradient(top,#ff9c00,#ff8800);background-image:linear-gradient(to bottom,#ff9c00,#ff8800);background-repeat:repeat-x;border-color:#ff9c00 #ff9c00 #ff8800;border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff9c00',endColorstr='#ff8800',GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false)}
 .mybtn{border-radius:37px;border:1px solid #9a9a9a;font-size:16px;color:#fff;line-height:37px;text-align:center;text-shadow:1px -1px 1px #7c7979;background-image:-moz-linear-gradient(top,#ff9c00,#ff9c00);background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#ff9c00),color-stop(1,#ff9c00));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff9c00',endColorstr='#ff9c00',GradientType='0')}
 .none{display:none}
-.hotspot{color:#000;font-weight:normal}
+.hotspot{color:#f7002b;font-weight:bold}
 .toolbar{position:fixed;bottom:0;width:100%;height:45px;border-top:2px solid #c1c1c1;background-image:-moz-linear-gradient(top,#e4e4e4,#bfbfbf);background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#e4e4e4),color-stop(1,#bfbfbf));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e4e4e4',endColorstr='#bfbfbf',GradientType='0')}
 .toolbar #before-submit{display:block;position:relative;display:inline-block;left:50%;margin:3px 0 3px -70px;width:140px;height:37px;background-image:-moz-linear-gradient(top,#b8b8b8,#bababa);background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#b8b8b8),color-stop(1,#bababa));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#B8B8B8',endColorstr='#BABABA',GradientType='0')}
 .toolbar .next{position:fixed;z-index:0;bottom:3px;left:50%;margin-left:-70px;width:140px;height:37px;cursor:pointer;border:1px solid #ff9c00;box-shadow:0 0 2px #ff9c00}
@@ -37,9 +37,12 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
     border-radius: 5px;
     line-height: 2;
     text-align: center;
-    background-image:-moz-linear-gradient(top,#e8e8e8,#ececec); /* Firefox */
-    background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#e8e8e8),color-stop(1,#ececec)); /* Saf4+, Chrome */
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#E8E8E8',endColorstr='#FFFFFF',GradientType='0'); /* IE*/
+
+    /* background-image:-moz-linear-gradient(top,#e8e8e8,#ececec); /* Firefox */
+    /* background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#e8e8e8),color-stop(1,#ececec)); /* Saf4+, Chrome */
+    /* filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#E8E8E8',endColorstr='#FFFFFF',GradientType='0'); /* IE*/
+
+    background: -webkit-gradient(linear,0% 0%,0% 100%,from(#40a4d9),to(#3273cb));
     display: block;
 }
 .types ul{
@@ -51,6 +54,15 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
     display: inline-block;
     width: 19%;
     cursor: pointer;
+
+    /* border-right */
+    border-right: 1px solid #72b5e5;
+}
+.types ul li a{
+    display: inline-block;
+    width: 19%;
+    cursor: pointer;
+    color: #ffa500;
 }
 .types ul li.active{
     color:white;
@@ -107,7 +119,7 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 .marquee{width:95%;margin:60px auto 0 auto;margin-top:53px;height:21px}
 .main{width:100%;height:auto;overflow:hidden;}
 .items,.tuans{width:100%;height:auto}
-.item,.tuan{float:left;position:relative;display:inline-block;margin:10px 2.5%;width:43%;border-radius:3px;-webkit-box-shadow:1px 1px 6px #90EE90;box-shadow:1px 1px 6px #90EE90;background:#f0f0f0; border-style:solid; border-width:1px; border-color:#90EE90}
+.item,.tuan{float:left;position:relative;display:inline-block;margin:10px 2.5%;width:43%;border-radius:3px;-webkit-box-shadow:1px 1px 6px #90EE90;box-shadow:1px 1px 6px #90EE90;background:#ffffff; border-style:solid; border-width:1px; border-color:#90EE90}
 .item .item-title,.tuan .tuan-title{overflow:hidden;float:left;padding:5px 10px;text-align:left;line-height:1.5;font-size:14px;white-space:nowrap; color:#000;}
 .tuan .tuan-delivery-info{overflow:hidden;float:right;padding:5px 10px;text-align:right;color:#ff9c00;line-height:1.5;font-size:14px;white-space:nowrap}
 .item .item-image,.tuan .tuan-image{margin-top:31px;width:100%;height:110px;text-align:center}
