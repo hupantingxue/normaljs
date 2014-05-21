@@ -3,7 +3,7 @@
 html, body{ height:100%;}
 li{ list-style:none;}
 footer{
-    height:35px;
+    height:50px;
     overflow:hidden;
     margin-top:-35px;
     position:relative;

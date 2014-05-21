@@ -33,6 +33,7 @@ body {
 img {
 	-ms-interpolation-mode: bicubic;
 	vertical-align: middle;
+	/*vertical-align: baseline;*/
 }
 img:not([src*="/"]){display:none;}
 table {
