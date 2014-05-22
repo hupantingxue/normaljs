@@ -242,10 +242,14 @@ def order_querydate(request):
 def order_query(request):
     try:
         odate = request.POST['odate']
-        value = datetime.datetime.strptime(odate, '%Y-%m-%d')
-        orders = Order.objects.filter(order_time__range=(
+        odate = odate.strip()
+        if 'all' != odate:
+            value = datetime.datetime.strptime(odate, '%Y-%m-%d')
+            orders = Order.objects.filter(order_time__range=(
                        datetime.datetime.combine(value, datetime.time.min),
                        datetime.datetime.combine(value, datetime.time.max))).order_by('order_time')
+        else:
+            orders = Order.objects.all()
     except Order.DoesNotExist:
         print "Not exist such orders."
     except Exception as e:

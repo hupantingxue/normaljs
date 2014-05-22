@@ -97,13 +97,18 @@
 			});
         }
  
-        function orderSrch() {
+        function orderSrch(type) {
 		    $("#ordertable").show();
 		    $("#shopqingdantbl").remove();
 		    $("#purchasetbl").remove();
-		    var odate = $("#osrchdate").val()
-			$("#order_export").attr("href", "/microfront/orders/export/?odate="+odate);
-            $.post("../orders/query/", {"odate":odate}, function(data){
+		    var odate = $("#osrchdate").val();
+
+                    if (0 == type) {
+                        odate = "all";
+                    }
+
+		    $("#order_export").attr("href", "/microfront/orders/export/?odate="+odate);
+                    $.post("../orders/query/", {"odate":odate}, function(data){
 				if ("order_query" == data) {
 				    alert("未找到符合条件的订单");
 				} else {
@@ -294,7 +299,8 @@
             $('#usershow').hide();
             $('#configshow').hide();
             $('#ingredt').hide();
-			// $('#shopqingdantbl').remove();
+            orderSrch(0);
+	    // $('#shopqingdantbl').remove();
         }
 
         function foodShow()
@@ -309,6 +315,8 @@
             $('#usershow').hide();
             $('#configshow').hide();
             $('#ingredt').hide();
+
+            foodSrch(0);
         }
 
         function foodUpd(id)
@@ -370,7 +378,13 @@
             $("#foodtr_"+id).remove();
         }
 
-        function foodSrch() {
+        function foodSrch(type) {
+            if (0 == type) {
+                $("#fsrch_kw").val("");
+                $("#fsrch_staus").val("");
+                $("#fsrch_genre").val("");
+                $("#fsrch_cata").val("");
+            }
             $.post("../foods/srch/", {"name":$("#fsrch_kw").val(), "sstaus":$("#fsrch_staus").val(), "sgenre":$("#fsrch_genre").val(), "scatalog":$("#fsrch_cata").val()}, function(data){
                 if ("food_srch"==data) {
                     $(".foodtr").remove();
@@ -1104,7 +1118,7 @@ explain  -->
         <h4>当前查询日营业额：<font color="red">{{turnover.price__sum}}</font>(元),总营业额:<font color="red">{{total_turnover.price__sum}}</font>(元)</h4>
       </form-->
         <input type="text" name="cdate" id="osrchdate" class="text-info" placeholder="输入选择日期(格式:年-月-日)" />
-        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="orderSrch()" value="查询">
+        <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="orderSrch(1)" value="查询">
         <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="purchaseQuery()" value="采购清单">
         <input type="submit" style="vertical-align:baseline;margin-left:5;font-family:微软雅黑;font-size:15px;" onclick="shoplistQuery()" value="商品清单">
         <h4>当前查询日营业额：<font color="red"><label id="yingyee">{{turnover.price__sum}}</label></font>(元),总营业额:<font color="red">{{total_turnover.price__sum}}</font>(元)</h4>
