@@ -1,0 +1,517 @@
+
+[game:66] - 2014-04-07 22:05:34,809 - ERROR: get fail 'signature'
+[game:66] - 2014-04-07 22:05:41,721 - ERROR: get fail 'signature'
+[game:66] - 2014-04-07 22:05:41,721 - ERROR: get fail 'signature'
+[game:66] - 2014-04-12 23:23:09,688 - ERROR: get fail 'signature'
+[game:79] - 2014-04-13 08:28:14,130 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:80] - 2014-04-13 08:28:14,131 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397348893</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:79] - 2014-04-13 08:28:14,550 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:28:14,550 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:80] - 2014-04-13 08:28:14,551 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397348893</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:28:14,551 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397348893</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:79] - 2014-04-13 08:28:24,757 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:28:24,757 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:28:24,757 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:80] - 2014-04-13 08:28:24,758 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397348893</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:28:24,758 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397348893</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:28:24,758 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397348893</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:79] - 2014-04-13 08:28:34,949 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:28:34,949 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:28:34,949 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:28:34,949 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:80] - 2014-04-13 08:28:34,949 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397348893</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:28:34,949 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397348893</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:28:34,949 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397348893</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:28:34,949 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397348893</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:79] - 2014-04-13 08:31:34,112 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:34,112 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:34,112 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:34,112 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:34,112 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:80] - 2014-04-13 08:31:34,113 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:34,113 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:34,113 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:34,113 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:34,113 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:79] - 2014-04-13 08:31:34,323 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:34,323 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:34,323 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:34,323 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:34,323 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:34,323 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:80] - 2014-04-13 08:31:34,324 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:34,324 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:34,324 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:34,324 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:34,324 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:34,324 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:79] - 2014-04-13 08:31:44,513 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:44,513 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:44,513 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:44,513 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:44,513 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:44,513 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:44,513 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:80] - 2014-04-13 08:31:44,514 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:44,514 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:44,514 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:44,514 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:44,514 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:44,514 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:44,514 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:79] - 2014-04-13 08:31:54,701 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:54,701 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:54,701 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:54,701 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:54,701 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:54,701 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:54,701 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:79] - 2014-04-13 08:31:54,701 - ERROR: parse fail Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?
+[game:80] - 2014-04-13 08:31:54,702 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:54,702 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:54,702 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:54,702 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:54,702 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:54,702 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:54,702 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[game:80] - 2014-04-13 08:31:54,702 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397349093</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:03:03,969 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358183</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_JQHD]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:03:11,467 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358191</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_MENU]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:03:11,467 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358191</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_MENU]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:03:17,228 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358197</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_XWC]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:03:17,228 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358197</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_XWC]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:03:17,228 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358197</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_XWC]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:03:21,590 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358201</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_ADVICE]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:03:21,590 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358201</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_ADVICE]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:03:21,590 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358201</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_ADVICE]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:03:21,590 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358201</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_ADVICE]]></EventKey>
+</xml>]
+[ihaoshi:66] - 2014-04-13 11:03:22,212 - ERROR: get fail 'signature'
+[ihaoshi:66] - 2014-04-13 11:03:22,212 - ERROR: get fail 'signature'
+[ihaoshi:66] - 2014-04-13 11:03:22,212 - ERROR: get fail 'signature'
+[ihaoshi:66] - 2014-04-13 11:03:22,212 - ERROR: get fail 'signature'
+[ihaoshi:66] - 2014-04-13 11:03:22,212 - ERROR: get fail 'signature'
+[ihaoshi:80] - 2014-04-13 11:09:15,610 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358555</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_KFRX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:15,610 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358555</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_KFRX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:15,610 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358555</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_KFRX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:15,610 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358555</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_KFRX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:15,610 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358555</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_KFRX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:15,610 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358555</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_KFRX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:21,373 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358561</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_DDCX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:21,373 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358561</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_DDCX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:21,373 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358561</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_DDCX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:21,373 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358561</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_DDCX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:21,373 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358561</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_DDCX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:21,373 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358561</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_DDCX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:21,373 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358561</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[IHAOSHI_DDCX]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:29,743 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358569</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://www.ihaoshi.cn/tuijian.html]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:29,743 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358569</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://www.ihaoshi.cn/tuijian.html]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:29,743 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358569</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://www.ihaoshi.cn/tuijian.html]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:29,743 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358569</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://www.ihaoshi.cn/tuijian.html]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:29,743 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358569</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://www.ihaoshi.cn/tuijian.html]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:29,743 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358569</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://www.ihaoshi.cn/tuijian.html]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:29,743 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358569</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://www.ihaoshi.cn/tuijian.html]]></EventKey>
+</xml>]
+[ihaoshi:80] - 2014-04-13 11:09:29,743 - INFO: poststr[<xml><ToUserName><![CDATA[gh_c95bd9e8c7c1]]></ToUserName>
+<FromUserName><![CDATA[oZ6X2t_HvGHXIQSvlIZ4yUnGmWYs]]></FromUserName>
+<CreateTime>1397358569</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://www.ihaoshi.cn/tuijian.html]]></EventKey>
+</xml>]
+[ihaoshi:66] - 2014-04-13 11:26:50,172 - ERROR: get fail 'signature'
+[ihaoshi:66] - 2014-04-13 11:26:50,172 - ERROR: get fail 'signature'
