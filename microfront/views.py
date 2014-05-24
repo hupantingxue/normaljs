@@ -75,7 +75,7 @@ def zan_add(request):
             post = request.POST
             item = post['zan']
             itemid = int(item[5:])
-            print "itemid: ", itemid
+            #print "itemid: ", itemid
         except Exception as e:
             print "zan_add: ", e
 
@@ -85,12 +85,12 @@ def zan_add(request):
             ml.save()
         except Menu.DoesNotExist:
             ml = None
-            print itemid, " menu not exist."
+            #print itemid, " menu not exist."
     return HttpResponse(resp)
 
 #/microfront/orders/add
 def order_add(request, order_id):
-    print 'orders: ', request
+    #print 'orders: ', request
     if request.POST.has_key('open_id'):
         #exist user update info
         try:
@@ -122,21 +122,21 @@ def order_add(request, order_id):
             goods=[0]*100
 
             good_info = get_menuinfo()
-            print json.dumps(good_info)
+            #print json.dumps(good_info)
 
             for key in post:
                 if 'count' in key:
                     idx = int(key[5])
-                    print 'count idx: ', idx
+                    #print 'count idx: ', idx
                     count[idx] = int(post[key])
                     #print key, int(key[5])
                 if 'goods' in key:
                     idx = int(key[5])
                     goods[idx] = post[key]
-                    print 'goods idx: ', idx
+                    #print 'goods idx: ', idx
                     #print key, type(key)
                 #print key, post[key]
-            print count, goods
+            #print count, goods
 
             #count amount
             amount = sum(count)
@@ -162,7 +162,7 @@ def order_add(request, order_id):
                     print 'order add menu id %d not found' %(order_goodsid)
 
                 ii = ii + 1
-            print shoplist
+            #print shoplist
             ol = Order(openid=openid, name=name, remark=remark, pay_type=pay_type, phone=phone, address=address, delivery_time=delivery_time, order_time=rtime, price=price, shoplist=shoplist, amount=amount)
             ol.save()
 
@@ -189,7 +189,7 @@ def order_add(request, order_id):
                 if 0 >= count[ii] or 0 >= goods[ii]:
                     break
                 order_jsitem = u'''{"OrderGoods": {"order_id": "%s","goods_id": "%s","goods_price": "%f","goods_num": "%d","goods_name": "%s","customers": "2"}}''' %(cart_id, goods[ii], float(good_info.get(goods[ii]).get('price', 14.0)), count[ii], good_info.get(goods[ii]).get('name', u'好食'))
-                print '%d order_jsitem [%s]' %(ii, order_jsitem)
+                #print '%d order_jsitem [%s]' %(ii, order_jsitem)
                 order_jsitem = json.loads(order_jsitem)
                 rt_obj['data']['orderItems'][cart_id].append(order_jsitem)
                 ii = ii + 1
@@ -198,7 +198,7 @@ def order_add(request, order_id):
             item_info = json.loads(item_info)
             rt_obj["data"]["orders"].append(item_info)
             rt_obj = {"rt_obj":rt_obj}
-            print "===========================notice: ", repr(rt_obj)
+            #print "===========================notice: ", repr(rt_obj)
             write_order_json(rt_obj)
             ########################################################################
             #  write good items info to json file(end)
@@ -233,7 +233,7 @@ def order_querydate(request):
                            datetime.datetime.combine(value, datetime.time.max)))
             turnover = orders.aggregate(Sum('price'))
     else:
-        print '[===NOT EXIST CDATE!!!===]'
+        #print '[===NOT EXIST CDATE!!!===]'
         turnover = total_turnover
     catalogs = Catalog.objects.all()
     return render_to_response('microfront/admin_manage.html', {'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':total_turnover})
@@ -253,7 +253,7 @@ def order_query(request):
     except Order.DoesNotExist:
         print "Not exist such orders."
     except Exception as e:
-        print "Orders query exception: ", e
+        #print "Orders query exception: ", e
         odate = time.strftime("%Y-%m-%d", time.localtime())
         value = datetime.datetime.strptime(odate, '%Y-%m-%d')
         orders = Order.objects.filter(order_time__range=(
@@ -304,7 +304,7 @@ def order_shoplist(request):
                     print shop, e
         #data = serializers.serialize('json', shopdict)
         shopdictstr = json.dumps(shopdict)
-        print 'shopdict: ', shopdictstr
+        #print 'shopdict: ', shopdictstr
         return HttpResponse(shopdictstr, mimetype = "application/json")
     else:
         return HttpResponse({"shopdict":""}, mimetype = "application/json")
@@ -357,7 +357,7 @@ def order_purchase(request):
                     ingredt_dict[ingredt.name] = ingredt.quantity * shopdict[name]
 
         ingredt_dictstr = json.dumps(ingredt_dict)
-        print 'ingredt dict: ', ingredt_dictstr 
+        #print 'ingredt dict: ', ingredt_dictstr 
         return HttpResponse(ingredt_dictstr, mimetype = "application/json")
     else:
         return HttpResponse({"ingredt_dict":""}, mimetype = "application/json")
@@ -379,7 +379,7 @@ def order_save(request):
         ol = Order.objects.get(id=id)
     except Order.DoesNotExist:
         ol = None
-        print id, " order not exist."
+        #print id, " order not exist."
 
     if ol:
         ol.order_status = status
@@ -484,7 +484,7 @@ def food_srch(request):
             
         if request.POST.has_key('sgenre'):
             sgenre = request.POST['sgenre']
-            print "sgenre", sgenre 
+            #print "sgenre", sgenre 
             if '' == sgenre:
                 sgenre = [0, 1, 2, 3]
             else:
@@ -700,8 +700,12 @@ def order_export(request):
         loc = "K%d" % line
         worksheet.write(loc, order.shoplist)
         loc = "L%d" % line
-        worksheet.write(loc, order.order_status)
-        print "order: ", order.id, order.openid
+        status = order.order_status
+        if (type(1) == status) or (status.isdigit()):
+            worksheet.write(loc, u'订单取消')
+        else:
+            worksheet.write(loc, status)
+        print "order: ", order.id, order.openid, status.encode('utf-8'), type(status)
         line = line + 1
     workbook.close()
     wrapper = FileWrapper(file(filename))
@@ -745,7 +749,7 @@ def register(request, open_id):
 #/microfront/home/login
 def login(request, open_id):
     resp = u'''{"code":0, "msg":"登录成功"}'''
-    print resp
+    #print "%s", resp
     return HttpResponse(resp)
 
 #/microfront/users/save
@@ -1014,7 +1018,7 @@ def cedit(request, open_id):
             print 'exist user: ',p
         except Customer.DoesNotExist:
             p = None
-            print open_id, ' not exist.'
+            #print open_id, ' not exist.'
         try:
             name = request.POST['Customer[name]']
             phone = request.POST['Customer[phone]']
@@ -1023,9 +1027,9 @@ def cedit(request, open_id):
             address = request.POST['Customer[address]']
             remark = request.POST['Customer[remark]']
             rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-            print "rtime: ", rtime
+            #print "rtime: ", rtime
             if p:
-                print '%s has registered.' %(open_id)
+                #print '%s has registered.' %(open_id)
                 p.name = name
                 p.phone = phone
                 p.city = city
@@ -1044,7 +1048,7 @@ def cedit(request, open_id):
             #resp='''{"code":0,"msg":"modify success","data":{"id":"%d","org_id":"1","open_id":"%s","account":"0473849","name":"%s","email":"","mobile":"%s","province":null,"city":"%s","area":"%s","address":"%s","pwd":"","create_time":"1396442478","money":"0.00","remark":"%s","member_num":null,"status":"1","update_at":1396442632}}''' %(1, open_id, name, phone, city, area, address, remark)
             print e
 
-    print 'resp post customer data: ', resp
+    #print 'resp post customer data: ', resp
     return HttpResponse(resp)
     #return HttpResponse('''{"code":0,"msg":"modify success","data":{"id":"5546","org_id":"1","open_id":"oyQi888IclGY9yfAAlzG4nUlDH3A","account":"0473849","name":"\u6e05\u671d","email":"","mobile":"12345678910","province":null,"city":"381","area":"382","address":"aaaaaaaaaaaaaaaaaaa","pwd":"","create_time":"1396442478","money":"0.00","remark":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","member_num":null,"status":"1","update_at":1396442632}}''')
 
@@ -1091,13 +1095,13 @@ def admin_manage(request):
 def admin(request):
     base='micromall/micromall/files/upfiles/' + time.strftime('%Y%m%d', time.localtime()) + "/"
     if not os.path.exists(base):
-        print 'create path: ', base
+        #print 'create path: ', base
         os.makedirs(base)
 
     username = 'qi_admin'
-    print "+++++++++++++++++++++++++++++++", request
+    #print "+++++++++++++++++++++++++++++++", request
     if request.POST.has_key('cataname'):
-        print 'cata: ', request.POST
+        #print 'cata: ', request.POST
         cataname = request.POST['cataname']
         sort = request.POST['cata_sort']
         status = u'off'
@@ -1107,19 +1111,19 @@ def admin(request):
         return HttpResponseRedirect('/microfront/admin/')
 
     if request.POST.has_key('foodid'):
-        print "menu_add === ", request
+        #print "menu_add === ", request
 
         if request.FILES.has_key('pic'):
             pic=request.FILES['pic']
             extension=get_extension(pic)
             if extension:  #without pic file
-                print pic,'uploaded'
+                #print pic,'uploaded'
 
                 num = int(time.time()*1000)
                 fname=str(num)+extension
                 fullname=base+fname
                 detail_fullname = base + str(num + 1) + extension
-                print "fullname: ", fullname
+                #print "fullname: ", fullname
                 #write cover pic file
                 fp=open(fullname,'wb')
                 fp.write(pic.read())
@@ -1153,7 +1157,7 @@ def admin(request):
         print "menu genre and status ======", foodgenre, foodstatus
         introduce=request.POST['introduce']#.replace('\n','')
         #introduce = introduce + "\n"
-        print foodname,foodprice,category,introduce, foodgenre, foodstatus, foodlevel
+        #print foodname,foodprice,category,introduce, foodgenre, foodstatus, foodlevel
 
         total = request.POST['amount']
         foodid = int(request.POST['foodid'])
@@ -1187,7 +1191,7 @@ def admin(request):
         return HttpResponseRedirect('/microfront/admin/')
 
     catalogs = Catalog.objects.all()
-    print "menu: ", get_food_list()
+    #print "menu: ", get_food_list()
     orders = Order.objects.order_by('-order_time')
     dladdrs = Dladdr.objects.all()
     dltimes = Dltime.objects.all()
@@ -1196,14 +1200,14 @@ def admin(request):
     othersets = Otherset.objects.all()
 
     print "turnover", turnover
-    print "otherset", othersets
+    #print "otherset", othersets
     return render_to_response('microfront/admin_manage.html', {'g_dltimejson':get_gdltimejson(), 'g_catajson': get_gcatajson(), 'dladdrs':dladdrs, 'users':users, 'dltimes':dltimes, 'catalogs':catalogs, 'orders':orders, 'foods':get_food_list(), 'turnover':turnover, 'total_turnover':turnover, 'othersets':othersets})
 
 def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce, type=0):
     reload(sys)
     sys.setdefaultencoding('utf-8')
     jsonfn = 'microfront/microfront/items/' + str(id) + '.json'
-    print "Write menu json file: ", jsonfn
+    #print "Write menu json file: ", jsonfn
     if 0 == type:
         menujson = u'''{"rt_obj":{"code":0,"data":{"Goods":{"id":"%d","org_id": "1","detail_url": "%s","cover_url": "%s","name": "%s","catalog_id":"%s","old_price": "%f","price": "%f","sales":"0","total": "0","genre": "1","level": "20","content": "%s","status": "1","servings": "1","stime": "2014-03-18 14:38:40"}}}}''' %(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce.replace('\r\n', '').replace('"', '\\\"'))
         menujson = json.loads(menujson)
@@ -1237,7 +1241,7 @@ def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, in
         fdr.close()
         menujson = json.dumps(menujson)
 
-    print "add Menujson[%s]" % (menujson)
+    #print "add Menujson[%s]" % (menujson)
     fd = open(jsonfn, 'wb') 
     fd.write(menujson)
     fd.close()
@@ -1300,7 +1304,7 @@ def get_catajson():
     strjson = json.dumps(strjson)
     g_catajson = json.loads(g_catajson)
     g_catajson = json.dumps(g_catajson)
-    print strjson, g_catajson
+    #print strjson, g_catajson
     return strjson, g_catajson
 
 # Get catalog json
@@ -1318,7 +1322,7 @@ def get_gcatajson():
     g_catajson = g_catajson + "}"
     g_catajson = json.loads(g_catajson)
     g_catajson = json.dumps(g_catajson)
-    print  g_catajson
+    #print  g_catajson
     return g_catajson
 
 # Get catalog json
@@ -1342,7 +1346,7 @@ def get_morecatajson():
     strjson = strjson + "]"
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
-    print strjson
+    #print strjson
     return strjson
 
 # Get menu info(include price, name) json
@@ -1366,7 +1370,7 @@ def get_menuinfo():
     except Exception as e:
         print 'exception..........', e
 
-    print '''===menuinfo json===: %s''' %(strjson)
+    #print '''===menuinfo json===: %s''' %(strjson)
     strjson = json.loads(strjson)
     #strjson = json.dumps(strjson)
     return strjson
@@ -1424,7 +1428,7 @@ def get_orgjson():
     #print "org json:", strjson
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
-    print strjson
+    #print strjson
     return strjson    
     
 # Get dltime json
@@ -1442,7 +1446,7 @@ def get_dltimejson():
     strjson = strjson + "]"
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
-    print strjson
+    #print strjson
     return strjson
 
  
@@ -1461,7 +1465,7 @@ def get_gdltimejson():
     strjson = strjson + "}"
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
-    print strjson
+    #print strjson
     return strjson
 
 @csrf_exempt
@@ -1481,25 +1485,25 @@ def upload_image(request):
             if not os.path.exists(file_path):
                 os.mkdirs(file_path)
 
-            print "upload file dir path: ", file_path
+            #print "upload file dir path: ", file_path
 
             num = int(time.time())*1000
             file_name = file_path + str(num + 9)
             thumb_fn = file_name+'_min'
-            print "upload file path: ", file_path
+            #print "upload file path: ", file_path
             f = file_name
             tf = thumb_fn
 
             new_img=img.resize((120,120), Image.ANTIALIAS)
             new_img.save(tf+'.jpg','JPEG')
             img.save(f+'.jpg','JPEG')
-            print "upload image: ", file_name
+            #print "upload image: ", file_name
             return HttpResponse('%s.jpg' % (file_name))
     return HttpResponse(u"Some error!Upload faild!格式：jpeg")
 
 def write_order_json(rt_obj):
     jsonfn = 'microfront/orders/0.json'
-    print "Write order json file: ", jsonfn
+    #print "Write order json file: ", jsonfn
     order_json = json.dumps(rt_obj)    
     fd = open(jsonfn, 'wb')
     fd.write(order_json)
