@@ -743,7 +743,7 @@ def register(request, open_id):
         except Exception as e:
             resp = e
             print e
-    print resp
+    #print resp
     return HttpResponse(resp)
 
 #/microfront/home/login
