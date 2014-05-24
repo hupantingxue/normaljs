@@ -105,7 +105,7 @@
             <div class="header" id="home-header">
                 <div class="types">
                     <ul id="menuItemList">
-                        <li id="m0" index="0" class="menuItem"><a href="http://www.ihaoshi.cn/ihaoshi/home.htm">首页</a></li>
+                        <li onclick="location.href='http://www.ihaoshi.cn/ihaoshi/home.htm';" id="m0" index="0" class="menuItem">首页</li>
                         <% _.each(catalogs, function(item, idx) { %> <li id="m<%= item.Catalog.id %>" index="<%= idx+1 %>" class="menuItem"><%= item.Catalog.name %></li> <% }); %>
                         <% if(moreCatalogs.length > 0){ %>
                         <li id="more-types" class="types-toggle">&nbsp;</li>
