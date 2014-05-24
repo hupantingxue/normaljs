@@ -1,4 +1,5 @@
 *.pyc
+log/
 micromall/files/upfiles/
 micromall/micromall/files/upfiles/
 microfront/microfront/items/

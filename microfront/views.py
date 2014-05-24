@@ -1421,7 +1421,7 @@ def get_orgjson():
     idx = 0
     org = Otherset.objects.get(id=1)
     strjson = u'''{"Organization":{"id":"1","name":"爱好食","kf_phone":"%s","tip_content":"%s","distribution_range":"%s","freight":"%f"}}''' %(org.kf_phone, org.tip_content, org.distribution_range, org.freight)
-    print "org json:", strjson
+    #print "org json:", strjson
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
     print strjson
