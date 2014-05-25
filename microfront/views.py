@@ -294,14 +294,18 @@ def order_shoplist(request):
             for shop in shopset:
                 try:
                     shop = shop.strip('\n')
-                    name, cnt, unit= shop.split()
+                    try:
+                        name, cnt, unit= shop.split()
+                    except Exception as e:
+                        name1, name2, cnt, unit= shop.split()
+                        name = name1 + name2
                     cnt = int(cnt)
                     if name in shopdict:
                         shopdict[name] = shopdict[name] + cnt
                     else:
                         shopdict[name] = cnt
                 except Exception as e:
-                    print shop, e
+                    print e
         #data = serializers.serialize('json', shopdict)
         shopdictstr = json.dumps(shopdict)
         #print 'shopdict: ', shopdictstr
@@ -337,7 +341,11 @@ def order_purchase(request):
             for shop in shopset:
                 try:
                     shop = shop.strip('\n')
-                    name, cnt, unit= shop.split()
+                    try:
+                        name, cnt, unit= shop.split()
+                    except Exception as e:
+                        name1, name2, cnt, unit= shop.split()
+                        name = name1 + name2
                     cnt = int(cnt)
                     if name in shopdict:
                         shopdict[name] = shopdict[name] + cnt
@@ -959,11 +967,12 @@ def ingredit_save(request):
     quntyl = quantitys.split('|')
     unitl = units.split('|')
 
+    igt_menuname = goodsname.replace(' ', '')
     for ii in range(len(namel)):
         name = namel[ii]
         qunty = quntyl[ii]
         unit = unitl[ii]
-        ingredt = Ingredient(menu_id = goodsid, menu_name = goodsname, name = name, mclass = type, quantity=qunty, unit=unit)
+        ingredt = Ingredient(menu_id = goodsid, menu_name = igt_menuname, name = name, mclass = type, quantity=qunty, unit=unit)
         ingredt.save()
     return HttpResponse(code)
 
