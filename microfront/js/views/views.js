@@ -249,6 +249,7 @@ app.RegisterView = Backbone.View.extend({
 				data: {
                                     'name': that.$el.find('input[name=name]').val()
                                     ,'username': that.$el.find('input[name=account]').val()
+                                    , 'sex': $("#select_sex option:selected").text()
 //                                    , 'password': that.$el.find('input[name=password]').val()
 //                                    ,'email': that.$el.find('input[name=email]').val()
 				},

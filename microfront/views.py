@@ -737,14 +737,16 @@ def register(request, open_id):
         try:
             phone = request.POST['username']
             name = request.POST['name']
-            print "phone[%s] name[%s]" %(phone, name)
+            sex = request.POST['sex']
+            #print "phone[%s] name[%s]" %(phone, name)
             rtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
             if p:
                 p.name = name
                 p.telphone = phone
+                p.sex = sex
                 p.save()
             else:
-                cl = Customer(openid=open_id, name=name, telphone=phone, reg_date=str(rtime), modify_date=str(rtime))
+                cl = Customer(openid=open_id, name=name, telphone=phone, sex=sex, reg_date=str(rtime), modify_date=str(rtime))
                 cl.save()
             #resp = u'''{"customer":"id":"6662","open_id":"%s","account":"8449640","city":"","area":"","money":0},"code":0,"msg":"注册成功，并且已经登陆"}''' %(open_id)
             resp = u'''{"customer":{"id":"5352","open_id":"%s","account":"7709535","city":"","area":"","money":0},"code":0,"msg":"注册成功，并且已经登陆"}''' % (open_id)
