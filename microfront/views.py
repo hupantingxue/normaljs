@@ -400,6 +400,43 @@ def order_save(request):
 
     return HttpResponse(resp)
 
+def clear_orderdata(openid, shoplist):
+    try:
+        ul = Customer.objects.get(openid=openid)
+        ul.account = ul.account - 1
+        ul.save()
+    except Exception as e:
+        print e
+
+    try:
+        shopdict = {}
+        shopset = shoplist.split(';')
+        for shop in shopset:
+            if 1 >= len(shop):
+                continue
+            try:
+                name, cnt, unit = shop.split()
+                cnt = int(cnt)
+            except Exception, e:
+                name1, name2, cnt, unit = shop.split()
+                cnt = int(cnt)
+                name = name1
+
+            if name in shopdict:
+                shopdict[name] = cnt + shopdict[name]
+            else:
+                shopdict[name] = cnt
+
+        for name in shopdict:
+            shop_f = Menu.objects.filter(name__startswith=name)
+            for shop in shop_f:
+                shop.sales = shop.sales - long(shopdict[name])
+                shop.save()
+
+    except Exception as e:
+        print e
+    return ''
+
 #/microfront/orders/del  for admin  cancel
 def order_del(request):
     resp = {"code":0}
@@ -415,6 +452,9 @@ def order_del(request):
         print id, " order not exist."
 
     if ol:
+        openid = ol.openid
+        shoplist = ol.shoplist
+        clear_orderdata(openid, shoplist)
         ol.delete()
     else:
         resp = "Order %s not exist." %(id)
@@ -437,6 +477,10 @@ def order_cancel(request, order_id):
         print id, " order not exist."
 
     if ol:
+        openid = ol.openid
+        shoplist = ol.shoplist
+        clear_orderdata(openid, shoplist)
+
         #set order status
         ol.order_status = 4
         ol.save()
