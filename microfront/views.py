@@ -1454,9 +1454,9 @@ def get_menujson():
                     #if 2 == menu.status:
                     #    continue
                     if 0 == idx:
-                        str = '''"%d":[{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","zan_num":"%d", "catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"%d","level":"%d","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(cid, menu.id, menu.detail_url, menu.cover_url, menu.name, menu.zan_num, menu.catalog_id, menu.old_price, menu.price, menu.genre, menu.level, menu.introduce)
+                        str = '''"%d":[{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","zan_num":"%d", "catalog_id":"%d","old_price":"%f","price":"%f","sales":"%d","total":"%d","genre":"%d","level":"%d","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(cid, menu.id, menu.detail_url, menu.cover_url, menu.name, menu.zan_num, menu.catalog_id, menu.old_price, menu.price, menu.sales, menu.total, menu.genre, menu.level, menu.introduce)
                     else:
-                        str = ''',{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","zan_num":"%d", "catalog_id":"%d","old_price":"%f","price":"%f","sales":"0","total":"0","genre":"%d","level":"%d","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(menu.id, menu.detail_url, menu.cover_url, menu.name, menu.zan_num, menu.catalog_id, menu.old_price, menu.price, menu.genre, menu.level, menu.introduce)
+                        str = ''',{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","zan_num":"%d", "catalog_id":"%d","old_price":"%f","price":"%f","sales":"%d","total":"%d","genre":"%d","level":"%d","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(menu.id, menu.detail_url, menu.cover_url, menu.name, menu.zan_num, menu.catalog_id, menu.old_price, menu.price, menu.sales, menu.total, menu.genre, menu.level, menu.introduce)
                     strjson = strjson + str
                     idx = idx + 1
                 # all menu scaned, add ']'

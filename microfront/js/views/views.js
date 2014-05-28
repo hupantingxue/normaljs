@@ -32,6 +32,12 @@ app.ItemView = Backbone.View.extend({
 		var $img = this.$el.find('.item-image > img');
 		var url = $img.attr('lazy-src');
 		var priority = this.model.get('Goods').genre;
+		var sales = this.model.get('Goods').sales;
+		var total = this.model.get('Goods').total;
+                if (parseInt(sales) >= parseInt(total)) {
+		    this.$el.find('.soldout-shadow').css('display', 'block');
+                }
+
 		if (url != undefined) {
 			var img = new Image();
 			img.onload = function() {
@@ -110,6 +116,12 @@ app.ItemViewWithoutImg = Backbone.View.extend({
 		var $img = this.$el.find('.item-image > img');
 		var url = $img.attr('lazy-src');
 		var priority = this.model.get('Cookbook').priority;
+		var sales = this.model.get('Goods').sales;
+		var total = this.model.get('Goods').total;
+                if (parseInt(sales) >= parseInt(total)) {
+		    this.$el.find('.soldout-shadow-no-img').css('display', 'block');
+                }
+
 		if (url != undefined) {
 			var img = new Image();
 			img.onload = function() {
@@ -482,6 +494,7 @@ app.ItemListView = Backbone.View.extend({
 				if (genre == "3" || catalogId == "1") {
 					$el.addClass('large');
 					$el.find('.select-shadow').addClass("large")
+					$el.find('.soldout-shadow').addClass("large")
 				}
 				that.viewCollection.push(itemview)
 			} else {
@@ -494,6 +507,7 @@ app.ItemListView = Backbone.View.extend({
 				if (genre == "3" || catalogId == "1") {
 					$el.addClass('large');
 					$el.find('.select-shadow-no-img').addClass("large")
+					$el.find('.soldout-shadow-no-img').addClass("large")
 				}
 				that.viewCollection.push(itemview)
 			}
