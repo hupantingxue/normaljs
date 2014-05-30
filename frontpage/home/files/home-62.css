@@ -10,7 +10,8 @@
 	height:20%;
 	/*background:url(../../img/template/lib/v71_2.jpg) no-repeat 0 0;
 	background:url(v71_2.jpg) no-repeat 0 0; */
-	background:url(v71_2.jpg) no-repeat 0 222px;
+	/*background:url(v71_2.jpg) no-repeat 0 222px;*/
+	background:url(v71_2.jpg) no-repeat 0 1000px;
 	-webkit-background-size:100% 100%;
 }
 
@@ -32,7 +33,8 @@
 	display:block;
 	height:100%;
 	color:#ffffff;
-	background:#e77e8d;
+	/*background:#e77e8d;*/
+	background:#ffa300;
 	height:80px;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	border-radius: 100px;
