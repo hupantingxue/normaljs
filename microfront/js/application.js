@@ -116,7 +116,7 @@ $(function() {
     });
     $("#menu-container").append(app.shoppingCartV.render().el);
     $('.loader-mask').remove();
-    app.menuView.renderList(catalogs[1].Catalog.id);
+    app.menuView.renderList(catalogs[slctidx].Catalog.id);
     $('.backToTop').click(function() {
         $(window).scrollTop(2)
     });
