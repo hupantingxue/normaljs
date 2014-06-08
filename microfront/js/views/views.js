@@ -637,10 +637,12 @@ app.MenuView = Backbone.View.extend({
 	},
 	render: function() {
             this.$el.html(this.template({
+                slctidx: slctidx,
                 catalogs: catalogs,
                 moreCatalogs: moreCatalogs
             }));
-            this.$("#m"+catalogs[1].Catalog.id).addClass("active");
+            // this.$("#m"+catalogs[1].Catalog.id).addClass("active");
+            this.$("#m"+catalogs[slctidx].Catalog.id).addClass("active");
             return this;
 	},
 	setPic: function(hasPic) {
@@ -730,6 +732,11 @@ app.OrderItemView = Backbone.View.extend({
 	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
+                total = parseInt(this.model.get('Goods').total);
+		if (this.model.get('count') + 1 <= total) {
+	            this.$el.find('.add').removeClass('disabled')
+                }
+
 		if (this.model.get('count') > 1) {
 			this.$el.find('.minus').removeClass('disabled')
 		}
@@ -737,6 +744,7 @@ app.OrderItemView = Backbone.View.extend({
 	},
 	minus: function() {
 		var count = parseFloat(this.$el.find('.amount').val());
+
 		if (count > 2) {
 			this.$el.find('.amount').val(count - 1);
 			this.$el.find('.minus').removeClass('disabled')
@@ -748,6 +756,14 @@ app.OrderItemView = Backbone.View.extend({
 			return
 		}
 		this.model.set('count', count - 1);
+
+                var total = parseInt(this.model.get('Goods').total);
+		if (count > total) {
+			this.$el.find('.add').addClass('disabled')
+		} else {
+	            this.$el.find('.add').removeClass('disabled')
+                }
+
 		this.model.set('total', (parseFloat(this.model.get('total')) - parseFloat(this.model.get('Goods').price)).toFixed(2));
 		app.shoppingCart.set('item_count', app.shoppingCart.get('item_count') - 1);
 		app.shoppingCart.set('item_total', (parseFloat(app.shoppingCart.get('item_total')) - parseFloat(this.model.get('Goods').price)).toFixed(2));
@@ -755,7 +771,19 @@ app.OrderItemView = Backbone.View.extend({
 	},
 	add: function() {
 		var count = parseFloat(this.$el.find('.amount').val());
-		this.$el.find('.amount').val(count + 1);
+
+                var total = parseInt(this.model.get('Goods').total);
+		if (count + 1 < total) {
+		        this.$el.find('.amount').val(count + 1);
+	                this.$el.find('.add').removeClass('disabled')
+		} else if (count + 1 == total) {
+		        this.$el.find('.amount').val(count + 1);
+			this.$el.find('.add').addClass('disabled')
+                } else {
+			this.$el.find('.add').addClass('disabled')
+                        return 
+                }
+
 		if (count + 1 > 0) {
 			this.$el.find('.minus').removeClass('disabled')
 		} else {

@@ -118,7 +118,9 @@
 					for (ii in jsond) {
 					    fields = jsond[ii]['fields'];
 					    order_id = jsond[ii]['pk'];
-						yingyee = yingyee + parseFloat(fields['price']);
+                                                if (4 != parseInt(fields['order_status'])){
+						    yingyee = yingyee + parseFloat(fields['price']);
+                                                }
 						$("#ordertr_header").after('<tr id="ordertr_' + order_id + '" class="ordertr" align="center" bgcolor="#FAFAF1" height="22"><td width="1%">' + order_id + '</td><td width="8%">' + fields['openid'] + '</td><td width="10%" class="orderinfo"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderinfo_' + order_id + '" value="' + fields['name'] + '/' + fields['phone'] + '" /></td><td width="13%" class="orderaddr"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderaddr_' + order_id + '" value="' + fields['address'] + '" /></td><td width="4%">' + fields['price'] + '</td><td width="2%">' + fields['amount'] + '</td><td width="6%">' + fields['order_time'] + '</td><td width="10%" class="deliverytime">' + fields['delivery_time'] + '</td><td width="5%">' + fields['remark'] + '</td><td width="6%" class="paytype">' + fields['pay_type'] + '</td><td width="19%">' + fields['shoplist'] + '</td><td width="6%" class="dlstatus"><input class="orderstatus" type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="orderstatus_' + order_id + '" value="' + fields['order_status'] + '" /></td><td width="5%"><a href="#" id="orderedit_' + order_id + '" onclick="orderUpd(' + order_id + ')">编辑</a>|<a href="#" onclick="orderDel(' + order_id + ')">删除</a></td></tr>');
 					}
 			        // alert("查询成功");
@@ -232,13 +234,14 @@
 
         function queryUser() {
             $(".usertr").remove()
+            var g_area = {"382":"宝安区", "383":"南山区"};
             $.post("../users/query/", {"keyword":$("#usrsrch").val()}, function(data){
                 var jo = eval('('+data+')');
                 // alert("post data: "+typeof(jo));
                 $.each(jo.user, function(key, value){
                     // alert(value.openid);
-                     // $("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="10%">'+value.openid+'</td><td width="12%"><input type="text" id="usrname_'+value.id+'" value="'+value.name+'" /></td>');  // after
-                    $("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="10%">'+value.openid+'</td><td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrname_'+value.id+'" value="'+value.name+'" /></td><td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrphone_'+value.id+'" value="'+value.phone+'" /></td><td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrmny_'+value.id+'" value="'+value.money+'" /></td><td width="16%"><a href="#" onclick="userUpd('+value.id+')">保存</a>|<a href="#" onclick="userDel('+value.id+')">删除</a></td></tr>');  // after
+                    // $("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="10%">'+value.openid+'</td><td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrname_'+value.id+'" value="'+value.name+'" /></td><td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrphone_'+value.id+'" value="'+value.phone+'" /></td><td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrmny_'+value.id+'" value="'+value.money+'" /></td><td width="16%"><a href="#" onclick="userUpd('+value.id+')">保存</a>|<a href="#" onclick="userDel('+value.id+')">删除</a></td></tr>');  // after
+                    $("#users-header").after('<tr class="usertr" id="usertr_'+value.id+'" align="center" bgcolor="#FAFAF1" height="22"><td width="12%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:50px;" id="usrname_'+value.id+'" value="'+value.name+'" /></td><td width="12%">'+value.openid+'</td><td width="5%">' + value.sex+ '</td><td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:90px;" id="usrphone_'+value.id+'" value="'+value.phone+'" /></td><td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usrcity_'+value.id+'" value="深圳" /></td><td width="8%"><input type="text" class="usrarea" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:90px;" id="usrarea_'+value.id+'" value="' + g_area[value.area] + '" /></td><td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usraddr_'+value.id+'" value="' + value.addr + '" /></td><td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrdate_'+value.id+'" value="' + value.reg_date + '" /></td> <td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usraccount_'+value.id+'" value="' + value.account + '" /></td><td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usrmny_'+value.id+'" value="'+value.money+'" /></td><td width="15%"><a href="#" onclick="userUpd('+value.id+')">保存</a>|<a href="#" onclick="userDel('+value.id+')">删除</a></td></tr>');  // after
                 }); // $.each()
             }); // $.post()
         }
@@ -1543,7 +1546,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
           <td width="5%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usrsex_{{user.id}}" value="{{user.sex}}" /></td>
           <td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:90px;" id="usrphone_{{user.id}}" value="{{user.telphone}}" /></td>
           <td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usrcity_{{user.id}}" value="深圳" /></td>
-          <td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usrarea_{{user.id}}" value="南山" /></td>
+          <td width="8%"><input type="text" class="usrarea" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:90px;" id="usrarea_{{user.id}}" value="{{user.area}}" /></td>
           <td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usraddr_{{user.id}}" value="{{user.addr}}" /></td>
           <td width="9%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:130px;" id="usrdate_{{user.id}}" value="{{user.reg_date|date:'Y-m-d H:i'}}" /></td>
           <td width="8%"><input type="text" style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width:30px;" id="usraccount_{{user.id}}" value="{{user.account}}" /></td>
@@ -1553,6 +1556,13 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
         {%endfor%}
     </table>
 </div>
+<script language='javascript'>
+    var g_area = {"382":"宝安区", "383":"南山区"};
+    $('.usrarea').each(function(){
+        areaId = $(this).val();
+        $(this).val(g_area[areaId]);
+    });
+</script>
 <!-- end: userShow -->
 
 <!-- start: configShow -->

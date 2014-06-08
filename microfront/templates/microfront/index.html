@@ -584,10 +584,11 @@
             var moreCatalogs = {{ morecatalog_json|safe }};
 
             var items = {{ menu_json|safe }};
+            var slctidx = {{ slctidx }};
 
             var cities = [{"Address":{"id":"381","name":"\u6df1\u5733\u5e02","parent_id":"380","level":"2","org_id":"1","hat_id":"440300"}}];
             // var areas = {"381":[{"Address":{"id":"382","name":"\u5B9D\u5B89\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}},{"Address":{"id":"383","name":"\u5357\u5C71\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}},{"Address":{"id":"601","name":"\u798F\u7530\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}},{"Address":{"id":"700","name":"\u7F57\u6E56\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}}]};
-            var areas = {"381":[{"Address":{"id":"383","name":"\u5357\u5C71\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}}]};
+            var areas = {"381":[{"Address":{"id":"383","name":"\u5357\u5C71\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}}, {"Address":{"id":"382","name":"\u5B9D\u5B89\u533A","parent_id":"381","level":"3","org_id":"1","hat_id":null}}]};
             var tradeTime = [];
             // widget.init(data_from_django);
 	</script>
@@ -623,6 +624,8 @@
             setCookie('wechat_id','',-1);
         }
 
+        $('.types ul li').removeClass('active');
+        $("#m13").addClass("active");
 </script>
 
 </body></html>

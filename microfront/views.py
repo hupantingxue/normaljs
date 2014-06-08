@@ -50,11 +50,15 @@ def index(request):
         qd = request.POST
 
     code = qd.__getitem__('code')
+    try:
+        slctidx = qd.__getitem__('idx') 
+    except Exception as e:
+        slctidx = 1
     template = loader.get_template('microfront/index.html')
     context = Context({
         'cur_usr': code,
+        'slctidx': slctidx,
     })
-
 
     try:
         cl = Customer.objects.get(openid=code)
@@ -64,7 +68,7 @@ def index(request):
         status = "NEW_USER"
         print e
 
-    return render_to_response('microfront/index.html', {'cur_usr':code, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson()[0], 'morecatalog_json':get_morecatajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson(), 'menu_json':get_menujson()})
+    return render_to_response('microfront/index.html', {'cur_usr':code, 'slctidx':slctidx, 'cusr':cl, 'usr_status':status, 'catalog_json':get_catajson()[0], 'morecatalog_json':get_morecatajson(), 'org_json':get_orgjson(), 'dltime_json':get_dltimejson(), 'menu_json':get_menujson()})
 
 #/microfront/zan/
 def zan_add(request):
@@ -212,7 +216,7 @@ def order_add(request, order_id):
 
 #/microfront/orders/date
 def order_querydate(request):
-    orders = Order.objects.all()
+    orders = Order.objects.all().filter(~Q(order_status=4))
     total_turnover = orders.aggregate(Sum('price'))
     if request.GET.has_key('cdate'):
         try:
@@ -220,7 +224,7 @@ def order_querydate(request):
             value = datetime.datetime.strptime(cdate, '%Y-%m-%d')
             orders = Order.objects.filter(order_time__range=(
                            datetime.datetime.combine(value, datetime.time.min),
-                           datetime.datetime.combine(value, datetime.time.max))).order_by('-order_time')
+                           datetime.datetime.combine(value, datetime.time.max))).filter(~Q(order_status=4)).order_by('-order_time')
             if None == orders:
                 turnover = {'price__sum':0}
             else:
@@ -230,7 +234,7 @@ def order_querydate(request):
             value = datetime.datetime.strptime(timestr, '%Y-%m-%d')
             orders = Order.objects.filter(order_time__range=(
                            datetime.datetime.combine(value, datetime.time.min),
-                           datetime.datetime.combine(value, datetime.time.max)))
+                           datetime.datetime.combine(value, datetime.time.max))).filter(~Q(order_status=4))
             turnover = orders.aggregate(Sum('price'))
     else:
         #print '[===NOT EXIST CDATE!!!===]'
@@ -400,10 +404,11 @@ def order_save(request):
 
     return HttpResponse(resp)
 
-def clear_orderdata(openid, shoplist):
+def clear_orderdata(openid, shoplist, price):
     try:
         ul = Customer.objects.get(openid=openid)
         ul.account = ul.account - 1
+        ul.money = ul.money - price
         ul.save()
     except Exception as e:
         print e
@@ -454,7 +459,7 @@ def order_del(request):
     if ol:
         openid = ol.openid
         shoplist = ol.shoplist
-        clear_orderdata(openid, shoplist)
+        clear_orderdata(openid, shoplist, price)
         ol.delete()
     else:
         resp = "Order %s not exist." %(id)
@@ -479,7 +484,8 @@ def order_cancel(request, order_id):
     if ol:
         openid = ol.openid
         shoplist = ol.shoplist
-        clear_orderdata(openid, shoplist)
+        price = ol.price
+        clear_orderdata(openid, shoplist, price)
 
         #set order status
         ol.order_status = 4
@@ -893,9 +899,9 @@ def user_query(request):
         for cl in cls:
             if 0 != ii:
                 str = str + ","
-            str = str + '''{"id":%d, "openid":"%s", "name":"%s", "phone":"%s", "money":"%f"}''' %(cl.id, cl.openid, cl.name, cl.telphone, cl.money)
+            str = str + u'''{"id":%d, "sex":"%s", "area":"%s", "addr":"%s","reg_date":"%s", "openid":"%s", "name":"%s", "phone":"%s", "money":"%f", "account":"%d"}''' %(cl.id, cl.sex, cl.area, cl.addr, cl.reg_date, cl.openid, cl.name, cl.telphone, cl.money, cl.account)
             ii = ii + 1
-    resp = '''{"cnt":%d, "user":[%s]}''' % (cnt, str)
+    resp = u'''{"cnt":%d, "user":[%s]}''' % (cnt, str)
     print resp
     return HttpResponse(resp)
 
@@ -1251,7 +1257,7 @@ def admin(request):
     dladdrs = Dladdr.objects.all()
     dltimes = Dltime.objects.all()
     users = Customer.objects.all()
-    turnover = Order.objects.aggregate(Sum('price'))
+    turnover = Order.objects.all().filter(~Q(order_status=4)).aggregate(Sum('price'))
     othersets = Otherset.objects.all()
 
     print "turnover", turnover
@@ -1453,10 +1459,15 @@ def get_menujson():
                 for menu in menus:
                     #if 2 == menu.status:
                     #    continue
-                    if 0 == idx:
-                        str = '''"%d":[{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","zan_num":"%d", "catalog_id":"%d","old_price":"%f","price":"%f","sales":"%d","total":"%d","genre":"%d","level":"%d","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(cid, menu.id, menu.detail_url, menu.cover_url, menu.name, menu.zan_num, menu.catalog_id, menu.old_price, menu.price, menu.sales, menu.total, menu.genre, menu.level, menu.introduce)
+                    if menu.total >= menu.sales:
+                        total = menu.total - menu.sales
                     else:
-                        str = ''',{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","zan_num":"%d", "catalog_id":"%d","old_price":"%f","price":"%f","sales":"%d","total":"%d","genre":"%d","level":"%d","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(menu.id, menu.detail_url, menu.cover_url, menu.name, menu.zan_num, menu.catalog_id, menu.old_price, menu.price, menu.sales, menu.total, menu.genre, menu.level, menu.introduce)
+                        total = 0
+
+                    if 0 == idx:
+                        str = '''"%d":[{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","zan_num":"%d", "catalog_id":"%d","old_price":"%f","price":"%f","sales":"%d","total":"%d","genre":"%d","level":"%d","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(cid, menu.id, menu.detail_url, menu.cover_url, menu.name, menu.zan_num, menu.catalog_id, menu.old_price, menu.price, menu.sales, total, menu.genre, menu.level, menu.introduce)
+                    else:
+                        str = ''',{"Goods":{"id":"%d","org_id":"1","detail_url":"%s","cover_url":"%s","name":"%s","zan_num":"%d", "catalog_id":"%d","old_price":"%f","price":"%f","sales":"%d","total":"%d","genre":"%d","level":"%d","content":"%s","status":"1","servings":"1","stime":"2014-03-18 15:45:30"}}''' %(menu.id, menu.detail_url, menu.cover_url, menu.name, menu.zan_num, menu.catalog_id, menu.old_price, menu.price, menu.sales, total, menu.genre, menu.level, menu.introduce)
                     strjson = strjson + str
                     idx = idx + 1
                 # all menu scaned, add ']'
@@ -1481,6 +1492,7 @@ def get_orgjson():
     org = Otherset.objects.get(id=1)
     strjson = u'''{"Organization":{"id":"1","name":"爱好食","kf_phone":"%s","tip_content":"%s","distribution_range":"%s","freight":"%f"}}''' %(org.kf_phone, org.tip_content, org.distribution_range, org.freight)
     #print "org json:", strjson
+    strjson = strjson.replace('\n', '\\n')
     strjson = json.loads(strjson)
     strjson = json.dumps(strjson)
     #print strjson
