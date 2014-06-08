@@ -34,7 +34,8 @@ app.ItemView = Backbone.View.extend({
 		var priority = this.model.get('Goods').genre;
 		var sales = this.model.get('Goods').sales;
 		var total = this.model.get('Goods').total;
-                if (parseInt(sales) >= parseInt(total)) {
+                // if (parseInt(sales) >= parseInt(total)) {
+                if (0 >= parseInt(total)) {
 		    this.$el.find('.soldout-shadow').css('display', 'block');
                 }
 
@@ -118,7 +119,8 @@ app.ItemViewWithoutImg = Backbone.View.extend({
 		var priority = this.model.get('Cookbook').priority;
 		var sales = this.model.get('Goods').sales;
 		var total = this.model.get('Goods').total;
-                if (parseInt(sales) >= parseInt(total)) {
+                // if (parseInt(sales) >= parseInt(total)) {
+                if (0 >= parseInt(total)) {
 		    this.$el.find('.soldout-shadow-no-img').css('display', 'block');
                 }
 
