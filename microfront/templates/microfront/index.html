@@ -140,10 +140,6 @@
 	<!-- 菜谱条目模版 -->
 	<script type="text/template" id="item-template">		
             <div class="item-title"><%= Goods.name %></div>
-			<div class="zan">
-			    <i class="zan_num" style=" top: 20%;left: 90%;width: 26px;height: 26px;cursor: pointer;float: right;padding: 5px 5px; color: #000;font-style:normal;"><%= Goods.zan_num %></i>
-			    <span class="zan_span" style=" top: 20%;left: 90%;width: 26px;height: 26px; background: url(&quot;img/zan.png&quot;) center no-repeat; cursor: pointer; opacity: 0.85;float: right;padding: 5px 5px;"></span>
-			</div>
             <div class="item-image">
                 <img src="img/ajax-loader.gif" lazy-src="/micromall<%= Goods.cover_url %>" alt="item image">
             </div>
@@ -155,6 +151,10 @@
                 <div class="item-cost">
                     <span><s>￥<%= parseFloat(Goods.old_price).toFixed(2) %></s></span>
                 </div>
+		<div class="zan">
+		    <i class="zan_num" style=" top: 20%;left: 90%;width: 13px;height: 13px;cursor: pointer;float: right;padding: 5px 5px; color: #000;font-style:normal;"><%= Goods.zan_num %></i>
+	            <span class="zan_span" style=" top: 20%;left: 90%;width: 13px;height: 13px; background: url(&quot;img/zan.png&quot;) center no-repeat; cursor: pointer; opacity: 0.85;float: right;padding: 5px 5px;"></span>
+	        </div>
                 <div class="item-price">
                     <span class="hotspot">今日特价：￥<%= parseFloat(Goods.price).toFixed(2) %></span>
                 </div>
@@ -163,6 +163,10 @@
                     <span style="color:white;"><s>￥<%= parseFloat(Goods.old_price).toFixed(2) %></s></span>
                     <!--span style="color:#f0f0f0;"><s>￥<%= parseFloat(Goods.old_price).toFixed(2) %></s></span-->
                 </div>
+		<div class="zan">
+		    <i class="zan_num" style=" top: 20%;left: 90%;width: 13px;height: 13px;cursor: pointer;float: right;padding: 5px 5px; color: #000;font-style:normal;"><%= Goods.zan_num %></i>
+	            <span class="zan_span" style=" top: 20%;left: 90%;width: 13px;height: 13px; background: url(&quot;img/zan.png&quot;) center no-repeat; cursor: pointer; opacity: 0.85;float: right;padding: 5px 5px;"></span>
+	        </div>
                 <div class="item-price">
                     <span class="hotspot" style="color:black;">单价：￥<%= parseFloat(Goods.price).toFixed(2) %></span>
                 </div>
@@ -198,6 +202,10 @@
                 <div class="item-cost">
                     <span><s>￥<%= parseFloat(Goods.price).toFixed(2) %></s></span>
                 </div>
+		<div class="zan">
+		    <i class="zan_num" style=" top: 20%;left: 90%;width: 13px;height: 13px;cursor: pointer;float: right;padding: 5px 5px; color: #000;font-style:normal;"><%= Goods.zan_num %></i>
+	            <span class="zan_span" style=" top: 20%;left: 90%;width: 13px;height: 13px; background: url(&quot;img/zan.png&quot;) center no-repeat; cursor: pointer; opacity: 0.85;float: right;padding: 5px 5px;"></span>
+	        </div>
                 <div class="item-price">
                     <span class="hotspot">今日特价：￥<%= parseFloat(Goods.price).toFixed(2) %></span>
                 </div>
@@ -472,7 +480,7 @@
             <div class="tips" id="items-tips">
                 <div class="tips-arrow"></div>
                 <!--span>温馨提示：此订单<span id="pBox"></span>将于<span id="items-delivery-time"><%= items.date %></span><span id="timeBox"></span>点配送</span-->
-                <span>温馨提示：<span id="timeBox"></span></span>
+                <span>温馨提示：<br /><span id="timeBox"></span></span>
             </div>
 	</script>
 

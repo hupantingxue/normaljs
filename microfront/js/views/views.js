@@ -5,7 +5,7 @@ app.ItemView = Backbone.View.extend({
 	events: {
 		'click .item-image': 'select',
 		'click .select-shadow': 'unselect',
-		'click .single-item-info': 'showDetail',
+		'click .item-detail': 'showDetail',
 	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
@@ -91,7 +91,7 @@ app.ItemViewWithoutImg = Backbone.View.extend({
 	events: {
 		'click .item-image': 'select',
 		'click .select-shadow-no-img': 'unselect',
-		'click .single-item-info': 'showDetail'
+		'click .item-detail': 'showDetail'
 	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));

@@ -27,6 +27,7 @@ import xlsxwriter
 import json
 import Image
 from PIL import ImageFile
+import shutil
 
 dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
     {
@@ -110,9 +111,11 @@ def order_add(request, order_id):
             prex = ''
             narea = int(area)
             if 382 == narea:
-                prex = u'科技园'
+                #prex = u'科技园'
+                prex = u'宝安区'
             if 383 == narea:
-                prex = u'腾讯大厦'
+                #prex = u'腾讯大厦'
+                prex = u'南山区'
             if 601 == narea:
                 prex = u'白石洲地铁B出口'
             if 700 == narea:
@@ -203,6 +206,14 @@ def order_add(request, order_id):
             rt_obj["data"]["orders"].append(item_info)
             rt_obj = {"rt_obj":rt_obj}
             #print "===========================notice: ", repr(rt_obj)
+
+            # copy order json file to history order json file
+            curpath = os.path.dirname(os.path.abspath('.'))
+            srcfn = curpath + '/normaljs/microfront/orders/0.json'
+            dstfn = curpath + '/normaljs/microfront/orders/1.json'
+            shutil.copyfile(srcfn, dstfn)
+
+            # write new order file
             write_order_json(rt_obj)
             ########################################################################
             #  write good items info to json file(end)
