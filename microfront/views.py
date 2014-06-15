@@ -1061,6 +1061,30 @@ def ingredit_query(request):
     else:
         return HttpResponse({"ingredt_query":""})
 
+#/microfront/ingredit/del
+def ingredit_del(request):
+    code = 0
+    try:
+        goodsid = int(request.POST['food_id'])
+        type = int(request.POST['type'])
+        name = request.POST['name']
+    except Exception as e:
+        print e
+
+    try:
+        ingredts = Ingredient.objects.filter(Q(menu_id=goodsid)&Q(mclass=type)&Q(name=name))
+    except Ingredient.DoesNotExist:
+        print "Not exist such ingredts."
+    except Exception as e:
+        print "Ingredients query exception: ", e
+
+    if 'ingredts' in dir():
+        ingredts[0].delete()
+        return HttpResponse({"code":0})
+    else:
+        return HttpResponse({"code":-1})
+
+
 
 #/microfront/dltime/del
 def del_dltime(request):
