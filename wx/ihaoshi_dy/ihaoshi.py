@@ -13,7 +13,6 @@ loggers = {}
 
 db = web.database(dbn='mysql', user=conf.DB_USER, pw=conf.DB_PWD, db=conf.DB_NAME)
 
-# TODO:
 gstr = ["偶老师，他还没教我这个/::'(", 
         '小战舰还是笨笨的菜鸟，恳请大侠刀下留人~~~', 
         '想用神一样的思维，难倒我？[左哼哼]',

@@ -97,30 +97,25 @@ class index:
         elif "event" == frommsgtype:
             fromevent = soup.Event.text
             if 'subscribe' == fromevent:
-                return self.render.reply_text(fromuser, touser, curtime, u'''您好，欢迎关注爱好食！本公众号致力于打造简单、健康和时尚的都市白领生活！''')
+                #url='http://211.154.149.170:8600/microfront?code=%s' %(fromuser)
+                url = 'http://www.ihaoshi.cn/ihaoshi/home.htm'
+                return self.render.reply_pic(fromuser, touser, curtime, u'点击查看今日菜品', u'爱好食，打造简单、健康、时尚的都市生活', 'http://www.ihaoshi.cn/img/cover.jpg', url) 
 
             if 'CLICK' == fromevent:
                 evtkey = soup.EventKey.text
                 if 'IHAOSHI_JQHD' == evtkey:
-                    return self.render.reply_text(fromuser, touser, curtime, u'''您好，欢迎查看近期活动''')
+                    return self.render.reply_text(fromuser, touser, curtime, u'''编辑中。。。''')
+
+                if 'IHAOSHI_HSTJ' == evtkey:
+                    return self.render.reply_text(fromuser, touser, curtime, u'''编辑中。。。''')
            
                 if 'IHAOSHI_MENU' == evtkey:
-                    return self.render.reply_text(fromuser, touser, curtime, u'''您好，好食菜单正在出炉''')
-           
-                if 'IHAOSHI_DIY' == evtkey:
-                    text = u'''好食DIY'''
-                    return self.render.reply_text(fromuser, touser, curtime, text)
-           
-                if 'IHAOSHI_XWC' == evtkey:
-                    text = u'''下午茶时刻，欢迎光临'''
-                    return self.render.reply_text(fromuser, touser, curtime, text)
-           
-                if 'IHAOSHI_ADVICE' == evtkey:
-                    text = u'''您有好的建议欢迎留言哈'''
-                    return self.render.reply_text(fromuser, touser, curtime, text)
-           
+                    #url='http://211.154.149.170:8600/microfront?code=%s' %(fromuser)
+                    url = 'http://www.ihaoshi.cn/ihaoshi/home.htm'
+                    return self.render.reply_pic(fromuser, touser, curtime, u'点击查看今日菜品', u'爱好食，打造简单、健康、时尚的都市生活', 'http://www.ihaoshi.cn/img/cover.jpg', url) 
+          
                 if 'IHAOSHI_KFRX' == evtkey:
-                    text = u'''欢迎致电：33527'''
+                    text = u'''客服热线：15889613776\n服务时间：周一~周五，9:00~20:00'''
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_DDCX' == evtkey:
@@ -132,7 +127,11 @@ class index:
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_DCSM' == evtkey:
-                    text = u'''爱好食致力于打造简单、健康和时尚的都市白领生活！'''
+                    text = u'''编辑中。。。'''
+                    return self.render.reply_text(fromuser, touser, curtime, text)
+           
+                if 'IHAOSHI_ABOUT' == evtkey:
+                    text = u'''爱好食，打造简单、健康、时尚的都市生活。'''
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
         else:
