@@ -1721,28 +1721,15 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
             // alert(typeof(typeid));
             // $("#ingredttr-header").after('<tr class="tr_'+ingid+'"><td><input type="text" ingid="name_'+ingid+'" name="names"></td></td></tr>');
             if ('2' == typeid) {
-                $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_2">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
+                $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_2">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+', 2)">删除</a></td></tr>');
             } else {
-                $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_1">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
+                $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_1">  <td><input type="text" id="name_'+ingid+'" name="names"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys">  <input type="hidden" name="units" id="unit_'+ingid+'" value="2">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);" checked="">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+', 1)">删除</a></td></tr>');
             }
         }
 
         function getIngredts(id, type) {
             ingid = 1;
-            // alert("query foodid: "+id);
             ingredtShow(id);
-            // if ('0' == id) {
-                $(".tr_1").remove();
-                $(".tr_2").remove();
-            // }
-            // else {
-            //    if (1 == type) {
-            //        $(".tr_2").remove();
-            //    }
-            //    if (2 == type) {
-            //        $(".tr_1").remove();
-            //    }
-            // } 
              
             $.post("../ingredit/query/", {"goods_id":id, "type":type}, function(data){
                 if ("ingredt_query"==data) { 
@@ -1752,7 +1739,7 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
                     jsond = eval('('+data+')');
                     for (ii in jsond) {
                         fields = jsond[ii]['fields'];
-                        $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_1">  <td><input type="text" id="name_'+ingid+'" name="names" value="'+ fields['name'] + '"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys"  value="'+ fields['quantity'] + '">  <input type="hidden" name="units" id="unit_'+ingid+'" value="'+ fields['unit'] +'">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+')">删除</a></td></tr>');
+                        $("#ingredttr-header").after('<tr id="ingtr_'+ingid+'" class="tr_1">  <td><input type="text" id="name_'+ingid+'" name="names" value="'+ fields['name'] + '"></td>  <td class="cl1"><input type="text" style="width:100px;" id="quantity_'+ingid+'" name="quantitys"  value="'+ fields['quantity'] + '">  <input type="hidden" name="units" id="unit_'+ingid+'" value="'+ fields['unit'] +'">  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="1" onclick="saveUnit('+ingid+',1);">克  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="2" onclick="saveUnit('+ingid+',2);">包  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="3" onclick="saveUnit('+ingid+',3);">个  <input type="radio" style="margin-bottom:15px;" name="danweis_'+ingid+'" value="4" onclick="saveUnit('+ingid+',4);">粒  </td><td class="cl1"><a href="javascript:delRow('+ingid+','+type+')">删除</a></td></tr>');
                         iv = $("#unit_"+ingid).val();
                         $(":radio[name=danweis_"+ingid+"][value="+iv+"]").attr('checked',true);
                         // $("input[name='danweis_5']").get(fields['unit']).checked = true;
@@ -1769,8 +1756,11 @@ tyle:none;width:130px;" id="orderaddr_{{order.id}}" value="{{order.address}}" />
             // $.post("../ingredit/save/", {"goods_id":id }, function(data){alert("保存成功");});
         }
 
-        function delRow(line) {
+        function delRow(line, type) {
+            var food_id = $("#updfoodid").val();
+            var name = $("#ingtr_"+line).find("#name_"+line).val();
             $("#ingtr_"+line).remove();
+            $.post("../ingredit/delete/", {"food_id":food_id, "type":type, "name":name}, function(data){alert("删除成功");});
         }
     </script>
     <ul class="nav nav-tabs">

@@ -621,7 +621,7 @@
 		var $i=$(this).children(".zan_num");
 		var $j=$(this).children(".zan_span");
                 var n=parseInt($i.text());
-                var id=$(this).parent().attr('id');
+                var id = $(this).parents('.item').attr('id');
 
                 if (1 != parseInt($i.val())) {
 		    $.post("zan/",{zan:id}, function(data){$i.text(n+1);$j.css("background-image", "url(img/zaned.png)");$i.val("1");});
