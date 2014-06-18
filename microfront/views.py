@@ -209,12 +209,15 @@ def order_add(request, order_id):
 
             # copy order json file to history order json file
             curpath = os.path.dirname(os.path.abspath('.'))
-            srcfn = curpath + '/normaljs/microfront/orders/0.json'
-            dstfn = curpath + '/normaljs/microfront/orders/1.json'
-            shutil.copyfile(srcfn, dstfn)
+
+            # json file and history order json file
+            srcfn = curpath + '/normaljs/microfront/orders/'+openid+'/0.json'
+            dstfn = curpath + '/normaljs/microfront/orders/'+openid+'/1.json'
+            if os.path.exists(srcfn):
+                shutil.copyfile(srcfn, dstfn)
 
             # write new order file
-            write_order_json(rt_obj)
+            write_order_json(openid, rt_obj)
             ########################################################################
             #  write good items info to json file(end)
             ########################################################################
@@ -504,7 +507,7 @@ def order_cancel(request, order_id):
 
         #empty myorder json file: orders/0.json
         rt_obj = {"rt_obj":{"data":{"orders":[], "orderItems":{}}}}
-        write_order_json(rt_obj)
+        write_order_json(openid, rt_obj)
 
     else:
         resp = "Order %s not exist." %(id)
@@ -1178,7 +1181,9 @@ def htm_resource(request,fname):
     return HttpResponse(text, mimetype="text/html")
 
 def orderjson_resource(request,fname):
-    text=open('microfront/orders/'+fname+'.json','r+').read()
+    wechat_id = request.COOKIES.get("wechat_id")
+    #print "cookie wechat_id: ", wechat_id, type(wechat_id)
+    text=open('microfront/orders/'+wechat_id+"/"+fname+'.json','r+').read()
     return HttpResponse(text, mimetype = "application/json")
 
 def admin_manage(request):
@@ -1603,9 +1608,14 @@ def upload_image(request):
             return HttpResponse('%s.jpg' % (file_name))
     return HttpResponse(u"Some error!Upload faild!格式：jpeg")
 
-def write_order_json(rt_obj):
-    jsonfn = 'microfront/orders/0.json'
-    #print "Write order json file: ", jsonfn
+def write_order_json(openid, rt_obj):
+    base = 'microfront/orders/'+openid
+    jsonfn = base+'/0.json'
+    print jsonfn
+    if not os.path.exists(base):
+        print 'create base', base
+        os.makedirs(base)
+
     order_json = json.dumps(rt_obj)    
     fd = open(jsonfn, 'wb')
     fd.write(order_json)
