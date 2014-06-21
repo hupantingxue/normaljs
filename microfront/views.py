@@ -28,6 +28,8 @@ import json
 import Image
 from PIL import ImageFile
 import shutil
+import redis
+from conf import *
 
 dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
     {
@@ -41,6 +43,8 @@ db = create_engine(dburl, connect_args={'charset':'utf8'}, poolclass=NullPool)
 metadata = MetaData(db)
 dbmenu = Table('microfront_menu', metadata, autoload=True)
 dbcatalog = Table('microfront_catalog', metadata, autoload=True)
+
+r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 
 # Create your views here.
 #@csrf_protect
@@ -218,6 +222,11 @@ def order_add(request, order_id):
 
             # write new order file
             write_order_json(openid, rt_obj)
+            try:
+                r.lpush(REDIS_QUEUE, openid)
+            except Exception as e:
+                r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
+                r.lpush(REDIS_QUEUE, openid)
             ########################################################################
             #  write good items info to json file(end)
             ########################################################################
@@ -419,6 +428,11 @@ def order_save(request):
         ol.save()
     else:
         resp = "Order %s not exist." %(id)
+    try:
+        r.lpush(REDIS_QUEUE, openid)
+    except Exception as e:
+        r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
+        r.lpush(REDIS_QUEUE, openid)
 
     return HttpResponse(resp)
 
@@ -482,6 +496,11 @@ def order_del(request):
     else:
         resp = "Order %s not exist." %(id)
 
+    try:
+        r.lpush(REDIS_QUEUE, openid)
+    except Exception as e:
+        r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
+        r.lpush(REDIS_QUEUE, openid)
     return HttpResponse(resp)
 
 #/microfront/orders/delete for user order cancel
