@@ -409,6 +409,10 @@ def order_save(request):
 
     if ol:
         ol.order_status = status
+        if u'已完成' == status:
+            ol.delivery_status = 3
+        elif u'已结束' == status:
+            ol.delivery_status = 4
         ol.name = name
         ol.phone = phone
         ol.address = addr
