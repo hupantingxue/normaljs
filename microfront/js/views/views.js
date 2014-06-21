@@ -1383,8 +1383,11 @@ app.MyOrdersView = Backbone.View.extend({
 //                    }
 //                }
                 order.set('order_status', ord.order_date + ' 处理中');
-                if(ord.delivery_status == 1) {
-                    order.set('order_status', ord.order_date + '已送达');
+                if(ord.delivery_status == 3) {
+                    order.set('order_status', ord.order_date + '已完成');
+                }
+                else if(ord.delivery_status == 4) {
+                    order.set('order_status', ord.order_date + '已结束');
                 }
                 order.set('cart_id', ord.id);
                 order.set('cart_total', ord.order_money);
