@@ -1,20 +1,24 @@
 #!/usr/bin/python
 #-*- coding:utf-8 -*-
 
-from conf import DB_USER,  DB_PASSWD, DB_HOST, DB_PORT, DB_NAME
+from conf import *
 import time
 import MySQLdb
 import json
 import os
+import redis
 
 conn = MySQLdb.connect(host=DB_HOST, user=DB_USER, passwd=DB_PASSWD, db=DB_NAME ,charset="utf8")
 cur = conn.cursor()
+r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 
-def getOrders(wechat_id):
+def getOrders(wechat_id, rdate):
     '''
         return order list and order-history list;
     '''
-    sql = '''select * from microfront_order where openid = "%s" order by id;''' %(wechat_id)
+    sql = '''select * from microfront_order where openid = "%s" and order_status !=4 and order_time between "%s 00:00:00" and "%s 23:59:59" order by id desc;''' %(wechat_id, rdate, rdate)
+    print sql
+    conn.commit()
     cur.execute(sql)
     rslt = cur.fetchall()
     row_num = len(rslt)
@@ -26,18 +30,39 @@ def getOrders(wechat_id):
         return rslt[0:1], rslt[1:]
     return rslt[0:1], rslt[1:]
 
+def writeFile(jstr, type):
+    '''
+        write json string to file
+    '''
+    base = u'/home/haomatong/test/python/normaljs/microfront/orders/' + wechat_id + "/"
+    if not os.path.exists(base):
+        print 'create base', base
+        os.makedirs(base)
+
+    jsonfn = "%s%s.json" % (base, type)
+    fd = open(jsonfn, 'w')
+    fd.write(jstr)
+    fd.close()
+    return ''
+ 
 def writeJSON(wechat_id, rslt, type):
     '''
         write order json or hostory order json file. rslt is the order list;
     '''
-    row_num = len(rslt)
+    rt_obj = {"data":{"orders":[], "orderItems":{}}}
+    try:
+        row_num = len(rslt)
+    except Exception as e:
+        row_num = 0
     ii = 0
     if 0 >= row_num:
+        rt = {"rt_obj": rt_obj}
+        rt_json = json.dumps(rt)
+        writeFile(rt_json, type)
         return ''
 
     print "type:%s ||| rslt:%r" %(type, rslt)
 
-    rt_obj = {"data":{"orders":[], "orderItems":{}}}
     rt_obj["data"]["orderItems"] = {}
     for ii in range(row_num):
         # do something
@@ -78,22 +103,21 @@ def writeJSON(wechat_id, rslt, type):
 
     rt = {"rt_obj": rt_obj}
     rt_json = json.dumps(rt) #, ensure_ascii = False)
-    base = u'/home/haomatong/test/python/normaljs/microfront/orders/' + wechat_id + "/"
-    if not os.path.exists(base):
-        print 'create base', base
-        os.makedirs(base)
-
-    jsonfn = "%s%s.json" % (base, type)
-    print rt_json
-    fd = open(jsonfn, 'w')
-    fd.write(rt_json)
-    fd.close()
-    
+    writeFile(rt_json, type)
     return ''
 
 if "__main__" == __name__:
-    wechat_id = u'111'
-    order, his_order = getOrders(wechat_id)
-    writeJSON(wechat_id, order, 0)
-    writeJSON(wechat_id, his_order, 1)
+    rdate = time.strftime("%Y-%m-%d")
+    while 0 < 1:
+        wechat_id = None
+        wechat_id = r.rpop(REDIS_QUEUE)
+        if wechat_id is None:
+            time.sleep(1)
+            continue
+        order, his_order = getOrders(wechat_id, rdate)
+        print "order: %r ||| hisorder:%r" %(order, his_order)
+        writeJSON(wechat_id, order, 0)
+        writeJSON(wechat_id, his_order, 1)
+        time.sleep(0.1)
+    cur.close()
     conn.close()
