@@ -425,15 +425,16 @@ def order_save(request):
         ol.name = name
         ol.phone = phone
         ol.address = addr
+        openid = ol.openid
         ol.save()
+
+        try:
+            r.lpush(REDIS_QUEUE, openid)
+        except Exception as e:
+            r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
+            r.lpush(REDIS_QUEUE, openid)
     else:
         resp = "Order %s not exist." %(id)
-    try:
-        r.lpush(REDIS_QUEUE, openid)
-    except Exception as e:
-        r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
-        r.lpush(REDIS_QUEUE, openid)
-
     return HttpResponse(resp)
 
 def clear_orderdata(openid, shoplist, price):
@@ -491,16 +492,11 @@ def order_del(request):
     if ol:
         openid = ol.openid
         shoplist = ol.shoplist
+        price = ol.price
         clear_orderdata(openid, shoplist, price)
         ol.delete()
     else:
         resp = "Order %s not exist." %(id)
-
-    try:
-        r.lpush(REDIS_QUEUE, openid)
-    except Exception as e:
-        r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
-        r.lpush(REDIS_QUEUE, openid)
     return HttpResponse(resp)
 
 #/microfront/orders/delete for user order cancel
@@ -528,15 +524,16 @@ def order_cancel(request, order_id):
         ol.order_status = 4
         ol.save()
 
-        #empty myorder json file: orders/0.json
-        rt_obj = {"rt_obj":{"data":{"orders":[], "orderItems":{}}}}
-        write_order_json(openid, rt_obj)
-
+        try:
+            r.lpush(REDIS_QUEUE, openid)
+        except Exception as e:
+            print e
+            r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
+            r.lpush(REDIS_QUEUE, openid)
     else:
         resp = "Order %s not exist." %(id)
         resp = u'''{"code":0, "msg":"订单删除成功"}'''
     return HttpResponse(resp)
-
 
 #/microfront/foods/del
 def food_del(request):
