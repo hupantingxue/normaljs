@@ -12,12 +12,23 @@ conn = MySQLdb.connect(host=DB_HOST, user=DB_USER, passwd=DB_PASSWD, db=DB_NAME 
 cur = conn.cursor()
 r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 
+def getAllUsers():
+    '''
+        return user set
+    '''
+    sql = '''select distinct(openid) from microfront_customer order by openid;''' 
+    conn.commit()
+    cur.execute(sql)
+    rslt = cur.fetchall()
+    print rslt
+    return rslt
+
 def getOrders(wechat_id, rdate):
     '''
         return order list and order-history list;
     '''
     sql = '''select * from microfront_order where openid = "%s" and order_status !=4 and order_time between "%s 00:00:00" and "%s 23:59:59" order by id desc;''' %(wechat_id, rdate, rdate)
-    print sql
+    #print sql
     conn.commit()
     cur.execute(sql)
     rslt = cur.fetchall()
@@ -107,17 +118,25 @@ def writeJSON(wechat_id, rslt, type):
     return ''
 
 if "__main__" == __name__:
-    rdate = time.strftime("%Y-%m-%d")
+    last_rdate = 0
     while 0 < 1:
         wechat_id = None
         wechat_id = r.rpop(REDIS_QUEUE)
         if wechat_id is None:
             time.sleep(1)
             continue
-        order, his_order = getOrders(wechat_id, rdate)
-        print "order: %r ||| hisorder:%r" %(order, his_order)
-        writeJSON(wechat_id, order, 0)
-        writeJSON(wechat_id, his_order, 1)
-        time.sleep(0.1)
+        rdate = time.strftime("%Y-%m-%d")
+        if last_rdate != rdate:
+            wechat_ids = getAllUsers()
+            last_rdate = rdate
+        else:
+            wechat_ids = [[wechatid]]
+        for ii in wechat_ids:
+            wechat_id = ii[0]
+            order, his_order = getOrders(wechat_id, rdate)
+            print "order: %r ||| hisorder:%r" %(order, his_order)
+            writeJSON(wechat_id, order, 0)
+            writeJSON(wechat_id, his_order, 1)
+            time.sleep(0.1)
     cur.close()
     conn.close()
