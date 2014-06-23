@@ -1385,9 +1385,11 @@ app.MyOrdersView = Backbone.View.extend({
                 order.set('order_status', ord.order_date + ' 处理中');
                 if(ord.delivery_status == 3) {
                     order.set('order_status', ord.order_date + '已完成');
+                    ord.status = "已完成";
                 }
                 else if(ord.delivery_status == 4) {
                     order.set('order_status', ord.order_date + '已结束');
+                    ord.status = "已结束";
                 }
                 order.set('cart_id', ord.id);
                 order.set('cart_total', ord.order_money);
@@ -1397,7 +1399,7 @@ app.MyOrdersView = Backbone.View.extend({
                 order.set('freight', ord.freight);
                 var itemOrderView = new app.ItemOrderView({
                     model: order,
-                    status: status
+                    status: ord.status
                 });
                 oneDayOrderView.$el.find('.orderResult-form').append(itemOrderView.render().el);
                 var items = this.rt_data.orderItems[ord.id];
@@ -1468,6 +1470,9 @@ app.ItemOrderView = Backbone.View.extend({
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
 		if (this.status && this.status.trim() == "已配送") {
+			this.$el.find('.cancelOrder').remove()
+		}
+		else if (this.status && this.status.trim() == "已完成") {
 			this.$el.find('.cancelOrder').remove()
 		}
 		return this
