@@ -130,7 +130,8 @@ if "__main__" == __name__:
             wechat_ids = getAllUsers()
             last_rdate = rdate
         else:
-            wechat_ids = [[wechatid]]
+            print 'wechat', wechat_id
+            wechat_ids = [[wechat_id]]
         for ii in wechat_ids:
             wechat_id = ii[0]
             order, his_order = getOrders(wechat_id, rdate)
