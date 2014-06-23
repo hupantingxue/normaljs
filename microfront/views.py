@@ -418,7 +418,7 @@ def order_save(request):
 
     if ol:
         ol.order_status = status
-        if u'已完成' == status:
+        if u'已完成' == status.replace(' ', ''):
             ol.delivery_status = 3
         elif u'已结束' == status:
             ol.delivery_status = 4
