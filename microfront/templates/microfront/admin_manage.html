@@ -224,7 +224,7 @@
         }
 
         function userUpd(id) {
-            $.post("../users/save/", {"id":id, "name":$("#usrname_"+id).val(), "phone":$("#usrphone_"+id).val(), "money":$("#usrmny_"+id).val()}, function(data){alert("保存成功");});
+            $.post("../users/save/", {"id":id, "name":$("#usrname_"+id).val(), "phone":$("#usrphone_"+id).val(), "account": $("#usraccount_"+id).val(),"money":$("#usrmny_"+id).val()}, function(data){alert("保存成功");});
         }
 
         function userDel(id) {
