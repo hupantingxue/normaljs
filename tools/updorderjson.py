@@ -80,7 +80,7 @@ def writeJSON(wechat_id, rslt, type):
         rtime = rslt[ii][10]
         rdate = rtime.strftime("%Y%m%d")
         order_id = rslt[ii][0]
-        item_id = "%s%d" %(rdate, order_id)
+        item_id = "%s%04d" %(rdate, order_id)
         item_info = '''{"Order": {"id": "%s","org_id": "1","user_id": "%s","status": "1","order_time": "%s","order_date": "%s","order_money": "%s","pay_mode": "%s","delivery_status": "%d","freight": "0.00"}}''' %(item_id, wechat_id, rtime, rdate, rslt[ii][1], rslt[ii][4], rslt[ii][9])
         item_info = json.loads(item_info)
         rt_obj["data"]["orders"].append(item_info)

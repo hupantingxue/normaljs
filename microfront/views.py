@@ -438,7 +438,11 @@ def order_save(request):
     return HttpResponse(resp)
 
 def clear_orderdata(openid, shoplist, price):
+    ''' clear the user account and money;
+     and clear the order table info;
+     '''
     try:
+        print time.time(), 'clear %s account and money' %(openid)
         ul = Customer.objects.get(openid=openid)
         ul.account = ul.account - 1
         ul.money = ul.money - price
@@ -477,6 +481,7 @@ def clear_orderdata(openid, shoplist, price):
 
 #/microfront/orders/del  for admin  cancel
 def order_del(request):
+    global r
     resp = {"code":0}
     try:
         id = request.POST['order_id']
@@ -493,14 +498,24 @@ def order_del(request):
         openid = ol.openid
         shoplist = ol.shoplist
         price = ol.price
-        clear_orderdata(openid, shoplist, price)
+
+        # Do not clear the order data if the order canceled
+        if 4 != int(ol.order_status):
+            clear_orderdata(openid, shoplist, price)
         ol.delete()
+
+        try:
+            r.lpush(REDIS_QUEUE, openid)
+        except Exception as e:
+            print e
+            r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
     else:
         resp = "Order %s not exist." %(id)
     return HttpResponse(resp)
 
 #/microfront/orders/delete for user order cancel
 def order_cancel(request, order_id):
+    global r
     resp = u'''{"code":0, "msg":"订单删除成功"}'''
     try:
         order_id = int(order_id[8:])
