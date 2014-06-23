@@ -866,6 +866,11 @@ def user_save(request):
             money = post['money']
         else:
             money = None
+
+        if post.has_key('account'):
+            account = post['account']
+        else:
+            account = None
     except Exception as e:
         print e
 
@@ -883,6 +888,8 @@ def user_save(request):
         if money:
             mny = float(money)
             cl.money = mny
+        if account:
+            cl.account = account
         cl.save()
     else:
         resp = "Customer %s not exist." %(id)
