@@ -454,7 +454,7 @@ app.ItemDetailView = Backbone.View.extend({
 	add: function() {
 		if (app.shoppingCart.get('items').get(this.model.get('Goods').id)) {
 			var popup = new app.OrderInfoPopupView({
-				msg: "已加入购物车，请前往购物车查看"
+				msg: "已加入购物车，请点击选定下单查看"
 			});
 			this.$el.append(popup.render().el)
 		} else {
