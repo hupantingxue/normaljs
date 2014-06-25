@@ -16,8 +16,15 @@ def getAllUsers():
     '''
         return user set
     '''
+    global conn
+    global cur
     sql = '''select distinct(openid) from microfront_customer order by openid;''' 
-    conn.commit()
+    try:
+        conn.commit()
+    except Exception as e:
+        conn = MySQLdb.connect(host=DB_HOST, user=DB_USER, passwd=DB_PASSWD, db=DB_NAME ,charset="utf8")
+        cur = conn.cursor()
+        print e
     cur.execute(sql)
     rslt = cur.fetchall()
     print rslt
