@@ -52,7 +52,7 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 }
 .types ul li{
     display: inline-block;
-    width: 19%;
+    width: 25%;
     cursor: pointer;
 
     /* border-right */
@@ -63,6 +63,9 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
     width: 19%;
     cursor: pointer;
     color: #ffa500;
+}
+.types ul li.home{
+    width: 15%;
 }
 .types ul li.active{
     color:white;
