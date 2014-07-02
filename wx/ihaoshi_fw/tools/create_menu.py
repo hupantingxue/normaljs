@@ -28,7 +28,7 @@ menu = '''{
                 "sub_button":[
                     {"type":"click", "name":"客服热线", "key":"IHAOSHI_KFRX"}, 
                     {"type":"click", "name":"订单查询", "key":"IHAOSHI_DDCX"}, 
-                    {"type":"click", "name":"会员中心", "key":"IHAOSHI_HYZX"},
+                    {"type":"click", "name":"配送范围", "key":"IHAOSHI_PSFW"},
                     {"type":"click", "name":"订购说明", "key":"IHAOSHI_DCSM"},
                     {"type":"click", "name":"关于好食", "key":"IHAOSHI_ABOUT"} 
                 ]
