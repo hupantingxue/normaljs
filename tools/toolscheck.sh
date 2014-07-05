@@ -4,7 +4,7 @@
 # */1 * * * * /home/haomatong/test/python/normaljs/tools/toolscheck.sh  > /dev/null 2>&1
 ###########################################################################################
 DATASR=`date`
-THEPATH="/home/haomatong/test/python/normaljs/tools/"
+THEPATH="/home/otto/src/github/normaljs/tools/"
 LOGFILE="updorderjson.log"
 
 for procname in updorderjson.py

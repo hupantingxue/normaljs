@@ -33,8 +33,8 @@ from conf import *
 
 dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
     {
-        'user' : 'root',
-        'pass' : 'root',
+        'user' : 'ihaoshi',
+        'pass' : 'HaoShi987',
         'host' : 'localhost',
         'port' : 3306,
         'db' : 'test',
