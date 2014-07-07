@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!-- saved from url=(0122)http://www.weimob.com/weisite/home?pid=14924&bid=27295&wechatid=owK7EjiSDgRfpA6BIzpNb0zcn52k&from=1&wxref=mp.weixin.qq.com -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="./files/reset.css" media="all">
+<link rel="stylesheet" type="text/css" href="./files/snower.css" media="all">
+<link rel="stylesheet" type="text/css" href="./files/common.css" media="all">
+<link rel="stylesheet" type="text/css" href="./files/font-awesome.css" media="all">
+<link rel="stylesheet" type="text/css" href="./files/home-62.css" media="all">
+<link rel="stylesheet" type="text/css" href="./files/home-menu-3.css" media="all">
+<script type="text/javascript" async="" src="./files/wtj.js"></script><script type="text/javascript" src="./files/maivl.js"></script><style type="text/css"></style>
+<script type="text/javascript" src="./files/jQuery.js"></script>
+<script type="text/javascript" src="./files/zepto.js"></script>
+<script type="text/javascript" src="./files/swipe.js"></script>
+<title>爱好食</title>
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <meta name="Keywords" content="微盟、微信营销、微信代运营、微信定制开发、微信托管、微网站、微商城、微营销">
+        <meta name="Description" content="微盟，国内最大的微信公众智能服务平台，微盟八大微体系：微菜单、微官网、微会员、微活动、微商城、微推送、微服务、微统计，企业微营销必备。">
+        <!-- Mobile Devices Support @begin -->
+            
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes"> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <!-- Mobile Devices Support @end -->
+        <link rel="shortcut icon" href="http://stc.weimob.com/img/favicon.ico">
+    </head>
+    <body onselectstart="return true;" ondragstart="return false;">
+            
+
+<div class="body">
+    <section>
+            <!--
+    幻灯片管理
+    -->
+    <div style="-webkit-transform:translate3d(0,0,0);">
+        <div id="banner_box" class="box_swipe" style="visibility: visible;">
+            <ul style="list-style: none; width: 5760px; transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(-4480px, 0, 0);">
+                <li style="width: 640px; display: table-cell; vertical-align: top;">
+                <a href="#">
+                    <img src="./files/20131105222730_70527.jpg" alt="1" style="width:100%;">
+                </a>
+                </li>
+                <li style="width: 640px; display: table-cell; vertical-align: top;">
+                <a href="#">
+                    <img src="./files/20131105222730_70527.jpg" alt="1" style="width:100%;">
+                </a>
+                </li>
+               </ul>
+           <ol>
+              <li class=""></li>
+              <li class=""></li>
+              <li class=""></li>
+              <li class=""></li>
+              <li class=""></li>
+              <li class=""></li>
+              <li class=""></li>
+              <li class="on"></li>
+              <li class=""></li>
+          </ol>
+        </div>
+    </div>
+        <script>
+        $(function(){
+            new Swipe(document.getElementById('banner_box'), {
+                speed:500,
+                auto:3000,
+                callback: function(){
+                    var lis = $(this.element).next("ol").children();
+                    lis.removeClass("on").eq(this.index).addClass("on");
+                }
+            });
+        });
+    </script>
+<header>
+        <div class="snower">
+            <script type="text/javascript">var urls = new Array();urls.push('http://stc.weimob.com/img/template/lib/v57_snow1.png');urls.push('http://stc.weimob.com/img/template/lib/v57_snow2.png');urls.push('http://stc.weimob.com/img/template/lib/v57_snow3.png');urls.push('http://stc.weimob.com/img/template/lib/v57_snow4.png');</script>
+            <script type="text/javascript" src="./files/snower2.js"></script><div style="top: -100px; left: 34.05334213748574%; -webkit-animation: fade 6.982792627066374s 1.9867596430703998s, drop 6.982792627066374s 1.9867596430703998s;">            <img src="./files/v57_snow4.png" style="-webkit-animation: counterclockwiseSpinAndFlip 5.423510282766074s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 83.07170765474439%; -webkit-animation: fade 5.161616944242269s 1.519387187436223s, drop 5.161616944242269s 1.519387187436223s;">            <img src="./files/v57_snow2.png" style="-webkit-animation: counterclockwiseSpinAndFlip 6.863424322102219s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 41.82274201884866%; -webkit-animation: fade 6.212398028932512s 2.9777352027595043s, drop 6.212398028932512s 2.9777352027595043s;">            <img src="./files/v57_snow2.png" style="-webkit-animation: counterclockwiseSpinAndFlip 5.286274639423937s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 55.80907575786114%; -webkit-animation: fade 6.343862171750516s 3.5825793631374836s, drop 6.343862171750516s 3.5825793631374836s;">            <img src="./files/v57_snow2.png" style="-webkit-animation: counterclockwiseSpinAndFlip 6.780514191836119s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 18.789293291047215%; -webkit-animation: fade 8.287234423216432s 0.38201773073524237s, drop 8.287234423216432s 0.38201773073524237s;">            <img src="./files/v57_snow4.png" style="-webkit-animation: counterclockwiseSpinAndFlip 5.757464059628546s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 22.491501504555345%; -webkit-animation: fade 10.275390944443643s 0.5723729571327567s, drop 10.275390944443643s 0.5723729571327567s;">            <img src="./files/v57_snow3.png" style="-webkit-animation: counterclockwiseSpinAndFlip 9.658777446020395s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 25.8632323006168%; -webkit-animation: fade 6.731336512602866s 3.294205028563738s, drop 6.731336512602866s 3.294205028563738s;">            <img src="./files/v57_snow2.png" style="-webkit-animation: counterclockwiseSpinAndFlip 6.468149860389531s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 42.7396213170141%; -webkit-animation: fade 9.15448630740866s 3.794159517623484s, drop 9.15448630740866s 3.794159517623484s;">            <img src="./files/v57_snow2.png" style="-webkit-animation: counterclockwiseSpinAndFlip 8.730315600521863s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 62.23515192978084%; -webkit-animation: fade 6.812254384625703s 3.5726397251710296s, drop 6.812254384625703s 3.5726397251710296s;">            <img src="./files/v57_snow2.png" style="-webkit-animation: counterclockwiseSpinAndFlip 9.803175548557192s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 67.02712287660688%; -webkit-animation: fade 6.46721930289641s 3.404771459288895s, drop 6.46721930289641s 3.404771459288895s;">            <img src="./files/v57_snow1.png" style="-webkit-animation: counterclockwiseSpinAndFlip 10.276789308525622s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 10.548446793109179%; -webkit-animation: fade 7.0548476576805115s 3.740867412649095s, drop 7.0548476576805115s 3.740867412649095s;">            <img src="./files/v57_snow3.png" style="-webkit-animation: counterclockwiseSpinAndFlip 10.82887040451169s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 82.93481112923473%; -webkit-animation: fade 9.789088273886591s 2.0090709310024977s, drop 9.789088273886591s 2.0090709310024977s;">            <img src="./files/v57_snow2.png" style="-webkit-animation: counterclockwiseSpinAndFlip 6.676466506905854s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 23.28702623490244%; -webkit-animation: fade 5.899175788741559s 1.5759435156360269s, drop 5.899175788741559s 1.5759435156360269s;">            <img src="./files/v57_snow2.png" style="-webkit-animation: counterclockwiseSpinAndFlip 5.142198379617184s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 87.83148329239339%; -webkit-animation: fade 8.98516399692744s 2.7700761556625366s, drop 8.98516399692744s 2.7700761556625366s;">            <img src="./files/v57_snow4.png" style="-webkit-animation: counterclockwiseSpinAndFlip 5.361094940919429s;width:auto;max-width:60px; max-height:60px;">            </div><div style="top: -100px; left: 70.99484289065003%; -webkit-animation: fade 10.043707272969186s 0.07009728346019983s, drop 10.043707272969186s 0.07009728346019983s;">            <img src="./files/v57_snow1.png" style="-webkit-animation: counterclockwiseSpinAndFlip 10.435618846677244s;width:auto;max-width:60px; max-height:60px;">            </div>
+        </div>
+    </header> 
+<div>
+  <ul id="list_ul" class="list_ul">
+    <li class="box">
+
+    <dl>
+    <a href="http://112.124.108.117:8600/microfront/?code=<?php echo $_GET["code"]?>&idx=0">
+      <dd>
+       <div>
+           <span></span>
+       </div>
+         </dd>
+    <dt>绿色蔬菜</dt>
+    </a>
+    </dl>
+
+    <dl>
+    <a href="http://112.124.108.117:8600/microfront/?code=<?php echo $_GET["code"]?>&idx=1">
+      <dd>
+      <div>
+        <span></span>
+      </div>
+      </dd>
+        <dt>好食有机</dt>
+    </a>
+    </dl>
+
+    <dl>
+    <a href="http://112.124.108.117:8600/microfront/?code=<?php echo $_GET["code"]?>&idx=2">
+       <dd>
+           <div>
+                <span></span>
+           </div>
+       </dd>
+       <dt>好食海鲜</dt>
+        </a>
+    </dl>
+
+   <dl>
+    <a href="http://wx.wsq.qq.com/259096143">
+      <dd>
+       <div>
+           <span></span>
+       </div>
+         </dd>
+    <dt>互动社区</dt>
+    </a>
+    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <!--div style="align:center" class="logo">
+ 
+          <span>                                             </span>
+          <img src="./files/ihs.jpg" alt="爱好食" height="18">
+          <span style="color:#070;font-size:12px;text-align:center;">打造简单、健康、时尚的都市生活</span>
+        </div-->
+    </section>
+</div>
+<!--
+导航菜单
+   后台设置的快捷菜单
+-->
+
+<!--
+分享前控制
+-->
+    <script type="text/javascript">
+        
+        window.shareData = {
+            "imgUrl": "http://img.weimob.com/static/cb/24/d5/image/20131106/20131106014655_63942.jpg",
+            "timeLineLink": "http://www.weimob.com/weisite/home?pid=14924&bid=27295&wechatid=fromUsername&wxref=mp.weixin.qq.com",
+            "sendFriendLink": "http://www.weimob.com/weisite/home?pid=14924&bid=27295&wechatid=fromUsername&wxref=mp.weixin.qq.com",
+            "weiboLink": "http://www.weimob.com/weisite/home?pid=14924&bid=27295&wechatid=fromUsername&wxref=mp.weixin.qq.com",
+            "tTitle": "欢迎光临爱好食微信服务平台",
+            "tContent": "Are you ready?准备...",
+            "fTitle": "欢迎光临爱好食微信服务平台",
+            "fContent": "Are you ready?准备...",
+            "wContent": "Are you ready?准备..."
+        };
+            </script>
+                    <footer style="overflow:visible;">
+                <!--div class="weimob-copyright" style="padding-bottom:-10px;"-->
+        <div style="align:center;color:#fff;font-size:12px;text-align:center;" class="logo">
+ 
+          <span>                                             </span>
+          <img src="./files/ihs.jpg" alt="爱好食" height="16">
+          <span style="color:#070;font-size:12px;text-align:center;">打造简单、健康、时尚的都市生活</span>
+        </div>
+                </div>
+            </footer>
+                <!--div mark="stat_code" style="width:0px; height:0px; display:none;">
+                    </div-->
+    
+        <script type="text/javascript">
+(function() {
+    var wtj = document.createElement('script'); wtj.type = 'text/javascript'; wtj.async = true;
+    wtj.src = 'http://tj.weimob.com/wtj.js?url=' + encodeURIComponent(location.href);
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wtj, s);
+})();
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fd80741dd59de91e1846b2add2c0ad2a2' type='text/javascript'%3E%3C/script%3E"));
+function weimobAfterShare(shareFromWechatId,sendFriendLink,shareToPlatform){
+    var int_tmp_pid = 14924;
+    var wmShare = document.createElement('script'); wmShare.type = 'text/javascript'; wmShare.async = true;
+    wmShare.src = 'http://tj.weimob.com/api-share.js?fromWechatId=' + shareFromWechatId + '&shareToPlatform=';
+    wmShare.src += shareToPlatform + '&pid=14924&sendFriendLink=' + encodeURIComponent(sendFriendLink);
+    var stj = document.getElementsByTagName('script')[0]; stj.parentNode.insertBefore(wmShare, stj);
+    if(23260 == int_tmp_pid){
+        //alert(wmShare.src);
+    }
+}
+
+/**
+ * 默认分享出去的数据
+ *
+ */
+function getShareImageUrl(){
+    var share_imgurl = "";
+    if("" == share_imgurl){
+        var shareImgObj = document.getElementsByClassName("shareImgUrl")[0];
+        if('undefined' != typeof(shareImgObj)){
+            share_imgurl = shareImgObj.src;
+        }
+    }
+    return window.shareData.imgUrl || share_imgurl;
+}
+
+window.shareData = window.shareData || {
+        "timeLineLink": "http://www.weimob.com/weisite/home?pid=14924&bid=27295&wechatid=fromUsername&from=1&wxref=mp.weixin.qq.com",
+    "sendFriendLink": "http://www.weimob.com/weisite/home?pid=14924&bid=27295&wechatid=fromUsername&from=1&wxref=mp.weixin.qq.com",
+    "weiboLink": "http://www.weimob.com/weisite/home?pid=14924&bid=27295&wechatid=fromUsername&from=1&wxref=mp.weixin.qq.com",
+    "tTitle": document.title,
+    "tContent": document.title,
+    "fTitle": document.title,
+    "fContent": document.title,
+    "wContent": document.title
+}
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 发送给好友
+    WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+        WeixinJSBridge.invoke('sendAppMessage', { 
+            "img_url": getShareImageUrl(),
+            "img_width": "640",
+            "img_height": "640",
+            "link": window.shareData.sendFriendLink,
+            "desc": window.shareData.fContent,
+            "title": window.shareData.fTitle
+        }, function (res) {
+            weimobAfterShare("owK7EjiSDgRfpA6BIzpNb0zcn52k",window.shareData.sendFriendLink,'appmessage');
+            _report('send_msg', res.err_msg);
+        })
+    });
+
+    // 分享到朋友圈
+    WeixinJSBridge.on('menu:share:timeline', function (argv) {
+        WeixinJSBridge.invoke('shareTimeline', {
+            "img_url": getShareImageUrl(),
+            "img_width": "640",
+            "img_height": "640",
+            "link": window.shareData.timeLineLink,
+            "desc": window.shareData.tContent,
+            "title": window.shareData.tTitle
+        }, function (res) {
+            weimobAfterShare("owK7EjiSDgRfpA6BIzpNb0zcn52k",window.shareData.timeLineLink,'timeline');
+            _report('timeline', res.err_msg);
+        });
+    });
+
+    // 分享到微博
+    WeixinJSBridge.on('menu:share:weibo', function (argv) {
+        WeixinJSBridge.invoke('shareWeibo', {
+            "content": window.shareData.wContent,
+            "url": window.shareData.weiboLink
+        }, function (res) {
+            weimobAfterShare("owK7EjiSDgRfpA6BIzpNb0zcn52k",window.shareData.weiboLink,'weibo');
+            _report('weibo', res.err_msg);
+        });
+    });
+}, false);
+</script><script src="./files/h.js" type="text/javascript"></script>
+<script type="text/javascript" src="./files/ChatFloat.js"></script>
+<script type="text/javascript">
+var str_domain = location.href.split('/',4)[2];
+var boolIsTest = true;
+if(str_domain == 'www.weimob.com' || str_domain.indexOf('m.weimob.com') > 0){
+    boolIsTest = false;
+}
+new ChatFloat({
+        AId: '14924',
+        openid: "owK7EjiSDgRfpA6BIzpNb0zcn52k",
+        top:150,
+        right:0,
+        IsTest:boolIsTest
+});
+</script>
+
+
+</body></html>
