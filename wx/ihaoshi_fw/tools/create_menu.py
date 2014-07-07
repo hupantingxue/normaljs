@@ -29,7 +29,7 @@ menu = '''{
                     {"type":"click", "name":"客服热线", "key":"IHAOSHI_KFRX"}, 
                     {"type":"click", "name":"订单查询", "key":"IHAOSHI_DDCX"}, 
                     {"type":"click", "name":"配送范围", "key":"IHAOSHI_PSFW"},
-                    {"type":"click", "name":"订购说明", "key":"IHAOSHI_DCSM"},
+                    {"type":"view", "name":"微社区", "url":"http://wx.wsq.qq.com/259096143"},
                     {"type":"click", "name":"关于好食", "key":"IHAOSHI_ABOUT"} 
                 ]
             }
