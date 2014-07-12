@@ -93,7 +93,7 @@ class index:
                 idx = 0
                 idx = random.randint(0, len(gstr)-1)
                 echostr = gstr[idx]
-            return self.render.reply_text(fromuser, touser, curtime, echostr)
+            #return self.render.reply_text(fromuser, touser, curtime, echostr)
         elif "event" == frommsgtype:
             fromevent = soup.Event.text
             if 'subscribe' == fromevent:
