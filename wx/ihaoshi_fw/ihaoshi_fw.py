@@ -25,6 +25,14 @@ gstr = ["偶老师，他还没教我这个/::'(",
         '啊哦，回答这个问题俺还需要更多的魔法值。。。',
         '[晕]不懂，我知道不少名人资料，譬如雨神----萧敬腾~~']
 
+def get_orderlist(openid):
+    orders = db.select('microfront_order', what='order_time, shoplist, price', where='openid=$openid', order='order_time desc', vars={'openid':openid}, limit = 5)
+    order_str = ""
+    for order in orders:
+        order_str = order_str + u"%s %s共%s元\n" %(order.order_time, order.shoplist.replace('\n', ''), order.price)
+        print order_str.encode('utf-8')
+    return order_str.encode('utf-8') 
+
 class index:
     def __init__(self):
         self.app_root = os.path.dirname(__file__)
@@ -122,8 +130,11 @@ class index:
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_DDCX' == evtkey:
-                    text = u'''您还没有下单哦，要不要来点刚上市的梅子食品?~'''
-                    return self.render.reply_text(fromuser, touser, curtime, text)
+                    #text = u'''您还没有下单哦，要不要来点刚上市的梅子食品?~'''
+                    url = 'http://www.ihaoshi.cn/ihaoshi/orders/index.php?code=%s' %(fromuser)
+                    #text = get_orderlist(fromuser)
+                    #return self.render.reply_text(fromuser, touser, curtime, text)
+                    return self.render.reply_pic(fromuser, touser, curtime, u'我的订单', u'点击查看我的订单', 'http://www.ihaoshi.cn/img/cover.jpg', url) 
            
                 if 'IHAOSHI_PSFW' == evtkey:
                     text = u'''目前暂只支持南山科技园附近，努力覆盖更广范围中，带来不便，敬请谅解！\n订餐说明：\n1、绿色蔬菜和海鲜需提前一天下单；\n2、有机蔬菜由于云南空运，为保证新鲜，需提前3天下单。'''
