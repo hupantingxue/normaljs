@@ -15,22 +15,25 @@ menu = '''{
                 "name":"好食推荐",
                 "sub_button":[
                      {"type":"click", "name":"近期活动", "key":"IHAOSHI_JQHD"}, 
-                     {"type":"click", "name":"好食推荐", "key":"IHAOSHI_HSTJ"}
+                     {"type":"view", "name":"店长推荐", "url":"http://www.ihaoshi.cn/tuijian.html"}
                  ]
             }, 
             {
-                "type":"click", 
                 "name":"好食菜单",
-                "key":"IHAOSHI_MENU" 
+                "sub_button":[
+                    {"type":"click", "name":"好食菜单", "key":"IHAOSHI_MENU"}, 
+                    {"type":"click", "name":"好食DIY", "key":"IHAOSHI_DIY"}, 
+                    {"type":"click", "name":"好食下午茶", "key":"IHAOSHI_XWC"}
+                ]
             }, 
             {
                 "name":"我的好食",
                 "sub_button":[
+                    {"type":"click", "name":"我的建议", "key":"IHAOSHI_ADVICE"}, 
                     {"type":"click", "name":"客服热线", "key":"IHAOSHI_KFRX"}, 
                     {"type":"click", "name":"订单查询", "key":"IHAOSHI_DDCX"}, 
-                    {"type":"click", "name":"配送范围", "key":"IHAOSHI_PSFW"},
-                    {"type":"view", "name":"微社区", "url":"http://wx.wsq.qq.com/259096143"},
-                    {"type":"click", "name":"关于好食", "key":"IHAOSHI_ABOUT"} 
+                    {"type":"click", "name":"会员中心", "key":"IHAOSHI_HYZX"},
+                    {"type":"click", "name":"订餐说明", "key":"IHAOSHI_DCSM"}
                 ]
             }
         ]
@@ -50,6 +53,6 @@ if '__main__' == __name__:
     token = getToken()
     print 'Token is %s' %(token)
 
-    #create menu
-    f = urllib.urlopen("https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s" %(token), menu)
+    #remove menu
+    f = urllib.urlopen("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=%s" % token)
     print f.read()

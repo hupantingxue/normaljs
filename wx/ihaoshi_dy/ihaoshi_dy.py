@@ -25,6 +25,14 @@ gstr = ["偶老师，他还没教我这个/::'(",
         '啊哦，回答这个问题俺还需要更多的魔法值。。。',
         '[晕]不懂，我知道不少名人资料，譬如雨神----萧敬腾~~']
 
+def get_orderlist(openid):
+    orders = db.select('microfront_order', what='order_time, shoplist, price', where='openid=$openid', order='order_time desc', vars={'openid':openid}, limit = 5)
+    order_str = ""
+    for order in orders:
+        order_str = order_str + u"%s %s共%s元\n" %(order.order_time, order.shoplist.replace('\n', ''), order.price)
+        print order_str.encode('utf-8')
+    return order_str.encode('utf-8') 
+
 class index:
     def __init__(self):
         self.app_root = os.path.dirname(__file__)
@@ -84,7 +92,6 @@ class index:
             keyword = soup.Content.text.strip()
             #infos = db.select('microfront_order', what='id', where='like $keyword', order='id', vars={'keyword':'%'+keyword+'%'}, limit = 5)
             rsltlen = 0
-            infos = [] 
             for info in infos:
                 rsltlen = rsltlen + 1
                 echostr = echostr + info['tel'] + info['tel_no'] + "  \n" + u'''  <a href=\"%s\">点击查看详情</a>\n\n''' %(info['url'])
@@ -94,50 +101,54 @@ class index:
                 idx = 0
                 idx = random.randint(0, len(gstr)-1)
                 echostr = gstr[idx]
-            return self.render.reply_text(fromuser, touser, curtime, echostr)
+            #return self.render.reply_text(fromuser, touser, curtime, echostr)
         elif "event" == frommsgtype:
             fromevent = soup.Event.text
             if 'subscribe' == fromevent:
-                url='http://211.154.149.170:8600/microfront?code=%s' %(fromuser)
-                return self.render.reply_pic(fromuser, touser, curtime, u'点击查看今日菜品', u'爱好食，倾力打造简单、时尚、健康的白领生活', 'http://www.ihaoshi.cn/static/cover.jpg', url) 
+                #url='http://211.154.149.170:8600/microfront?code=%s' %(fromuser)
+                #url = 'http://www.ihaoshi.cn/ihaoshi/home.php?code=%s' %(fromuser)
+                url = 'http://mp.weixin.qq.com/s?__biz=MzA4NjM5NDcyNw==&mid=200343771&idx=1&sn=0b731b29357eceaacd683e572a2a0872#rd'
+                print url
+                return self.render.reply_pic(fromuser, touser, curtime, u'爱好食第一章：引领健康生活，从生鲜开始', u'爱好食，打造简单、健康、时尚的都市生活', 'http://www.ihaoshi.cn/img/ihaoshi.jpg', url) 
 
             if 'CLICK' == fromevent:
                 evtkey = soup.EventKey.text
                 if 'IHAOSHI_JQHD' == evtkey:
-                    return self.render.reply_text(fromuser, touser, curtime, u'''您好，欢迎查看近期活动''')
+                    url = 'http://mp.weixin.qq.com/s?__biz=MzA4NjM5NDcyNw==&mid=200444522&idx=1&sn=10443811cd8643e29ad1e52bdfa646a4#rd'
+                    return self.render.reply_pic(fromuser, touser, curtime, u'好食来，福利到，你选菜，我买单啦！', u'为庆祝爱好食生鲜平台上线，现推出“你选菜，我买单”活动，活动期间，每天都有由“您”决定的免费产品，赶快行动吧，福利可不容错过啊！！', 'http://www.ihaoshi.cn/img/ihaoshi.jpg', url)
+
+                if 'IHAOSHI_HSTJ' == evtkey:
+                    return self.render.reply_text(fromuser, touser, curtime, u'''编辑中。。。''')
            
                 if 'IHAOSHI_MENU' == evtkey:
-                    url='http://211.154.149.170:8600/microfront?code=%s' %(fromuser)
-                    return self.render.reply_pic(fromuser, touser, curtime, u'点击查看今日菜品', u'爱好食，倾力打造简单、时尚、健康的白领生活', 'http://www.ihaoshi.cn/static/cover.jpg', url) 
-                    #return self.render.reply_text(fromuser, touser, curtime, u'''您好，好食菜单正在出炉''')
-           
-                if 'IHAOSHI_DIY' == evtkey:
-                    text = u'''好食DIY'''
-                    return self.render.reply_text(fromuser, touser, curtime, text)
-           
-                if 'IHAOSHI_XWC' == evtkey:
-                    text = u'''下午茶时刻，欢迎光临'''
-                    return self.render.reply_text(fromuser, touser, curtime, text)
-           
-                if 'IHAOSHI_ADVICE' == evtkey:
-                    text = u'''您有好的建议欢迎留言哈'''
-                    return self.render.reply_text(fromuser, touser, curtime, text)
-           
+                    #url='http://211.154.149.170:8600/microfront?code=%s' %(fromuser)
+                    url = 'http://www.ihaoshi.cn/ihaoshi/home.php?code=%s' %(fromuser)
+                    print url
+                    return self.render.reply_pic(fromuser, touser, curtime, u'点击查看今日菜品', u'爱好食，打造简单、健康、时尚的都市生活', 'http://www.ihaoshi.cn/img/cover.jpg', url) 
+          
                 if 'IHAOSHI_KFRX' == evtkey:
-                    text = u'''欢迎致电：33527'''
+                    text = u'''客服热线：15889613776\n服务时间：周一~周五，9:00~20:00'''
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_DDCX' == evtkey:
-                    text = u'''您还没有下单哦，要不要来点刚上市的梅子食品?~'''
-                    return self.render.reply_text(fromuser, touser, curtime, text)
+                    #text = u'''您还没有下单哦，要不要来点刚上市的梅子食品?~'''
+                    url = 'http://www.ihaoshi.cn/ihaoshi/orders/index.php?code=%s' %(fromuser)
+                    #text = get_orderlist(fromuser)
+                    #return self.render.reply_text(fromuser, touser, curtime, text)
+                    return self.render.reply_pic(fromuser, touser, curtime, u'我的订单', u'点击查看我的订单', 'http://www.ihaoshi.cn/img/cover.jpg', url) 
            
-                if 'IHAOSHI_HYZX' == evtkey:
-                    text = u'''您还不是会员哈'''
+                if 'IHAOSHI_PSFW' == evtkey:
+                    text = u'''目前暂只支持南山科技园附近，努力覆盖更广范围中，带来不便，敬请谅解！\n订餐说明：\n1、绿色蔬菜和海鲜需提前一天下单；\n2、有机蔬菜由于云南空运，为保证新鲜，需提前3天下单。'''
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_DCSM' == evtkey:
-                    text = u'''爱好食致力于打造简单、健康和时尚的都市白领生活！'''
+                    text = u'''编辑中。。。'''
                     return self.render.reply_text(fromuser, touser, curtime, text)
+           
+                if 'IHAOSHI_ABOUT' == evtkey:
+                    #text = u'''爱好食，打造简单、健康、时尚的都市生活。'''
+                    url = 'http://mp.weixin.qq.com/s?__biz=MzA4NjM5NDcyNw==&mid=200343771&idx=1&sn=0b731b29357eceaacd683e572a2a0872#rd'
+                    return self.render.reply_pic(fromuser, touser, curtime, u'爱好食第一章：引领健康生活，从生鲜开始', u'爱好食，打造简单、健康、时尚的都市生活', 'http://www.ihaoshi.cn/img/ihaoshi.jpg', url) 
            
         else:
             return self.render.reply_text(fromuser, touser, curtime, u'''火星来的?Unknown message from you.''')

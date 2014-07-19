@@ -90,7 +90,7 @@ class index:
         if "text" == frommsgtype:
             echostr = ''
             keyword = soup.Content.text.strip()
-            infos = db.select('aws_tel6', what='tel, tel_no, url', where='title like $keyword', order='id', vars={'keyword':'%'+keyword+'%'}, limit = 5)
+            #infos = db.select('microfront_order', what='id', where='like $keyword', order='id', vars={'keyword':'%'+keyword+'%'}, limit = 5)
             rsltlen = 0
             for info in infos:
                 rsltlen = rsltlen + 1
@@ -114,7 +114,8 @@ class index:
             if 'CLICK' == fromevent:
                 evtkey = soup.EventKey.text
                 if 'IHAOSHI_JQHD' == evtkey:
-                    return self.render.reply_text(fromuser, touser, curtime, u'''编辑中。。。''')
+                    url = 'http://mp.weixin.qq.com/s?__biz=MzA4NjM5NDcyNw==&mid=200444522&idx=1&sn=10443811cd8643e29ad1e52bdfa646a4#rd'
+                    return self.render.reply_pic(fromuser, touser, curtime, u'好食来，福利到，你选菜，我买单啦！', u'为庆祝爱好食生鲜平台上线，现推出“你选菜，我买单”活动，活动期间，每天都有由“您”决定的免费产品，赶快行动吧，福利可不容错过啊！！', 'http://www.ihaoshi.cn/img/ihaoshi.jpg', url)
 
                 if 'IHAOSHI_HSTJ' == evtkey:
                     return self.render.reply_text(fromuser, touser, curtime, u'''编辑中。。。''')
