@@ -13,5 +13,6 @@ ihaoshi_dy/wxrun.log
 ihaoshi_fw/wxrun.log
 tools/updorderjson.log
 tools/restart.log
+tools/*.log
 microfront/orders
 micromall/micromall/
