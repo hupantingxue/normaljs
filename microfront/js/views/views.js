@@ -454,12 +454,13 @@ app.ItemDetailView = Backbone.View.extend({
         })
     },
     add: function() {
+        var total = parseInt(this.model.get('Goods').total) - parseInt(this.model.get('Goods').sales);
         if (app.shoppingCart.get('items').get(this.model.get('Goods').id)) {
             var popup = new app.OrderInfoPopupView({
                 msg: "已加入购物车，请点击选定下单查看"
             });
             this.$el.append(popup.render().el)
-        } else if (0 >= parseInt(this.model.get('Goods').total)) {
+        } else if (0 >= total) {
             var popup = new app.OrderInfoPopupView({
                 msg: "已售完，请选择其它菜品"
             });

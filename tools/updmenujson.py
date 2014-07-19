@@ -77,7 +77,7 @@ def writeFile(menu_id):
     strinfo = json.dumps(jsinfo,  ensure_ascii=False, separators=(',', ':'))
     fd.seek(0)
     fd.write(strinfo.encode('utf-8'))
-    print "write menu[%d] info[%s]" %(int(menu_id), strinfo)
+    #print "write menu[%d] info[%s]" %(int(menu_id), strinfo)
     fd.truncate()
     fd.close()
     return ''
