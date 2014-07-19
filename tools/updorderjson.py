@@ -52,7 +52,7 @@ def writeFile(jstr, type):
     '''
         write json string to file
     '''
-    base = u'/home/haomatong/test/python/normaljs/microfront/orders/' + wechat_id + "/"
+    base = u'/home/otto/src/github/normaljs/microfront/orders/' + wechat_id + "/"
     if not os.path.exists(base):
         print 'create base', base
         os.makedirs(base)
