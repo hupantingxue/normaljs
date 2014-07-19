@@ -224,9 +224,11 @@ def order_add(request, order_id):
             write_order_json(openid, rt_obj)
             try:
                 r.lpush(REDIS_QUEUE, openid)
+                r.lpush(MENU_RQUEUE, 0)
             except Exception as e:
                 r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
                 r.lpush(REDIS_QUEUE, openid)
+                r.lpush(MENU_RQUEUE, 0)
             ########################################################################
             #  write good items info to json file(end)
             ########################################################################
@@ -430,9 +432,11 @@ def order_save(request):
 
         try:
             r.lpush(REDIS_QUEUE, openid)
+            r.lpush(MENU_RQUEUE, 0)
         except Exception as e:
             r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
             r.lpush(REDIS_QUEUE, openid)
+            r.lpush(MENU_RQUEUE, 0)
     else:
         resp = "Order %s not exist." %(id)
     return HttpResponse(resp)
@@ -509,6 +513,7 @@ def order_del(request):
 
         try:
             r.lpush(REDIS_QUEUE, openid)
+            r.lpush(MENU_RQUEUE, 0)
         except Exception as e:
             print e
             r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
@@ -544,10 +549,12 @@ def order_cancel(request, order_id):
 
         try:
             r.lpush(REDIS_QUEUE, openid)
+            r.lpush(MENU_RQUEUE, 0)
         except Exception as e:
             print e
             r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
             r.lpush(REDIS_QUEUE, openid)
+            r.lpush(MENU_RQUEUE, 0)
     else:
         resp = "Order %s not exist." %(id)
         resp = u'''{"code":0, "msg":"订单删除成功"}'''
