@@ -142,9 +142,9 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 .item.large .item-amount,.tuan.large .tuan-amount{display:block;float:right;width:32%;margin:0 auto;text-align:right;padding:5px 2.5%;line-height:1.7}
 .item.large .item-detail,.tuan.large .tuan-detail{display:block;float:right;width:38%;margin:0;padding:5px 2.5%;color:#ff9c00;line-height:1.7;font-size:15px;text-align:right;border:0}
 .item.large .item-detail a,.tuan.large .tuan-detail a{color:#ff9c00;}
-.select-shadow{display:none;position:absolute;z-index:0;height:100%;width:100%;top:0px;padding-top:40px;background:rgba(0,0,0,0.5);text-align:center;color:#fff;font-size:16px;cursor:pointer}
+.select-shadow{display:none;position:absolute;z-index:0;height:60%;width:100%;top:0px;padding-top:40px;background:rgba(0,0,0,0.5);text-align:center;color:#fff;font-size:16px;cursor:pointer}
 .select-shadow img{width:100px}
-.select-shadow.large{height:205px;padding-top:75px}
+.select-shadow.large{height:60%;padding-top:75px}
 .select-shadow-no-img{display:none;position:absolute;z-index:0;height:70px;width:100%;top:31px;padding-top:40px;background:rgba(0,0,0,0.5);text-align:center;color:#fff;font-size:18px;cursor:pointer}
 .select-shadow-no-img img{width:32px}
 .select-shadow-no-img.large{height:105px;padding-top:75px}
