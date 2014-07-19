@@ -148,9 +148,9 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 .select-shadow-no-img{display:none;position:absolute;z-index:0;height:70px;width:100%;top:31px;padding-top:40px;background:rgba(0,0,0,0.5);text-align:center;color:#fff;font-size:18px;cursor:pointer}
 .select-shadow-no-img img{width:32px}
 .select-shadow-no-img.large{height:105px;padding-top:75px}
-.soldout-shadow{display:none;position:absolute;z-index:0;height:100%;width:100%;top:0px;padding-top:40px;background:rgba(0,0,0,0.5);text-align:center;color:#fff;font-size:16px;cursor:pointer}
+.soldout-shadow{display:none;position:absolute;z-index:0;height:60%;width:100%;top:0px;padding-top:40px;background:rgba(0,0,0,0.5);text-align:center;color:#fff;font-size:16px;cursor:pointer}
 .soldout-shadow img{width:128px}
-.soldout-shadow.large{height:205px;padding-top:75px}
+.soldout-shadow.large{height:60%;padding-top:75px}
 .soldout-shadow-no-img{display:none;position:absolute;z-index:0;height:70px;width:100%;top:31px;padding-top:40px;background:rgba(0,0,0,0.5);text-align:center;color:#fff;font-size:18px;cursor:pointer}
 .soldout-shadow-no-img img{width:32px}
 .soldout-shadow-no-img.large{height:105px;padding-top:75px}
