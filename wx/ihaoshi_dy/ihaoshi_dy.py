@@ -127,7 +127,7 @@ class index:
                     return self.render.reply_pic(fromuser, touser, curtime, u'点击查看今日菜品', u'爱好食，打造简单、健康、时尚的都市生活', 'http://www.ihaoshi.cn/img/cover.jpg', url) 
           
                 if 'IHAOSHI_KFRX' == evtkey:
-                    text = u'''客服热线：15889613776\n服务时间：周一~周五，9:00~20:00'''
+                    text = u'''客服热线：15889613776\n服务时间：周一~周五，9:00~20:00\n 订餐说明：1、绿色蔬菜需提前一天下单，次日下班前送达，2、有机蔬菜和海鲜即将亮相，敬请期待。3、每天优惠活动可进入微社区了解并参与其中。'''
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_DDCX' == evtkey:
@@ -142,7 +142,7 @@ class index:
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_DCSM' == evtkey:
-                    text = u'''编辑中。。。'''
+                    text = u'''目前暂只支持南山科技园附近及宝安中心区地铁口附近区域，努力覆盖更广范围中，带来不便，敬请谅解！订餐说明：1、绿色蔬菜需提前一天下单，次日下班前送达，2、有机蔬菜和海鲜即将亮相，敬请期待。3、每天优惠活动可进入微社区了解并参与其中。'''
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_ABOUT' == evtkey:
