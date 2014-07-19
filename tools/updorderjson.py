@@ -48,7 +48,7 @@ def getOrders(wechat_id, rdate):
         return rslt[0:1], rslt[1:]
     return rslt[0:1], rslt[1:]
 
-def writeFile(jstr, type):
+def writeFile(wechat_id, jstr, type):
     '''
         write json string to file
     '''
@@ -76,7 +76,7 @@ def writeJSON(wechat_id, rslt, type):
     if 0 >= row_num:
         rt = {"rt_obj": rt_obj}
         rt_json = json.dumps(rt)
-        writeFile(rt_json, type)
+        writeFile(wechat_id, rt_json, type)
         return ''
 
     print "type:%s ||| rslt:%r" %(type, rslt)
@@ -121,7 +121,7 @@ def writeJSON(wechat_id, rslt, type):
 
     rt = {"rt_obj": rt_obj}
     rt_json = json.dumps(rt) #, ensure_ascii = False)
-    writeFile(rt_json, type)
+    writeFile(wechat_id, rt_json, type)
     return ''
 
 if "__main__" == __name__:
