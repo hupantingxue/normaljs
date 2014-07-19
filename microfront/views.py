@@ -737,13 +737,9 @@ def get_paytype(type):
     return stype
 
 def get_dltime(dl):
-    dltime = '11:00:00-14:30:00';
-    if 65 == dl:
-        dltime = '15:30:00-18:00:00'
-    if 5 == dl:
-        dltime = '19:30:00-21:00:00'
+    dltimes = Dltime.objects.get(id=dl)
+    dltime = "%s-%s" % (dltimes.begin_time, dltimes.end_time)
     return dltime
-
 
 #/microfront/orders/export
 def order_export(request):
