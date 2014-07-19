@@ -1,579 +1,586 @@
 var app = app || {};
 app.ItemView = Backbone.View.extend({
-	className: 'item',
-	template: _.template($('#item-template').html()),
-	events: {
-		'click .item-image': 'select',
-		'click .select-shadow': 'unselect',
-		'click .item-detail': 'showDetail',
-	},
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
-		this.$el.attr('id', 'item-' + this.model.get('Goods').id);
-		return this
-	},
-	select: function() {
-		this.$el.find('.select-shadow').css('display', 'block');
-		if ($('.shopping-cart').css('display') == 'none') {
-			$('.shopping-cart').css('display', 'block')
-		}
-		app.shoppingCart.get('items').add(this.model);
-		app.shoppingCart.get('items').date = this.model.get('date')
-	},
-	unselect: function() {
-		this.$el.find('.select-shadow').css('display', 'none');
-		app.shoppingCart.get('items').remove(this.model);
-		if (app.shoppingCart.get('items').length == 0) {
-			$('.shopping-cart').css('display', 'none')
-		}
-	},
-	imgLazyLoad: function() {
-		var that = this;
-		var $img = this.$el.find('.item-image > img');
-		var url = $img.attr('lazy-src');
-		var priority = this.model.get('Goods').genre;
-		var sales = this.model.get('Goods').sales;
-		var total = this.model.get('Goods').total;
+    className: 'item',
+    template: _.template($('#item-template').html()),
+    events: {
+        'click .item-image': 'select',
+        'click .select-shadow': 'unselect',
+        'click .item-detail': 'showDetail',
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        this.$el.attr('id', 'item-' + this.model.get('Goods').id);
+        return this
+    },
+    select: function() {
+        this.$el.find('.select-shadow').css('display', 'block');
+        if ($('.shopping-cart').css('display') == 'none') {
+            $('.shopping-cart').css('display', 'block')
+        }
+        if (0 < parseInt(this.model.get('Goods').total)) {
+            app.shoppingCart.get('items').add(this.model);
+            app.shoppingCart.get('items').date = this.model.get('date');
+        }
+    },
+    unselect: function() {
+        this.$el.find('.select-shadow').css('display', 'none');
+        app.shoppingCart.get('items').remove(this.model);
+        if (app.shoppingCart.get('items').length == 0) {
+            $('.shopping-cart').css('display', 'none')
+        }
+    },
+    imgLazyLoad: function() {
+        var that = this;
+        var $img = this.$el.find('.item-image > img');
+        var url = $img.attr('lazy-src');
+        var priority = this.model.get('Goods').genre;
+        var sales = this.model.get('Goods').sales;
+        var total = this.model.get('Goods').total;
                 // if (parseInt(sales) >= parseInt(total)) {
                 if (0 >= parseInt(total)) {
-		    this.$el.find('.soldout-shadow').css('display', 'block');
+            this.$el.find('.soldout-shadow').css('display', 'block');
                 }
 
-		if (url != undefined) {
-			var img = new Image();
-			img.onload = function() {
-				$img.attr('src', url);
-				$img.css({
-					'width': '100%',
-					'height': '110px',
-					'margin-top': '0'
-				});
+        if (url != undefined) {
+            var img = new Image();
+            img.onload = function() {
+                $img.attr('src', url);
+                $img.css({
+                    'width': '100%',
+                    'height': '110px',
+                    'margin-top': '0'
+                });
 
                                 if (priority == '3') {
-			            $img.css('height', '180px');
-				    that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日推荐</span>')
-				}
-
-				/* if (priority == '2' || priority == '3') {
-					$img.css('height', '180px');
-					if (priority == "3") {
-						that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日特价</span>')
-					} else {
-						that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日推荐</span>')
-					}
-				} */
-
-			}
-			img.src = url
-		}
-	},
-	showDetail: function() {
-		var that = this;
-		$.ajax({
-			url: baseUrl + 'items/' + this.model.get('Goods').id + '.json',
-			success: function(data) {
-				var item = new app.Item(data.rt_obj.data);
-				$(".container").css('display', 'none');
-				var itemDetailView = new app.ItemDetailView({
-					model: item,
-					parent: that
-				})
-			},
-			error: function(data) {
-				console.log(data)
-			}
-		})
-	}
-});
-app.ItemViewWithoutImg = Backbone.View.extend({
-	className: 'item',
-	template: _.template($('#item-template-no-img').html()),
-	events: {
-		'click .item-image': 'select',
-		'click .select-shadow-no-img': 'unselect',
-		'click .item-detail': 'showDetail'
-	},
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
-		this.$el.attr('id', 'item-' + this.model.get('Goods').id);
-		this.imgLazyLoad();
-		return this
-	},
-	select: function() {
-		this.$el.find('.select-shadow-no-img').css('display', 'block');
-		if ($('.shopping-cart').css('display') == 'none') {
-			$('.shopping-cart').css('display', 'block')
-		}
-		app.shoppingCart.get('items').add(this.model)
-	},
-	unselect: function() {
-		this.$el.find('.select-shadow-no-img').css('display', 'none');
-		app.shoppingCart.get('items').remove(this.model);
-		if (app.shoppingCart.get('items').length == 0) {
-			$('.shopping-cart').css('display', 'none')
-		}
-	},
-	imgLazyLoad: function() {
-		var $img = this.$el.find('.item-image > img');
-		var url = $img.attr('lazy-src');
-		var priority = this.model.get('Cookbook').priority;
-		var sales = this.model.get('Goods').sales;
-		var total = this.model.get('Goods').total;
-                // if (parseInt(sales) >= parseInt(total)) {
-                if (0 >= parseInt(total)) {
-		    this.$el.find('.soldout-shadow-no-img').css('display', 'block');
+                        $img.css('height', '180px');
+                    that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日推荐</span>')
                 }
 
-		if (url != undefined) {
-			var img = new Image();
-			img.onload = function() {
-				$img.attr('src', url);
-				$img.css({
-					'width': '100%',
-					'height': '110px',
-					'margin-top': '0'
-				});
-				if (priority == '1' || priority == '2') {
-					$img.css('height', '180px');
-					if (priority == "1") {
-						that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日特价</span>')
-					} else {
-						that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日推荐</span>')
-					}
-				}
-			}
-			img.src = url
-		}
-	},
-	showDetail: function() {
-		var that = this;
-		$.ajax({
-			url: baseUrl + 'items/' + this.model.get('Goods').id + '.json',
-			success: function(data) {
-				var item = new app.Item(data.rt_obj.data);
-				$(".container").css('display', 'none');
-				var itemDetailView = new app.ItemDetailView({
-					model: item,
-					parent: that
-				})
-			},
-			error: function(data) {
-				console.log(data)
-			}
-		})
-	}
+                /* if (priority == '2' || priority == '3') {
+                    $img.css('height', '180px');
+                    if (priority == "3") {
+                        that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日特价</span>')
+                    } else {
+                        that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日推荐</span>')
+                    }
+                } */
+
+            }
+            img.src = url
+        }
+    },
+    showDetail: function() {
+        var that = this;
+        $.ajax({
+            url: baseUrl + 'items/' + this.model.get('Goods').id + '.json',
+            success: function(data) {
+                var item = new app.Item(data.rt_obj.data);
+                $(".container").css('display', 'none');
+                var itemDetailView = new app.ItemDetailView({
+                    model: item,
+                    parent: that
+                })
+            },
+            error: function(data) {
+                console.log(data)
+            }
+        })
+    }
+});
+app.ItemViewWithoutImg = Backbone.View.extend({
+    className: 'item',
+    template: _.template($('#item-template-no-img').html()),
+    events: {
+        'click .item-image': 'select',
+        'click .select-shadow-no-img': 'unselect',
+        'click .item-detail': 'showDetail'
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        this.$el.attr('id', 'item-' + this.model.get('Goods').id);
+        this.imgLazyLoad();
+        return this
+    },
+    select: function() {
+        this.$el.find('.select-shadow-no-img').css('display', 'block');
+        if ($('.shopping-cart').css('display') == 'none') {
+            $('.shopping-cart').css('display', 'block')
+        }
+        app.shoppingCart.get('items').add(this.model)
+    },
+    unselect: function() {
+        this.$el.find('.select-shadow-no-img').css('display', 'none');
+        app.shoppingCart.get('items').remove(this.model);
+        if (app.shoppingCart.get('items').length == 0) {
+            $('.shopping-cart').css('display', 'none')
+        }
+    },
+    imgLazyLoad: function() {
+        var $img = this.$el.find('.item-image > img');
+        var url = $img.attr('lazy-src');
+        var priority = this.model.get('Cookbook').priority;
+        var sales = this.model.get('Goods').sales;
+        var total = this.model.get('Goods').total;
+                // if (parseInt(sales) >= parseInt(total)) {
+                if (0 >= parseInt(total)) {
+            this.$el.find('.soldout-shadow-no-img').css('display', 'block');
+                }
+
+        if (url != undefined) {
+            var img = new Image();
+            img.onload = function() {
+                $img.attr('src', url);
+                $img.css({
+                    'width': '100%',
+                    'height': '110px',
+                    'margin-top': '0'
+                });
+                if (priority == '1' || priority == '2') {
+                    $img.css('height', '180px');
+                    if (priority == "1") {
+                        that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日特价</span>')
+                    } else {
+                        that.$el.find('.item-title').append('<span style="background: #5bc0de;color: white;padding: 2px 5px;margin-left: 10px;border-radius: 5px;">今日推荐</span>')
+                    }
+                }
+            }
+            img.src = url
+        }
+    },
+    showDetail: function() {
+        var that = this;
+        $.ajax({
+            url: baseUrl + 'items/' + this.model.get('Goods').id + '.json',
+            success: function(data) {
+                var item = new app.Item(data.rt_obj.data);
+                $(".container").css('display', 'none');
+                var itemDetailView = new app.ItemDetailView({
+                    model: item,
+                    parent: that
+                })
+            },
+            error: function(data) {
+                console.log(data)
+            }
+        })
+    }
 });
 app.LoginView = Backbone.View.extend({
-	className: 'container',
-	id: 'login-container',
-	template: _.template($("#loginView-template").html()),
-	events: {
-		'click #login': 'login',
-//		'click #forget': 'getPassword',
-		'click #signin': 'signIn',
-		'click .back': 'back'
-	},
-	initialize: function(options) {
-		if (options && options.backTo) {
-			this.backTo = options.backTo
-		}
-		$('.main-container').append(this.render().el)
-	},
-	render: function() {
-		this.$el.html(this.template());
-		return this
-	},
-	login: function() {
-		var that = this;
-		$(".login-tips").hide();
-		$.ajax({
-			url: baseUrl + 'home/login/' + that.getUuid(),
-			type: 'post',
-			data: {
-				'username': $('input[name=account]').val(),
-				'password': $('input[name=password]').val()
-			},
-			success: function(data) {
-				var rt_obj = eval('(' + data + ')');
-				if (rt_obj.code == 0) {
-					setCookie("wechat_id", current_user, 100);
-					that.$el.remove();
-					$("#" + that.backTo).show()
-				} else if (rt_obj.code == 2) {
-					if (that.$el.find('.warning').length > 0) {} else {
-						that.$el.find('.login-header').after("<p class=\"warning\">^_^用户名或密码错误，请重新输入</p>")
-					}
-				}
-			},
-			error: function(data) {
-				console.log('login failed')
-			}
-		})
-	},
-//	getPassword: function() {
-//		this.$el.hide();
-//		var forgetView = new app.ForgetView();
-//		$(".main-container").append(forgetView.render().el)
-//	},
-	signIn: function() {},
-	back: function() {
-		var that = this;
-		that.$el.remove();
-		$('#' + that.backTo).show()
-	},
-	getUuid: function() {
-		return (function() {
-			var search = window.location.search;
-			var arrStr = search.substr(1, search.length).split('&');
-			for (var i = 0; i < arrStr.length; i++) {
-				var temp = arrStr[i].split('=');
-				if (temp[0] == 'code') {
-					return unescape(temp[1])
-				}
-			}
-		})()
-	},
+    className: 'container',
+    id: 'login-container',
+    template: _.template($("#loginView-template").html()),
+    events: {
+        'click #login': 'login',
+//        'click #forget': 'getPassword',
+        'click #signin': 'signIn',
+        'click .back': 'back'
+    },
+    initialize: function(options) {
+        if (options && options.backTo) {
+            this.backTo = options.backTo
+        }
+        $('.main-container').append(this.render().el)
+    },
+    render: function() {
+        this.$el.html(this.template());
+        return this
+    },
+    login: function() {
+        var that = this;
+        $(".login-tips").hide();
+        $.ajax({
+            url: baseUrl + 'home/login/' + that.getUuid(),
+            type: 'post',
+            data: {
+                'username': $('input[name=account]').val(),
+                'password': $('input[name=password]').val()
+            },
+            success: function(data) {
+                var rt_obj = eval('(' + data + ')');
+                if (rt_obj.code == 0) {
+                    setCookie("wechat_id", current_user, 100);
+                    that.$el.remove();
+                    $("#" + that.backTo).show()
+                } else if (rt_obj.code == 2) {
+                    if (that.$el.find('.warning').length > 0) {} else {
+                        that.$el.find('.login-header').after("<p class=\"warning\">^_^用户名或密码错误，请重新输入</p>")
+                    }
+                }
+            },
+            error: function(data) {
+                console.log('login failed')
+            }
+        })
+    },
+//    getPassword: function() {
+//        this.$el.hide();
+//        var forgetView = new app.ForgetView();
+//        $(".main-container").append(forgetView.render().el)
+//    },
+    signIn: function() {},
+    back: function() {
+        var that = this;
+        that.$el.remove();
+        $('#' + that.backTo).show()
+    },
+    getUuid: function() {
+        return (function() {
+            var search = window.location.search;
+            var arrStr = search.substr(1, search.length).split('&');
+            for (var i = 0; i < arrStr.length; i++) {
+                var temp = arrStr[i].split('=');
+                if (temp[0] == 'code') {
+                    return unescape(temp[1])
+                }
+            }
+        })()
+    },
 });
 app.RegisterView = Backbone.View.extend({
-	className: 'container',
-	id: 'register-container',
-	template: _.template($("#registerView-template").html()),
-	events: {
-		'click #register': 'register',
-		'click .back': 'back'
-	},
-	initialize: function(options) {
-		if (options && options.backTo) {
-			this.backTo = options.backTo
-		}
-		$('.main-container').append(this.render().el)
-	},
-	render: function() {
-		this.$el.html(this.template());
-		return this
-	},
-	register: function() {
-		var that = this;
-		if (that.inputValidate()) {
-			console.log('validate success');
-			$.ajax({
-				url: baseUrl + 'home/register/' + that.getUuid(),
-				// type: 'get',
-				type: 'post',
-				data: {
+    className: 'container',
+    id: 'register-container',
+    template: _.template($("#registerView-template").html()),
+    events: {
+        'click #register': 'register',
+        'click .back': 'back'
+    },
+    initialize: function(options) {
+        if (options && options.backTo) {
+            this.backTo = options.backTo
+        }
+        $('.main-container').append(this.render().el)
+    },
+    render: function() {
+        this.$el.html(this.template());
+        return this
+    },
+    register: function() {
+        var that = this;
+        if (that.inputValidate()) {
+            console.log('validate success');
+            $.ajax({
+                url: baseUrl + 'home/register/' + that.getUuid(),
+                // type: 'get',
+                type: 'post',
+                data: {
                                     'name': that.$el.find('input[name=name]').val()
                                     ,'username': that.$el.find('input[name=account]').val()
                                     , 'sex': $("#select_sex option:selected").text()
 //                                    , 'password': that.$el.find('input[name=password]').val()
 //                                    ,'email': that.$el.find('input[name=email]').val()
-				},
-				success: function(data) {
-					var data = eval('(' + data + ')');
-					if (data.code == 0) {
-						var popupView = new app.OrderInfoPopupView({
-							msg: '注册成功, 3秒后自动登录'
-						});
-						that.$el.append(popupView.render().el);
-						setTimeout(function() {
-							that.$el.remove();
-							user_status = "CUSTOMER";
-							setCookie("wechat_id", current_user, 100);
-							$("#" + that.backTo).show()
-						}, 3000)
-					} else if (data.code == 1) {
-						var popupView = new app.OrderInfoPopupView({
-							msg: data.msg
-						});
-						that.$el.append(popupView.render().el)
-					} else if (data.code == 2) {
-						var popupView = new app.OrderInfoPopupView({
-							msg: data.msg
-						});
-						that.$el.append(popupView.render().el)
-					}
-				},
-				error: function() {
-					console.log('ajax error')
-				}
-			})
-		}
-	},
-	back: function() {
-		var that = this;
-		that.$el.remove();
-		$('#' + that.backTo).show()
-	},
-	inputValidate: function() {
-		var that = this;
-		var un = that.$el.find('input[name=account]').val(),
-//			pw = that.$el.find('input[name=password]').val(),
-//			repw = that.$el.find('input[name=repassword]').val(),
-//			email = that.$el.find('input[name=email]').val(),
+                },
+                success: function(data) {
+                    var data = eval('(' + data + ')');
+                    if (data.code == 0) {
+                        var popupView = new app.OrderInfoPopupView({
+                            msg: '注册成功, 3秒后自动登录'
+                        });
+                        that.$el.append(popupView.render().el);
+                        setTimeout(function() {
+                            that.$el.remove();
+                            user_status = "CUSTOMER";
+                            setCookie("wechat_id", current_user, 100);
+                            $("#" + that.backTo).show()
+                        }, 3000)
+                    } else if (data.code == 1) {
+                        var popupView = new app.OrderInfoPopupView({
+                            msg: data.msg
+                        });
+                        that.$el.append(popupView.render().el)
+                    } else if (data.code == 2) {
+                        var popupView = new app.OrderInfoPopupView({
+                            msg: data.msg
+                        });
+                        that.$el.append(popupView.render().el)
+                    }
+                },
+                error: function() {
+                    console.log('ajax error')
+                }
+            })
+        }
+    },
+    back: function() {
+        var that = this;
+        that.$el.remove();
+        $('#' + that.backTo).show()
+    },
+    inputValidate: function() {
+        var that = this;
+        var un = that.$el.find('input[name=account]').val(),
+//            pw = that.$el.find('input[name=password]').val(),
+//            repw = that.$el.find('input[name=repassword]').val(),
+//            email = that.$el.find('input[name=email]').val(),
                         name = that.$el.find('input[name=name]').val();
-		var pwPattern = /^(\w){6,20}$/,
-			emailPattern = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
-		if (name == "") {
-			var popup = new app.OrderInfoPopupView({
-				msg: '姓名不能为空'
-			});
-			that.$el.append(popup.render().el);
-			return false;
-		} else if (un == "") {
-			var popup = new app.OrderInfoPopupView({
-				msg: '手机不能为空'
-			});
-			that.$el.append(popup.render().el);
-			return false;
-		} 
+        var pwPattern = /^(\w){6,20}$/,
+            emailPattern = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+        if (name == "") {
+            var popup = new app.OrderInfoPopupView({
+                msg: '姓名不能为空'
+            });
+            that.$el.append(popup.render().el);
+            return false;
+        } else if (un == "") {
+            var popup = new app.OrderInfoPopupView({
+                msg: '手机不能为空'
+            });
+            that.$el.append(popup.render().el);
+            return false;
+        } 
 //                else if (!pwPattern.exec(pw)) {
-//			var popup = new app.OrderInfoPopupView({
-//				msg: '密码长度不符合要求（6-20位）'
-//			});
-//			that.$el.append(popup.render().el);
-//			return false;
-//		} else if (pw != repw) {
-//			var popup = new app.OrderInfoPopupView({
-//				msg: '两次输入的密码不一致'
-//			});
-//			that.$el.append(popup.render().el);
-//			return false;
-//		} else if (!emailPattern.exec(email)) {
-//			var popup = new app.OrderInfoPopupView({
-//				msg: '邮箱地址不正确'
-//			});
-//			that.$el.append(popup.render().el);
-//			return false;
-//		} else if (pwPattern.exec(pw) && emailPattern.exec(email) && (pw == repw)) {
-//			return true;
-//		}
-		return true;
-	},
-	getUuid: function() {
-		return (function() {
-			var search = window.location.search;
-			var arrStr = search.substr(1, search.length).split('&');
-			for (var i = 0; i < arrStr.length; i++) {
-				var temp = arrStr[i].split('=');
-				if (temp[0] == 'code') {
-					return unescape(temp[1])
-				}
-			}
-		})()
-	}
+//            var popup = new app.OrderInfoPopupView({
+//                msg: '密码长度不符合要求（6-20位）'
+//            });
+//            that.$el.append(popup.render().el);
+//            return false;
+//        } else if (pw != repw) {
+//            var popup = new app.OrderInfoPopupView({
+//                msg: '两次输入的密码不一致'
+//            });
+//            that.$el.append(popup.render().el);
+//            return false;
+//        } else if (!emailPattern.exec(email)) {
+//            var popup = new app.OrderInfoPopupView({
+//                msg: '邮箱地址不正确'
+//            });
+//            that.$el.append(popup.render().el);
+//            return false;
+//        } else if (pwPattern.exec(pw) && emailPattern.exec(email) && (pw == repw)) {
+//            return true;
+//        }
+        return true;
+    },
+    getUuid: function() {
+        return (function() {
+            var search = window.location.search;
+            var arrStr = search.substr(1, search.length).split('&');
+            for (var i = 0; i < arrStr.length; i++) {
+                var temp = arrStr[i].split('=');
+                if (temp[0] == 'code') {
+                    return unescape(temp[1])
+                }
+            }
+        })()
+    }
 });
 app.ForgetView = Backbone.View.extend({
-	className: 'container',
-	id: 'forget-container',
-	template: _.template($("#forgetPasswordView-template").html()),
-	events: {
-		'click #getPassword': 'submit',
-		'click .back': 'back'
-	},
-	initialize: function() {
-		$('.main-container').append(this.render().el)
-	},
-	render: function() {
-		this.$el.html(this.template());
-		return this
-	},
-	submit: function() {
-		var that = this;
-		$.ajax({
-			url: baseUrl + 'home/forget/' + that.getUuid(),
-			method: 'post',
-			data: {
-				'username': $('#forget-container input[name=account]').val(),
-				'email': $('#forget-container input[name=email]').val()
-			},
-			success: function(data) {
-				var dataObj = eval("(" + data + ")");
-				var popupView = new app.OrderInfoPopupView({
-					msg: dataObj.message
-				});
-				that.$el.append(popupView.render().el)
-			},
-			error: function(data) {
-				console.log(data);
-				console.log('login failed')
-			}
-		})
-	},
-	back: function() {
-		this.$el.remove();
-		$('#login-container').show()
-	},
-	getUuid: function() {
-		return (function() {
-			var search = window.location.search;
-			var arrStr = search.substr(1, search.length).split('&');
-			for (var i = 0; i < arrStr.length; i++) {
-				var temp = arrStr[i].split('=');
-				if (temp[0] == 'code') {
-					return unescape(temp[1])
-				}
-			}
-		})()
-	},
+    className: 'container',
+    id: 'forget-container',
+    template: _.template($("#forgetPasswordView-template").html()),
+    events: {
+        'click #getPassword': 'submit',
+        'click .back': 'back'
+    },
+    initialize: function() {
+        $('.main-container').append(this.render().el)
+    },
+    render: function() {
+        this.$el.html(this.template());
+        return this
+    },
+    submit: function() {
+        var that = this;
+        $.ajax({
+            url: baseUrl + 'home/forget/' + that.getUuid(),
+            method: 'post',
+            data: {
+                'username': $('#forget-container input[name=account]').val(),
+                'email': $('#forget-container input[name=email]').val()
+            },
+            success: function(data) {
+                var dataObj = eval("(" + data + ")");
+                var popupView = new app.OrderInfoPopupView({
+                    msg: dataObj.message
+                });
+                that.$el.append(popupView.render().el)
+            },
+            error: function(data) {
+                console.log(data);
+                console.log('login failed')
+            }
+        })
+    },
+    back: function() {
+        this.$el.remove();
+        $('#login-container').show()
+    },
+    getUuid: function() {
+        return (function() {
+            var search = window.location.search;
+            var arrStr = search.substr(1, search.length).split('&');
+            for (var i = 0; i < arrStr.length; i++) {
+                var temp = arrStr[i].split('=');
+                if (temp[0] == 'code') {
+                    return unescape(temp[1])
+                }
+            }
+        })()
+    },
 });
 app.ItemDetailView = Backbone.View.extend({
-	className: 'container',
-	id: 'itemsdetail-container',
-	template: _.template($('#itemDetailView-template').html()),
-	events: {
-		'click .back': 'back',
-		'click .addItem': 'add',
-		'click .backToTop': 'backToTop'
-	},
-	initialize: function(options) {
-		this.parent = options.parent;
-		$(window).scrollTop(0);
-		$('.main-container').append(this.render().el);
-		sc.dropdown('itemsdetail-container', '.user');
-		this.$el.append(new app.ShoppingCartView({
-			model: app.shoppingCart
-		}).render().el);
-		this.resizePic();
-		if (app.shoppingCart.get('count') > 0) {
-			if (this.$el.find('.shopping-cart').css('display') == 'none') {
-				this.$el.find('.shopping-cart').css('display', 'block')
-			}
-		}
-	},
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
-		this.$el.find('.detail-content').find('table').addClass('steps').attr('border', 0);
-		return this
-	},
-	resizePic: function() {
-		var imgs = this.$el.find('.detail-content').find('img'),
-			width = $('.detail-content').find('table').width() * 0.35;
-		imgs.each(function() {
-			//$(this).css('height', width + 'px')
-		})
-	},
-	add: function() {
-		if (app.shoppingCart.get('items').get(this.model.get('Goods').id)) {
-			var popup = new app.OrderInfoPopupView({
-				msg: "已加入购物车，请点击选定下单查看"
-			});
-			this.$el.append(popup.render().el)
-		} else {
-			this.parent.select()
-		}
-	},
-	backToTop: function() {
-		$(window).scrollTop(2)
-	},
-	back: function() {
-		this.$el.remove();
-		$('#menu-container').css('display', 'block')
-	}
+    className: 'container',
+    id: 'itemsdetail-container',
+    template: _.template($('#itemDetailView-template').html()),
+    events: {
+        'click .back': 'back',
+        'click .addItem': 'add',
+        'click .backToTop': 'backToTop'
+    },
+    initialize: function(options) {
+        this.parent = options.parent;
+        $(window).scrollTop(0);
+        $('.main-container').append(this.render().el);
+        sc.dropdown('itemsdetail-container', '.user');
+        this.$el.append(new app.ShoppingCartView({
+            model: app.shoppingCart
+        }).render().el);
+        this.resizePic();
+        if (app.shoppingCart.get('count') > 0) {
+            if (this.$el.find('.shopping-cart').css('display') == 'none') {
+                this.$el.find('.shopping-cart').css('display', 'block')
+            }
+        }
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        this.$el.find('.detail-content').find('table').addClass('steps').attr('border', 0);
+        return this
+    },
+    resizePic: function() {
+        var imgs = this.$el.find('.detail-content').find('img'),
+            width = $('.detail-content').find('table').width() * 0.35;
+        imgs.each(function() {
+            //$(this).css('height', width + 'px')
+        })
+    },
+    add: function() {
+        if (app.shoppingCart.get('items').get(this.model.get('Goods').id)) {
+            var popup = new app.OrderInfoPopupView({
+                msg: "已加入购物车，请点击选定下单查看"
+            });
+            this.$el.append(popup.render().el)
+        } else if (0 >= parseInt(this.model.get('Goods').total)) {
+            var popup = new app.OrderInfoPopupView({
+                msg: "已售完，请选择其它菜品"
+            });
+            this.$el.append(popup.render().el)
+        } else {
+            this.parent.select()
+        }
+    },
+    backToTop: function() {
+        $(window).scrollTop(2)
+    },
+    back: function() {
+        this.$el.remove();
+        $('#menu-container').css('display', 'block')
+    }
 });
 
 app.ItemListView = Backbone.View.extend({
-	className: 'items',
-	hasPic: false,
-	viewCollection: null,
-	initialize: function(options) {
-		this.count = 0;
-		this.hasPic = options.hasPic;
-		this.viewCollection = new Array();
-		$(".main").append(this.render().el);
-		this.scrollToLoad()
-	},
-	render: function() {
-		var that = this;
-		var length = this.model.length;
-		var models = this.model.models;
-		for (var i = 0; i < length; i++) {
-			if (that.hasPic) {
-				var itemview = new app.ItemView({
-					model: models[i]
-				});
-				var $el = $(itemview.render().el);
+    className: 'items',
+    hasPic: false,
+    viewCollection: null,
+    initialize: function(options) {
+        this.count = 0;
+        this.hasPic = options.hasPic;
+        this.viewCollection = new Array();
+        $(".main").append(this.render().el);
+        this.scrollToLoad()
+    },
+    render: function() {
+        var that = this;
+        var length = this.model.length;
+        var models = this.model.models;
+        for (var i = 0; i < length; i++) {
+            if (that.hasPic) {
+                var itemview = new app.ItemView({
+                    model: models[i]
+                });
+                var $el = $(itemview.render().el);
                                 var genre = models[i].get('Goods').genre;
                                 var catalogId = models[i].get('Goods').catalog_id;
-				if (genre == "3" || catalogId == "1") {
-					$el.addClass('large');
-					$el.find('.select-shadow').addClass("large")
-					$el.find('.soldout-shadow').addClass("large")
-				}
-				that.viewCollection.push(itemview)
-			} else {
-				var itemview = new app.ItemViewWithoutImg({
-					model: models[i]
-				});
-				var $el = $(itemview.render().el);
+                if (genre == "3" || catalogId == "1") {
+                    $el.addClass('large');
+                    $el.find('.select-shadow').addClass("large")
+                    $el.find('.soldout-shadow').addClass("large")
+                }
+                that.viewCollection.push(itemview)
+            } else {
+                var itemview = new app.ItemViewWithoutImg({
+                    model: models[i]
+                });
+                var $el = $(itemview.render().el);
                                 var genre = models[i].get('Goods').genre;
                                 var catalogId = models[i].get('Goods').catalog_id;
-				if (genre == "3" || catalogId == "1") {
-					$el.addClass('large');
-					$el.find('.select-shadow-no-img').addClass("large")
-					$el.find('.soldout-shadow-no-img').addClass("large")
-				}
-				that.viewCollection.push(itemview)
-			}
-			that.$el.append($el)
-		}
-		return this
-	},
-	scrollToLoad: function() {
-		var that = this;
-		var winHeight = $(window).height(),
-			headerHeight = $('#menu-container').find('.header').height();
-		marqueeHeight = $('#menu-container').find('.marquee').height();
-		footerHeight = $('#menu-container').find('.toolbar').height();
-		listInViewHeight = winHeight - headerHeight - footerHeight;
-		var bigCount = 0, displayCount = 0;
-		var anchor = marqueeHeight;
-		for (var i = 0; i < this.viewCollection.length; i++) {
-			if (this.viewCollection[i].$el.hasClass('large')) {
-				bigCount += 1
-			} else {
-				break
-			}
-		};
-		while (true) {
-			if (bigCount > 0) {
-				anchor += (246 + 20);
-				bigCount--;
-				displayCount++
-			} else {
-				anchor += (200 + 20);
-				displayCount += 2
-			}
-			if (anchor > listInViewHeight) {
-				break
-			}
-		}
-		for (var i = 0; i < displayCount; i++) {
+                if (genre == "3" || catalogId == "1") {
+                    $el.addClass('large');
+                    $el.find('.select-shadow-no-img').addClass("large")
+                    $el.find('.soldout-shadow-no-img').addClass("large")
+                }
+                that.viewCollection.push(itemview)
+            }
+            that.$el.append($el)
+        }
+        return this
+    },
+    scrollToLoad: function() {
+        var that = this;
+        var winHeight = $(window).height(),
+            headerHeight = $('#menu-container').find('.header').height();
+        marqueeHeight = $('#menu-container').find('.marquee').height();
+        footerHeight = $('#menu-container').find('.toolbar').height();
+        listInViewHeight = winHeight - headerHeight - footerHeight;
+        var bigCount = 0, displayCount = 0;
+        var anchor = marqueeHeight;
+        for (var i = 0; i < this.viewCollection.length; i++) {
+            if (this.viewCollection[i].$el.hasClass('large')) {
+                bigCount += 1
+            } else {
+                break
+            }
+        };
+        while (true) {
+            if (bigCount > 0) {
+                anchor += (246 + 20);
+                bigCount--;
+                displayCount++
+            } else {
+                anchor += (200 + 20);
+                displayCount += 2
+            }
+            if (anchor > listInViewHeight) {
+                break
+            }
+        }
+        for (var i = 0; i < displayCount; i++) {
                     if(typeof(this.viewCollection[i]) != "undefined"){
-			this.viewCollection[i].imgLazyLoad()
+            this.viewCollection[i].imgLazyLoad()
                     }
-		};
-		$(window).scroll(function() {
-			for (var i = displayCount; i < that.viewCollection.length; i++) {
-				var height = that.viewCollection[i].$el.height();
-				var loadNum = 1;
-				if (height == 200) {
-					loadNum = 2
-				}
-				if ($(window).scrollTop() + listInViewHeight >= that.viewCollection[i].$el.offset().top + 51) {
-					if (loadNum == 1) {
-						that.viewCollection[i].imgLazyLoad();
-						displayCount++
-					} else if (loadNum == 2) {
-						that.viewCollection[i++].imgLazyLoad();
-						displayCount++;
-						if (that.viewCollection[i]) {
-							that.viewCollection[i].imgLazyLoad();
-							displayCount++
-						}
-					}
-				}
-			}
-		})
-	}
+        };
+        $(window).scroll(function() {
+            for (var i = displayCount; i < that.viewCollection.length; i++) {
+                var height = that.viewCollection[i].$el.height();
+                var loadNum = 1;
+                if (height == 200) {
+                    loadNum = 2
+                }
+                if ($(window).scrollTop() + listInViewHeight >= that.viewCollection[i].$el.offset().top + 51) {
+                    if (loadNum == 1) {
+                        that.viewCollection[i].imgLazyLoad();
+                        displayCount++
+                    } else if (loadNum == 2) {
+                        that.viewCollection[i++].imgLazyLoad();
+                        displayCount++;
+                        if (that.viewCollection[i]) {
+                            that.viewCollection[i].imgLazyLoad();
+                            displayCount++
+                        }
+                    }
+                }
+            }
+        })
+    }
 });
 
 app.ShoppingCartView = Backbone.View.extend({
@@ -608,36 +615,36 @@ app.ShoppingCartView = Backbone.View.extend({
 });
 var app = app || {};
 app.MenuView = Backbone.View.extend({
-	className: 'container',
-	id: 'menu-container',
-	template: _.template($("#menuView-template").html()),
+    className: 'container',
+    id: 'menu-container',
+    template: _.template($("#menuView-template").html()),
         events: function(){
             var self = this;
             this.$(".menuItem").click(function(){
                 var item = $(this);
                 var catalogId = item.attr('id').substring(1);
                 $('.types ul li').removeClass('active');
-		item.addClass('active');
-		$('.items').hide();
-		$(window).scrollTop(0);
-		if ($('#items-' + catalogId).length > 0) {
+        item.addClass('active');
+        $('.items').hide();
+        $(window).scrollTop(0);
+        if ($('#items-' + catalogId).length > 0) {
                     $('#items-' + catalogId).show();
-		} else {
+        } else {
                     self.renderList(catalogId);
-		}
+        }
             });
             this.$("#more-types").click(function(){
                 self.toggleDropdown();
             });
             return {};
         },
-	hasPic: false,
-	initialize: function() {
+    hasPic: false,
+    initialize: function() {
             $(".main-container").append(this.render().el);
             sc.dropdown("menu-container", ".user");
             sc.togglePic(".togglePic");
-	},
-	render: function() {
+    },
+    render: function() {
             this.$el.html(this.template({
                 slctidx: slctidx,
                 catalogs: catalogs,
@@ -646,68 +653,68 @@ app.MenuView = Backbone.View.extend({
             // this.$("#m"+catalogs[1].Catalog.id).addClass("active");
             this.$("#m"+catalogs[slctidx].Catalog.id).addClass("active");
             return this;
-	},
-	setPic: function(hasPic) {
+    },
+    setPic: function(hasPic) {
             this.hasPic = hasPic;
-	},
+    },
         toggleDropdown : function() {
             sc.toggleTypesDropdown();
         },
-	renderList: function(kind) {
-		var list = items[kind];
-		if (list) {
-			var currentCollection = new app.ItemCollection();
-			var mainId;
-			for (var i = 0; i < list.length; i++) {
+    renderList: function(kind) {
+        var list = items[kind];
+        if (list) {
+            var currentCollection = new app.ItemCollection();
+            var mainId;
+            for (var i = 0; i < list.length; i++) {
                                 var item = new app.Item(list[i]);
                                 item.set('date', getDeliveryDate(item, kind));
                                 currentCollection.add(item)
-				mainId = "items-" + kind
-			}
+                mainId = "items-" + kind
+            }
                         var itemListView = new app.ItemListView({
                                 model: currentCollection,
                                 id: mainId,
                                 hasPic: this.hasPic
                         });
-		} else {
-			return
-		}
-		function getDeliveryDate(item, kind) {
-			var timestamp;
-			var dayArr = ['零', '一', '二', '三', '四', '五', '六', '日'];
+        } else {
+            return
+        }
+        function getDeliveryDate(item, kind) {
+            var timestamp;
+            var dayArr = ['零', '一', '二', '三', '四', '五', '六', '日'];
                         timestamp = new Date();
                         var nextTimestamp = new Date(timestamp.getTime() + 86400000);
                         var month = nextTimestamp.getMonth() + 1,
                                 date = nextTimestamp.getDate(),
                                 day = nextTimestamp.getDay();
                         return month + "月" + date + "日"
-		}
-	},
-	handleJSON: function(data, kind) {
-		if (data == undefined) {
-			var emptyCollection = new app.ItemCollection();
-			var emptyListView = new app.ItemListView({
-				model: emptyCollection
-			});
-			return;
-		}
-		var currentCollection = new app.ItemCollection();
-		var mainId;
-		for (var i = 0; i < data.length; i++) {
+        }
+    },
+    handleJSON: function(data, kind) {
+        if (data == undefined) {
+            var emptyCollection = new app.ItemCollection();
+            var emptyListView = new app.ItemListView({
+                model: emptyCollection
+            });
+            return;
+        }
+        var currentCollection = new app.ItemCollection();
+        var mainId;
+        for (var i = 0; i < data.length; i++) {
                         var item = new app.Item(data[i]);
                         item.set('date', getDeliveryDate(item, "0"));
                         app.vegetableCollection.add(item);
                         mainId = "items-" + kind;
                         currentCollection = app.vegetableCollection
-		}
+        }
                 var itemListView = new app.ItemListView({
                         model: currentCollection,
                         id: mainId,
                         hasPic: this.hasPic
                 })
-		function getDeliveryDate(item, kind) {
-			var timestamp;
-			var dayArr = ['零', '一', '二', '三', '四', '五', '六', '日'];
+        function getDeliveryDate(item, kind) {
+            var timestamp;
+            var dayArr = ['零', '一', '二', '三', '四', '五', '六', '日'];
                         timestamp = new Date();
                         var nextTimestamp = new Date(timestamp.getTime() + 86400000);
                         var month = nextTimestamp.getMonth() + 1,
@@ -715,226 +722,226 @@ app.MenuView = Backbone.View.extend({
                                 day = nextTimestamp.getDay();
                         return month + "月" + date + "日"
 
-		}
-	}
+        }
+    }
 });
 app.OrderItemView = Backbone.View.extend({
-	tagName: 'li',
-	template: _.template($("#orderItemView-template").html()),
-	events: {
-		'click .minus': 'minus',
-		'click .add': 'add',
-		'click .delete-btn': 'removeItem'
-	},
-	initialize: function() {
-		if (!this.model.get('count')) {
-			this.model.set('count', 1);
-			this.model.set('total', parseFloat(this.model.get('Goods').price))
-		}
-	},
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
+    tagName: 'li',
+    template: _.template($("#orderItemView-template").html()),
+    events: {
+        'click .minus': 'minus',
+        'click .add': 'add',
+        'click .delete-btn': 'removeItem'
+    },
+    initialize: function() {
+        if (!this.model.get('count')) {
+            this.model.set('count', 1);
+            this.model.set('total', parseFloat(this.model.get('Goods').price))
+        }
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
                 total = parseInt(this.model.get('Goods').total);
-		if (this.model.get('count') + 1 <= total) {
-	            this.$el.find('.add').removeClass('disabled')
+        if (this.model.get('count') + 1 <= total) {
+                this.$el.find('.add').removeClass('disabled')
                 }
 
-		if (this.model.get('count') > 1) {
-			this.$el.find('.minus').removeClass('disabled')
-		}
-		return this
-	},
-	minus: function() {
-		var count = parseFloat(this.$el.find('.amount').val());
+        if (this.model.get('count') > 1) {
+            this.$el.find('.minus').removeClass('disabled')
+        }
+        return this
+    },
+    minus: function() {
+        var count = parseFloat(this.$el.find('.amount').val());
 
-		if (count > 2) {
-			this.$el.find('.amount').val(count - 1);
-			this.$el.find('.minus').removeClass('disabled')
-		} else if (count == 2) {
-			this.$el.find('.amount').val(count - 1);
-			this.$el.find('.minus').addClass('disabled')
-		} else {
-			this.$el.find('.minus').addClass('disabled');
-			return
-		}
-		this.model.set('count', count - 1);
+        if (count > 2) {
+            this.$el.find('.amount').val(count - 1);
+            this.$el.find('.minus').removeClass('disabled')
+        } else if (count == 2) {
+            this.$el.find('.amount').val(count - 1);
+            this.$el.find('.minus').addClass('disabled')
+        } else {
+            this.$el.find('.minus').addClass('disabled');
+            return
+        }
+        this.model.set('count', count - 1);
 
                 var total = parseInt(this.model.get('Goods').total);
-		if (count > total) {
-			this.$el.find('.add').addClass('disabled')
-		} else {
-	            this.$el.find('.add').removeClass('disabled')
+        if (count > total) {
+            this.$el.find('.add').addClass('disabled')
+        } else {
+                this.$el.find('.add').removeClass('disabled')
                 }
 
-		this.model.set('total', (parseFloat(this.model.get('total')) - parseFloat(this.model.get('Goods').price)).toFixed(2));
-		app.shoppingCart.set('item_count', app.shoppingCart.get('item_count') - 1);
-		app.shoppingCart.set('item_total', (parseFloat(app.shoppingCart.get('item_total')) - parseFloat(this.model.get('Goods').price)).toFixed(2));
-		this.updateView(-1)
-	},
-	add: function() {
-		var count = parseFloat(this.$el.find('.amount').val());
+        this.model.set('total', (parseFloat(this.model.get('total')) - parseFloat(this.model.get('Goods').price)).toFixed(2));
+        app.shoppingCart.set('item_count', app.shoppingCart.get('item_count') - 1);
+        app.shoppingCart.set('item_total', (parseFloat(app.shoppingCart.get('item_total')) - parseFloat(this.model.get('Goods').price)).toFixed(2));
+        this.updateView(-1)
+    },
+    add: function() {
+        var count = parseFloat(this.$el.find('.amount').val());
 
                 var total = parseInt(this.model.get('Goods').total);
-		if (count + 1 < total) {
-		        this.$el.find('.amount').val(count + 1);
-	                this.$el.find('.add').removeClass('disabled')
-		} else if (count + 1 == total) {
-		        this.$el.find('.amount').val(count + 1);
-			this.$el.find('.add').addClass('disabled')
+        if (count + 1 < total) {
+                this.$el.find('.amount').val(count + 1);
+                    this.$el.find('.add').removeClass('disabled')
+        } else if (count + 1 == total) {
+                this.$el.find('.amount').val(count + 1);
+            this.$el.find('.add').addClass('disabled')
                 } else {
-			this.$el.find('.add').addClass('disabled')
+            this.$el.find('.add').addClass('disabled')
                         return 
                 }
 
-		if (count + 1 > 0) {
-			this.$el.find('.minus').removeClass('disabled')
-		} else {
-			this.$el.find('.minus').addClass('disabled')
-		}
-		this.model.set('count', count + 1);
-		this.model.set('total', (parseFloat(this.model.get('total')) + parseFloat(this.model.get('Goods').price)).toFixed(2));
-		app.shoppingCart.set('item_count', app.shoppingCart.get('item_count') + 1);
-		app.shoppingCart.set('item_total', (parseFloat(app.shoppingCart.get('item_total')) + parseFloat(this.model.get('Goods').price)).toFixed(2));
-		this.updateView(1)
-	},
-	removeItem: function() {
-		var cid = this.model.get('Goods').id;
-		if ($('#item-' + cid).find('.select-shadow').length > 0) {
-			$('#item-' + cid).find('.select-shadow').css('display', 'none')
-		}
-		if ($('#item-' + cid).find('.select-shadow-no-img').length > 0) {
-			$('#item-' + cid).find('.select-shadow-no-img').css('display', 'none')
-		}
-		app.shoppingCart.get('items').remove(this.model);
-		this.remove();
-		if (app.shoppingCart.get('count') == 0) {
-			$('#order-container').hide();
-			$('#menu-container').show()
-		}
-	},
-	updateView: function(inc) {
-		this.$el.find('.item-amount').html(this.model.get('count'));
-		this.$el.find('.item-total-price').html('￥' + this.model.get('total'))
-	}
+        if (count + 1 > 0) {
+            this.$el.find('.minus').removeClass('disabled')
+        } else {
+            this.$el.find('.minus').addClass('disabled')
+        }
+        this.model.set('count', count + 1);
+        this.model.set('total', (parseFloat(this.model.get('total')) + parseFloat(this.model.get('Goods').price)).toFixed(2));
+        app.shoppingCart.set('item_count', app.shoppingCart.get('item_count') + 1);
+        app.shoppingCart.set('item_total', (parseFloat(app.shoppingCart.get('item_total')) + parseFloat(this.model.get('Goods').price)).toFixed(2));
+        this.updateView(1)
+    },
+    removeItem: function() {
+        var cid = this.model.get('Goods').id;
+        if ($('#item-' + cid).find('.select-shadow').length > 0) {
+            $('#item-' + cid).find('.select-shadow').css('display', 'none')
+        }
+        if ($('#item-' + cid).find('.select-shadow-no-img').length > 0) {
+            $('#item-' + cid).find('.select-shadow-no-img').css('display', 'none')
+        }
+        app.shoppingCart.get('items').remove(this.model);
+        this.remove();
+        if (app.shoppingCart.get('count') == 0) {
+            $('#order-container').hide();
+            $('#menu-container').show()
+        }
+    },
+    updateView: function(inc) {
+        this.$el.find('.item-amount').html(this.model.get('count'));
+        this.$el.find('.item-total-price').html('￥' + this.model.get('total'))
+    }
 });
 
 app.OrderView = Backbone.View.extend({
-	className: 'container',
-	id: 'order-container',
-	template: _.template($("#orderView-template").html()),
-	events: {
-		'click .back': 'back',
-		'click .next': 'next'
-	},
-	initialize: function() {
-		$(window).scrollTop(0);
-		$(".main-container").append(this.render().el);
-		sc.dropdown('order-container', ".user")
-	},
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
-		var that = this;
-		var items = this.model.get('items');
-		items.forEach(function(item) {
-			var orderItemView = new app.OrderItemView({
-				model: item
-			});
-			that.$el.find('#item-list').find('ul').append(orderItemView.render().el)
-		});
-		if (items.length == 0) {
-			this.$el.find('#item-list').css('display', 'none')
-		}
-		return this;
-	},
-	back: function() {
-		this.$el.css('display', 'none');
-		$('#menu-container').css('display', 'block')
-	},
-	next: function() {
-		this.$el.css('display', 'none');
-		var deliveryContainer = $('#delivery-container');
-		if (deliveryContainer.length > 0) {
-			deliveryContainer.css('display', 'block')
-		} else {
-			app.UserInfo = new app.User();
-			var deliveryContainer = new app.DeliveryView({
-				model: app.UserInfo
-			})
-		}
-	}
+    className: 'container',
+    id: 'order-container',
+    template: _.template($("#orderView-template").html()),
+    events: {
+        'click .back': 'back',
+        'click .next': 'next'
+    },
+    initialize: function() {
+        $(window).scrollTop(0);
+        $(".main-container").append(this.render().el);
+        sc.dropdown('order-container', ".user")
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        var that = this;
+        var items = this.model.get('items');
+        items.forEach(function(item) {
+            var orderItemView = new app.OrderItemView({
+                model: item
+            });
+            that.$el.find('#item-list').find('ul').append(orderItemView.render().el)
+        });
+        if (items.length == 0) {
+            this.$el.find('#item-list').css('display', 'none')
+        }
+        return this;
+    },
+    back: function() {
+        this.$el.css('display', 'none');
+        $('#menu-container').css('display', 'block')
+    },
+    next: function() {
+        this.$el.css('display', 'none');
+        var deliveryContainer = $('#delivery-container');
+        if (deliveryContainer.length > 0) {
+            deliveryContainer.css('display', 'block')
+        } else {
+            app.UserInfo = new app.User();
+            var deliveryContainer = new app.DeliveryView({
+                model: app.UserInfo
+            })
+        }
+    }
 });
 app.OrderInfoPopupView = Backbone.View.extend({
-	className: 'popup',
-	id: 'orderInfo-popup',
-	template: _.template($("#orderInfoPopupView-template").html()),
-	events: {
-		'click button': 'close'
-	},
-	initialize: function(options) {
-		this.msg = options.msg
-	},
-	render: function() {
-		this.$el.html(this.template());
-		this.$el.find('.popup-header').append(this.msg);
-		var that = this;
-		setTimeout(function() {
-			that.close()
-		}, 2000);
-		return this
-	},
-	close: function() {
-		this.$el.remove()
-	}
+    className: 'popup',
+    id: 'orderInfo-popup',
+    template: _.template($("#orderInfoPopupView-template").html()),
+    events: {
+        'click button': 'close'
+    },
+    initialize: function(options) {
+        this.msg = options.msg
+    },
+    render: function() {
+        this.$el.html(this.template());
+        this.$el.find('.popup-header').append(this.msg);
+        var that = this;
+        setTimeout(function() {
+            that.close()
+        }, 2000);
+        return this
+    },
+    close: function() {
+        this.$el.remove()
+    }
 });
 app.OrderConfirmPopupView = Backbone.View.extend({
-	className: 'popup',
-	id: 'orderConfirm-popup',
-	template: _.template($("#orderConfirmPopupView-template").html()),
-	events: {
-		'click #yes': 'submit',
-		'click #no': 'close',
-	},
-	initialize: function(options, ajaxSetting) {
-		if (options != undefined) {
-			if (options.msg) this.msg = options.msg;
-			if (options.tips) this.tips = options.tips;
-			if (options.yesLabel) this.yesLabel = options.yesLabel;
-			if (options.noLabel) this.noLabel = options.noLabel
-		}
-		if (ajaxSetting != undefined) {
-			this.ajaxSetting = ajaxSetting
-		}
-	},
-	render: function() {
-		this.$el.html(this.template());
-		if (this.msg) this.$el.find('.popup-header').append(this.msg);
-		if (this.tips) this.$el.find('.popup-tips').append(this.tips);
-		if (this.yesLabel) this.$el.find('#yes').html(this.yesLabel);
-		if (this.noLabel) this.$el.find('#no').html(this.noLabel);
-		return this
-	},
-	submit: function() {
-		var that = this;
-		$.ajax(that.ajaxSetting);
-		this.$el.remove()
-	},
-	close: function() {
-		this.$el.remove()
-	}
+    className: 'popup',
+    id: 'orderConfirm-popup',
+    template: _.template($("#orderConfirmPopupView-template").html()),
+    events: {
+        'click #yes': 'submit',
+        'click #no': 'close',
+    },
+    initialize: function(options, ajaxSetting) {
+        if (options != undefined) {
+            if (options.msg) this.msg = options.msg;
+            if (options.tips) this.tips = options.tips;
+            if (options.yesLabel) this.yesLabel = options.yesLabel;
+            if (options.noLabel) this.noLabel = options.noLabel
+        }
+        if (ajaxSetting != undefined) {
+            this.ajaxSetting = ajaxSetting
+        }
+    },
+    render: function() {
+        this.$el.html(this.template());
+        if (this.msg) this.$el.find('.popup-header').append(this.msg);
+        if (this.tips) this.$el.find('.popup-tips').append(this.tips);
+        if (this.yesLabel) this.$el.find('#yes').html(this.yesLabel);
+        if (this.noLabel) this.$el.find('#no').html(this.noLabel);
+        return this
+    },
+    submit: function() {
+        var that = this;
+        $.ajax(that.ajaxSetting);
+        this.$el.remove()
+    },
+    close: function() {
+        this.$el.remove()
+    }
 });
 app.PaymentView = Backbone.View.extend({
-	className: 'payment',
-	template: _.template($("#paymentView-template").html()),
-	events: {
+    className: 'payment',
+    template: _.template($("#paymentView-template").html()),
+    events: {
             'click #balance-payment': 'selectBalance',
             'click #wechat-payment': 'selectWechat',
             'click #alipay-payment': 'selectAlipay',
             'click #cool-payment': 'selectCool'
-	},
-	initialize: function() {
+    },
+    initialize: function() {
             app.payType = 2;
         },
-	render: function() {
+    render: function() {
             this.$el.html(this.template(this.model.toJSON()));
             if(cust != null) {
                 if(cust.Customer.city != null) {
@@ -945,7 +952,7 @@ app.PaymentView = Backbone.View.extend({
                 }
             }
             return this;
-	},
+    },
         getWechatId: function() {
             return (function() {
                 var arrStr = document.cookie.split("; ");
@@ -966,7 +973,7 @@ app.PaymentView = Backbone.View.extend({
             this.$el.find('.radio').removeClass('selected');
             this.$el.find('#balance-payment > .radio').addClass('selected');
             app.payType = 3;
-	},
+    },
         selectWechat: function() {
             var pop = new app.OrderInfoPopupView({
                 msg: '正在建设即将开放'
@@ -976,17 +983,17 @@ app.PaymentView = Backbone.View.extend({
 //            this.$el.find('.radio').removeClass('selected');
 //            this.$el.find('#balance-payment > .radio').addClass('selected');
 //            app.payType = 4;
-	},
-	selectAlipay: function() {
+    },
+    selectAlipay: function() {
             this.$el.find('.radio').removeClass('selected');
             this.$el.find('#alipay-payment > .radio').addClass('selected');
             app.payType = 1;
-	},
-	selectCool: function() {
+    },
+    selectCool: function() {
             this.$el.find('.radio').removeClass('selected');
             this.$el.find('#cool-payment > .radio').addClass('selected');
             app.payType = 2;
-	}
+    }
 });
 app.DeliveryView = Backbone.View.extend({
     className: 'container',
@@ -1244,59 +1251,59 @@ app.OrderResultView = Backbone.View.extend({
 });
 
 app.ItemsResultView = Backbone.View.extend({
-	template: _.template($('#itemsResultView-template').html()),
-	events: {
-		'click .cancelOrder': 'cancelOrder'
-	},
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
-		return this;
-	},
-	cancelOrder: function() {
-		var that = this;
-		var cart_id = this.model.get('cart_id');
-		var confirm = new app.OrderConfirmPopupView({
-			msg: '确定取消订单吗？'
-		}, {
-			url: baseUrl + 'orders/delete/' + cart_id,
-			method: 'post',
-			success: function(data) {
-				console.log(data);
-				var data = eval('(' + data + ')');
-				if (data.code == 1) {
-					var popup = new app.OrderInfoPopupView({
-						msg: data.msg
-					});
-					$('#orderResult-container').append(popup.render().el)
-				} else {
-					if (data.msg == "订单删除成功") {
-						var popup = new app.OrderInfoPopupView({
-							msg: data.msg
-						});
-						$('#orderResult-container').append(popup.render().el);
-						that.$el.remove()
-					} else {
-						var popup = new app.OrderInfoPopupView({
-							msg: data.msg
-						});
-						$('#orderResult-container').append(popup.render().el)
-					}
-				}
-			},
-			error: function(data) {
-				console.log(data)
-			}
-		});
-		$('#orderResult-container').append(confirm.render().el)
-	}
+    template: _.template($('#itemsResultView-template').html()),
+    events: {
+        'click .cancelOrder': 'cancelOrder'
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    },
+    cancelOrder: function() {
+        var that = this;
+        var cart_id = this.model.get('cart_id');
+        var confirm = new app.OrderConfirmPopupView({
+            msg: '确定取消订单吗？'
+        }, {
+            url: baseUrl + 'orders/delete/' + cart_id,
+            method: 'post',
+            success: function(data) {
+                console.log(data);
+                var data = eval('(' + data + ')');
+                if (data.code == 1) {
+                    var popup = new app.OrderInfoPopupView({
+                        msg: data.msg
+                    });
+                    $('#orderResult-container').append(popup.render().el)
+                } else {
+                    if (data.msg == "订单删除成功") {
+                        var popup = new app.OrderInfoPopupView({
+                            msg: data.msg
+                        });
+                        $('#orderResult-container').append(popup.render().el);
+                        that.$el.remove()
+                    } else {
+                        var popup = new app.OrderInfoPopupView({
+                            msg: data.msg
+                        });
+                        $('#orderResult-container').append(popup.render().el)
+                    }
+                }
+            },
+            error: function(data) {
+                console.log(data)
+            }
+        });
+        $('#orderResult-container').append(confirm.render().el)
+    }
 });
 app.ResultItemView = Backbone.View.extend({
-	tagName: 'li',
-	template: _.template($('#resultItemView-template').html()),
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
-		return this;
-	}
+    tagName: 'li',
+    template: _.template($('#resultItemView-template').html()),
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
 });
 app.MyOrdersView = Backbone.View.extend({
     className: 'container',
@@ -1458,107 +1465,107 @@ app.OneDayOrderView = Backbone.View.extend({
 });
 
 app.ItemOrderView = Backbone.View.extend({
-	template: _.template($('#itemOrderView-template').html()),
-	events: {
-		'click .cancelOrder': 'cancelOrder'
-	},
-	initialize: function(options) {
-		if (options != undefined) {
-			this.status = options.status
-		}
-	},
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
-		if (this.status && this.status.trim() == "已配送") {
-			this.$el.find('.cancelOrder').remove()
-		}
-		else if (this.status && this.status.trim() == "已完成") {
-			this.$el.find('.cancelOrder').remove()
-		}
-		return this
-	},
-	cancelOrder: function() {
-		var that = this;
-		var cart_id = this.model.get('cart_id');
-//		if (that.status.trim() == "处理中" || that.status.trim() == "采购中") {
-			var confirm = new app.OrderConfirmPopupView({
-				msg: '确定取消订单吗？'
-			}, {
-				url: baseUrl + 'orders/delete/' + cart_id,
-				method: 'post',
-				success: function(data) {
-					var data = eval('(' + data + ')');
-					if (data.code == 1) {
-						var popup = new app.OrderInfoPopupView({
-							msg: data.msg
-						});
-						$('#myOrders-container').append(popup.render().el)
-					} else {
-						if (data.msg == "订单删除成功") {
-							var popup = new app.OrderInfoPopupView({
-								msg: data.msg
-							});
-							$('#myOrders-container').append(popup.render().el);
-							that.$el.remove()
-						} else {
-							var popup = new app.OrderInfoPopupView({
-								msg: data.msg
-							});
-							$('#myOrders-container').append(popup.render().el)
-						}
-					}
-				},
-				error: function(data) {
-					console.log(data)
-				}
-			});
-			$('#myOrders-container').append(confirm.render().el)
-//		} else if (that.status.trim() == "已采购") {
-//			var confirm = new app.OrderConfirmPopupView({
-//				msg: '您的订单我们已采购',
-//				tips: '现在取消会造成我们的损失',
-//				yesLabel: '取消订单',
-//				noLabel: '保留订单'
-//			}, {
-//				url: baseUrl + 'orders/delete/' + cart_id,
-//				method: 'post',
-//				success: function(data) {
-//					var data = eval('(' + data + ')');
-//					if (data.code == 1) {
-//						var popup = new app.OrderInfoPopupView({
-//							msg: data.msg
-//						});
-//						$('#myOrders-container').append(popup.render().el)
-//					} else {
-//						if (data.msg == "订单删除成功") {
-//							var popup = new app.OrderInfoPopupView({
-//								msg: data.msg
-//							});
-//							$('#myOrders-container').append(popup.render().el);
-//							that.$el.remove()
-//						} else {
-//							var popup = new app.OrderInfoPopupView({
-//								msg: data.msg
-//							});
-//							$('#myOrders-container').append(popup.render().el)
-//						}
-//					}
-//				},
-//				error: function(data) {
-//					console.log(data)
-//				}
-//			});
-//			$('#myOrders-container').append(confirm.render().el)
-//		} else if (that.status.trim() == "配送中") {
-//			var popup = new app.OrderInfoPopupView({
-//				msg: '您的订单已经开始配送'
-//			});
-//			$('#myOrders-container').append(popup.render().el)
-//		} else if (that.status.trim() == "已配送") {
-//			var popup = new app.OrderInfoPopupView({
-//				msg: '订单已经配送成功，不能取消'
-//			});
-//			$('#myOrders-container').append(popup.render().el)
-//		}
-	}
+    template: _.template($('#itemOrderView-template').html()),
+    events: {
+        'click .cancelOrder': 'cancelOrder'
+    },
+    initialize: function(options) {
+        if (options != undefined) {
+            this.status = options.status
+        }
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        if (this.status && this.status.trim() == "已配送") {
+            this.$el.find('.cancelOrder').remove()
+        }
+        else if (this.status && this.status.trim() == "已完成") {
+            this.$el.find('.cancelOrder').remove()
+        }
+        return this
+    },
+    cancelOrder: function() {
+        var that = this;
+        var cart_id = this.model.get('cart_id');
+//        if (that.status.trim() == "处理中" || that.status.trim() == "采购中") {
+            var confirm = new app.OrderConfirmPopupView({
+                msg: '确定取消订单吗？'
+            }, {
+                url: baseUrl + 'orders/delete/' + cart_id,
+                method: 'post',
+                success: function(data) {
+                    var data = eval('(' + data + ')');
+                    if (data.code == 1) {
+                        var popup = new app.OrderInfoPopupView({
+                            msg: data.msg
+                        });
+                        $('#myOrders-container').append(popup.render().el)
+                    } else {
+                        if (data.msg == "订单删除成功") {
+                            var popup = new app.OrderInfoPopupView({
+                                msg: data.msg
+                            });
+                            $('#myOrders-container').append(popup.render().el);
+                            that.$el.remove()
+                        } else {
+                            var popup = new app.OrderInfoPopupView({
+                                msg: data.msg
+                            });
+                            $('#myOrders-container').append(popup.render().el)
+                        }
+                    }
+                },
+                error: function(data) {
+                    console.log(data)
+                }
+            });
+            $('#myOrders-container').append(confirm.render().el)
+//        } else if (that.status.trim() == "已采购") {
+//            var confirm = new app.OrderConfirmPopupView({
+//                msg: '您的订单我们已采购',
+//                tips: '现在取消会造成我们的损失',
+//                yesLabel: '取消订单',
+//                noLabel: '保留订单'
+//            }, {
+//                url: baseUrl + 'orders/delete/' + cart_id,
+//                method: 'post',
+//                success: function(data) {
+//                    var data = eval('(' + data + ')');
+//                    if (data.code == 1) {
+//                        var popup = new app.OrderInfoPopupView({
+//                            msg: data.msg
+//                        });
+//                        $('#myOrders-container').append(popup.render().el)
+//                    } else {
+//                        if (data.msg == "订单删除成功") {
+//                            var popup = new app.OrderInfoPopupView({
+//                                msg: data.msg
+//                            });
+//                            $('#myOrders-container').append(popup.render().el);
+//                            that.$el.remove()
+//                        } else {
+//                            var popup = new app.OrderInfoPopupView({
+//                                msg: data.msg
+//                            });
+//                            $('#myOrders-container').append(popup.render().el)
+//                        }
+//                    }
+//                },
+//                error: function(data) {
+//                    console.log(data)
+//                }
+//            });
+//            $('#myOrders-container').append(confirm.render().el)
+//        } else if (that.status.trim() == "配送中") {
+//            var popup = new app.OrderInfoPopupView({
+//                msg: '您的订单已经开始配送'
+//            });
+//            $('#myOrders-container').append(popup.render().el)
+//        } else if (that.status.trim() == "已配送") {
+//            var popup = new app.OrderInfoPopupView({
+//                msg: '订单已经配送成功，不能取消'
+//            });
+//            $('#myOrders-container').append(popup.render().el)
+//        }
+    }
 });
