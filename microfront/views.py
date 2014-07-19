@@ -500,7 +500,10 @@ def order_del(request):
         price = ol.price
 
         # Do not clear the order data if the order canceled
-        if 4 != int(ol.order_status):
+        try:
+            if 4 != int(ol.order_status):
+                clear_orderdata(openid, shoplist, price)
+        except Exception as e:
             clear_orderdata(openid, shoplist, price)
         ol.delete()
 
@@ -931,6 +934,7 @@ def user_del(request):
 #/microfront/users/query
 def user_query(request):
     resp = '''{"cnt":0}'''
+    keyword = ''
     try:
         keyword = request.POST['keyword']
     except Exception as e:
@@ -954,7 +958,7 @@ def user_query(request):
             str = str + u'''{"id":%d, "sex":"%s", "area":"%s", "addr":"%s","reg_date":"%s", "openid":"%s", "name":"%s", "phone":"%s", "money":"%f", "account":"%d"}''' %(cl.id, cl.sex, cl.area, cl.addr, cl.reg_date, cl.openid, cl.name, cl.telphone, cl.money, cl.account)
             ii = ii + 1
     resp = u'''{"cnt":%d, "user":[%s]}''' % (cnt, str)
-    print resp
+    #print resp.encode('utf-8')
     return HttpResponse(resp)
 
 #/microfront/addr
