@@ -170,5 +170,29 @@ $(function() {
 //    $("#home-header").bind("touchmove", {}, function(e) {
 //        e.preventDefault();
 //    });
-    $(window).scrollTop(2)
+    // $(window).scrollTop(2)
+
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        WeixinJSBridge.call('hideOptionMenu');
+    });
+    
+    var topH = 0;
+    if(moreCatalogs.length > 0){
+        var dropdown = $('#types-dropdown');
+        var topH = (parseInt(dropdown.css('height')) * 2 + 27);
+        $('#mainList').css('margin-top', topH + 'px');
+    }
+    
+    var ch = 0, hh = $("#home-header");
+    $(window).scroll(function() {
+        var h = hh.offset().top;
+        if(h > ch){
+//            $('#mainList').css('margin-top', topH + 'px');
+            hh.hide();
+        }else{
+//            $('#mainList').css('margin-top', '0px');
+            hh.show();
+        }
+        ch = h;
+    });
 });

@@ -1202,24 +1202,24 @@ def cedit(request, open_id):
 
 def css_resource(request,fname):
     text=open('microfront/'+fname+'.css').read()
-    return HttpResponse(text)
+    return HttpResponse(text, mimetype="text/css")
 
 def jpg_resource(request,fname):
     #text=open('micromall/'+fname+'.jpg','rb').read()
     text=open(fname+'.jpg','rb').read()
-    return HttpResponse(text)
+    return HttpResponse(text, mimetype="image/jpeg")
 
 def gif_resource(request,fname):
     text=open('microfront/'+fname+'.gif','rb').read()
-    return HttpResponse(text)
+    return HttpResponse(text, mimetype="image/gif")
 
 def png_resource(request,fname):
     text=open('microfront/'+fname+'.png','rb').read()
-    return HttpResponse(text)
+    return HttpResponse(text, mimetype="image/png")
 
 def js_resource(request,fname):
     text=open('microfront/'+fname+'.js','rb').read()
-    return HttpResponse(text)
+    return HttpResponse(text, mimetype="application/x-javascript")
 
 def json_resource(request,fname):
     text=open('microfront/microfront/'+fname+'.json','r+').read()
