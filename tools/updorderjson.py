@@ -34,7 +34,8 @@ def getOrders(wechat_id, rdate):
     '''
         return order list and order-history list;
     '''
-    sql = '''select * from microfront_order where openid = "%s" and order_status !=4 and order_time between "%s 00:00:00" and "%s 23:59:59" order by id desc;''' %(wechat_id, rdate, rdate)
+    #sql = '''select * from microfront_order where openid = "%s" and order_status !=4 and order_time between "%s 00:00:00" and "%s 23:59:59" order by id desc;''' %(wechat_id, rdate, rdate)
+    sql = '''select * from microfront_order where openid = "%s" and order_status !=4  order by id desc;''' %(wechat_id, rdate, rdate)
     #print sql
     conn.commit()
     cur.execute(sql)

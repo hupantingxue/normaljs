@@ -551,7 +551,7 @@
                     <span>
                         运费：<span><%= parseFloat(freight||0).toFixed(2) %></span>元，共<span><%= parseFloat(cart_total).toFixed(2) %></span>元
                     </span>
-                    <% if(delivery_status == 2) { %>
+                    <% if(delivery_status == 0) { %>
                         <a class="btn dail-small">拨打电话催一催</a>
                     <% } %>
                 </div>				
