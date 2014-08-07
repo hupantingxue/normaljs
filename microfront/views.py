@@ -1315,7 +1315,7 @@ def admin(request):
         if 0 == foodid:
             menu = Menu(orgid=1, sales=0, name=foodname, cover_url=fullname[19:], detail_url=detail_fullname[10:], old_price=foodprice, price=sprice, catalog_id=category, status=foodstatus, genre=foodgenre, level=foodlevel, total=total, introduce='')
             menu.save()
-            add_menu_json(menu.id, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce, total)
+            add_menu_json(menu.id, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce, int(total))
         else:
             #TODO: need to update info; 
 
@@ -1335,9 +1335,14 @@ def admin(request):
             menu.level=foodlevel
             menu.save()
             #print "******************update food content: ", introduce
-            add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce, total, 1)
+            add_menu_json(foodid, detail_fullname[19:], fullname[20:], foodname, category, foodprice, sprice, introduce, int(total), 1)
 
-        
+        try:
+            r.lpush(MENU_RQUEUE, 0)
+        except Exception as e:
+            r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
+            r.lpush(MENU_RQUEUE, 0)
+
         return HttpResponseRedirect('/microfront/admin/')
 
     catalogs = Catalog.objects.all()
@@ -1359,7 +1364,7 @@ def add_menu_json(id, detail_url, cover_url, name, catalog_id, oprice, price, in
     jsonfn = 'microfront/microfront/items/' + str(id) + '.json'
     #print "Write menu json file: ", jsonfn
     if 0 == type:
-        menujson = u'''{"rt_obj":{"code":0,"data":{"Goods":{"id":"%d","org_id": "1","detail_url": "%s","cover_url": "%s","name": "%s","catalog_id":"%s","old_price": "%f","price": "%f","sales":"0","total": "%d","genre": "1","level": "20","content": "%s","status": "1","servings": "1","stime": "2014-03-18 14:38:40"}}}}''' %(id, detail_url, cover_url, name, catalog_id, oprice, price, introduce.replace('\r\n', '').replace('"', '\\\"'), int(total))
+        menujson = u'''{"rt_obj":{"code":0,"data":{"Goods":{"id":"%d","org_id": "1","detail_url": "%s","cover_url": "%s","name": "%s","catalog_id":"%s","old_price": "%f","price": "%f","sales":"0","total": "%d","genre": "1","level": "20","content": "%s","status": "1","servings": "1","stime": "2014-03-18 14:38:40"}}}}''' %(id, detail_url, cover_url, name, catalog_id, oprice, price, int(total), introduce.replace('\r\n', '').replace('"', '\\\"'))
         menujson = json.loads(menujson)
         menujson = json.dumps(menujson)
     else:
