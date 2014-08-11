@@ -16,3 +16,8 @@ tools/restart.log
 tools/*.log
 microfront/orders
 micromall/micromall/
+nohup.out
+wx/ihaoshi_dy/aa.log
+wx/ihaoshi_dy/wxrun.log
+wx/ihaoshi_fw/ihaoshi_fw.log
+wx/ihaoshi_fw/wxrun.log

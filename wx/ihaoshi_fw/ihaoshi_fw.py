@@ -127,7 +127,7 @@ class index:
                     return self.render.reply_pic(fromuser, touser, curtime, u'点击查看今日菜品', u'爱好食，打造简单、健康、时尚的都市生活', 'http://www.ihaoshi.cn/img/cover.jpg', url) 
           
                 if 'IHAOSHI_KFRX' == evtkey:
-                    text = u'''客服热线：15889613776\n服务时间：周一~周五，9:00~20:00\n订餐说明：\n1、绿色蔬菜需提前一天下单，次日下班前送达，\n2、有机蔬菜和海鲜即将亮相，敬请期待。\n3、每天优惠活动可进入微社区了解并参与其中。'''
+                    text = u'''客服热线：15889613776\n 服务时间：周一~周五9:00~20:00\n订餐说明：\n 1、绿色蔬菜当天下单，次日送达，仅限南山科技园地铁站附近；\n 2、有机蔬菜提前4天下单，配送范围为深圳区域，可宅配；\n 3、阳澄湖大闸蟹礼券当天下单，24~48小时送达，全国包邮；\n 4、每天优惠活动可进入微社区了解并参与其中。'''
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_DDCX' == evtkey:
@@ -138,7 +138,7 @@ class index:
                     return self.render.reply_pic(fromuser, touser, curtime, u'我的订单', u'点击查看我的订单', 'http://www.ihaoshi.cn/img/cover.jpg', url) 
            
                 if 'IHAOSHI_PSFW' == evtkey:
-                    text = u'''目前暂只支持南山科技园附近及宝安中心区地铁口附近区域，努力覆盖更广范围中，带来不便，敬请谅解！\n订餐说明：\n1、绿色蔬菜需提前一天下单，次日下班前送达\n2、有机蔬菜和海鲜即将亮相，敬请期待。\n3、每天优惠活动可进入微社区了解并参与其中。'''
+                    text = u'''1、绿色蔬菜仅限南山科技园地铁站附近1000米；\n  2、有机蔬菜配送范围为深圳区域，可宅配，不支持货到付款；\n  3、阳澄湖大闸蟹礼券全国包邮，不支持货到付款。\n 订餐说明\n  1、绿色蔬菜当天下单，次日送达\n 2、有机蔬菜提前4天下单，支持可宅配；\n 3、阳澄湖大闸蟹礼券当天下单，24~48小时送达，全国包邮；\n 4、每天优惠活动可进入微社区了解并参与其中。'''
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_DCSM' == evtkey:

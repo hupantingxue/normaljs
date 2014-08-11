@@ -123,12 +123,12 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 .main{width:100%;height:auto;overflow:hidden;}
 .items,.tuans{width:100%;height:auto}
 .item,.tuan{float:left;position:relative;display:inline-block;margin:10px 2.5%;width:43%;border-radius:3px;-webkit-box-shadow:1px 1px 6px #ffa500;box-shadow:1px 1px 6px #ffa500;background:#ffffff; border-style:solid; border-width:1px; border-color:#ffa500}
-.item .item-title,.tuan .tuan-title{overflow:hidden;float:left;padding:5px 10px;text-align:left;line-height:1.5;font-size:14px;white-space:nowrap; color:#000;}
+.item .item-title,.tuan .tuan-title{overflow:hidden;float:left;padding:5px 10px;text-align:left;line-height:1.5;font-size:11px;white-space:nowrap; color:#000;font-weight:bold;}
 .tuan .tuan-delivery-info{overflow:hidden;float:right;padding:5px 10px;text-align:right;color:#ff9c00;line-height:1.5;font-size:14px;white-space:nowrap}
 .item .item-image,.tuan .tuan-image{margin-top:31px;width:100%;height:110px;text-align:center}
 .item .item-image img,.tuan .tuan-image img{margin-top:47px;width:16px}
 .item .item-cost,.tuan .tuan-price{display:inline-block;float:left;line-height:1.7;font-size:14px;padding:5px 10px}
-.item .item-price{display:inline-block;float:left;width:100%;line-height:1.7;font-size:14px;padding:0 10px}
+.item .item-price{display:inline-block;float:left;width:100%;line-height:1.7;font-size:11px;padding:0 10px}
 .item .item-price img,.tuan .tuan-price img{width:10px}
 .item .item-amount,.tuan .tuan-amount{display:inline-block;float:right;line-height:1.7;font-size:14px;padding:5px 10px}
 .item .item-amount img,.tuan .tuan-amount img{width:15px}
