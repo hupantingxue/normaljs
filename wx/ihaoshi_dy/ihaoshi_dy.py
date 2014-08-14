@@ -118,7 +118,21 @@ class index:
                     return self.render.reply_pic(fromuser, touser, curtime, u'好食来，福利到，你选菜，我买单啦！', u'为庆祝爱好食生鲜平台上线，现推出“你选菜，我买单”活动，活动期间，每天都有由“您”决定的免费产品，赶快行动吧，福利可不容错过啊！！', 'http://www.ihaoshi.cn/img/ihaoshi.jpg', url)
 
                 if 'IHAOSHI_HSTJ' == evtkey:
-                    return self.render.reply_text(fromuser, touser, curtime, u'''编辑中。。。''')
+                    title1 = u'精心呵护,有机养殖——【阳澄湖牌】长江壹号有机大闸蟹'
+                    desc1 = u''
+                    picurl1 = u'http://mmbiz.qpic.cn/mmbiz/dTI0mflxu02nvHKUl12hekz7noE7St6778lbOpLwTdVddRia5oFFYBnYr6v4D3qiaNdPT1kF6cfg6RrMrIbhGynw/0'
+                    url1 = 'http://mp.weixin.qq.com/s?__biz=MzA4NjM5NDcyNw==&mid=200604340&idx=1&sn=17652903dc3e5e073994adfe18205046#rd'
+                    title2 = u'神奇纬度，至美之境，孕育至醇鲜美之物——【阳澄湖牌】原产地大闸蟹'
+                    desc2 = u''
+                    picurl2 = u'http://mmbiz.qpic.cn/mmbiz/dTI0mflxu02nvHKUl12hekz7noE7St67hVBicG4sEmPwDqLt0eD8EqlfNUktXBk2c1HChOPUX4Hu7WeshnNInpQ/0'
+                    url2 = 'http://mp.weixin.qq.com/s?__biz=MzA4NjM5NDcyNw==&mid=200604340&idx=2&sn=648ebd005e641a5f01452479a69c4bd3#rd'
+                    title3 = u'中国第一高海拔有机蔬菜'
+                    desc3 = u'有机种植基地地处云南高原，拥有中国第一高海拔(2000米~2400米)有机农场。迄今已连续十年通过国家权威的南京国环(OFDC)有机认证，是国内有机认证持续时间最久，种植面积最大的有机蔬菜种植企业。为确保菜品质量，公司自建全程冷链物流体系，确保菜品能以最完美的品质第一时间出现在您的餐桌上。'
+                    picurl3 = u'http://mmbiz.qpic.cn/mmbiz/dTI0mflxu02nvHKUl12hekz7noE7St67fQK9lpDrRBTquXcvO5kr1mRkgeiaVFozm5icXzcscND9nAQtOMOK8RBg/0'
+                    url3 = 'http://mp.weixin.qq.com/s?__biz=MzA4NjM5NDcyNw==&mid=200604340&idx=3&sn=b11e058dd7c3120879ca097033858d70#rd'
+
+                    self.wxlogger.info(url3)
+                    return self.render.reply_multipic(fromuser, touser, curtime, title1, desc1, picurl1, url1, title2, desc2, picurl2, url2,title3, desc3, picurl3, url3)
            
                 if 'IHAOSHI_MENU' == evtkey:
                     #url='http://211.154.149.170:8600/microfront?code=%s' %(fromuser)
@@ -127,7 +141,7 @@ class index:
                     return self.render.reply_pic(fromuser, touser, curtime, u'点击查看今日菜品', u'爱好食，打造简单、健康、时尚的都市生活', 'http://www.ihaoshi.cn/img/cover.jpg', url) 
           
                 if 'IHAOSHI_KFRX' == evtkey:
-                    text = u'''客服热线：15889613776\n 服务时间：周一~周五9:00~20:00\n订餐说明：\n1、绿色蔬菜当天下单，次日送达，仅限南山科技园地铁站附近；\n2、有机蔬菜提前4天下单，配送范围为深圳区域，可宅配；\n3、阳澄湖大闸蟹礼券当天下单，24~48小时送达，全国包邮；\n4、每天优惠活动可进入微社区了解并参与其中。'''
+                    text = u'''客服热线：15889613776\n服务时间：周一~周五9:00~20:00\n订餐说明：\n1、绿色蔬菜当天下单，次日送达，仅限南山科技园地铁站附近；\n2、有机蔬菜提前4天下单，配送范围为深圳区域，可宅配；\n3、阳澄湖大闸蟹礼券当天下单，24~48小时送达，全国包邮；\n4、每天优惠活动可进入微社区了解并参与其中。'''
                     return self.render.reply_text(fromuser, touser, curtime, text)
            
                 if 'IHAOSHI_DDCX' == evtkey:
