@@ -31,6 +31,8 @@ import shutil
 import redis
 from conf import *
 
+from alipay.alipay import *
+
 dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
     {
         'user' : 'ihaoshi',
@@ -1674,4 +1676,17 @@ def write_order_json(openid, rt_obj):
     fd = open(jsonfn, 'wb')
     fd.write(order_json)
     fd.close()
+    return ''
+
+def  alipay_rsp(request):
+    """alipay processor"""
+    if "POST" == request.method:
+        tn = request.POST['WIDout_trade_no']
+        subject = u'爱好食'
+        body = u'食品付款支付宝测试'
+        total_fee = request.POST['WIDtotal_fee']
+        total_fee = float(total_fee)
+        print tn, type(total_fee), total_fee
+        url = create_direct_pay_by_user(tn, subject, body, total_fee)
+        return HttpResponseRedirect (url)
     return ''
