@@ -194,7 +194,7 @@ pre{font-family:"Microsoft YaHei",Arial;word-wrap:break-word}
 .line input[type=text],.line input[type=password],.line input[type=tel]{border:1px solid #d6d6d6;height:30px;line-height:normal;padding:1px 5px;width:65%;font-size:16px;font-family:'Microsoft YaHei',Arial}
 .line select{width: 15.4%;height: 30px;font-size: 16px;font-family:'Microsoft YaHei',Arial;border: 1px solid #d6d6d6;}
 select{width:27.4%;height:33px;font-size:16px;font-family:'Microsoft YaHei',Arial}
-.payment{width:95%;margin:15px auto;font-size:18px}
+.payment{width:95%;margin:15px auto;font-size:18px;height:242px;}
 .payment .line{margin:10px auto; background-color:#ffa500}
 .payment .radio.selected{background-image:url(../img/select.png);background-position:-1px -1px}
 .payment .radio.disabled{background-color:#ccc}
