@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 
 from microfront import views
 
-urlpatterns = patterns('microfront.views',
+urlpatterns = patterns('',
     url(r'^login/$', views.mylogin, name='login'),
     url(r'^logout/$', views.mylogout, name='logout'),
     url(r'^home/register/(?P<open_id>\w+)$', views.register, name='register'),
