@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 
 from microfront import views
 
-urlpatterns = patterns('',
+urlpatterns = patterns('microfront.views',
     url(r'^login/$', views.mylogin, name='login'),
     url(r'^logout/$', views.mylogout, name='logout'),
     url(r'^home/register/(?P<open_id>\w+)$', views.register, name='register'),
@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^users/query/$', views.user_query, name='user_query'),
     url(r'^customers/edit/(?P<open_id>\w+)$', views.cedit, name='customer_edit'),
     url(r'^admin/(.*).jpg$',views.jpg_resource),
+    url(r'^admin/exit$', views.mylogout, name='exit'),
     url(r'^admin/$', views.admin, name='admin'),
     url(r'^addr/$', views.add_addr, name='addr'),
     url(r'^zan/$', views.zan_add, name='zan_add'),

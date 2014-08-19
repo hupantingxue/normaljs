@@ -12,6 +12,7 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth import authenticate, login, logout
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
 from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr, Otherset, Ingredient
@@ -1714,8 +1715,6 @@ def mylogin(request):
             login(request, user)
             if next:
                 return HttpResponseRedirect(next)
-            #return HttpResponseRedirect(reverse("yimi_admin:news_list"))
-            return render_to_response('microfront/login.html', {"next": next},
-                    context_instance=RequestContext(request))
+            return HttpResponseRedirect(reverse("microfront:admin"))
     return render_to_response('microfront/login.html', {"next": next},
         context_instance=RequestContext(request))

@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-	'tinymce',
+    'tinymce',
     'polls',
     'microfront',
     'micromall',
@@ -100,5 +100,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = '*'
+MEDIA_URL = '/media/'
 
 IMAGES_UPLOAD_DIR = 'uploads'
