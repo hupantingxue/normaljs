@@ -11,6 +11,9 @@ from django.db.models import Q, Sum
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 from microfront.models import Catalog, Customer,Order, Menu, Dltime, Dladdr, Otherset, Ingredient
 
 #db operation
@@ -32,6 +35,8 @@ import redis
 from conf import *
 
 from alipay.alipay import *
+
+LOGIN_URL = '/microfront/login/'
 
 dburl = 'mysql://%(user)s:%(pass)s@%(host)s:%(port)s/%(db)s' % \
     {
@@ -864,7 +869,7 @@ def register(request, open_id):
     return HttpResponse(resp)
 
 #/microfront/home/login
-def login(request, open_id):
+def home_login(request, open_id):
     resp = u'''{"code":0, "msg":"登录成功"}'''
     #print "%s", resp
     return HttpResponse(resp)
@@ -997,6 +1002,7 @@ def add_dltime(request):
     return HttpResponse(resp)
 
 #/microfront/dltime/save
+@login_required(login_url=LOGIN_URL)
 def save_dltime(request):
     resp = 0
     try:
@@ -1244,6 +1250,7 @@ def admin_manage(request):
         ll.append(row[1])
     return render_to_response('microfront/admin_manage.html', {'catalogs':ll})
 
+@login_required(login_url=LOGIN_URL)
 def admin(request):
     base='micromall/micromall/files/upfiles/' + time.strftime('%Y%m%d', time.localtime()) + "/"
     if not os.path.exists(base):
@@ -1690,3 +1697,25 @@ def  alipay_rsp(request):
         url = create_direct_pay_by_user(tn, subject, body, total_fee)
         return HttpResponseRedirect (url)
     return ''
+
+def mylogout(request):
+    logout(request)
+    return HttpResponseRedirect(LOGIN_URL)
+
+def mylogin(request):
+    logout(request)
+    next = request.GET.get("next")
+    if request.method=="POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        next = request.POST.get("next")
+        user = authenticate(username=username, password=password)
+        if user:
+            login(request, user)
+            if next:
+                return HttpResponseRedirect(next)
+            #return HttpResponseRedirect(reverse("yimi_admin:news_list"))
+            return render_to_response('microfront/login.html', {"next": next},
+                    context_instance=RequestContext(request))
+    return render_to_response('microfront/login.html', {"next": next},
+        context_instance=RequestContext(request))
