@@ -36,6 +36,7 @@ import redis
 from conf import *
 
 from alipay.alipay import *
+#from mypay.alipay import *
 
 LOGIN_URL = '/microfront/login/'
 
@@ -1696,6 +1697,9 @@ def  alipay_rsp(request):
         total_fee = float(total_fee)
         print tn, type(total_fee), total_fee
         url = create_direct_pay_by_user(tn, subject, body, total_fee)
+        #url = create_partner_trade_by_buyer(tn, subject, body, total_fee)
+        #url = create_wap_pay_by_user(tn, subject, body, total_fee)
+        #url = build_request("trade", tn, total_fee, subject)
         return HttpResponseRedirect (url)
     return ''
 
