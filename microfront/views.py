@@ -1170,6 +1170,7 @@ def del_dltime(request):
 
 #/microfront/customers/edit
 def cedit(request, open_id):
+    resp = ''
     if request.POST.has_key('Customer[name]'):
         try:
             p = Customer.objects.get(openid=open_id)
@@ -1206,7 +1207,7 @@ def cedit(request, open_id):
             #resp='''{"code":0,"msg":"modify success","data":{"id":"%d","org_id":"1","open_id":"%s","account":"0473849","name":"%s","email":"","mobile":"%s","province":null,"city":"%s","area":"%s","address":"%s","pwd":"","create_time":"1396442478","money":"0.00","remark":"%s","member_num":null,"status":"1","update_at":1396442632}}''' %(1, open_id, name, phone, city, area, address, remark)
             print e
 
-    #print 'resp post customer data: ', resp
+    print 'resp post customer data: ', resp
     return HttpResponse(resp)
     #return HttpResponse('''{"code":0,"msg":"modify success","data":{"id":"5546","org_id":"1","open_id":"oyQi888IclGY9yfAAlzG4nUlDH3A","account":"0473849","name":"\u6e05\u671d","email":"","mobile":"12345678910","province":null,"city":"381","area":"382","address":"aaaaaaaaaaaaaaaaaaa","pwd":"","create_time":"1396442478","money":"0.00","remark":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","member_num":null,"status":"1","update_at":1396442632}}''')
 
@@ -1696,11 +1697,13 @@ def  alipay_rsp(request):
         total_fee = request.POST['WIDtotal_fee']
         total_fee = float(total_fee)
         print tn, type(total_fee), total_fee
-        url = create_direct_pay_by_user(tn, subject, body, total_fee)
+        #url = create_direct_pay_by_user(tn, subject, body, total_fee)
         #url = create_partner_trade_by_buyer(tn, subject, body, total_fee)
         #url = create_wap_pay_by_user(tn, subject, body, total_fee)
         #url = build_request("trade", tn, total_fee, subject)
-        return HttpResponseRedirect (url)
+        param = "WIDseller_email=%s&WIDout_trade_no=%s&WIDsubject=%s&WIDtotal_fee=%f" %(ALIPAY_SELLER_EMAIL, tn, subject, total_fee)
+        url = 'http://www.ihaoshi.cn/micromall/pay/alipayapi.php?' + param
+        return HttpResponseRedirect(url)
     return ''
 
 def mylogout(request):
