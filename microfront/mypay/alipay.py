@@ -21,7 +21,7 @@ def build_request(type, *args, **kwargs):
     para = filter_para(para)
     para['sign'] = sign(para)
     para['sec_id'] = config.SIGN_TYPE
-    return create_link_string(para, False, False) 
+    return config.ALIPAY_GATEWAY + create_link_string(para, False, False) 
 
 
 def build_trade_para(order_num, amount, desc):
@@ -92,7 +92,7 @@ def sign(para, type=config.SIGN_TYPE):
 
 def md5_sign(para_str):
     """对请求参数做md5签名"""
-    return md5('%s%s' % (para_str, config.KEY)).hexdigest()
+    return md5('%s%s' % (para_str.encode("utf8"), config.KEY)).hexdigest()
 
 
 def rsa_sign(para_str):
@@ -172,4 +172,4 @@ def create_wap_async_notice_str(paras):
     v = paras.get('v')
     sec_id = paras.get('sec_id')
     notify_data = paras.get('notify_data')
-    return 'service=%s&v=%s&sec_id=%s&notify_data=%s' % (service, v, sec_id, notify_data)
+    return config.ALIPAY_GATEWAY + 'service=%s&v=%s&sec_id=%s&notify_data=%s' % (service, v, sec_id, notify_data)
